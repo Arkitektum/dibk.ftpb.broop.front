@@ -1,12 +1,13 @@
 // Dependecies
 import React, { Component } from 'react';
-import {Provider} from 'react-redux';
-import {Route, Switch} from 'react-router';
-import {ConnectedRouter} from 'connected-react-router';
+import { Provider } from 'react-redux';
+import { Route, Switch } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import WebFont from 'webfontloader';
 
 // Utils
-import configureStore, {history} from 'utils/configureStore';
+import configureStore, { history } from 'utils/configureStore';
 
 // Routes
 import Home from 'components/routes/Home';
@@ -29,13 +30,15 @@ class App extends Component {
   render() {
     return (<Provider store={store}>
       <ConnectedRouter history={history}>
-        <NavigationBar />
-        <Switch>
-          <Route exact={true} path="/commits/:commitId" render={(props) => (<Commits {...props}/>)}/>
-          <Route exact={true} path="/commits" render={(props) => (<Commits {...props}/>)}/>
-          <Route exact={true} path="/" render={(props) => (<Home {...props}/>)}/>
-          <Route render={() => (<NotFound/>)}/>
-        </Switch>
+        <BrowserRouter basename="/dibk.ftpb.broop.front">
+          <NavigationBar />
+          <Switch>
+            <Route exact={true} path="/commits/:commitId" render={(props) => (<Commits {...props} />)} />
+            <Route exact={true} path="/commits" render={(props) => (<Commits {...props} />)} />
+            <Route exact={true} path="/" render={(props) => (<Home {...props} />)} />
+            <Route render={() => (<NotFound />)} />
+          </Switch>
+        </BrowserRouter>
       </ConnectedRouter>
     </Provider>);
   }
