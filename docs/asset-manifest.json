@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/dibk.ftpb.broop.front/static/css/main.abe2c1fd.chunk.css",
-    "main.js": "/dibk.ftpb.broop.front/static/js/main.6d129600.chunk.js",
-    "main.js.map": "/dibk.ftpb.broop.front/static/js/main.6d129600.chunk.js.map",
+    "main.js": "/dibk.ftpb.broop.front/static/js/main.1235477b.chunk.js",
+    "main.js.map": "/dibk.ftpb.broop.front/static/js/main.1235477b.chunk.js.map",
     "runtime-main.js": "/dibk.ftpb.broop.front/static/js/runtime-main.68329cf2.js",
     "runtime-main.js.map": "/dibk.ftpb.broop.front/static/js/runtime-main.68329cf2.js.map",
-    "static/js/2.df9e417a.chunk.js": "/dibk.ftpb.broop.front/static/js/2.df9e417a.chunk.js",
-    "static/js/2.df9e417a.chunk.js.map": "/dibk.ftpb.broop.front/static/js/2.df9e417a.chunk.js.map",
+    "static/js/2.72ad657f.chunk.js": "/dibk.ftpb.broop.front/static/js/2.72ad657f.chunk.js",
+    "static/js/2.72ad657f.chunk.js.map": "/dibk.ftpb.broop.front/static/js/2.72ad657f.chunk.js.map",
     "index.html": "/dibk.ftpb.broop.front/index.html",
     "static/css/main.abe2c1fd.chunk.css.map": "/dibk.ftpb.broop.front/static/css/main.abe2c1fd.chunk.css.map",
-    "static/js/2.df9e417a.chunk.js.LICENSE.txt": "/dibk.ftpb.broop.front/static/js/2.df9e417a.chunk.js.LICENSE.txt"
+    "static/js/2.72ad657f.chunk.js.LICENSE.txt": "/dibk.ftpb.broop.front/static/js/2.72ad657f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.68329cf2.js",
-    "static/js/2.df9e417a.chunk.js",
+    "static/js/2.72ad657f.chunk.js",
     "static/css/main.abe2c1fd.chunk.css",
-    "static/js/main.6d129600.chunk.js"
+    "static/js/main.1235477b.chunk.js"
   ]
 }
