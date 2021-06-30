@@ -15,7 +15,7 @@ import Commits from 'components/routes/Commits';
 import NotFound from 'components/routes/NotFound';
 
 // Partials
-import NavigationBar from 'components/partials/NavigationBar';
+import MainNavigationBar from 'components/partials/MainNavigationBar';
 
 WebFont.load({
   google: {
@@ -31,7 +31,7 @@ class App extends Component {
     return (<Provider store={store}>
       <ConnectedRouter history={history}>
         <BrowserRouter basename="/dibk.ftpb.broop.front">
-          <NavigationBar />
+          <MainNavigationBar />
           <Switch>
             <Route exact={true} path="/commits/:commitId" render={(props) => (<Commits {...props} />)} />
             <Route exact={true} path="/commits" render={(props) => (<Commits {...props} />)} />
