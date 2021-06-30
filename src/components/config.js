@@ -2,7 +2,8 @@ const config = {};
 export default config;
 
 function load() {
-    return fetch('/config.json')
+    console.log("public url:", process.env.PUBLIC_URL)
+    return fetch(`${process.env.PUBLIC_URL || ''}/config.json`)
     .then(result => result.json())
     .then((newconfig) => {
         for(let prop in config) {
