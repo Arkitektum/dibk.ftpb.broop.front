@@ -18,7 +18,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "PUBLIC_URL=/dibk.ftpb.broop.front react-scripts build && rimraf docs && mv build docs || move build docs",
+    "build-local": "react-scripts build && rimraf docs && mv build docs || move build docs",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
