@@ -11,7 +11,6 @@ import configureStore, { history } from 'utils/configureStore';
 
 // Routes
 import Home from 'components/routes/Home';
-import Commits from 'components/routes/Commits';
 import Form from 'components/routes/Forms/FormType/Form';
 import NotFound from 'components/routes/NotFound';
 
