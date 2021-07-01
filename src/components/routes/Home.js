@@ -1,7 +1,11 @@
 // Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateName } from 'actions/NameActions';
+import { Link } from 'react-router-dom';
+
+
+// DIBK Design
+import { Button } from 'dibk-design';
 
 // Template
 import Container from 'components/template/Container';
@@ -19,21 +23,16 @@ class Home extends Component {
   render() {
     return (<Container>
       <h1>Home</h1>
-      <label htmlFor="name-field">Your name: </label>
-      <input value={this.props.name} id="name-field" onChange={(event) => this.handleInputChange(event.target.value)} />
-      <p>{
-        this.props.name && this.props.name.length
-          ? `Hello ${this.props.name} 😃`
-          : ''
-      }</p>
+      <Link to="/Skjema/Ansvarsrett/3/">
+        <Button content="Eksempelskjema"></Button>
+      </Link>
     </Container>)
   }
 }
 
-const mapStateToProps = state => ({ name: state.name });
+const mapStateToProps = state => ({});
 
 const mapDispatchToProps = {
-  updateName
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

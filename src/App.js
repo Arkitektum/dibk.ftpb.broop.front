@@ -12,6 +12,7 @@ import configureStore, { history } from 'utils/configureStore';
 // Routes
 import Home from 'components/routes/Home';
 import Commits from 'components/routes/Commits';
+import Form from 'components/routes/Forms/FormType/Form';
 import NotFound from 'components/routes/NotFound';
 
 // Partials
@@ -33,8 +34,7 @@ class App extends Component {
         <BrowserRouter basename="/dibk.ftpb.broop.front">
           <MainNavigationBar />
           <Switch>
-            <Route exact={true} path="/commits/:commitId" render={(props) => (<Commits {...props} />)} />
-            <Route exact={true} path="/commits" render={(props) => (<Commits {...props} />)} />
+            <Route exact={true} path="/skjema/:formType/:formId" render={(props) => (<Form {...props} />)} />
             <Route exact={true} path="/" render={(props) => (<Home {...props} />)} />
             <Route render={() => (<NotFound />)} />
           </Switch>
