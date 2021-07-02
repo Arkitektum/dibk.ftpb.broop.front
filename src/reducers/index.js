@@ -10,7 +10,7 @@ import SelectedSubmissionReducer from 'reducers/SelectedSubmissionReducer';
 const reducers = history => combineReducers({
   router: connectRouter(history),
   name: NameReducer,
-  selectedForm: SelectedFormReducer
+  selectedForm: SelectedFormReducer,
   selectedSubmission: SelectedSubmissionReducer
 });
 
