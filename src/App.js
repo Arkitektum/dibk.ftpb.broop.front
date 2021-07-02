@@ -33,7 +33,8 @@ class App extends Component {
         <BrowserRouter basename="/dibk.ftpb.broop.front">
           <MainNavigationBar />
           <Switch>
-            <Route exact={true} path="/skjema/:formType/:formId" render={(props) => (<Form {...props} />)} />
+            <Route exact={true} path="/skjema/:formType/:submissionId" render={(props) => (<Form {...props} />)} />
+            <Route exact={true} path="/:submissionId" render={(props) => (<Home {...props} />)} />
             <Route exact={true} path="/" render={(props) => (<Home {...props} />)} />
             <Route render={() => (<NotFound />)} />
           </Switch>
