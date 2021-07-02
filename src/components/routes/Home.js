@@ -10,29 +10,43 @@ import { Button } from 'dibk-design';
 // Template
 import Container from 'components/template/Container';
 
+// Actions
+import { fetchSubmission } from 'actions/SubmissionActions';
+
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.state = {
+      submission: null
+    }
   }
 
-  handleInputChange(value) {
-    this.props.updateName(value);
+  componentDidMount() {
+    const guid = '24E4920B-DEA0-462E-A481-6F061D3EB2EA'
+    this.props.fetchSubmission(guid).then((response) => {
+      const submission = response?.payload || null;
+      this.setState({ submission });
+    });
   }
+
   render() {
-    return (<Container>
+    const submission = this.state.submission;
+    return submission && Object.keys(submission).length 
+    ? (<Container>
       <h1>Home</h1>
-      <Link to="/Skjema/Ansvarsrett/3/">
-        <Button content="Eksempelskjema"></Button>
+      <Link to={`/Skjema/${submission.innsendingsType}/${submission.referanseId}/`}>
+        <Button content={submission.innsendingsType}></Button>
       </Link>
     </Container>)
+    : ''
   }
 }
 
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = {
+  fetchSubmission
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
