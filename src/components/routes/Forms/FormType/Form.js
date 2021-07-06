@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+// DIBK Design
+import { Header } from 'dibk-design';
+
 // Template
 import Container from 'components/template/Container';
 
@@ -41,14 +44,12 @@ class Form extends Component {
 
 
     render() {
-        const submissionId = this.props.match.params.submissionId;
         const formType = this.props.match.params.formType;
         const selectedSubmission = this.props.selectedSubmission
         return selectedSubmission
             ? (
                 <Container>
-                    <h1>{formType}</h1>
-                    Skjema med id: {submissionId}
+                    <Header content={formType} />
                     {this.renderForm(formType, selectedSubmission)}
                 </Container>)
             : (
