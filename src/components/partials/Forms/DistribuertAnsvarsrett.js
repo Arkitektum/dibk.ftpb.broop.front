@@ -89,8 +89,51 @@ class DistribuertAnsvarsrett extends Component {
             ? (
                 <React.Fragment>
                     <Paper>
-                        <Header content="Eiendom/Byggested" size="2"></Header>
+                        <Header content="Eiendom/Byggested" size={2}></Header>
                         {this.renderEiendomByggestedList(formData?.eiendomByggested)}
+                    </Paper>
+                    <Paper>
+                        <Header content="Foretak" size={2}></Header>
+                        <dl className={formsStyle.fieldList}>
+                            <div>
+                                <dt>Organisasjonsnummer</dt><dd>{formData?.ansvarsrett?.foretak?.organisasjonsnummer}</dd>
+                            </div>
+                            <div>
+                                <dt>Navn</dt><dd>{formData?.ansvarsrett?.foretak?.navn}</dd>
+                            </div>
+                        </dl>
+                        <dl className={formsStyle.fieldList}>
+                            <div>
+                                <dt>Adresse</dt><dd>{formData?.ansvarsrett?.foretak?.adresse?.adresselinje1}</dd>
+                            </div>
+                            <div>
+                                <dt>Postnr.</dt><dd>{formData?.ansvarsrett?.foretak?.adresse?.postnr}</dd>
+                            </div>
+                            <div>
+                                <dt>Poststed</dt><dd>{formData?.ansvarsrett?.foretak?.adresse?.poststed}</dd>
+                            </div>
+                        </dl>
+                        <dl className={formsStyle.fieldList}>
+                            <div>
+                                <dt>Kontaktperson</dt><dd>{formData?.ansvarsrett?.foretak?.kontaktperson?.navn}</dd>
+                            </div>
+                            <div>
+                                <dt>Mobiltelefon</dt><dd>{formData?.ansvarsrett?.foretak?.kontaktperson?.mobilnummer}</dd>
+                            </div>
+                            <div>
+                                <dt>Epost</dt><dd>{formData?.ansvarsrett?.foretak?.kontaktperson?.epost}</dd>
+                            </div>
+                        </dl>
+
+                        <p>
+                            <b>
+                                {
+                                    formData?.ansvarsrett?.foretak?.harSentralGodkjenning
+                                        ? 'Foretaket har sentral godkjenning'
+                                        : 'Foretaket har ikke sentral godkjenning'
+                                }
+                            </b>
+                        </p>
                     </Paper>
                 </React.Fragment>)
             : (
