@@ -21,6 +21,16 @@ class DistribuertAnsvarsrett extends Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        const hasSelectedSubmission = this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length;
+        const hasSelectedForm = this.props.selectedForm && Object.keys(this.props.selectedForm).length;
+        if (hasSelectedSubmission && !hasSelectedForm) {
+            const formApiUrl = this.props.selectedSubmission?._links?.ansvarsrettdistribuert?.href;
+            fetch(`https://dibk-ftpb-broop-api.azurewebsites.net${formApiUrl}`).then(res => res.json()).then(form => {
+                this.props.updateSelectedForm(form);
+            });
+    }
+    }
 
     render() {
         const formData = this.props.selectedForm?.formData;
