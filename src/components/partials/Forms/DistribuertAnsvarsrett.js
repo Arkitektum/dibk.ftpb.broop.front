@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // DIBK Design
-import { Header, Paper } from 'dibk-design';
+import { CheckBoxListItem, Header, InputField, Paper, RadioButtonListItem, Select } from 'dibk-design';
 
 // Actions
 import { updateSelectedForm } from 'actions/FormActions';
@@ -82,6 +82,87 @@ class DistribuertAnsvarsrett extends Component {
         })
     }
 
+    renderAnsvarIByggeprosjektList(ansvarsomraader) {
+        return ansvarsomraader.map((ansvarsomraade, index) => {
+            return (<div key={index}>
+                <div className={formsStyle.inputGroup}>
+                    <div className={formsStyle.flex1}>
+                        <Select
+                            id={`ansvarsomraade-${index}-funksjon`}
+                            onChange={(event) => { console.log('onchange', event.target.value) }}
+                            label="Funksjon"
+                            value={ansvarsomraade.funksjon?.kodebeskrivelse}
+                            options={[{ key: 'Ansvarlig prosjektering', value: 'PRO' }]} />
+                    </div>
+                    <div className={formsStyle.flex1}>
+                        <InputField
+                            id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
+                            onChange={(event) => { console.log('onchange', event.target.value) }}
+                            label="Beskrivelse av ansvarsområdet"
+                            value={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''} />
+                    </div>
+                    <div className={formsStyle.flex0}>
+                        <Select
+                            id={`ansvarsomraade-${index}-tiltaksklasse`}
+                            onChange={(event) => { console.log('onchange', event.target.value) }}
+                            label="Funksjon"
+                            value={ansvarsomraade.funksjon?.kodebeskrivelse}
+                            options={[{ key: '1', value: '1' }]} />
+                    </div>
+                </div>
+                <fieldset className={formsStyle.fieldset}>
+                    <legend>Våre samsvarserklæringer/kontrollerklæringer vil foreligge ved (gjelder ikke for SØK)</legend>
+                    <CheckBoxListItem
+                        id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
+                        onChange={(event) => { console.log('onchange', event.target.value) }}
+                        checked={ansvarsomraade.samsvarKontrollVedRammetillatelse ? true : false}>
+                        Rammetillatelse
+                    </CheckBoxListItem>
+                    <CheckBoxListItem
+                        id={`ansvarsomraade-${index}-samsvarKontrollVedIgangsettingstillatelse`}
+                        onChange={(event) => { console.log('onchange', event.target.value) }}
+                        checked={ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse ? true : false}>
+                        Igangsettingstillatelse
+                    </CheckBoxListItem>
+                    <CheckBoxListItem
+                        id={`ansvarsomraade-${index}-samsvarKontrollVedMidlertidigBrukstillatelse`}
+                        onChange={(event) => { console.log('onchange', event.target.value) }}
+                        checked={ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse ? true : false}>
+                        Midlertidig brukstillatelse
+                    </CheckBoxListItem>
+                    <CheckBoxListItem
+                        id={`ansvarsomraade-${index}-samsvarKontrollVedFerdigattest`}
+                        onChange={(event) => { console.log('onchange', event.target.value) }}
+                        checked={ansvarsomraade.samsvarKontrollVedFerdigattest ? true : false}>
+                        Ferdigattest
+                    </CheckBoxListItem>
+                </fieldset>
+                <fieldset className={formsStyle.fieldset}>
+                    <legend>Har foretaket sentral godkjenning som dekker ansvarsområdet?</legend>
+                    <RadioButtonListItem
+                        id={`ansvarsomraade-${index}-dekkesOmraadeAvSentralGodkjenningSpecified-true`}
+                        name="dekkesOmraadeAvSentralGodkjenningSpecified"
+                        onChange={(event) => { console.log('onchange', event.target.value) }}
+                        inputValue="true"
+                        checked={ansvarsomraade.dekkesOmraadeAvSentralGodkjenningSpecified ? true : false}>
+                        Ja
+                    </RadioButtonListItem>
+                    <RadioButtonListItem
+                        id={`ansvarsomraade-${index}-dekkesOmraadeAvSentralGodkjenningSpecified-false`}
+                        name="dekkesOmraadeAvSentralGodkjenningSpecified"
+                        onChange={(event) => { console.log('onchange', event.target.value) }}
+                        inputValue="false"
+                        checked={!ansvarsomraade.dekkesOmraadeAvSentralGodkjenningSpecified ? true : false}>
+                        Nei
+                    </RadioButtonListItem>
+                </fieldset>
+
+
+            </div>
+            )
+        })
+    }
+
 
     render() {
         const formData = this.props.selectedForm?.formData;
@@ -134,6 +215,11 @@ class DistribuertAnsvarsrett extends Component {
                                 }
                             </b>
                         </p>
+                    </Paper>
+
+                    <Paper>
+                        <Header content="Ansvar i byggeprosjekt" size={2}></Header>
+                        {this.renderAnsvarIByggeprosjektList(formData?.ansvarsrett?.ansvarsomraader)}
                     </Paper>
                 </React.Fragment>)
             : (
