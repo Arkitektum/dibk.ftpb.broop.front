@@ -215,6 +215,21 @@ class DistribuertAnsvarsrett extends Component {
                         <Header content="Ansvar i byggeprosjekt" size={2}></Header>
                         {this.renderAnsvarIByggeprosjektList(formData?.ansvarsrett?.ansvarsomraader)}
                     </Paper>
+
+                    <Paper>
+                        <Header content="Ansvarlig søker" size={2}></Header>
+                        <dl className={formsStyle.fieldList}>
+                            <div className={formsStyle.flex50}>
+                                <dt>Organisasjonsnummer</dt><dd>{formData?.ansvarligSoeker?.organisasjonsnummer}</dd>
+                            </div>
+                            <div className={formsStyle.flex50}>
+                                <dt>Navn på foretak</dt><dd>{formData?.ansvarligSoeker?.navn}</dd>
+                            </div>
+                            <div className={formsStyle.flexAuto}>
+                                <dt>Kontaktperson</dt><dd>{formData?.ansvarligSoeker?.kontaktperson?.navn}</dd>
+                            </div>
+                        </dl>
+                    </Paper>
                 </React.Fragment>)
             : (
                 <p>Henter skjema</p>
