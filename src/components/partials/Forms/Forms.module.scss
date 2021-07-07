@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     > div {
         min-width: 120px;
-        margin: 0 6px;
+        padding: 0 6px;
         dt {
             font-weight: bold;
             font-size: 18px;
@@ -43,14 +43,36 @@
     }
 }
 
-:local(.flex0) {
+:local(.flexAuto) {
     flex: 0;
 }
 
-:local(.flex1) {
+:local(.flex25) {
     flex: 1;
+    flex-basis: 25%;
 }
 
-:local(.flex2) {
-    flex: 2;
+:local(.flex33) {
+    flex: 1;
+    flex-basis: 33.3333%;
+}
+
+:local(.flex50) {
+    flex: 1;
+    flex-basis: 25%;
+}
+
+:local(.flex66) {
+    flex: 1;
+    flex-basis: 66.6666%;
+}
+
+:local(.flex75) {
+    flex: 1;
+    flex-basis: 25%;
+}
+
+:local(.flex100) {
+    flex: 1;
+    flex-basis: 100%;
 }
