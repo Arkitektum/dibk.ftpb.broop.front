@@ -46,34 +46,34 @@ class DistribuertAnsvarsrett extends Component {
             return (
                 <div key={index}>
                     <dl className={formsStyle.fieldList}>
-                        <div>
+                        <div className={formsStyle.flex1}>
                             <dt>Gårdsnr.</dt><dd>{eiendomByggestedListItem.eiendomsidentifikasjon?.gaardsnummer}</dd>
                         </div>
-                        <div>
+                        <div className={formsStyle.flex1}>
                             <dt>Bruksnr.</dt><dd>{eiendomByggestedListItem.eiendomsidentifikasjon?.bruksnummer}</dd>
                         </div>
-                        <div>
+                        <div className={formsStyle.flex1}>
                             <dt>Festenr.</dt><dd>{eiendomByggestedListItem.eiendomsidentifikasjon?.festenummer}</dd>
                         </div>
-                        <div>
+                        <div className={formsStyle.flex1}>
                             <dt>Seksjonsnr.</dt><dd>{eiendomByggestedListItem.eiendomsidentifikasjon?.seksjonsnummer}</dd>
                         </div>
                     </dl>
                     <dl className={formsStyle.fieldList}>
-                        <div>
+                        <div className={formsStyle.flex1}>
                             <dt>Bygningsnr.</dt><dd>{eiendomByggestedListItem.bygningsnummer}</dd>
                         </div>
-                        <div>
+                        <div className={formsStyle.flex1}>
                             <dt>Bolignr.</dt><dd>{eiendomByggestedListItem.bolignummer}</dd>
                         </div>
                     </dl>
                     <dl className={formsStyle.fieldList}>
-                        <div>
+                        <div className={formsStyle.flex1}>
                             <dt>Kommunenummer.</dt><dd>{eiendomByggestedListItem.eiendomsidentifikasjon?.kommunenummer}</dd>
                         </div>
                     </dl>
                     <dl className={formsStyle.fieldList}>
-                        <div>
+                        <div className={formsStyle.flex1}>
                             <dt>Adresse</dt><dd>{formatAddress(eiendomByggestedListItem.adresse)}</dd>
                         </div>
                     </dl>
@@ -176,32 +176,32 @@ class DistribuertAnsvarsrett extends Component {
                     <Paper>
                         <Header content="Foretak" size={2}></Header>
                         <dl className={formsStyle.fieldList}>
-                            <div>
+                            <div className={formsStyle.flex1}>
                                 <dt>Organisasjonsnummer</dt><dd>{formData?.ansvarsrett?.foretak?.organisasjonsnummer}</dd>
                             </div>
-                            <div>
+                            <div className={formsStyle.flex2}>
                                 <dt>Navn</dt><dd>{formData?.ansvarsrett?.foretak?.navn}</dd>
                             </div>
                         </dl>
                         <dl className={formsStyle.fieldList}>
-                            <div>
+                            <div className={formsStyle.flex1}>
                                 <dt>Adresse</dt><dd>{formData?.ansvarsrett?.foretak?.adresse?.adresselinje1}</dd>
                             </div>
-                            <div>
+                            <div className={formsStyle.flex1}>
                                 <dt>Postnr.</dt><dd>{formData?.ansvarsrett?.foretak?.adresse?.postnr}</dd>
                             </div>
-                            <div>
+                            <div className={formsStyle.flex1}>
                                 <dt>Poststed</dt><dd>{formData?.ansvarsrett?.foretak?.adresse?.poststed}</dd>
                             </div>
                         </dl>
                         <dl className={formsStyle.fieldList}>
-                            <div>
+                            <div className={formsStyle.flex1}>
                                 <dt>Kontaktperson</dt><dd>{formData?.ansvarsrett?.foretak?.kontaktperson?.navn}</dd>
                             </div>
-                            <div>
+                            <div className={formsStyle.flex1}>
                                 <dt>Mobiltelefon</dt><dd>{formData?.ansvarsrett?.foretak?.kontaktperson?.mobilnummer}</dd>
                             </div>
-                            <div>
+                            <div className={formsStyle.flex1}>
                                 <dt>Epost</dt><dd>{formData?.ansvarsrett?.foretak?.kontaktperson?.epost}</dd>
                             </div>
                         </dl>
