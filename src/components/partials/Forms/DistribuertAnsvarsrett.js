@@ -225,11 +225,21 @@ class DistribuertAnsvarsrett extends Component {
                             <div className={formsStyle.flex50}>
                                 <dt>Navn på foretak</dt><dd>{formData?.ansvarligSoeker?.navn}</dd>
                             </div>
-                            <div className={formsStyle.flexAuto}>
+                            <div className={formsStyle.flex100}>
                                 <dt>Kontaktperson</dt><dd>{formData?.ansvarligSoeker?.kontaktperson?.navn}</dd>
+                            </div>
+                            <div className={formsStyle.flex50}>
+                                <dt>Telefon</dt><dd>{formData?.ansvarligSoeker?.kontaktperson?.telefonnummer}</dd>
+                            </div>
+                            <div className={formsStyle.flex50}>
+                                <dt>Mobiltelefon</dt><dd>{formData?.ansvarligSoeker?.kontaktperson?.mobilnummer}</dd>
+                            </div>
+                            <div className={formsStyle.flex100}>
+                                <dt>E-post</dt><dd>{formData?.ansvarligSoeker?.kontaktperson?.epost}</dd>
                             </div>
                         </dl>
                     </Paper>
+
                 </React.Fragment>)
             : (
                 <p>Henter skjema</p>
