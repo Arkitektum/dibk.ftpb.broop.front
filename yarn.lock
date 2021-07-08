@@ -4076,9 +4076,9 @@ detect-port-alt@1.1.6:
     debug "^2.6.0"
 
 dibk-design@^0.3.12:
-  version "0.3.12"
-  resolved "https://registry.yarnpkg.com/dibk-design/-/dibk-design-0.3.12.tgz#dde453e513b3e175a5b07897c2d2178b5fe01d29"
-  integrity sha512-HoFWsy++HnlnmKTs0DVHPpgwbis2gl6bnP8de4eYa9DXt2leANvBpK8HJSgZe01ZW3x8FU14YESFg14l7Cj0+g==
+  version "0.3.13"
+  resolved "https://registry.yarnpkg.com/dibk-design/-/dibk-design-0.3.13.tgz#653c96191ea336538032ebd5dfbd0b4595380687"
+  integrity sha512-tqe8tvpiRQbqEDJG22dhnCMnjyYpxuFUimxArfaPvkaEezE2q+jKgNP3jFa7XJiQYlMksPPgy9GdGTj6g1mlYQ==
   dependencies:
     prop-types "^15.6.2"
     react "^17.0.1"
@@ -5036,9 +5036,9 @@ flat-cache@^3.0.4:
     rimraf "^3.0.2"
 
 flatted@^3.1.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.0.tgz#da07fb8808050aba6fdeac2294542e5043583f05"
-  integrity sha512-XprP7lDrVT+kE2c2YlfiV+IfS9zxukiIOvNamPNsImNhXadSsQEbosItdL9bUQlCZXR13SvPk20BjWSWLA7m4A==
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.1.tgz#bbef080d95fca6709362c73044a1634f7c6e7d05"
+  integrity sha512-OMQjaErSFHmHqZe+PSidH5n8j3O0F2DdnVh8JB4j4eUQ2k6KvB0qGfrKIhapvez5JerBbmWkaLYUYWISaESoXg==
 
 flatten@^1.0.2:
   version "1.0.3"
