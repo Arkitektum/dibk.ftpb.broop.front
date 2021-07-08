@@ -7,6 +7,7 @@ import { CheckBoxListItem, Header, InputField, Paper, RadioButtonListItem, Selec
 
 // Components
 import EiendomByggested from 'components/partials/Forms/FormParts/EiendomByggested';
+import Foretak from 'components/partials/Forms/FormParts/Foretak';
 
 // Actions
 import { updateSelectedForm } from 'actions/FormActions';
@@ -132,46 +133,7 @@ class DistribuertAnsvarsrett extends Component {
                     </Paper>
                     <Paper>
                         <Header content="Foretak" size={2}></Header>
-                        <dl className={formsStyle.fieldList}>
-                            <div className={formsStyle.flex33}>
-                                <dt>Organisasjonsnummer</dt><dd>{formData?.ansvarsrett?.foretak?.organisasjonsnummer}</dd>
-                            </div>
-                            <div className={formsStyle.flex66}>
-                                <dt>Navn</dt><dd>{formData?.ansvarsrett?.foretak?.navn}</dd>
-                            </div>
-                        </dl>
-                        <dl className={formsStyle.fieldList}>
-                            <div className={formsStyle.flex33}>
-                                <dt>Adresse</dt><dd>{formData?.ansvarsrett?.foretak?.adresse?.adresselinje1}</dd>
-                            </div>
-                            <div className={formsStyle.flex33}>
-                                <dt>Postnr.</dt><dd>{formData?.ansvarsrett?.foretak?.adresse?.postnr}</dd>
-                            </div>
-                            <div className={formsStyle.flex33}>
-                                <dt>Poststed</dt><dd>{formData?.ansvarsrett?.foretak?.adresse?.poststed}</dd>
-                            </div>
-                        </dl>
-                        <dl className={formsStyle.fieldList}>
-                            <div className={formsStyle.flex33}>
-                                <dt>Kontaktperson</dt><dd>{formData?.ansvarsrett?.foretak?.kontaktperson?.navn}</dd>
-                            </div>
-                            <div className={formsStyle.flex33}>
-                                <dt>Mobiltelefon</dt><dd>{formData?.ansvarsrett?.foretak?.kontaktperson?.mobilnummer}</dd>
-                            </div>
-                            <div className={formsStyle.flex33}>
-                                <dt>Epost</dt><dd>{formData?.ansvarsrett?.foretak?.kontaktperson?.epost}</dd>
-                            </div>
-                        </dl>
-
-                        <p>
-                            <b>
-                                {
-                                    formData?.ansvarsrett?.foretak?.harSentralGodkjenning
-                                        ? 'Foretaket har sentral godkjenning'
-                                        : 'Foretaket har ikke sentral godkjenning'
-                                }
-                            </b>
-                        </p>
+                        <Foretak foretak={formData?.ansvarsrett?.foretak} />
                     </Paper>
 
                     <Paper>
