@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { CheckBoxListItem, Header, InputField, Paper, RadioButtonListItem, Select } from 'dibk-design';
 
 // Components
+import AnsvarligSoeker from 'components/partials/Forms/FormParts/AnsvarligSoeker';
 import EiendomByggested from 'components/partials/Forms/FormParts/EiendomByggested';
 import Foretak from 'components/partials/Forms/FormParts/Foretak';
 
@@ -143,26 +144,7 @@ class DistribuertAnsvarsrett extends Component {
 
                     <Paper>
                         <Header content="Ansvarlig søker" size={2}></Header>
-                        <dl className={formsStyle.fieldList}>
-                            <div className={formsStyle.flex50}>
-                                <dt>Organisasjonsnummer</dt><dd>{formData?.ansvarligSoeker?.organisasjonsnummer}</dd>
-                            </div>
-                            <div className={formsStyle.flex50}>
-                                <dt>Navn på foretak</dt><dd>{formData?.ansvarligSoeker?.navn}</dd>
-                            </div>
-                            <div className={formsStyle.flex100}>
-                                <dt>Kontaktperson</dt><dd>{formData?.ansvarligSoeker?.kontaktperson?.navn}</dd>
-                            </div>
-                            <div className={formsStyle.flex50}>
-                                <dt>Telefon</dt><dd>{formData?.ansvarligSoeker?.kontaktperson?.telefonnummer}</dd>
-                            </div>
-                            <div className={formsStyle.flex50}>
-                                <dt>Mobiltelefon</dt><dd>{formData?.ansvarligSoeker?.kontaktperson?.mobilnummer}</dd>
-                            </div>
-                            <div className={formsStyle.flex100}>
-                                <dt>E-post</dt><dd>{formData?.ansvarligSoeker?.kontaktperson?.epost}</dd>
-                            </div>
-                        </dl>
+                        <AnsvarligSoeker ansvarligSoeker={formData?.ansvarligSoeker} />
                     </Paper>
 
                     <Paper>
