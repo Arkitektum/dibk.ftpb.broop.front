@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // DIBK Design
-import { CheckBoxListItem, Header, InputField, Paper, RadioButtonListItem, Select } from 'dibk-design';
+import { Header, Paper } from 'dibk-design';
 
 // Components
+import AnsvarIByggeProsjekt from 'components/partials/Forms/FormParts/AnsvarIByggeProsjekt';
 import AnsvarligSoeker from 'components/partials/Forms/FormParts/AnsvarligSoeker';
 import EiendomByggested from 'components/partials/Forms/FormParts/EiendomByggested';
 import Erklaering from 'components/partials/Forms/FormParts/Erklaering';
@@ -33,7 +34,7 @@ class DistribuertAnsvarsrett extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate() {
         const hasSelectedSubmission = this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length;
         const hasSelectedForm = this.props.selectedForm && Object.keys(this.props.selectedForm).length;
         if (hasSelectedSubmission && !hasSelectedForm) {
