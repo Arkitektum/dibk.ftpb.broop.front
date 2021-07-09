@@ -45,83 +45,11 @@ class DistribuertAnsvarsrett extends Component {
         }
     }
 
-    renderAnsvarIByggeprosjektList(ansvarsomraader) {
-        return ansvarsomraader.map((ansvarsomraade, index) => {
-            return (<div key={index}>
-                <div className={formsStyle.inputGroup}>
-                    <div className={formsStyle.flex50}>
-                        <Select
-                            id={`ansvarsomraade-${index}-funksjon`}
-                            onChange={(event) => { console.log('onchange', event.target.value) }}
-                            label="Funksjon"
-                            value={ansvarsomraade.funksjon?.kodebeskrivelse}
-                            options={[{ key: 'Ansvarlig prosjektering', value: 'PRO' }]} />
-                    </div>
-                    <div className={formsStyle.flex50}>
-                        <InputField
-                            id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
-                            onChange={(event) => { console.log('onchange', event.target.value) }}
-                            label="Beskrivelse av ansvarsområdet"
-                            value={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''} />
-                    </div>
-                    <div className={formsStyle.flexAuto}>
-                        <Select
-                            id={`ansvarsomraade-${index}-tiltaksklasse`}
-                            onChange={(event) => { console.log('onchange', event.target.value) }}
-                            label="Funksjon"
-                            value={ansvarsomraade.funksjon?.kodebeskrivelse}
-                            options={[{ key: '1', value: '1' }]} />
-                    </div>
-                </div>
-                <fieldset className={formsStyle.fieldset}>
-                    <legend>Våre samsvarserklæringer/kontrollerklæringer vil foreligge ved (gjelder ikke for SØK)</legend>
-                    <CheckBoxListItem
-                        id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
-                        onChange={(event) => { console.log('onchange', event.target.value) }}
-                        checked={ansvarsomraade.samsvarKontrollVedRammetillatelse ? true : false}>
-                        Rammetillatelse
-                    </CheckBoxListItem>
-                    <CheckBoxListItem
-                        id={`ansvarsomraade-${index}-samsvarKontrollVedIgangsettingstillatelse`}
-                        onChange={(event) => { console.log('onchange', event.target.value) }}
-                        checked={ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse ? true : false}>
-                        Igangsettingstillatelse
-                    </CheckBoxListItem>
-                    <CheckBoxListItem
-                        id={`ansvarsomraade-${index}-samsvarKontrollVedMidlertidigBrukstillatelse`}
-                        onChange={(event) => { console.log('onchange', event.target.value) }}
-                        checked={ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse ? true : false}>
-                        Midlertidig brukstillatelse
-                    </CheckBoxListItem>
-                    <CheckBoxListItem
-                        id={`ansvarsomraade-${index}-samsvarKontrollVedFerdigattest`}
-                        onChange={(event) => { console.log('onchange', event.target.value) }}
-                        checked={ansvarsomraade.samsvarKontrollVedFerdigattest ? true : false}>
-                        Ferdigattest
-                    </CheckBoxListItem>
-                </fieldset>
-                <fieldset className={formsStyle.fieldset}>
-                    <legend>Har foretaket sentral godkjenning som dekker ansvarsområdet?</legend>
-                    <RadioButtonListItem
-                        id={`ansvarsomraade-${index}-dekkesOmraadeAvSentralGodkjenningSpecified-true`}
-                        name="dekkesOmraadeAvSentralGodkjenningSpecified"
-                        onChange={(event) => { console.log('onchange', event.target.value) }}
-                        inputValue="true"
-                        checked={ansvarsomraade.dekkesOmraadeAvSentralGodkjenningSpecified ? true : false}>
-                        Ja
-                    </RadioButtonListItem>
-                    <RadioButtonListItem
-                        id={`ansvarsomraade-${index}-dekkesOmraadeAvSentralGodkjenningSpecified-false`}
-                        name="dekkesOmraadeAvSentralGodkjenningSpecified"
-                        onChange={(event) => { console.log('onchange', event.target.value) }}
-                        inputValue="false"
-                        checked={!ansvarsomraade.dekkesOmraadeAvSentralGodkjenningSpecified ? true : false}>
-                        Nei
-                    </RadioButtonListItem>
-                </fieldset>
-            </div>
-            )
-        })
+    updateAnsvarsomraader(ansvarsomraader) {
+        this.updateFormDataField({
+            ...this.props.selectedForm.formData.ansvarsrett,
+            ansvarsomraader
+        }, 'ansvarsrett')
     }
 
     updateFormDataField(value, property) {
@@ -133,7 +61,6 @@ class DistribuertAnsvarsrett extends Component {
             }
         });
     }
-
 
     render() {
         const formData = this.props.selectedForm?.formData;
@@ -156,7 +83,7 @@ class DistribuertAnsvarsrett extends Component {
                     </Paper>
                     <Paper>
                         <Header content="Ansvar i byggeprosjekt" size={2}></Header>
-                        {this.renderAnsvarIByggeprosjektList(formData.ansvarsrett?.ansvarsomraader)}
+                        <AnsvarIByggeProsjekt ansvarsomraader={formData.ansvarsrett.ansvarsomraader} onChange={ansvarsomraader => this.updateAnsvarsomraader(ansvarsomraader)} />
                     </Paper>
                     <Paper>
                         <Header content="Ansvarlig søker" size={2}></Header>
