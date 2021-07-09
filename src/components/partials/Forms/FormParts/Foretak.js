@@ -19,8 +19,6 @@ class Foretak extends Component {
                         <div className={formsStyle.flex66}>
                             <dt>Navn</dt><dd>{foretak.navn}</dd>
                         </div>
-                    </dl>
-                    <dl className={formsStyle.fieldList}>
                         <div className={formsStyle.flex33}>
                             <dt>Adresse</dt><dd>{foretak.adresse?.adresselinje1}</dd>
                         </div>
@@ -30,8 +28,6 @@ class Foretak extends Component {
                         <div className={formsStyle.flex33}>
                             <dt>Poststed</dt><dd>{foretak.adresse?.poststed}</dd>
                         </div>
-                    </dl>
-                    <dl className={formsStyle.fieldList}>
                         <div className={formsStyle.flex33}>
                             <dt>Kontaktperson</dt><dd>{foretak.kontaktperson?.navn}</dd>
                         </div>

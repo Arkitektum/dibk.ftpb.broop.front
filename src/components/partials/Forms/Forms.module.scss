@@ -1,9 +1,10 @@
 :local(dl.fieldList) {
     display: flex;
     flex-wrap: wrap;
+    margin: -6px;
     > div {
         min-width: 120px;
-        padding: 0 6px;
+        padding: 6px;
         dt {
             font-weight: bold;
             font-size: 18px;
@@ -19,9 +20,10 @@
 :local(.inputGroup) {
     display: flex;
     flex-wrap: wrap;
+    margin: -6px;
     > div {
         min-width: 120px;
-        margin: 0 6px;
+        padding: 6px;
     }
 }
 
