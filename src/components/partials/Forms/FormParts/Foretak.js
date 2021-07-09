@@ -60,7 +60,7 @@ class Foretak extends Component {
 }
 
 Foretak.propTypes = {
-    foretak: PropTypes.array.isRequired
+    foretak: PropTypes.object.isRequired
 };
 
 export default connect(null, null)(Foretak);
