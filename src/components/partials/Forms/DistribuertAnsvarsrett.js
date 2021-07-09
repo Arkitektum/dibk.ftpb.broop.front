@@ -8,6 +8,7 @@ import { CheckBoxListItem, Header, InputField, Paper, RadioButtonListItem, Selec
 // Components
 import AnsvarligSoeker from 'components/partials/Forms/FormParts/AnsvarligSoeker';
 import EiendomByggested from 'components/partials/Forms/FormParts/EiendomByggested';
+import Erklaering from 'components/partials/Forms/FormParts/Erklaering';
 import Foretak from 'components/partials/Forms/FormParts/Foretak';
 
 // Actions
@@ -122,6 +123,16 @@ class DistribuertAnsvarsrett extends Component {
         })
     }
 
+    updateFormDataField(value, property){
+        this.props.updateSelectedForm({
+            ...this.props.selectedForm,
+            formData: {
+                ...this.props.selectedForm.formData,
+                [property]: value
+            }
+        });
+    }
+
 
     render() {
         const formData = this.props.selectedForm?.formData;
@@ -130,47 +141,24 @@ class DistribuertAnsvarsrett extends Component {
                 <React.Fragment>
                     <Paper>
                         <Header content="Eiendom/Byggested" size={2}></Header>
-                        <EiendomByggested eiendomByggested={formData?.eiendomByggested} />
+                        <EiendomByggested eiendomByggested={formData.eiendomByggested} />
                     </Paper>
                     <Paper>
                         <Header content="Foretak" size={2}></Header>
-                        <Foretak foretak={formData?.ansvarsrett?.foretak} />
+                        <Foretak foretak={formData.ansvarsrett?.foretak} />
                     </Paper>
-
                     <Paper>
                         <Header content="Ansvar i byggeprosjekt" size={2}></Header>
-                        {this.renderAnsvarIByggeprosjektList(formData?.ansvarsrett?.ansvarsomraader)}
+                        {this.renderAnsvarIByggeprosjektList(formData.ansvarsrett?.ansvarsomraader)}
                     </Paper>
-
                     <Paper>
                         <Header content="Ansvarlig søker" size={2}></Header>
-                        <AnsvarligSoeker ansvarligSoeker={formData?.ansvarligSoeker} />
+                        <AnsvarligSoeker ansvarligSoeker={formData.ansvarligSoeker} />
                     </Paper>
-
                     <Paper>
                         <Header content="Erklæring" size={2}></Header>
-                        <p>Vi kjenner reglene om straff og sanksjoner i plan- og bygningsloven kapittel 32, og at uriktige opplysninger kan føre til reaksjoner.</p>
-                        <p>Vi forplikter oss å stille med riktig kompetanse i byggeprosjekt, jf. SAK10 kapittel 10 og 11.</p>
-                        <CheckBoxListItem
-                            id="erklaeringAnsvarligProsjekterende"
-                            onChange={(event) => { console.log('onchange', event.target.value) }}
-                            checked={formData?.ansvarsrett?.erklaeringAnsvarligProsjekterende ? true : false}>
-                            Ansvarlig prosjekterende erklærer at prosjekteringen skal være planlagt, gjennomført og kvalitetssikret i henhold til pbl jf. SAK10 §12-3
-                        </CheckBoxListItem>
-                        <CheckBoxListItem
-                            id="erklaeringAnsvarligUtfoerende"
-                            onChange={(event) => { console.log('onchange', event.target.value) }}
-                            checked={formData?.ansvarsrett?.erklaeringAnsvarligUtfoerende ? true : false}>
-                            Ansvarlig utførende erklærer at arbeidet ikke skal starte før produksjonsunderlaget er klart, jf. SAK 10, §12-4
-                        </CheckBoxListItem>
-                        <CheckBoxListItem
-                            id="erklaeringAnsvarligProsjekerklaeringAnsvarligKontrollerendeterende"
-                            onChange={(event) => { console.log('onchange', event.target.value) }}
-                            checked={formData?.ansvarsrett?.erklaeringAnsvarligKontrollerende ? true : false}>
-                            Ansvarlig kontollerende erklærer uavhengighet fra foretaket det skal kontrollere §14-1
-                        </CheckBoxListItem>
+                        <Erklaering ansvarsrett={formData.ansvarsrett} onChange={ansvarsrett => this.updateFormDataField(ansvarsrett, 'ansvarsrett')} />
                     </Paper>
-
                 </React.Fragment>)
             : (
                 <p>Henter skjema</p>
