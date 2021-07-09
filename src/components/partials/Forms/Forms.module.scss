@@ -15,6 +15,17 @@
             font-size: 1.125rem;
         }
     }
+    &:local(.inlineFieldList){
+        > div {
+            dt {
+                display: inline-block;
+                margin-right: .5em;
+            }
+            dd {
+                display: inline-block;
+            }
+        }
+    }
 }
 
 :local(.inputGroup) {

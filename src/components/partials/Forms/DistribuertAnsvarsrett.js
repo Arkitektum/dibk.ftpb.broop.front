@@ -123,7 +123,7 @@ class DistribuertAnsvarsrett extends Component {
         })
     }
 
-    updateFormDataField(value, property){
+    updateFormDataField(value, property) {
         this.props.updateSelectedForm({
             ...this.props.selectedForm,
             formData: {
@@ -139,6 +139,12 @@ class DistribuertAnsvarsrett extends Component {
         return formData
             ? (
                 <React.Fragment>
+                    <dl className={`${formsStyle.fieldList} ${formsStyle.inlineFieldList}`}>
+                        <div className={formsStyle.flex50}>
+                            <dt>Kommunens saksnummer (år/sekvensnummer):</dt>
+                            <dd>{formData.kommunensSaksnummer?.saksaar}/{formData.kommunensSaksnummer?.sakssekvensnummer}</dd>
+                        </div>
+                    </dl>
                     <Paper>
                         <Header content="Eiendom/Byggested" size={2}></Header>
                         <EiendomByggested eiendomByggested={formData.eiendomByggested} />
