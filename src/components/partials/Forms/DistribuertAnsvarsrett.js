@@ -79,7 +79,7 @@ class DistribuertAnsvarsrett extends Component {
                     </Paper>
                     <Paper>
                         <Header content="Foretak" size={2}></Header>
-                        <Foretak foretak={formData.ansvarsrett?.foretak} />
+                        <Foretak foretak={formData.ansvarsrett?.foretak} onChange={foretak => this.updateFormDataField(foretak, 'foretak')} />
                     </Paper>
                     <Paper>
                         <Header content="Ansvar i byggeprosjekt" size={2}></Header>

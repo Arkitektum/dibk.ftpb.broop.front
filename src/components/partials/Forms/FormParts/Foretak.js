@@ -3,10 +3,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+// DIBK Design
+import { InputField } from 'dibk-design';
+
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
 class Foretak extends Component {
+
+    handleKontaktpersonOnChange(value, property) {
+        let updatedForetak = this.props.foretak;
+        updatedForetak.kontaktperson[property] = value;
+        this.props.onChange(updatedForetak);
+    }
+
     render() {
         const foretak = this.props.foretak;
         return foretak && Object.keys(foretak).length
@@ -28,16 +38,32 @@ class Foretak extends Component {
                         <div className={formsStyle.flex33}>
                             <dt>Poststed</dt><dd>{foretak.adresse?.poststed}</dd>
                         </div>
-                        <div className={formsStyle.flex33}>
-                            <dt>Kontaktperson</dt><dd>{foretak.kontaktperson?.navn}</dd>
-                        </div>
-                        <div className={formsStyle.flex33}>
-                            <dt>Mobiltelefon</dt><dd>{foretak.kontaktperson?.mobilnummer}</dd>
-                        </div>
-                        <div className={formsStyle.flex33}>
-                            <dt>Epost</dt><dd>{foretak.kontaktperson?.epost}</dd>
-                        </div>
                     </dl>
+                    <div className={formsStyle.inputGroup}>
+                        <div className={formsStyle.flex33}>
+                            <InputField
+                                id='foretak-kontaktperson-navn'
+                                onChange={(event) => { this.handleKontaktpersonOnChange(event.target.value, 'navn') }}
+                                label="Kontaktperson"
+                                value={foretak.kontaktperson?.navn || ''} />
+                        </div>
+                        <div className={formsStyle.flex33}>
+                            <InputField
+                                id='foretak-kontaktperson-mobilnummer'
+                                onChange={(event) => { this.handleKontaktpersonOnChange(event.target.value, 'mobilnummer') }}
+                                label='Mobiltelefon'
+                                value={foretak.kontaktperson?.mobilnummer || ''}
+                                type='tel' />
+                        </div>
+                        <div className={formsStyle.flex33}>
+                            <InputField
+                                id='foretak-kontaktperson-epost'
+                                onChange={(event) => { this.handleKontaktpersonOnChange(event.target.value, 'epost') }}
+                                label="E-post"
+                                value={foretak.kontaktperson?.epost || ''}
+                                type='email' />
+                        </div>
+                    </div>
                     <p>
                         <b>
                             {
@@ -56,7 +82,8 @@ class Foretak extends Component {
 }
 
 Foretak.propTypes = {
-    foretak: PropTypes.object.isRequired
+    foretak: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired
 };
 
 export default connect(null, null)(Foretak);
