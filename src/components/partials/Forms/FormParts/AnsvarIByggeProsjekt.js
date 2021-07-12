@@ -112,25 +112,29 @@ class AnsvarIByggeProsjekt extends Component {
                         <CheckBoxListItem
                             id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
                             onChange={(event) => { this.handleOnChange(event.target.checked, 'samsvarKontrollVedRammetillatelse', index) }}
-                            checked={ansvarsomraade.samsvarKontrollVedRammetillatelse ? true : false}>
+                            checked={ansvarsomraade.samsvarKontrollVedRammetillatelse ? true : false}
+                            contentOnly>
                             Rammetillatelse
                         </CheckBoxListItem>
                         <CheckBoxListItem
                             id={`ansvarsomraade-${index}-samsvarKontrollVedIgangsettingstillatelse`}
                             onChange={(event) => { this.handleOnChange(event.target.checked, 'samsvarKontrollVedIgangsettingstillatelse', index) }}
-                            checked={ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse ? true : false}>
+                            checked={ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse ? true : false}
+                            contentOnly>
                             Igangsettingstillatelse
                         </CheckBoxListItem>
                         <CheckBoxListItem
                             id={`ansvarsomraade-${index}-samsvarKontrollVedMidlertidigBrukstillatelse`}
                             onChange={(event) => { this.handleOnChange(event.target.checked, 'samsvarKontrollVedMidlertidigBrukstillatelse', index) }}
-                            checked={ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse ? true : false}>
+                            checked={ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse ? true : false}
+                            contentOnly>
                             Midlertidig brukstillatelse
                         </CheckBoxListItem>
                         <CheckBoxListItem
                             id={`ansvarsomraade-${index}-samsvarKontrollVedFerdigattest`}
                             onChange={(event) => { this.handleOnChange(event.target.checked, 'samsvarKontrollVedFerdigattest', index) }}
-                            checked={ansvarsomraade.samsvarKontrollVedFerdigattest ? true : false}>
+                            checked={ansvarsomraade.samsvarKontrollVedFerdigattest ? true : false}
+                            contentOnly>
                             Ferdigattest
                         </CheckBoxListItem>
                     </fieldset>
