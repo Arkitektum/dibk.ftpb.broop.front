@@ -84,11 +84,14 @@ class AnsvarIByggeProsjekt extends Component {
                 return (<div key={index}>
                     <div className={formsStyle.inputGroup}>
                         <div className={formsStyle.flex50}>
+                            {/* TODO: Check if select field and API-request for code list is necessary */}
                             <Select
                                 id={`ansvarsomraade-${index}-funksjon`}
                                 onChange={(event) => { this.handleFunksjonOnChange(event.target.value, 'funksjon', index) }}
                                 label="Funksjon"
                                 value={ansvarsomraade.funksjon?.kodeverdi}
+                                contentOnly
+                                keyAsContent
                                 options={this.convertCodelistFunksjonToOptionValues(this.props.codelistFunksjon)} />
                         </div>
                         <div className={formsStyle.flex50}>
