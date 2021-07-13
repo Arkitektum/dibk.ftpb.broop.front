@@ -10,6 +10,7 @@ import Container from 'components/template/Container';
 
 // Partials
 import DistribuertAnsvarsrett from 'components/partials/Forms/DistribuertAnsvarsrett';
+import KontrollErklaering from 'components/partials/Forms/KontrollErklaering';
 
 // Actions
 import { fetchSubmission } from 'actions/SubmissionActions';
@@ -37,6 +38,8 @@ class Form extends Component {
         switch (formType) {
             case 'DistribuertAnsvarsrett':
                 return <DistribuertAnsvarsrett selectedSubmission={selectedSubmission} />
+            case 'KontrollErklaering':
+                return <KontrollErklaering selectedSubmission={selectedSubmission} />
             default:
                 return ''
         }
