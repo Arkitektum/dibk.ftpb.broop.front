@@ -49,7 +49,6 @@ class Form extends Component {
         return selectedSubmission
             ? (
                 <Container>
-                    <Header content={formType} />
                     {this.renderForm(formType, selectedSubmission)}
                 </Container>)
             : (

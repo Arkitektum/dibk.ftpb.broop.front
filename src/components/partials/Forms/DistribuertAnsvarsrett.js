@@ -67,6 +67,10 @@ class DistribuertAnsvarsrett extends Component {
         return formData
             ? (
                 <React.Fragment>
+                    <div className={formsStyle.headerSection}>
+                        <Header content="Erklæring om ansvarsrett"></Header>
+                        <span className={formsStyle.subtitle}>etter plan- og bygningsloven(pbl) § 23-3</span>
+                    </div>
                     <dl className={`${formsStyle.fieldList} ${formsStyle.inlineFieldList}`}>
                         <div className={formsStyle.flex50}>
                             <dt>Kommunens saksnummer (år/sekvensnummer):</dt>
