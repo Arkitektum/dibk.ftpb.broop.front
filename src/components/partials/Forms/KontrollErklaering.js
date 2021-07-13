@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // DIBK Design
-import { CheckBoxListItem, Header, InputField, Paper } from 'dibk-design';
+import { CheckBoxListItem, Header, InputField, Paper, WizardNavigation } from 'dibk-design';
 
 // Components
 import EiendomByggested from 'components/partials/Forms/FormParts/EiendomByggested';
@@ -80,9 +80,36 @@ class KontrollErklaeringer extends Component {
                 beskrivelse: 'Kontrollering av vann og avløp, samt sanitære installasjoner'
             }
         }
+        const wizardSteps = {
+            SignIn: {
+                id: 'start',
+                name: 'Start',
+                finished: false,
+                hasErrors: false
+            },
+            AvailableReportees: {
+                id: 'erklaeringGjelder',
+                name: 'Erklæringen gjelder',
+                finished: false,
+                hasErrors: false
+            },
+            Import: {
+                id: 'sluttrapport',
+                name: 'Sluttrapport for kontroll',
+                finished: false,
+                hasErrors: false
+            },
+            NextProcessCategory: {
+                id: 'erklaering',
+                name: 'Erklæring',
+                finished: false,
+                hasErrors: false
+            }
+        };
         return formData
             ? (
                 <React.Fragment>
+                    <WizardNavigation steps={wizardSteps} activeStepId="start"/>
                     <div className={formsStyle.headerSection}>
                         <Header content="Kontrollerklæring med sluttrapport"></Header>
                         <span className={formsStyle.subtitle}>etter plan- og bygningsloven(pbl) § 24-2, jf. SAK 10 § 12-5 og § 14-8</span>
