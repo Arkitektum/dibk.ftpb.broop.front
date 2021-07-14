@@ -34,9 +34,12 @@ class Home extends Component {
     const submission = this.state.submission;
     return submission && Object.keys(submission).length 
     ? (<Container>
-      <h1>Home</h1>
+      <h1>Testskjemaer:</h1>
       <Link to={`/Skjema/${submission.innsendingsType}/${submission.referanseId}/`}>
-        <Button content={submission.innsendingsType}></Button>
+        <Button content={submission.innsendingsType} color='primary'></Button>
+      </Link>
+      <Link to={`/Skjema/KontrollErklaering/${submission.referanseId}/`}>
+        <Button content='KontrollErklaering' color='primary'></Button>
       </Link>
     </Container>)
     : ''
