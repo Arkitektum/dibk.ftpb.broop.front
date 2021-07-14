@@ -2,9 +2,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-// DIBK Design
-import { Header } from 'dibk-design';
-
 // Template
 import Container from 'components/template/Container';
 
