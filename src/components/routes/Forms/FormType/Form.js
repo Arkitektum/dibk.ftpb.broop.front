@@ -32,11 +32,13 @@ class Form extends Component {
     }
 
     renderForm(formType, selectedSubmission) {
+        const stepId = this.props.match.params.stepId;
+
         switch (formType) {
             case 'DistribuertAnsvarsrett':
                 return <DistribuertAnsvarsrett selectedSubmission={selectedSubmission} />
             case 'KontrollErklaering':
-                return <KontrollErklaering selectedSubmission={selectedSubmission} />
+                return <KontrollErklaering selectedSubmission={selectedSubmission} stepId={stepId} />
             default:
                 return ''
         }
