@@ -71,25 +71,29 @@ class KontrollErklaeringer extends Component {
                 id: 'start',
                 name: 'Start',
                 finished: false,
-                hasErrors: false
+                hasErrors: false,
+                link: {pathname: 'start'}
             },
             AvailableReportees: {
                 id: 'erklaeringenGjelder',
                 name: 'Erklæringen gjelder',
                 finished: false,
-                hasErrors: false
+                hasErrors: false,
+                link: {pathname: 'erklaeringenGjelder'}
             },
             Import: {
                 id: 'sluttrapport',
                 name: 'Sluttrapport for kontroll',
                 finished: false,
-                hasErrors: false
+                hasErrors: false,
+                link: {pathname: 'sluttrapport'}
             },
             NextProcessCategory: {
                 id: 'erklaering',
                 name: 'Erklæring',
                 finished: false,
-                hasErrors: false
+                hasErrors: false,
+                link: {pathname: 'erklaering'}
             }
         };
         return formData
