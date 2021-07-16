@@ -67,29 +67,33 @@ class KontrollErklaeringer extends Component {
         const formData = this.props.selectedForm?.formData;
         const activeStepId = this.props.stepId || 'start';
         const wizardSteps = {
-            SignIn: {
+            start: {
                 id: 'start',
                 name: 'Start',
                 finished: false,
-                hasErrors: false
+                hasErrors: false,
+                link: {pathname: 'start'}
             },
-            AvailableReportees: {
+            erklaeringenGjelder: {
                 id: 'erklaeringenGjelder',
                 name: 'Erklæringen gjelder',
                 finished: false,
-                hasErrors: false
+                hasErrors: false,
+                link: {pathname: 'erklaeringenGjelder'}
             },
-            Import: {
+            gjenstaaendeArbeider: {
                 id: 'gjenstaaendeArbeider',
                 name: 'Gjenstående arbeider',
                 finished: false,
-                hasErrors: false
+                hasErrors: false,
+                link: {pathname: 'gjenstaaendeArbeider'}
             },
-            NextProcessCategory: {
+            erklaering: {
                 id: 'erklaering',
                 name: 'Erklæring',
                 finished: false,
-                hasErrors: false
+                hasErrors: false,
+                link: {pathname: 'erklaering'}
             }
         };
         return formData
