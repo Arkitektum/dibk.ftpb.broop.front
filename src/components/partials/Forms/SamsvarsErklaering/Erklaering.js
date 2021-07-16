@@ -13,7 +13,7 @@ class Erklaering extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            samsvarMedTek: false
         }
     }
 
@@ -23,9 +23,9 @@ class Erklaering extends Component {
                 <Header content="Erklæring"></Header>
                 <Paper>
                     <CheckBoxListItem
-                        id={`erklaering-gjennomfoertKontroll`}
-                        onChange={(event) => { this.setState({ gjennomfoertKontroll: event.target.checked }) }}
-                        checked={this.state.gjennomfoertKontroll ? true : false}>
+                        id={`erklaering-samsvarMedTek`}
+                        onChange={(event) => { this.setState({ samsvarMedTek: event.target.checked }) }}
+                        checked={this.state.samsvarMedTek ? true : false}>
                         Vi bekrefter at prosjektering er i samsvar med ytelser i TEK og preaksepterte ytelser (VTEK) eller ved analyse som viser at forskriftens (TEK) funksjonskrav er oppfylt
                     </CheckBoxListItem>
                     <p>
