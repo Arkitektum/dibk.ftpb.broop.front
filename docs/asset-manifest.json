@@ -1,27 +1,27 @@
 {
   "files": {
     "main.css": "/dibk.ftpb.broop.front/static/css/main.404f3237.chunk.css",
-    "main.js": "/dibk.ftpb.broop.front/static/js/main.00baf05e.chunk.js",
-    "main.js.map": "/dibk.ftpb.broop.front/static/js/main.00baf05e.chunk.js.map",
+    "main.js": "/dibk.ftpb.broop.front/static/js/main.e2906b4a.chunk.js",
+    "main.js.map": "/dibk.ftpb.broop.front/static/js/main.e2906b4a.chunk.js.map",
     "runtime-main.js": "/dibk.ftpb.broop.front/static/js/runtime-main.68329cf2.js",
     "runtime-main.js.map": "/dibk.ftpb.broop.front/static/js/runtime-main.68329cf2.js.map",
-    "static/css/2.065a330a.chunk.css": "/dibk.ftpb.broop.front/static/css/2.065a330a.chunk.css",
-    "static/js/2.fbfcb98c.chunk.js": "/dibk.ftpb.broop.front/static/js/2.fbfcb98c.chunk.js",
-    "static/js/2.fbfcb98c.chunk.js.map": "/dibk.ftpb.broop.front/static/js/2.fbfcb98c.chunk.js.map",
+    "static/css/2.f5ad5e4b.chunk.css": "/dibk.ftpb.broop.front/static/css/2.f5ad5e4b.chunk.css",
+    "static/js/2.f6f790af.chunk.js": "/dibk.ftpb.broop.front/static/js/2.f6f790af.chunk.js",
+    "static/js/2.f6f790af.chunk.js.map": "/dibk.ftpb.broop.front/static/js/2.f6f790af.chunk.js.map",
     "config.json": "/dibk.ftpb.broop.front/config.json",
     "index.html": "/dibk.ftpb.broop.front/index.html",
-    "static/css/2.065a330a.chunk.css.map": "/dibk.ftpb.broop.front/static/css/2.065a330a.chunk.css.map",
+    "static/css/2.f5ad5e4b.chunk.css.map": "/dibk.ftpb.broop.front/static/css/2.f5ad5e4b.chunk.css.map",
     "static/css/main.404f3237.chunk.css.map": "/dibk.ftpb.broop.front/static/css/main.404f3237.chunk.css.map",
-    "static/js/2.fbfcb98c.chunk.js.LICENSE.txt": "/dibk.ftpb.broop.front/static/js/2.fbfcb98c.chunk.js.LICENSE.txt",
+    "static/js/2.f6f790af.chunk.js.LICENSE.txt": "/dibk.ftpb.broop.front/static/js/2.f6f790af.chunk.js.LICENSE.txt",
     "static/media/fonts.css": "/dibk.ftpb.broop.front/static/media/Altis-Light.eb742adc.eot",
     "static/media/dibk-logo-mobile.svg": "/dibk.ftpb.broop.front/static/media/dibk-logo-mobile.120629cc.svg",
     "static/media/LoadingAnimation.module.scss": "/dibk.ftpb.broop.front/static/media/spinner.9d4e5e9c.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.68329cf2.js",
-    "static/css/2.065a330a.chunk.css",
-    "static/js/2.fbfcb98c.chunk.js",
+    "static/css/2.f5ad5e4b.chunk.css",
+    "static/js/2.f6f790af.chunk.js",
     "static/css/main.404f3237.chunk.css",
-    "static/js/main.00baf05e.chunk.js"
+    "static/js/main.e2906b4a.chunk.js"
   ]
 }
