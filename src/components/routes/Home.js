@@ -41,6 +41,9 @@ class Home extends Component {
       <Link to={`/Skjema/KontrollErklaering/${submission.referanseId}/`}>
         <Button content='KontrollErklaering' color='primary'></Button>
       </Link>
+      <Link to={`/Skjema/SamsvarsErklaering/${submission.referanseId}/`}>
+        <Button content='SamsvarsErklaering' color='primary'></Button>
+      </Link>
     </Container>)
     : ''
   }

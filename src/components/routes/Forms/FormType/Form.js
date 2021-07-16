@@ -8,6 +8,7 @@ import Container from 'components/template/Container';
 // Partials
 import DistribuertAnsvarsrett from 'components/partials/Forms/DistribuertAnsvarsrett';
 import KontrollErklaering from 'components/partials/Forms/KontrollErklaering';
+import SamsvarsErklaering from 'components/partials/Forms/SamsvarsErklaering';
 
 // Actions
 import { fetchSubmission } from 'actions/SubmissionActions';
@@ -39,6 +40,8 @@ class Form extends Component {
                 return <DistribuertAnsvarsrett selectedSubmission={selectedSubmission} />
             case 'KontrollErklaering':
                 return <KontrollErklaering selectedSubmission={selectedSubmission} stepId={stepId} />
+            case 'SamsvarsErklaering':
+                return <SamsvarsErklaering selectedSubmission={selectedSubmission} stepId={stepId} />
             default:
                 return ''
         }
