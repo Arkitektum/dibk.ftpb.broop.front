@@ -22,30 +22,35 @@ class Home extends Component {
     }
   }
 
-  componentDidMount() {
-    const guid = '24E4920B-DEA0-462E-A481-6F061D3EB2EA'
-    this.props.fetchSubmission(guid).then((response) => {
+
+  fetchSubmission(guid) {
+    this.props.fetchSubmission(guid).then(response => {
       const submission = response?.payload || null;
       this.setState({ submission });
-    });
+    })
   }
+
 
   render() {
     const submission = this.state.submission;
-    return submission && Object.keys(submission).length 
-    ? (<Container>
-      <h1>Testskjemaer:</h1>
-      <Link to={`/Skjema/${submission.innsendingsType}/${submission.referanseId}/`}>
-        <Button content={submission.innsendingsType} color='primary'></Button>
-      </Link>
-      <Link to={`/Skjema/KontrollErklaering/${submission.referanseId}/`}>
-        <Button content='KontrollErklaering' color='primary'></Button>
-      </Link>
-      <Link to={`/Skjema/SamsvarsErklaering/${submission.referanseId}/`}>
-        <Button content='SamsvarsErklaering' color='primary'></Button>
-      </Link>
-    </Container>)
-    : ''
+    return (
+      <Container>
+        <h1>Testskjemaer:</h1>
+        <Button content="Hent ansvarsrett" onClick={() => this.fetchSubmission("D84A298B-5D3F-4D8C-BDC1-45EF3E2808B2")} />
+        <Button content="Hent kontrollerklæring" onClick={() => this.fetchSubmission("07B1ACDB-BEBB-4B0A-BB1C-CB7ABA85A3AC")} />
+        <Button content="Hent samsvarserklæring" onClick={() => this.fetchSubmission("C79BA4D1-8404-4D6F-8967-BADF75951DE5")} />
+        
+        {
+          submission && Object.keys(submission).length
+            ? (
+              <Link to={`/Skjema/${submission.innsendingsType}/${submission.referanseId}/`}>
+                <Button content={`Gå til ${submission.innsendingsType.toLowerCase()}`} color='primary'></Button>
+              </Link>
+            )
+            : ''
+        }
+      </Container>
+    )
   }
 }
 
