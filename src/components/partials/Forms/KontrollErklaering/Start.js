@@ -1,20 +1,21 @@
 // Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // DIBK Design
 import { Button, Header, InputField } from 'dibk-design';
 
+// Actions
+import { updateSelectedForm } from 'actions/FormActions';
+
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
+
 
 class KontrollErklaeringer extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            prosjektnavn: 'Bakkebygrenda'
-        }
     }
 
 
@@ -38,9 +39,17 @@ class KontrollErklaeringer extends Component {
                         <div className={formsStyle.flex50}>
                             <InputField
                                 id={`prosjektnavn`}
-                                onChange={(event) => { this.setState({ prosjektnavn: event.target.value }) }}
+                                onChange={event => {
+                                    this.props.updateSelectedForm({
+                                        ...this.props.selectedForm,
+                                        formData: {
+                                            ...formData,
+                                            prosjektnavn: event.target.value
+                                        }
+                                    });
+                                }}
                                 label="Prosjektnavn"
-                                value={this.state.prosjektnavn} />
+                                value={formData.prosjektnavn} />
                         </div>
                     </div>
                     <div className={`${formsStyle.buttonRow} ${formsStyle.reverse}`}>
@@ -62,7 +71,8 @@ const mapStateToProps = state => ({
     selectedForm: state.selectedForm
 });
 
+const mapDispatchToProps = {
+    updateSelectedForm
+};
 
-export default connect(mapStateToProps, null)(KontrollErklaeringer);
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(KontrollErklaeringer);
