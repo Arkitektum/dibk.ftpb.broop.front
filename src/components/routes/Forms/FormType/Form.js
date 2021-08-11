@@ -38,9 +38,9 @@ class Form extends Component {
         switch (formType) {
             case 'Ansvarsrett':
                 return <DistribuertAnsvarsrett selectedSubmission={selectedSubmission} />
-            case 'KontrollErklaering':
+            case 'Kontrollerklaering':
                 return <KontrollErklaering selectedSubmission={selectedSubmission} stepId={stepId} />
-            case 'SamsvarsErklaering':
+            case 'Samsvarserklaering':
                 return <SamsvarsErklaering selectedSubmission={selectedSubmission} stepId={stepId} />
             default:
                 return ''
