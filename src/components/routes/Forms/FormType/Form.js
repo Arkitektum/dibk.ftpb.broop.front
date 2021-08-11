@@ -36,7 +36,7 @@ class Form extends Component {
         const stepId = this.props.match.params.stepId;
 
         switch (formType) {
-            case 'DistribuertAnsvarsrett':
+            case 'Ansvarsrett':
                 return <DistribuertAnsvarsrett selectedSubmission={selectedSubmission} />
             case 'KontrollErklaering':
                 return <KontrollErklaering selectedSubmission={selectedSubmission} stepId={stepId} />
