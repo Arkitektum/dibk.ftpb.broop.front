@@ -9,7 +9,7 @@ import { NavigationBar } from 'dibk-design';
 class MainNavigationBar extends Component {
 
   render() {
-    return (<NavigationBar logoLink="/" />)
+    return (<NavigationBar logoLink="/dibk.ftpb.broop.front/" />)
   }
 }
 
