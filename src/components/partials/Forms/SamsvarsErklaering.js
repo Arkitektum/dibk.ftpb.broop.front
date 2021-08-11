@@ -17,15 +17,6 @@ import { updateSelectedForm } from 'actions/FormActions';
 class KontrollErklaeringer extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            prosjektnavn: 'Bakkebygrenda',
-            avvik: {
-                ingen: false,
-                observert: false,
-                aapne: false
-            },
-            gjennomfoertKontroll: false
-        }
     }
 
     componentDidMount() {
