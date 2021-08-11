@@ -24,7 +24,7 @@ class Form extends Component {
 
     componentDidMount() {
         const submissionId = this.props.match.params.submissionId;
-        if (!this.props.submission || Object.keys(!this.props.submission).length) {
+        if (!this.props.selectedSubmission || !Object.keys(this.props.selectedSubmission).length) {
             this.props.fetchSubmission(submissionId).then((response) => {
                 const submission = response?.payload || null;
                 this.setState({ submission });
