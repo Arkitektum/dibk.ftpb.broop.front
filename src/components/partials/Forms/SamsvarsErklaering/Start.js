@@ -45,7 +45,7 @@ class KontrollErklaeringer extends Component {
                                     });
                                 }}
                                 label="Prosjektnavn"
-                                value={this.state.prosjektnavn} />
+                                value={formData.prosjektnavn} />
                         </div>
                     </div>
                     <div className={`${formsStyle.buttonRow} ${formsStyle.reverse}`}>
