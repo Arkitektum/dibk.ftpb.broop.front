@@ -15,9 +15,6 @@ import Erklaering from 'components/partials/Forms/KontrollErklaering/Erklaering'
 import { updateSelectedForm } from 'actions/FormActions';
 
 class KontrollErklaeringer extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         if (this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length) {

@@ -14,10 +14,6 @@ import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
 
 class KontrollErklaeringer extends Component {
-    constructor(props) {
-        super(props);
-    }
-
 
     render() {
         const formData = this.props.selectedForm?.formData;
