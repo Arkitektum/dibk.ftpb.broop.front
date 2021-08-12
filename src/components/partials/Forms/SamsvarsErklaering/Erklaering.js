@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 // DIBK Design
 import { Button, Header, Paper, CheckBoxListItem } from 'dibk-design';
 
+// Actions
+import { updateSelectedForm } from 'actions/FormActions';
+
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
@@ -18,14 +21,24 @@ class Erklaering extends Component {
     }
 
     render() {
-        return (
+        const formData = this.props.selectedForm?.formData;
+
+        return formData ? (
             <React.Fragment>
                 <Header content="Erklæring"></Header>
                 <Paper>
                     <CheckBoxListItem
-                        id={`erklaering-samsvarMedTek`}
-                        onChange={(event) => { this.setState({ samsvarMedTek: event.target.checked }) }}
-                        checked={this.state.samsvarMedTek ? true : false}>
+                        id={`erklaering-erTEK10`}
+                        onChange={event => {
+                            this.props.updateSelectedForm({
+                                ...this.props.selectedForm,
+                                formData: {
+                                    ...formData,
+                                    erTEK10: event.target.checked
+                                }
+                            })
+                        }}
+                        checked={formData.erTEK10}>
                         Vi bekrefter at prosjektering er i samsvar med ytelser i TEK og preaksepterte ytelser (VTEK) eller ved analyse som viser at forskriftens (TEK) funksjonskrav er oppfylt
                     </CheckBoxListItem>
                     <p>
@@ -41,10 +54,16 @@ class Erklaering extends Component {
                     </Link>
                 </div>
             </React.Fragment>
-        )
+        ) : ''
     }
 }
 
-export default connect(null, null)(Erklaering);
+const mapStateToProps = state => ({
+    selectedForm: state.selectedForm
+});
 
+const mapDispatchToProps = {
+    updateSelectedForm
+};
 
+export default connect(mapStateToProps, mapDispatchToProps)(Erklaering);

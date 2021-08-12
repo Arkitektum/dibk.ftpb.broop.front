@@ -4,38 +4,22 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 // DIBK Design
-import { Button, Header, Paper, RadioButtonListItem } from 'dibk-design';
+import { Button, Header, Paper } from 'dibk-design';
 
 // Components
 import EiendomByggested from 'components/partials/Forms/FormParts/EiendomByggested';
+
+// Actions
+import { updateSelectedForm } from 'actions/FormActions';
 
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
 
 class ErklaeringenGjelder extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            harSentralGodkjenning: false
-        }
-    }
 
     render() {
         const formData = this.props.selectedForm?.formData;
-        const dummyData = {
-            ansvarligForetak: {
-                organisasjonsnummer: '911455307',
-                navn: 'FANA OG HAFSLO REVISJON',
-                kontaktperson: {
-                    navn: 'Tage Binders'
-                }
-            },
-            ansvarsomraade: {
-                erklaertAnsvarsrettDato: '23.06.2016',
-                beskrivelse: 'Arkitekturprosjektering'
-            }
-        }
 
         return formData
             ? (
@@ -49,13 +33,13 @@ class ErklaeringenGjelder extends Component {
                         <Header content="Ansvarlig foretak" size={2}></Header>
                         <dl className={formsStyle.fieldList}>
                             <div className={formsStyle.flex50}>
-                                <dt>Organisasjonsnummer</dt><dd>{dummyData.ansvarligForetak.organisasjonsnummer}</dd>
+                                <dt>Organisasjonsnummer</dt><dd>{formData.foretak?.organisasjonsnummer}</dd>
                             </div>
                             <div className={formsStyle.flex50}>
-                                <dt>Navn på foretak</dt><dd>{dummyData.ansvarligForetak.navn}</dd>
+                                <dt>Navn på foretak</dt><dd>{formData.foretak?.navn}</dd>
                             </div>
                             <div className={formsStyle.flex100}>
-                                <dt>Kontaktperson</dt><dd>{dummyData.ansvarligForetak.kontaktperson.navn}</dd>
+                                <dt>Kontaktperson</dt><dd>{formData.foretak?.kontaktperson?.navn}</dd>
                             </div>
                         </dl>
                     </Paper>
@@ -66,31 +50,12 @@ class ErklaeringenGjelder extends Component {
                                 <dt>Funksjon</dt><dd>Ansvarlig prosjektering</dd>
                             </div>
                             <div className={formsStyle.flex100}>
-                                <dt>Dato for erklært ansvarsrett</dt><dd>{dummyData.ansvarsomraade.erklaertAnsvarsrettDato}</dd>
+                                <dt>Dato for erklært ansvarsrett</dt><dd>{formData.ansvarsrett?.ansvarsrettErklaert}</dd>
                             </div>
                             <div className={formsStyle.flex100}>
-                                <dt>Beskrivelse av ansvarsområdet:</dt><dd>{dummyData.ansvarsomraade.beskrivelse}</dd>
+                                <dt>Beskrivelse av ansvarsområdet:</dt><dd>{formData.ansvarsrett?.beskrivelseAvAnsvarsomraadet}</dd>
                             </div>
                         </dl>
-                        <fieldset className={formsStyle.fieldset}>
-                            <legend>Har foretaket sentral godkjenning som dekker ansvarsområdet?</legend>
-                            <RadioButtonListItem
-                                id={`harSentralGodkjenning-true`}
-                                name="harSentralGodkjenning"
-                                onChange={(event) => { this.setState({ harSentralGodkjenning: true }) }}
-                                inputValue="true"
-                                checked={this.state.harSentralGodkjenning ? true : false}>
-                                Ja
-                            </RadioButtonListItem>
-                            <RadioButtonListItem
-                                id={`harSentralGodkjenning-false`}
-                                name="harSentralGodkjenning"
-                                onChange={(event) => { this.setState({ harSentralGodkjenning: false }) }}
-                                inputValue="false"
-                                checked={!this.state.harSentralGodkjenning ? true : false}>
-                                Nei
-                            </RadioButtonListItem>
-                        </fieldset>
                     </Paper>
                     <div className={formsStyle.buttonRow}>
                         <Link to={{ pathname: 'start', search: window.location.search }}>
@@ -111,7 +76,11 @@ const mapStateToProps = state => ({
     selectedForm: state.selectedForm
 });
 
+const mapDispatchToProps = {
+    updateSelectedForm
+};
 
-export default connect(mapStateToProps, null)(ErklaeringenGjelder);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ErklaeringenGjelder);
 
 

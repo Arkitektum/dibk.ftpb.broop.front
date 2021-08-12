@@ -6,19 +6,39 @@ import { Link } from 'react-router-dom';
 // DIBK Design
 import { Button, Header, Paper, RadioButtonListItem } from 'dibk-design';
 
+// Actions
+import { updateSelectedForm } from 'actions/FormActions';
+
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
 
 class GjenstaaendeArbeider extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        }
+
+    handleOnAnsvarsrettProsjekterendeSelect(property) {
+        const formData = this.props.selectedForm?.formData;
+        this.props.updateSelectedForm({
+            ...this.props.selectedForm,
+            formData: {
+                ...formData,
+                ansvarsrett: {
+                    ...formData.ansvarsrett,
+                    prosjekterende: {
+                        ...formData.ansvarsrett.kontrollerende,
+                        okForFerdigattest: property === 'okForFerdigattest',
+                        okForRammetillatelse: property === 'okForRammetillatelse',
+                        okForIgangsetting: property === 'okForIgangsetting',
+                        okForMidlertidigBrukstillatelse: property === 'okForMidlertidigBrukstillatelse'
+                    }
+                }
+            }
+        });
     }
 
     render() {
-        return (
+        const formData = this.props.selectedForm?.formData;
+
+        return formData ? (
             <React.Fragment>
                 <Header content="Gjenstående arbeider"></Header>
                 <Paper>
@@ -27,33 +47,33 @@ class GjenstaaendeArbeider extends Component {
                         <RadioButtonListItem
                             id={`gjenstaaendeArbeiderTilHinder-rammetillatelse`}
                             name="gjenstaaendeArbeiderTilHinder"
-                            onChange={() => { this.setState({ gjenstaaendeArbeiderTilHinder: 'rammetillatelse' }) }}
-                            inputValue="rammetillatelse"
-                            checked={this.state.gjenstaaendeArbeiderTilHinder === 'rammetillatelse' ? true : false}>
+                            onChange={() => this.handleOnAnsvarsrettProsjekterendeSelect('okForRammetillatelse')}
+                            checked={formData.ansvarsrett?.prosjekterende?.okForRammetillatelse}
+                            inputValue="okForRammetillatelse">
                             Rammetillatelse
                         </RadioButtonListItem>
                         <RadioButtonListItem
                             id={`gjenstaaendeArbeiderTilHinder-igangsettingstillatelseEttTrinnsTillatelse`}
                             name="gjenstaaendeArbeiderTilHinder"
-                            onChange={() => { this.setState({ gjenstaaendeArbeiderTilHinder: 'igangsettingstillatelseEttTrinnsTillatelse' }) }}
-                            inputValue="igangsettingstillatelseEttTrinnsTillatelse"
-                            checked={this.state.gjenstaaendeArbeiderTilHinder === 'igangsettingstillatelseEttTrinnsTillatelse' ? true : false}>
+                            onChange={() => this.handleOnAnsvarsrettProsjekterendeSelect('okForIgangsetting')}
+                            checked={formData.ansvarsrett?.prosjekterende?.okForIgangsetting}
+                            inputValue="okForIgangsetting">
                             Igangsettingstillatelse/ ett-trinns tillatelse
                         </RadioButtonListItem>
                         <RadioButtonListItem
                             id={`gjenstaaendeArbeiderTilHinder-midlertidigBrukstillatelse`}
                             name="midlertidigBrukstillatelse"
-                            onChange={() => { this.setState({ gjenstaaendeArbeiderTilHinder: 'midlertidigBrukstillatelse' }) }}
-                            inputValue="midlertidigBrukstillatelse"
-                            checked={this.state.gjenstaaendeArbeiderTilHinder === 'midlertidigBrukstillatelse' ? true : false}>
+                            onChange={() => this.handleOnAnsvarsrettProsjekterendeSelect('okForMidlertidigBrukstillatelse')}
+                            checked={formData.ansvarsrett?.prosjekterende?.okForMidlertidigBrukstillatelse}
+                            inputValue="okForMidlertidigBrukstillatelse">
                             Midlertidig brukstillatelse
                         </RadioButtonListItem>
                         <RadioButtonListItem
                             id={`gjenstaaendeArbeiderTilHinder-ferdigattest`}
                             name="ferdigattest"
-                            onChange={() => { this.setState({ gjenstaaendeArbeiderTilHinder: 'ferdigattest' }) }}
-                            inputValue="ferdigattest"
-                            checked={this.state.gjenstaaendeArbeiderTilHinder === 'ferdigattest' ? true : false}>
+                            onChange={() => this.handleOnAnsvarsrettProsjekterendeSelect('okForFerdigattest')}
+                            checked={formData.ansvarsrett?.prosjekterende?.okForFerdigattest}
+                            inputValue="okForFerdigattest">
                             Ferdigattest
                         </RadioButtonListItem>
                     </fieldset>
@@ -67,11 +87,18 @@ class GjenstaaendeArbeider extends Component {
                     </Link>
                 </div>
             </React.Fragment>
-        )
+        ) : ''
     }
 }
 
+const mapStateToProps = state => ({
+    selectedForm: state.selectedForm
+});
 
-export default connect(null, null)(GjenstaaendeArbeider);
+const mapDispatchToProps = {
+    updateSelectedForm
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(GjenstaaendeArbeider);
 
 
