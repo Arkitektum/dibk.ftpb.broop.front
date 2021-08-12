@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 // DIBK Design
 import { Button, CheckBoxListItem, Header, Paper } from 'dibk-design';
 
+// Actions
+import { updateSelectedForm } from 'actions/FormActions';
+
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
@@ -19,14 +22,21 @@ class Erklaeringer extends Component {
     }
 
     render() {
+        const formData = this.props.selectedForm?.formData;
         return (
             <React.Fragment>
                 <Header content="Erklæring"></Header>
                 <Paper>
                     <CheckBoxListItem
                         id={`erklaering-gjennomfoertKontroll`}
-                        onChange={(event) => { this.setState({ gjennomfoertKontroll: event.target.checked }) }}
-                        checked={this.state.gjennomfoertKontroll ? true : false}>
+                        onChange={event => this.props.updateSelectedForm({
+                            ...this.props.selectedForm,
+                            formData: {
+                                ...formData,
+                                erklaeringKontroll: event.target.checked
+                            }
+                        })}
+                        checked={formData.erklaeringKontroll}>
                         Kontroll er gjennomført på en forskriftsmessig måte. Kontrollforetaket er uavhengig av foretakene som er kontrollert.
                     </CheckBoxListItem>
                     <p>
@@ -43,6 +53,14 @@ class Erklaeringer extends Component {
     }
 }
 
-export default connect(null, null)(Erklaeringer);
+const mapStateToProps = state => ({
+    selectedForm: state.selectedForm
+});
+
+const mapDispatchToProps = {
+    updateSelectedForm
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Erklaeringer);
 
 

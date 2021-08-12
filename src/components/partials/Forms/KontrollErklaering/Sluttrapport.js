@@ -6,22 +6,34 @@ import { Link } from 'react-router-dom';
 // DIBK Design
 import { Button, CheckBoxListItem, Header, Paper } from 'dibk-design';
 
+// Actions
+import { updateSelectedForm } from 'actions/FormActions';
+
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
 class Sluttrapport extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            avvik: {
-                ingen: false,
-                observert: false,
-                aapne: false
+
+    handleOnAnsvarsrettKontrollerendeChange(property) {
+        const formData = this.props.selectedForm?.formData;
+        const value = formData.ansvarsrett?.kontrollerende?.[property];
+        this.props.updateSelectedForm({
+            ...this.props.selectedForm,
+            formData: {
+                ...formData,
+                ansvarsrett: {
+                    ...formData.ansvarsrett,
+                    kontrollerende: {
+                        ...formData.ansvarsrett.kontrollerende,
+                        [property]: !value
+                    }
+                }
             }
-        }
+        });
     }
 
     render() {
+        const formData = this.props.selectedForm?.formData;
         return (
             <React.Fragment>
                 <Header content="Sluttrapport for kontroll"></Header>
@@ -31,71 +43,20 @@ class Sluttrapport extends Component {
                     </p>
                     <CheckBoxListItem
                         id={`ansvarsomraade-avvik-ingen`}
-                        onChange={(event) => {
-                            this.setState(
-                                event.target.checked
-                                    ? {
-                                        avvik: {
-                                            ingen: true,
-                                            observert: false,
-                                            aapne: false
-                                        }
-                                    }
-                                    : {
-                                        avvik: {
-                                            ...this.state.avvik,
-                                            ingen: false,
-                                        }
-                                    }
-                            )
-                        }}
-                        checked={this.state.avvik.ingen ? true : false}>
+                        onChange={() => this.handleOnAnsvarsrettKontrollerendeChange('ingenAvvik')}
+                        checked={formData.ansvarsrett?.kontrollerende?.ingenAvvik}>
                         Ingen avvik er funnet, se vedlagte plan for uavhengig kontroll
                     </CheckBoxListItem>
                     <CheckBoxListItem
                         id={`ansvarsomraade-avvik-observert`}
-                        onChange={(event) => {
-                            this.setState(
-                                event.target.checked
-                                    ? {
-                                        avvik: {
-                                            ...this.state.avvik,
-                                            ingen: false,
-                                            observert: true
-                                        }
-                                    }
-                                    : {
-                                        avvik: {
-                                            ...this.state.avvik,
-                                            observert: false
-                                        }
-                                    }
-                            )
-                        }}
-                        checked={this.state.avvik.observert ? true : false}>
+                        onChange={() => this.handleOnAnsvarsrettKontrollerendeChange('observerteAvvik')}
+                        checked={formData.ansvarsrett?.kontrollerende?.observerteAvvik}>
                         Observerte avvik er lukket, se vedlagte plan for uavhengig kontroll
                     </CheckBoxListItem>
                     <CheckBoxListItem
                         id={`ansvarsomraade-avvik-aapne`}
-                        onChange={(event) => {
-                            this.setState(
-                                event.target.checked
-                                    ? {
-                                        avvik: {
-                                            ...this.state.avvik,
-                                            ingen: false,
-                                            aapne: true
-                                        }
-                                    }
-                                    : {
-                                        avvik: {
-                                            ...this.state.avvik,
-                                            aapne: false
-                                        }
-                                    }
-                            )
-                        }}
-                        checked={this.state.avvik.aapne ? true : false}>
+                        onChange={() => this.handleOnAnsvarsrettKontrollerendeChange('aapneAvvik')}
+                        checked={formData.ansvarsrett?.kontrollerende?.aapneAvvik}>
                         Åpne avvik er rapportert til kommunen, se vedlagte plan for uavhengig kontroll
                     </CheckBoxListItem>
                 </Paper>
@@ -113,4 +74,12 @@ class Sluttrapport extends Component {
     }
 }
 
-export default connect(null, null)(Sluttrapport);
+const mapStateToProps = state => ({
+    selectedForm: state.selectedForm
+});
+
+const mapDispatchToProps = {
+    updateSelectedForm
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sluttrapport);

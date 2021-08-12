@@ -41,20 +41,6 @@ class ErklaeringenGjelder extends Component {
 
     render() {
         const formData = this.props.selectedForm?.formData;
-        const dummyData = {
-            ansvarligKontrollerende: {
-                organisasjonsnummer: '911455307',
-                navn: 'SÆBØVÅGEN OG LONGYEARBYEN',
-                kontaktperson: {
-                    navn: 'Bjarne Røros'
-                }
-            },
-            ansvarsomraade: {
-                erklaertAnsvarsrettDato: '23.06.2016',
-                beskrivelse: 'Kontrollering av vann og avløp, samt sanitære installasjoner'
-            }
-        }
-
         return formData
             ? (
                 <React.Fragment>
@@ -67,13 +53,13 @@ class ErklaeringenGjelder extends Component {
                         <Header content="Ansvarlig kontrollerende" size={2}></Header>
                         <dl className={formsStyle.fieldList}>
                             <div className={formsStyle.flex50}>
-                                <dt>Organisasjonsnummer</dt><dd>{dummyData.ansvarligKontrollerende.organisasjonsnummer}</dd>
+                                <dt>Organisasjonsnummer</dt><dd>{formData.foretak?.organisasjonsnummer}</dd>
                             </div>
                             <div className={formsStyle.flex50}>
-                                <dt>Navn på foretak</dt><dd>{dummyData.ansvarligKontrollerende.navn}</dd>
+                                <dt>Navn på foretak</dt><dd>{formData.foretak?.navn}</dd>
                             </div>
                             <div className={formsStyle.flex100}>
-                                <dt>Kontaktperson</dt><dd>{dummyData.ansvarligKontrollerende.kontaktperson?.navn}</dd>
+                                <dt>Kontaktperson</dt><dd>{formData.foretak?.kontaktperson?.navn}</dd>
                             </div>
                         </dl>
                     </Paper>
@@ -81,10 +67,10 @@ class ErklaeringenGjelder extends Component {
                         <Header content="Ansvarsområde" size={2}></Header>
                         <dl className={formsStyle.fieldList}>
                             <div className={formsStyle.flex100}>
-                                <dt>Dato for erklært ansvarsrett</dt><dd>{dummyData.ansvarsomraade.erklaertAnsvarsrettDato}</dd>
+                                <dt>Dato for erklært ansvarsrett</dt><dd>{formData.ansvarsrett?.ansvarsrettErklaert}</dd>
                             </div>
                             <div className={formsStyle.flex100}>
-                                <dt>Beskrivelse av ansvarsområdet:</dt><dd>{dummyData.ansvarsomraade.beskrivelse}</dd>
+                                <dt>Beskrivelse av ansvarsområdet:</dt><dd>{formData.ansvarsrett?.beskrivelseAvAnsvarsomraadet}</dd>
                             </div>
                         </dl>
                     </Paper>
