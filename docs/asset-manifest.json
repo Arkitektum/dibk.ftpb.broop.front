@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/dibk.ftpb.broop.front/static/css/main.404f3237.chunk.css",
-    "main.js": "/dibk.ftpb.broop.front/static/js/main.b03fb83b.chunk.js",
-    "main.js.map": "/dibk.ftpb.broop.front/static/js/main.b03fb83b.chunk.js.map",
+    "main.js": "/dibk.ftpb.broop.front/static/js/main.25d0ec8c.chunk.js",
+    "main.js.map": "/dibk.ftpb.broop.front/static/js/main.25d0ec8c.chunk.js.map",
     "runtime-main.js": "/dibk.ftpb.broop.front/static/js/runtime-main.68329cf2.js",
     "runtime-main.js.map": "/dibk.ftpb.broop.front/static/js/runtime-main.68329cf2.js.map",
     "static/css/2.ef2e5c57.chunk.css": "/dibk.ftpb.broop.front/static/css/2.ef2e5c57.chunk.css",
@@ -22,6 +22,6 @@
     "static/css/2.ef2e5c57.chunk.css",
     "static/js/2.ac596ee1.chunk.js",
     "static/css/main.404f3237.chunk.css",
-    "static/js/main.b03fb83b.chunk.js"
+    "static/js/main.25d0ec8c.chunk.js"
   ]
 }
