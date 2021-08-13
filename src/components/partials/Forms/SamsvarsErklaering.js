@@ -14,7 +14,7 @@ import Erklaering from 'components/partials/Forms/SamsvarsErklaering/Erklaering'
 // Actions
 import { fetchSelectedForm, updateSelectedForm } from 'actions/FormActions';
 
-class KontrollErklaeringer extends Component {
+class SamsvarsErklaeringer extends Component {
 
     componentDidMount() {
         if (this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length) {
@@ -100,6 +100,6 @@ const mapDispatchToProps = {
     updateSelectedForm
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(KontrollErklaeringer);
+export default connect(mapStateToProps, mapDispatchToProps)(SamsvarsErklaeringer);
 
 
