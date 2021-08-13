@@ -12,16 +12,13 @@ import GjenstaaendeArbeider from 'components/partials/Forms/SamsvarsErklaering/G
 import Erklaering from 'components/partials/Forms/SamsvarsErklaering/Erklaering';
 
 // Actions
-import { updateSelectedForm } from 'actions/FormActions';
+import { fetchSelectedForm, updateSelectedForm } from 'actions/FormActions';
 
 class KontrollErklaeringer extends Component {
 
     componentDidMount() {
         if (this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length) {
-            const formApiUrl = this.props.selectedSubmission?._links?.samsvarserklaering?.href;
-            fetch(`https://dibk-ftpb-broop-api.azurewebsites.net${formApiUrl}`).then(res => res.json()).then(form => {
-                this.props.updateSelectedForm(form);
-            });
+            this.props.fetchSelectedForm(this.props.selectedSubmission);
         }
     }
 
@@ -29,10 +26,7 @@ class KontrollErklaeringer extends Component {
         const hasSelectedSubmission = this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length;
         const hasSelectedForm = this.props.selectedForm && Object.keys(this.props.selectedForm).length;
         if (hasSelectedSubmission && !hasSelectedForm) {
-            const formApiUrl = this.props.selectedSubmission?._links?.samsvarserklaering?.href;
-            fetch(`https://dibk-ftpb-broop-api.azurewebsites.net${formApiUrl}`).then(res => res.json()).then(form => {
-                this.props.updateSelectedForm(form);
-            });
+            this.props.fetchSelectedForm(this.props.selectedSubmission);
         }
     }
 
@@ -60,28 +54,28 @@ class KontrollErklaeringer extends Component {
                 name: 'Start',
                 finished: false,
                 hasErrors: false,
-                link: {pathname: 'start'}
+                link: { pathname: 'start' }
             },
             erklaeringenGjelder: {
                 id: 'erklaeringenGjelder',
                 name: 'Erklæringen gjelder',
                 finished: false,
                 hasErrors: false,
-                link: {pathname: 'erklaeringenGjelder'}
+                link: { pathname: 'erklaeringenGjelder' }
             },
             gjenstaaendeArbeider: {
                 id: 'gjenstaaendeArbeider',
                 name: 'Gjenstående arbeider',
                 finished: false,
                 hasErrors: false,
-                link: {pathname: 'gjenstaaendeArbeider'}
+                link: { pathname: 'gjenstaaendeArbeider' }
             },
             erklaering: {
                 id: 'erklaering',
                 name: 'Erklæring',
                 finished: false,
                 hasErrors: false,
-                link: {pathname: 'erklaering'}
+                link: { pathname: 'erklaering' }
             }
         };
         return formData
@@ -102,6 +96,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+    fetchSelectedForm,
     updateSelectedForm
 };
 

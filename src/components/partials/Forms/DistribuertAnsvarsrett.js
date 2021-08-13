@@ -13,7 +13,7 @@ import Erklaering from 'components/partials/Forms/FormParts/Erklaering';
 import Foretak from 'components/partials/Forms/FormParts/Foretak';
 
 // Actions
-import { updateSelectedForm } from 'actions/FormActions';
+import { fetchSelectedForm, updateSelectedForm } from 'actions/FormActions';
 
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
@@ -27,10 +27,7 @@ class DistribuertAnsvarsrett extends Component {
 
     componentDidMount() {
         if (this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length) {
-            const formApiUrl = this.props.selectedSubmission?._links?.ansvarsrett?.href;
-            fetch(`https://dibk-ftpb-broop-api.azurewebsites.net${formApiUrl}`).then(res => res.json()).then(form => {
-                this.props.updateSelectedForm(form);
-            });
+            this.props.fetchSelectedForm(this.props.selectedSubmission);
         }
     }
 
@@ -38,10 +35,7 @@ class DistribuertAnsvarsrett extends Component {
         const hasSelectedSubmission = this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length;
         const hasSelectedForm = this.props.selectedForm && Object.keys(this.props.selectedForm).length;
         if (hasSelectedSubmission && !hasSelectedForm) {
-            const formApiUrl = this.props.selectedSubmission?._links?.ansvarsrett?.href;
-            fetch(`https://dibk-ftpb-broop-api.azurewebsites.net${formApiUrl}`).then(res => res.json()).then(form => {
-                this.props.updateSelectedForm(form);
-            });
+            this.props.fetchSelectedForm(this.props.selectedSubmission);
         }
     }
 
@@ -110,6 +104,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+    fetchSelectedForm,
     updateSelectedForm
 };
 
