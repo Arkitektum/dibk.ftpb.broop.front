@@ -13,12 +13,6 @@ import { updateSelectedForm } from 'actions/FormActions';
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
 class Erklaering extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            samsvarMedTek: false
-        }
-    }
 
     render() {
         const formData = this.props.selectedForm?.formData;

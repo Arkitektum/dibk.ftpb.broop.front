@@ -19,11 +19,6 @@ import { fetchSelectedForm, updateSelectedForm } from 'actions/FormActions';
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
 class DistribuertAnsvarsrett extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        }
-    }
 
     componentDidMount() {
         if (this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length) {
