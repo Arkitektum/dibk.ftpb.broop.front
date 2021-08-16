@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { Button, Header, InputField } from 'dibk-design';
 
 // Actions
-import { updateSelectedForm } from 'actions/FormActions';
+import { updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
@@ -44,6 +44,9 @@ class KontrollErklaeringer extends Component {
                                         }
                                     });
                                 }}
+                                onBlur={() => {
+                                    this.props.saveSelectedForm(this.props.selectedForm);
+                                }}
                                 label="Prosjektnavn"
                                 value={formData.prosjektnavn} />
                         </div>
@@ -68,7 +71,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    updateSelectedForm
+    updateSelectedForm,
+    saveSelectedForm
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(KontrollErklaeringer);

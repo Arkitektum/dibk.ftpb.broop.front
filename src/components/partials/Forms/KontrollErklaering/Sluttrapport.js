@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { Button, CheckBoxListItem, Header, Paper } from 'dibk-design';
 
 // Actions
-import { updateSelectedForm } from 'actions/FormActions';
+import { updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
@@ -29,6 +29,8 @@ class Sluttrapport extends Component {
                     }
                 }
             }
+        }).then(selectedForm => {
+            this.props.saveSelectedForm(selectedForm);
         });
     }
 
@@ -79,7 +81,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    updateSelectedForm
+    updateSelectedForm,
+    saveSelectedForm
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sluttrapport);

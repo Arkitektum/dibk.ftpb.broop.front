@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { Button, Header, Paper, CheckBoxListItem } from 'dibk-design';
 
 // Actions
-import { updateSelectedForm } from 'actions/FormActions';
+import { updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
@@ -23,15 +23,17 @@ class Erklaering extends Component {
                 <Paper>
                     <CheckBoxListItem
                         id={`erklaering-erTEK10`}
-                        onChange={event => {
+                        onChange={event =>
                             this.props.updateSelectedForm({
                                 ...this.props.selectedForm,
                                 formData: {
                                     ...formData,
                                     erTEK10: event.target.checked
                                 }
+                            }).then(selectedForm => {
+                                this.props.saveSelectedForm(selectedForm);
                             })
-                        }}
+                        }
                         checked={formData.erTEK10}>
                         Vi bekrefter at prosjektering er i samsvar med ytelser i TEK og preaksepterte ytelser (VTEK) eller ved analyse som viser at forskriftens (TEK) funksjonskrav er oppfylt
                     </CheckBoxListItem>
@@ -57,7 +59,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    updateSelectedForm
+    updateSelectedForm,
+    saveSelectedForm
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Erklaering);
