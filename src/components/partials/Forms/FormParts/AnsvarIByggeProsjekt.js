@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // DIBK Design
-import { CheckBoxListItem, InputField, RadioButtonListItem, Select } from 'dibk-design';
+import { Accordion, CheckBoxListItem, InputField, RadioButtonListItem, Select } from 'dibk-design';
 
 // Actions
 import { fetchCodelistFunksjon, fetchCodelistTiltaksklasse } from 'actions/CodelistActions';
@@ -81,7 +81,13 @@ class AnsvarIByggeProsjekt extends Component {
         const ansvarsomraader = this.props.ansvarsomraader;
         return ansvarsomraader?.length
             ? ansvarsomraader.map((ansvarsomraade, index) => {
-                return (<div key={index}>
+                const hasSamsvarKontroll = [
+                    ansvarsomraade.samsvarKontrollVedRammetillatelse,
+                    ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse,
+                    ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse,
+                    ansvarsomraade.samsvarKontrollVedFerdigattest
+                ].some(samsvarKontroll => { return samsvarKontroll });
+                return (
                     <div className={formsStyle.inputGroup}>
                         <div className={formsStyle.flex50}>
                             {/* TODO: Check if select field and API-request for code list is necessary */}
@@ -110,6 +116,9 @@ class AnsvarIByggeProsjekt extends Component {
                                 options={this.convertCodelistTiltaksklasseToOptionValues(this.props.codelistTiltaksklasse)} />
                         </div>
                     </div>
+                            {
+                                hasSamsvarKontroll
+                                    ? (
                     <fieldset className={formsStyle.fieldset}>
                         <legend>Våre samsvarserklæringer/kontrollerklæringer vil foreligge ved (gjelder ikke for SØK)</legend>
                         <CheckBoxListItem
@@ -141,6 +150,10 @@ class AnsvarIByggeProsjekt extends Component {
                             Ferdigattest
                         </CheckBoxListItem>
                     </fieldset>
+                                    )
+                                    : ''
+                            }
+
                     <fieldset className={formsStyle.fieldset}>
                         <legend>Har foretaket sentral godkjenning som dekker ansvarsområdet?</legend>
                         <RadioButtonListItem
