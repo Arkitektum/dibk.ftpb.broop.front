@@ -88,92 +88,95 @@ class AnsvarIByggeProsjekt extends Component {
                     ansvarsomraade.samsvarKontrollVedFerdigattest
                 ].some(samsvarKontroll => { return samsvarKontroll });
                 return (
-                    <div className={formsStyle.inputGroup}>
-                        <div className={formsStyle.flex50}>
-                            {/* TODO: Check if select field and API-request for code list is necessary */}
-                            <Select
-                                id={`ansvarsomraade-${index}-funksjon`}
-                                onChange={(event) => { this.handleFunksjonOnChange(event.target.value, 'funksjon', index) }}
-                                label="Funksjon"
-                                value={ansvarsomraade.funksjon?.kodeverdi}
-                                contentOnly
-                                keyAsContent
-                                options={this.convertCodelistFunksjonToOptionValues(this.props.codelistFunksjon)} />
-                        </div>
-                        <div className={formsStyle.flex50}>
-                            <InputField
-                                id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
-                                onChange={(event) => { this.handleOnChange(event.target.value, 'beskrivelseAvAnsvarsomraade', index) }}
-                                label="Beskrivelse av ansvarsområdet"
-                                value={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''} />
-                        </div>
-                        <div className={formsStyle.flexAuto}>
-                            <Select
-                                id={`ansvarsomraade-${index}-tiltaksklasse`}
-                                onChange={(event) => { this.handleTiltaksklasseOnChange(event.target.value, 'tiltaksklasse', index) }}
-                                label="Tiltaksklasse"
-                                value={ansvarsomraade.tiltaksklasse?.kodeverdi}
-                                options={this.convertCodelistTiltaksklasseToOptionValues(this.props.codelistTiltaksklasse)} />
-                        </div>
-                    </div>
+                    <div key={index} className={formsStyle.accordionItem}>
+                        <Accordion title={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''} >
+                            <div className={formsStyle.inputGroup}>
+                                <div className={formsStyle.flex50}>
+                                    {/* TODO: Check if select field and API-request for code list is necessary */}
+                                    <Select
+                                        id={`ansvarsomraade-${index}-funksjon`}
+                                        onChange={(event) => { this.handleFunksjonOnChange(event.target.value, 'funksjon', index) }}
+                                        label="Funksjon"
+                                        value={ansvarsomraade.funksjon?.kodeverdi}
+                                        contentOnly
+                                        keyAsContent
+                                        options={this.convertCodelistFunksjonToOptionValues(this.props.codelistFunksjon)} />
+                                </div>
+                                <div className={formsStyle.flex50}>
+                                    <InputField
+                                        id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
+                                        onChange={(event) => { this.handleOnChange(event.target.value, 'beskrivelseAvAnsvarsomraade', index) }}
+                                        label="Beskrivelse av ansvarsområdet"
+                                        value={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''} />
+                                </div>
+                                <div className={formsStyle.flexAuto}>
+                                    <Select
+                                        id={`ansvarsomraade-${index}-tiltaksklasse`}
+                                        onChange={(event) => { this.handleTiltaksklasseOnChange(event.target.value, 'tiltaksklasse', index) }}
+                                        label="Tiltaksklasse"
+                                        value={ansvarsomraade.tiltaksklasse?.kodeverdi}
+                                        options={this.convertCodelistTiltaksklasseToOptionValues(this.props.codelistTiltaksklasse)} />
+                                </div>
+                            </div>
                             {
                                 hasSamsvarKontroll
                                     ? (
-                    <fieldset className={formsStyle.fieldset}>
-                        <legend>Våre samsvarserklæringer/kontrollerklæringer vil foreligge ved (gjelder ikke for SØK)</legend>
-                        <CheckBoxListItem
-                            id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
-                            onChange={(event) => { this.handleOnChange(event.target.checked, 'samsvarKontrollVedRammetillatelse', index) }}
-                            checked={ansvarsomraade.samsvarKontrollVedRammetillatelse ? true : false}
-                            contentOnly>
-                            Rammetillatelse
-                        </CheckBoxListItem>
-                        <CheckBoxListItem
-                            id={`ansvarsomraade-${index}-samsvarKontrollVedIgangsettingstillatelse`}
-                            onChange={(event) => { this.handleOnChange(event.target.checked, 'samsvarKontrollVedIgangsettingstillatelse', index) }}
-                            checked={ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse ? true : false}
-                            contentOnly>
-                            Igangsettingstillatelse
-                        </CheckBoxListItem>
-                        <CheckBoxListItem
-                            id={`ansvarsomraade-${index}-samsvarKontrollVedMidlertidigBrukstillatelse`}
-                            onChange={(event) => { this.handleOnChange(event.target.checked, 'samsvarKontrollVedMidlertidigBrukstillatelse', index) }}
-                            checked={ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse ? true : false}
-                            contentOnly>
-                            Midlertidig brukstillatelse
-                        </CheckBoxListItem>
-                        <CheckBoxListItem
-                            id={`ansvarsomraade-${index}-samsvarKontrollVedFerdigattest`}
-                            onChange={(event) => { this.handleOnChange(event.target.checked, 'samsvarKontrollVedFerdigattest', index) }}
-                            checked={ansvarsomraade.samsvarKontrollVedFerdigattest ? true : false}
-                            contentOnly>
-                            Ferdigattest
-                        </CheckBoxListItem>
-                    </fieldset>
+                                        <fieldset className={formsStyle.fieldset}>
+                                            <legend>Våre samsvarserklæringer/kontrollerklæringer vil foreligge ved (gjelder ikke for SØK)</legend>
+                                            <CheckBoxListItem
+                                                id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
+                                                onChange={(event) => { this.handleOnChange(event.target.checked, 'samsvarKontrollVedRammetillatelse', index) }}
+                                                checked={ansvarsomraade.samsvarKontrollVedRammetillatelse ? true : false}
+                                                contentOnly>
+                                                Rammetillatelse
+                                            </CheckBoxListItem>
+                                            <CheckBoxListItem
+                                                id={`ansvarsomraade-${index}-samsvarKontrollVedIgangsettingstillatelse`}
+                                                onChange={(event) => { this.handleOnChange(event.target.checked, 'samsvarKontrollVedIgangsettingstillatelse', index) }}
+                                                checked={ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse ? true : false}
+                                                contentOnly>
+                                                Igangsettingstillatelse
+                                            </CheckBoxListItem>
+                                            <CheckBoxListItem
+                                                id={`ansvarsomraade-${index}-samsvarKontrollVedMidlertidigBrukstillatelse`}
+                                                onChange={(event) => { this.handleOnChange(event.target.checked, 'samsvarKontrollVedMidlertidigBrukstillatelse', index) }}
+                                                checked={ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse ? true : false}
+                                                contentOnly>
+                                                Midlertidig brukstillatelse
+                                            </CheckBoxListItem>
+                                            <CheckBoxListItem
+                                                id={`ansvarsomraade-${index}-samsvarKontrollVedFerdigattest`}
+                                                onChange={(event) => { this.handleOnChange(event.target.checked, 'samsvarKontrollVedFerdigattest', index) }}
+                                                checked={ansvarsomraade.samsvarKontrollVedFerdigattest ? true : false}
+                                                contentOnly>
+                                                Ferdigattest
+                                            </CheckBoxListItem>
+                                        </fieldset>
                                     )
                                     : ''
                             }
 
-                    <fieldset className={formsStyle.fieldset}>
-                        <legend>Har foretaket sentral godkjenning som dekker ansvarsområdet?</legend>
-                        <RadioButtonListItem
-                            id={`ansvarsomraade-${index}-dekkesOmraadeAvSentralGodkjenningSpecified-true`}
-                            name="dekkesOmraadeAvSentralGodkjenningSpecified"
-                            onChange={(event) => { this.handleOnChange(true, 'dekkesOmraadeAvSentralGodkjenningSpecified', index) }}
-                            inputValue="true"
-                            checked={ansvarsomraade.dekkesOmraadeAvSentralGodkjenningSpecified ? true : false}>
-                            Ja
-                        </RadioButtonListItem>
-                        <RadioButtonListItem
-                            id={`ansvarsomraade-${index}-dekkesOmraadeAvSentralGodkjenningSpecified-false`}
-                            name="dekkesOmraadeAvSentralGodkjenningSpecified"
-                            onChange={(event) => { this.handleOnChange(false, 'dekkesOmraadeAvSentralGodkjenningSpecified', index) }}
-                            inputValue="false"
-                            checked={!ansvarsomraade.dekkesOmraadeAvSentralGodkjenningSpecified ? true : false}>
-                            Nei
-                        </RadioButtonListItem>
-                    </fieldset>
-                </div>
+                            <fieldset className={formsStyle.fieldset}>
+                                <legend>Har foretaket sentral godkjenning som dekker ansvarsområdet?</legend>
+                                <RadioButtonListItem
+                                    id={`ansvarsomraade-${index}-dekkesOmraadeAvSentralGodkjenningSpecified-true`}
+                                    name="dekkesOmraadeAvSentralGodkjenningSpecified"
+                                    onChange={(event) => { this.handleOnChange(true, 'dekkesOmraadeAvSentralGodkjenningSpecified', index) }}
+                                    inputValue="true"
+                                    checked={ansvarsomraade.dekkesOmraadeAvSentralGodkjenningSpecified ? true : false}>
+                                    Ja
+                                </RadioButtonListItem>
+                                <RadioButtonListItem
+                                    id={`ansvarsomraade-${index}-dekkesOmraadeAvSentralGodkjenningSpecified-false`}
+                                    name="dekkesOmraadeAvSentralGodkjenningSpecified"
+                                    onChange={(event) => { this.handleOnChange(false, 'dekkesOmraadeAvSentralGodkjenningSpecified', index) }}
+                                    inputValue="false"
+                                    checked={!ansvarsomraade.dekkesOmraadeAvSentralGodkjenningSpecified ? true : false}>
+                                    Nei
+                                </RadioButtonListItem>
+                            </fieldset>
+                        </Accordion>
+                    </div>
                 )
             })
             : (
