@@ -21,8 +21,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "PUBLIC_URL=/dibk.ftpb.broop.front react-app-rewired build && rimraf docs && mv build docs || move build docs",
-    "build-local": "react-app-rewired build && rimraf docs && mv build docs || move build docs",
+    "build": "react-app-rewired build",    
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
