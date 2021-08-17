@@ -31,7 +31,7 @@ class AnsvarIByggeProsjekt extends Component {
         return this.props.updateHandler(updatedAnsvarsomraader);
     }
 
-    handleSave(){
+    handleSave() {
         this.props.saveHandler();
     }
 
@@ -149,23 +149,22 @@ class AnsvarIByggeProsjekt extends Component {
                                     )
                                     : ''
                             }
-
                             <fieldset className={formsStyle.fieldset}>
                                 <legend>Har foretaket sentral godkjenning som dekker ansvarsområdet?</legend>
                                 <RadioButtonListItem
-                                    id={`ansvarsomraade-${index}-dekkesOmraadeAvSentralGodkjenningSpecified-true`}
-                                    name="dekkesOmraadeAvSentralGodkjenningSpecified"
-                                    onChange={(event) => { this.handleOnChange(true, 'dekkesOmraadeAvSentralGodkjenningSpecified', index) }}
+                                    id={`ansvarsomraade-${index}-dekkesOmraadeAvSentralGodkjenning-true`}
+                                    name="dekkesOmraadeAvSentralGodkjenning"
+                                    onChange={(event) => { this.handleUpdate(true, 'dekkesOmraadeAvSentralGodkjenning', index).then(() => { this.handleSave() }) }}
                                     inputValue="true"
-                                    checked={ansvarsomraade.dekkesOmraadeAvSentralGodkjenningSpecified ? true : false}>
+                                    checked={ansvarsomraade.dekkesOmraadeAvSentralGodkjenning ? true : false}>
                                     Ja
                                 </RadioButtonListItem>
                                 <RadioButtonListItem
-                                    id={`ansvarsomraade-${index}-dekkesOmraadeAvSentralGodkjenningSpecified-false`}
-                                    name="dekkesOmraadeAvSentralGodkjenningSpecified"
-                                    onChange={(event) => { this.handleOnChange(false, 'dekkesOmraadeAvSentralGodkjenningSpecified', index) }}
+                                    id={`ansvarsomraade-${index}-dekkesOmraadeAvSentralGodkjenning-false`}
+                                    name="dekkesOmraadeAvSentralGodkjenning"
+                                    onChange={(event) => { this.handleUpdate(false, 'dekkesOmraadeAvSentralGodkjenning', index).then(() => { this.handleSave() }) }}
                                     inputValue="false"
-                                    checked={!ansvarsomraade.dekkesOmraadeAvSentralGodkjenningSpecified ? true : false}>
+                                    checked={!ansvarsomraade.dekkesOmraadeAvSentralGodkjenning ? true : false}>
                                     Nei
                                 </RadioButtonListItem>
                             </fieldset>
