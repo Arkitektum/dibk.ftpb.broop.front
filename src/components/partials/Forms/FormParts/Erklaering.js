@@ -11,9 +11,11 @@ import { CheckBoxListItem } from 'dibk-design';
 class Erklaering extends Component {
 
     handleOnChange(value, property) {
-        this.props.onChange({
+        this.props.updateHandler({
             ...this.props.ansvarsrett,
             [property]: value
+        }).then(() => {
+            this.props.saveHandler();
         });
     }
 
@@ -78,7 +80,8 @@ class Erklaering extends Component {
 
 Erklaering.propTypes = {
     ansvarsrett: PropTypes.object.isRequired,
-    onChange: PropTypes.func
+    updateHandler: PropTypes.func.isRequired,
+    saveHandler: PropTypes.func.isRequired
 };
 
 export default connect(null, null)(Erklaering);

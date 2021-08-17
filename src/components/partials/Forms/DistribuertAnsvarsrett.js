@@ -13,7 +13,7 @@ import Erklaering from 'components/partials/Forms/FormParts/Erklaering';
 import Foretak from 'components/partials/Forms/FormParts/Foretak';
 
 // Actions
-import { fetchSelectedForm, updateSelectedForm } from 'actions/FormActions';
+import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
@@ -35,14 +35,14 @@ class DistribuertAnsvarsrett extends Component {
     }
 
     updateAnsvarsomraader(ansvarsomraader) {
-        this.updateFormDataField({
+        return this.updateFormDataField({
             ...this.props.selectedForm.formData.ansvarsrett,
             ansvarsomraader
         }, 'ansvarsrett')
     }
 
     updateFormDataField(value, property) {
-        this.props.updateSelectedForm({
+        return this.props.updateSelectedForm({
             ...this.props.selectedForm,
             formData: {
                 ...this.props.selectedForm.formData,
@@ -68,23 +68,39 @@ class DistribuertAnsvarsrett extends Component {
                     </dl>
                     <Paper>
                         <Header content="Eiendom/Byggested" size={2}></Header>
-                        <EiendomByggested eiendomByggested={formData.eiendomByggested} />
+                        <EiendomByggested
+                            eiendomByggested={formData.eiendomByggested}
+                        />
                     </Paper>
                     <Paper>
                         <Header content="Foretak" size={2}></Header>
-                        <Foretak foretak={formData.ansvarsrett?.foretak} onChange={foretak => this.updateFormDataField(foretak, 'foretak')} />
+                        <Foretak
+                            foretak={formData.ansvarsrett?.foretak}
+                            updateHandler={foretak => this.updateFormDataField(foretak, 'foretak')}
+                            saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm)}
+                        />
                     </Paper>
                     <Paper>
                         <Header content="Ansvar i byggeprosjekt" size={2}></Header>
-                        <AnsvarIByggeProsjekt ansvarsomraader={formData.ansvarsrett.ansvarsomraader} onChange={ansvarsomraader => this.updateAnsvarsomraader(ansvarsomraader)} />
+                        <AnsvarIByggeProsjekt
+                            ansvarsomraader={formData.ansvarsrett.ansvarsomraader}
+                            updateHandler={ansvarsomraader => this.updateAnsvarsomraader(ansvarsomraader)}
+                            saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm)}
+                        />
                     </Paper>
                     <Paper>
                         <Header content="Ansvarlig søker" size={2}></Header>
-                        <AnsvarligSoeker ansvarligSoeker={formData.ansvarligSoeker} />
+                        <AnsvarligSoeker
+                            ansvarligSoeker={formData.ansvarligSoeker}
+                        />
                     </Paper>
                     <Paper>
                         <Header content="Erklæring" size={2}></Header>
-                        <Erklaering ansvarsrett={formData.ansvarsrett} onChange={ansvarsrett => this.updateFormDataField(ansvarsrett, 'ansvarsrett')} />
+                        <Erklaering
+                            ansvarsrett={formData.ansvarsrett}
+                            updateHandler={ansvarsrett => this.updateFormDataField(ansvarsrett, 'ansvarsrett')}
+                            saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm)}
+                        />
                     </Paper>
                 </React.Fragment>)
             : (
@@ -100,7 +116,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     fetchSelectedForm,
-    updateSelectedForm
+    updateSelectedForm,
+    saveSelectedForm
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DistribuertAnsvarsrett);

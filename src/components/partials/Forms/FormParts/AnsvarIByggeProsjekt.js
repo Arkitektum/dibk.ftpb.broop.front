@@ -25,23 +25,14 @@ class AnsvarIByggeProsjekt extends Component {
         }
     }
 
-    handleOnChange(value, property, index) {
+    handleUpdate(value, property, index) {
         let updatedAnsvarsomraader = this.props.ansvarsomraader;
         updatedAnsvarsomraader[index][property] = value;
-        this.props.onChange(updatedAnsvarsomraader);
+        return this.props.updateHandler(updatedAnsvarsomraader);
     }
 
-    handleFunksjonOnChange(selectedOptionValue, property, index) {
-        const selectedCodelistItem = this.props.codelistFunksjon?.containeditems.find(item => {
-            return item.codevalue === selectedOptionValue;
-        });
-        if (selectedCodelistItem) {
-            const value = {
-                kodeverdi: selectedCodelistItem.codevalue,
-                kodebeskrivelse: selectedCodelistItem.label
-            }
-            this.handleOnChange(value, property, index);
-        }
+    handleSave(){
+        this.props.saveHandler();
     }
 
     handleTiltaksklasseOnChange(selectedOptionValue, property, index) {
@@ -53,7 +44,9 @@ class AnsvarIByggeProsjekt extends Component {
                 kodeverdi: selectedCodelistItem.codevalue,
                 kodebeskrivelse: selectedCodelistItem.label
             }
-            this.handleOnChange(value, property, index);
+            this.handleUpdate(value, property, index).then(() => {
+                this.handleSave()
+            });
         }
     }
 
@@ -95,7 +88,7 @@ class AnsvarIByggeProsjekt extends Component {
                                     {/* TODO: Check if select field and API-request for code list is necessary */}
                                     <Select
                                         id={`ansvarsomraade-${index}-funksjon`}
-                                        onChange={(event) => { this.handleFunksjonOnChange(event.target.value, 'funksjon', index) }}
+                                        onChange={() => {return false}}
                                         label="Funksjon"
                                         value={ansvarsomraade.funksjon?.kodeverdi}
                                         contentOnly
@@ -105,7 +98,8 @@ class AnsvarIByggeProsjekt extends Component {
                                 <div className={formsStyle.flex50}>
                                     <InputField
                                         id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
-                                        onChange={(event) => { this.handleOnChange(event.target.value, 'beskrivelseAvAnsvarsomraade', index) }}
+                                        onChange={(event) => { this.handleUpdate(event.target.value, 'beskrivelseAvAnsvarsomraade', index) }}
+                                        onBlur={() => this.handleSave()}
                                         label="Beskrivelse av ansvarsområdet"
                                         value={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''} />
                                 </div>
@@ -125,28 +119,28 @@ class AnsvarIByggeProsjekt extends Component {
                                             <legend>Våre samsvarserklæringer/kontrollerklæringer vil foreligge ved (gjelder ikke for SØK)</legend>
                                             <CheckBoxListItem
                                                 id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
-                                                onChange={(event) => { this.handleOnChange(event.target.checked, 'samsvarKontrollVedRammetillatelse', index) }}
+                                                onChange={() => { return null }}
                                                 checked={ansvarsomraade.samsvarKontrollVedRammetillatelse ? true : false}
                                                 contentOnly>
                                                 Rammetillatelse
                                             </CheckBoxListItem>
                                             <CheckBoxListItem
                                                 id={`ansvarsomraade-${index}-samsvarKontrollVedIgangsettingstillatelse`}
-                                                onChange={(event) => { this.handleOnChange(event.target.checked, 'samsvarKontrollVedIgangsettingstillatelse', index) }}
+                                                onChange={() => { return null }}
                                                 checked={ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse ? true : false}
                                                 contentOnly>
                                                 Igangsettingstillatelse
                                             </CheckBoxListItem>
                                             <CheckBoxListItem
                                                 id={`ansvarsomraade-${index}-samsvarKontrollVedMidlertidigBrukstillatelse`}
-                                                onChange={(event) => { this.handleOnChange(event.target.checked, 'samsvarKontrollVedMidlertidigBrukstillatelse', index) }}
+                                                onChange={() => { return null }}
                                                 checked={ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse ? true : false}
                                                 contentOnly>
                                                 Midlertidig brukstillatelse
                                             </CheckBoxListItem>
                                             <CheckBoxListItem
                                                 id={`ansvarsomraade-${index}-samsvarKontrollVedFerdigattest`}
-                                                onChange={(event) => { this.handleOnChange(event.target.checked, 'samsvarKontrollVedFerdigattest', index) }}
+                                                onChange={() => { return null }}
                                                 checked={ansvarsomraade.samsvarKontrollVedFerdigattest ? true : false}
                                                 contentOnly>
                                                 Ferdigattest
@@ -187,7 +181,8 @@ class AnsvarIByggeProsjekt extends Component {
 
 AnsvarIByggeProsjekt.propTypes = {
     ansvarsomraader: PropTypes.array.isRequired,
-    onChange: PropTypes.func.isRequired
+    updateHandler: PropTypes.func.isRequired,
+    saveHandler: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
