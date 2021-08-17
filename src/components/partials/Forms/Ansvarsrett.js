@@ -18,7 +18,7 @@ import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
-class DistribuertAnsvarsrett extends Component {
+class Ansvarsrett extends Component {
 
     componentDidMount() {
         if (this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length) {
@@ -120,6 +120,6 @@ const mapDispatchToProps = {
     saveSelectedForm
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DistribuertAnsvarsrett);
+export default connect(mapStateToProps, mapDispatchToProps)(Ansvarsrett);
 
 

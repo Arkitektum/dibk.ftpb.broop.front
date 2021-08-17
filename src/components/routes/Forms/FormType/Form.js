@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Container from 'components/template/Container';
 
 // Partials
-import DistribuertAnsvarsrett from 'components/partials/Forms/DistribuertAnsvarsrett';
+import Ansvarsrett from 'components/partials/Forms/Ansvarsrett';
 import KontrollErklaering from 'components/partials/Forms/KontrollErklaering';
 import SamsvarsErklaering from 'components/partials/Forms/SamsvarsErklaering';
 
@@ -37,7 +37,7 @@ class Form extends Component {
 
         switch (formType) {
             case 'Ansvarsrett':
-                return <DistribuertAnsvarsrett selectedSubmission={selectedSubmission} />
+                return <Ansvarsrett selectedSubmission={selectedSubmission} />
             case 'Kontrollerklaering':
                 return <KontrollErklaering selectedSubmission={selectedSubmission} stepId={stepId} />
             case 'Samsvarserklaering':
