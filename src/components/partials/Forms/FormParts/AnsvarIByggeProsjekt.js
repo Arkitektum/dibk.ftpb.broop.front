@@ -71,6 +71,12 @@ class AnsvarIByggeProsjekt extends Component {
     }
 
     render() {
+        const colors = {
+            SØK: 'default',
+            PRO: 'lightCyan',
+            UTF: 'lightOrange',
+            KONTROLL: 'lightLime'
+        }
         const ansvarsomraader = this.props.ansvarsomraader;
         return ansvarsomraader?.length
             ? ansvarsomraader.map((ansvarsomraade, index) => {
@@ -82,20 +88,20 @@ class AnsvarIByggeProsjekt extends Component {
                 ].some(samsvarKontroll => { return samsvarKontroll });
                 return (
                     <div key={index} className={formsStyle.accordionItem}>
-                        <Accordion title={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''} >
+                        <Accordion title={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''} color={ansvarsomraade.funksjon?.kodeverdi ? colors[ansvarsomraade.funksjon?.kodeverdi] : 'default'}>
+                            {/* TODO: Check if select field and API-request for code list is necessary */}
                             <div className={formsStyle.inputGroup}>
-                                <div className={formsStyle.flex50}>
-                                    {/* TODO: Check if select field and API-request for code list is necessary */}
-                                    <Select
-                                        id={`ansvarsomraade-${index}-funksjon`}
-                                        onChange={() => {return false}}
-                                        label="Funksjon"
-                                        value={ansvarsomraade.funksjon?.kodeverdi}
-                                        contentOnly
-                                        keyAsContent
-                                        options={this.convertCodelistFunksjonToOptionValues(this.props.codelistFunksjon)} />
-                                </div>
-                                <div className={formsStyle.flex50}>
+                                <Select
+                                    id={`ansvarsomraade-${index}-funksjon`}
+                                    onChange={() => { return false }}
+                                    label="Funksjon"
+                                    value={ansvarsomraade.funksjon?.kodeverdi}
+                                    contentOnly
+                                    keyAsContent
+                                    options={this.convertCodelistFunksjonToOptionValues(this.props.codelistFunksjon)} />
+                            </div>
+                            <div className={formsStyle.inputGroup}>
+                                <div className={formsStyle.flex100}>
                                     <InputField
                                         id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
                                         onChange={(event) => { this.handleUpdate(event.target.value, 'beskrivelseAvAnsvarsomraade', index) }}
@@ -103,6 +109,8 @@ class AnsvarIByggeProsjekt extends Component {
                                         label="Beskrivelse av ansvarsområdet"
                                         value={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''} />
                                 </div>
+                            </div>
+                            <div className={formsStyle.inputGroup}>
                                 <div className={formsStyle.flexAuto}>
                                     <Select
                                         id={`ansvarsomraade-${index}-tiltaksklasse`}
