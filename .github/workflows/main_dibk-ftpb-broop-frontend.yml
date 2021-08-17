@@ -34,5 +34,5 @@ jobs:
         app-name: dibk-ftpb-broop-frontend
         slot-name: Production
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8B7B5FAE09194ECAAF0F9F98CADE211E }}
-        package: .
+        package: ./build
 
