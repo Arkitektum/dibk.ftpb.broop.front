@@ -30,12 +30,12 @@ class App extends Component {
   render() {
     return (<Provider store={store}>
       <ConnectedRouter history={history}>
-        <BrowserRouter basename="/dibk.ftpb.broop.front">
+        <BrowserRouter>
           <MainNavigationBar />
           <Switch>
-            <Route exact={true} path="/skjema/:formType/:submissionId/:stepId" render={(props) => (<Form {...props} />)} />
-            <Route exact={true} path="/skjema/:formType/:submissionId" render={(props) => (<Form {...props} />)} />
-            <Route exact={true} path="/:submissionId" render={(props) => (<Home {...props} />)} />
+            <Route exact={true} path="/:formType/:submissionId/:stepId" render={(props) => (<Form {...props} />)} />
+            <Route exact={true} path="/:formType/:submissionId" render={(props) => (<Form {...props} />)} />
+            <Route exact={true} path="/:formType" render={(props) => (<Home {...props} />)} />
             <Route exact={true} path="/" render={(props) => (<Home {...props} />)} />
             <Route render={() => (<NotFound />)} />
           </Switch>

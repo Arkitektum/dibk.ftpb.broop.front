@@ -45,7 +45,7 @@ class Home extends Component {
             ? (
               <div>
                 <p>Skjema med referanse {submission.referanseId} er hentet</p>
-                <Link to={`/Skjema/${submission.innsendingsType}/${submission.referanseId}/`}>
+                <Link to={`/${submission.innsendingsType}/${submission.referanseId}/`}>
                   <Button content={`Gå til ${submission.innsendingsType.toLowerCase()}`} color='primary'></Button>
                 </Link>
               </div>
