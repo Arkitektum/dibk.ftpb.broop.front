@@ -1,6 +1,6 @@
 {
   "name": "dibk-ftb-broop-front",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "connected-react-router": "^6.7.0",
@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",    
+    "build": "react-app-rewired build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
