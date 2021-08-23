@@ -1,0 +1,259 @@
+@import "./style/abstracts/_all.scss";
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #eee;
+    font-family: $default-font;
+    color: $color-default-text;
+}
+* {
+    @include box-sizing(border-box);
+}
+
+.page {
+    margin: 1cm auto;
+    background: #fff;
+    box-shadow: 0 4px 5px rgba(75, 75, 75, 0.2);
+}
+
+div.page-break {
+    page-break-after: always;
+}
+h1 {
+    page-break-before: always;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div[class^="Header_headerContainer_"] {
+    page-break-after: avoid;
+}
+p {
+    margin: 0;
+}
+p + p {
+    margin-top: 0.5cm;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+table {
+    page-break-inside: avoid;
+}
+@page {
+    orphans: 4;
+    widows: 2;
+}
+@media print {
+    html,
+    body {
+        background-color: #fff;
+    }
+    .page {
+        width: initial !important;
+        min-height: initial !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: initial !important;
+        border-radius: initial !important;
+        background: initial !important;
+        box-shadow: initial !important;
+        page-break-after: always;
+    }
+}
+
+.page {
+    width: 21cm;
+    min-height: 29.7cm;
+    padding-left: 2cm;
+    padding-top: 2cm;
+    padding-right: 2cm;
+    padding-bottom: 2cm;
+}
+@page {
+    size: A4 portrait;
+    margin-left: 2cm;
+    margin-top: 2cm;
+    margin-right: 2cm;
+    margin-bottom: 2cm;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+input[type="email"] {
+    @include appearance(none);
+    display: block;
+    background: none;
+    border: none;
+    margin-bottom: 10px;
+    font-size: 16px;
+    width: 100%;
+    padding: 0;
+    cursor: default;
+    &:focus-visible {
+        outline: none;
+    }
+}
+select {
+    @include appearance(none);
+    display: block;
+    border: none;
+    margin-bottom: 10px;
+    font-size: 16px;
+    background: none;
+    &:focus-visible {
+        outline: none;
+    }
+}
+
+dl {
+    dt {
+        font-weight: bold;
+    }
+    dd {
+        display: block;
+        font-size: 16px;
+        margin-inline-start: 0px;
+        margin-bottom: 10px;
+    }
+}
+
+// Components
+
+div[class^="Paper_"] {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    background: white;
+}
+
+*[class^="Forms_fieldList_"] {
+    display: flex;
+    flex-wrap: wrap;
+    div[class^="Forms_flexAuto_"] {
+        flex: 0;
+    }
+
+    div[class^="Forms_flex25_"] {
+        flex: 1;
+        flex-basis: 25%;
+    }
+
+    div[class^="Forms_flex33_"] {
+        flex: 1;
+        flex-basis: 33.3333%;
+    }
+
+    div[class^="Forms_flex50_"] {
+        flex: 1;
+        flex-basis: 50%;
+    }
+
+    div[class^="Forms_flex66_"] {
+        flex: 1;
+        flex-basis: 66.6666%;
+    }
+
+    div[class^="Forms_flex75_"] {
+        flex: 1;
+        flex-basis: 75%;
+    }
+
+    div[class^="Forms_flex100_"] {
+        flex: 1;
+        flex-basis: 100%;
+    }
+}
+
+div[class^="Forms_accordionItem_"] {
+    &:not(:last-child) {
+        border-bottom: 1px solid #ddd;
+    }
+}
+
+div[class^="Accordion_accordion_"] {
+    padding: 24px;
+
+    page-break-inside: avoid;
+
+    &[class*="Accordion_default_"] {
+        background-color: $color-default;
+    }
+    &[class*="Accordion_lightCyan_"] {
+        background-color: $color-light-cyan;
+    }
+    &[class*="Accordion_lightOrange_"] {
+        background-color: $color-light-orange;
+    }
+    &[class*="Accordion_lightLime_"] {
+        background-color: $color-light-lime;
+    }
+
+    span[class^="Accordion_panelText_"] {
+        font-size: 24px;
+        margin-bottom: 12px;
+        display: block;
+    }
+}
+
+div[class^="Select_"] {
+    label + span {
+        display: block;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+}
+
+div[class^="CheckBoxListItem_"] {
+    label[class^="CheckBoxInput_"] {
+        span[class^="CheckBoxIcon_"] {
+            display: inline-block;
+            color: #00757f;
+            height: 20px;
+            width: 20px;
+            font-size: 20px;
+        }
+        input[type="checkbox"] {
+            display: none;
+        }
+    }
+}
+
+div[class^="RadioButtonListItem_"] {
+    label[class^="RadioButtonInput_"] {
+        padding: 5px;
+        span[class^="RadioButtonIcon_"] {
+            border-radius: 50%;
+            box-shadow: 0 0 0 1px #afaba8;
+            transition: all 0.1s ease-in-out;
+            box-sizing: content-box;
+            display: inline-block;
+            vertical-align: middle;
+            min-width: 10px;
+            width: 10px;
+            height: 10px;
+            background: white;
+            margin-right: 0.4em;
+            border: 0.3em solid white;
+            &[class*="RadioButtonIcon_checked_"] {
+                box-shadow: 0 0 0 1px #072938;
+                background: #00757f;
+            }
+        }
+        input[type="radio"] {
+            display: none;
+        }
+    }
+}
