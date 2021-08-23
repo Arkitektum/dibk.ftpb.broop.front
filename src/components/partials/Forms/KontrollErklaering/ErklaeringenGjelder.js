@@ -12,6 +12,9 @@ import EiendomByggested from 'components/partials/Forms/FormParts/EiendomByggest
 // Actions
 import { updateSelectedForm } from 'actions/FormActions';
 
+// Helpers
+import { formatDate } from 'helpers/formatHelpers';
+
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
@@ -62,7 +65,14 @@ class ErklaeringenGjelder extends Component {
                         <Header content="Ansvarsområde" size={2}></Header>
                         <dl className={formsStyle.fieldList}>
                             <div className={formsStyle.flex100}>
-                                <dt>Dato for erklært ansvarsrett</dt><dd>{formData.ansvarsrett?.ansvarsrettErklaert}</dd>
+                                <dt>Dato for erklært ansvarsrett</dt>
+                                <dd>
+                                    {
+                                        formData.ansvarsrett?.ansvarsrettErklaert
+                                            ? formatDate(formData.ansvarsrett?.ansvarsrettErklaert)
+                                            : 'Dato er ikke angitt'
+                                    }
+                                </dd>
                             </div>
                             <div className={formsStyle.flex100}>
                                 <dt>Beskrivelse av ansvarsområdet:</dt><dd>{formData.ansvarsrett?.beskrivelseAvAnsvarsomraadet}</dd>
