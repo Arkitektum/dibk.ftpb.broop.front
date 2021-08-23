@@ -45,6 +45,17 @@ class SamsvarsErklaeringer extends Component {
         }
     }
 
+    renderPrint() {
+        return (
+            <React.Fragment>
+                <Start />
+                <ErklaeringenGjelder />
+                <GjenstaaendeArbeider />
+                <Erklaering />
+            </React.Fragment>
+        )
+    }
+
     render() {
         const formData = this.props.selectedForm?.formData;
         const activeStepId = this.props.stepId || 'start';
@@ -79,11 +90,13 @@ class SamsvarsErklaeringer extends Component {
             }
         };
         return formData
-            ? (
-                <React.Fragment>
-                    <WizardNavigation steps={wizardSteps} activeStepId={activeStepId} />
-                    {this.renderStep(activeStepId)}
-                </React.Fragment>)
+            ? this.props.print
+                ? this.renderPrint()
+                : (
+                    <React.Fragment>
+                        <WizardNavigation steps={wizardSteps} activeStepId={activeStepId} />
+                        {this.renderStep(activeStepId)}
+                    </React.Fragment>)
             : (
                 <p>Ingen data for samsvarserklæring</p>
             )
