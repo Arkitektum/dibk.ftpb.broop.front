@@ -45,6 +45,17 @@ class KontrollErklaeringer extends Component {
         }
     }
 
+    renderPrint() {
+        return (
+            <React.Fragment>
+                <Start />
+                <ErklaeringenGjelder />
+                <Sluttrapport />
+                <Erklaering />
+            </React.Fragment>
+        )
+    }
+
     render() {
         const formData = this.props.selectedForm?.formData;
         const activeStepId = this.props.stepId || 'start';
@@ -79,11 +90,15 @@ class KontrollErklaeringer extends Component {
             }
         };
         return formData
-            ? (
-                <React.Fragment>
-                    <WizardNavigation steps={wizardSteps} activeStepId={activeStepId} />
-                    {this.renderStep(activeStepId)}
-                </React.Fragment>)
+            ? this.props.print
+                ? this.renderPrint()
+                : (
+                    <React.Fragment>
+                        <WizardNavigation steps={wizardSteps} activeStepId={activeStepId} />
+                        {this.renderStep(activeStepId)}
+                    </React.Fragment>
+                )
+
             : (
                 <p>Ingen data om ansvarlig søker</p>
             )
@@ -101,5 +116,3 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(KontrollErklaeringer);
-
-

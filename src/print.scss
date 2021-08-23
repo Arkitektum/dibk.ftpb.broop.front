@@ -24,6 +24,15 @@ div.page-break {
 h1 {
     page-break-before: always;
 }
+
+div[class^="Header_headerContainer_"] {
+    + span[class^="Forms_subtitle_"] {
+        display: block;
+        margin-top: -20px;
+        margin-bottom: 20px;
+    }
+}
+
 h1,
 h2,
 h3,
@@ -256,4 +265,8 @@ div[class^="RadioButtonListItem_"] {
             display: none;
         }
     }
+}
+
+button[class^="Button_button_"] {
+    display: none;
 }
