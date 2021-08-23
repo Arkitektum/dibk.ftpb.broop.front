@@ -18,3 +18,13 @@ export const formatAddress = (address) => {
 
     return formattedAddress;
 }
+
+const monthNames = ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember'];
+
+export const formatDate = timestamp => {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = monthNames[date.getMonth()];
+    const day = date.getDate();
+    return `${day}. ${month} ${year}`;
+}
