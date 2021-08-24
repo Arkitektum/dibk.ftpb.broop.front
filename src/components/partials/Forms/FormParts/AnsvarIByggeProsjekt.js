@@ -100,7 +100,7 @@ class AnsvarIByggeProsjekt extends Component {
                                     keyAsContent
                                     options={this.convertCodelistFunksjonToOptionValues(this.props.codelistFunksjon)} />
                             </div>
-                            <div className={formsStyle.inputGroup}>
+                            <div className={`${formsStyle.inputGroup} hide-on-print`}>
                                 <div className={formsStyle.flex100}>
                                     <InputField
                                         id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}

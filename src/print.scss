@@ -21,6 +21,11 @@ body {
 div.page-break {
     page-break-after: always;
 }
+
+*.hide-on-print {
+    display: none;
+}
+
 h1 {
     page-break-before: always;
 }
@@ -91,6 +96,10 @@ table {
     margin-top: 2cm;
     margin-right: 2cm;
     margin-bottom: 2cm;
+}
+
+fieldset {
+    margin: 12px 0;
 }
 
 label {
@@ -227,12 +236,21 @@ div[class^="Select_"] {
 
 div[class^="CheckBoxListItem_"] {
     label[class^="CheckBoxInput_"] {
+        padding: 5px;
+        display: flex;
         span[class^="CheckBoxIcon_"] {
             display: inline-block;
             color: #00757f;
+            box-shadow: 0 0 0 1px #afaba8;
+            margin-right: 0.4em;
+            background: #fff;
             height: 20px;
             width: 20px;
             font-size: 20px;
+            &[class*="CheckBoxIcon_checked_"] {
+                box-shadow: 0 0 0 1px #072938;
+                background: #00757f;
+            }
         }
         input[type="checkbox"] {
             display: none;

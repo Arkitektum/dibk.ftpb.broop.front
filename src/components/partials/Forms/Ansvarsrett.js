@@ -80,6 +80,7 @@ class Ansvarsrett extends Component {
                             saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm)}
                         />
                     </Paper>
+                    <div className="page-break"></div>
                     <Paper>
                         <Header content="Ansvar i byggeprosjekt" size={2}></Header>
                         <AnsvarIByggeProsjekt
@@ -88,6 +89,7 @@ class Ansvarsrett extends Component {
                             saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm)}
                         />
                     </Paper>
+                    <div className="page-break"></div>
                     <Paper>
                         <Header content="Ansvarlig søker" size={2}></Header>
                         <AnsvarligSoeker
