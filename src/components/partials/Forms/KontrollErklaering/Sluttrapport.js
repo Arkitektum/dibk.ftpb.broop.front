@@ -14,19 +14,60 @@ import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
 class Sluttrapport extends Component {
 
+    toggleAnsvarsrettKontrollerendeValue(property, kontrollerende) {
+        const newValue = !kontrollerende?.[property];
+
+        switch (property) {
+            case 'ingenAvvik':
+                return newValue
+                    ? {
+                        ingenAvvik: true,
+                        observerteAvvik: false,
+                        aapneAvvik: false
+                    }
+                    : {
+                        ...kontrollerende,
+                        ingenAvvik: false,
+                    }
+            case 'observerteAvvik':
+                return newValue
+                    ? {
+                        ...kontrollerende,
+                        ingenAvvik: false,
+                        observerteAvvik: true
+                    }
+                    : {
+                        ...kontrollerende,
+                        observerteAvvik: false,
+                    }
+            case 'aapneAvvik':
+                return newValue
+                    ? {
+                        ...kontrollerende,
+                        ingenAvvik: false,
+                        aapneAvvik: true
+                    }
+                    : {
+                        ...kontrollerende,
+                        aapneAvvik: false,
+                    }
+            default:
+                return kontrollerende;
+        }
+    }
+
     handleOnAnsvarsrettKontrollerendeChange(property) {
         const formData = this.props.selectedForm?.formData;
-        const value = formData.ansvarsrett?.kontrollerende?.[property];
+        const oldKontrollerende = formData.ansvarsrett?.kontrollerende;
+        const kontrollerende = this.toggleAnsvarsrettKontrollerendeValue(property, oldKontrollerende);
+
         this.props.updateSelectedForm({
             ...this.props.selectedForm,
             formData: {
                 ...formData,
                 ansvarsrett: {
                     ...formData.ansvarsrett,
-                    kontrollerende: {
-                        ...formData.ansvarsrett.kontrollerende,
-                        [property]: !value
-                    }
+                    kontrollerende
                 }
             }
         }).then(selectedForm => {
