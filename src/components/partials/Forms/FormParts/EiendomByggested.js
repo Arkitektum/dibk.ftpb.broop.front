@@ -48,10 +48,10 @@ class EiendomByggested extends Component {
     }
 
     renderEiendomByggestedListItem(eiendomByggestedItem, index) {
-        const kommunenummer = eiendomByggestedItem.eiendomsidentifikasjon?.kommunenummer;
+        const adresse = formatAddress(eiendomByggestedItem.adresse);
         const gaardsnummer = eiendomByggestedItem.eiendomsidentifikasjon?.gaardsnummer;
         const bruksnummer = eiendomByggestedItem.eiendomsidentifikasjon?.bruksnummer;
-        const title = `${kommunenummer}/${gaardsnummer}/${bruksnummer}`;
+        const title = `${adresse} - ${gaardsnummer}/${bruksnummer}`;
         return (
             <div key={index} className={formsStyle.accordionItem}>
                 <Accordion title={title}>
