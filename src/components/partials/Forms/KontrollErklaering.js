@@ -8,6 +8,7 @@ import { WizardNavigation } from 'dibk-design';
 // Components
 import Start from 'components/partials/Forms/KontrollErklaering/Start';
 import ErklaeringenGjelder from 'components/partials/Forms/KontrollErklaering/ErklaeringenGjelder';
+import Vedlegg from 'components/partials/Forms/KontrollErklaering/Vedlegg';
 import Sluttrapport from 'components/partials/Forms/KontrollErklaering/Sluttrapport';
 import Erklaering from 'components/partials/Forms/KontrollErklaering/Erklaering';
 
@@ -36,6 +37,8 @@ class KontrollErklaeringer extends Component {
                 return <Start />
             case 'erklaeringengjelder':
                 return <ErklaeringenGjelder />
+            case 'vedlegg':
+                return <Vedlegg />
             case 'sluttrapport':
                 return <Sluttrapport />
             case 'erklaering':
@@ -50,6 +53,7 @@ class KontrollErklaeringer extends Component {
             <React.Fragment>
                 <Start />
                 <ErklaeringenGjelder />
+                <Vedlegg />
                 <Sluttrapport />
                 <Erklaering />
             </React.Fragment>
@@ -73,6 +77,13 @@ class KontrollErklaeringer extends Component {
                 finished: false,
                 hasErrors: false,
                 link: { pathname: 'erklaeringenGjelder' }
+            },
+            vedlegg: {
+                id: 'vedlegg',
+                name: 'Last opp vedlegg',
+                finished: false,
+                hasErrors: false,
+                link: { pathname: 'vedlegg' }
             },
             sluttrapport: {
                 id: 'sluttrapport',

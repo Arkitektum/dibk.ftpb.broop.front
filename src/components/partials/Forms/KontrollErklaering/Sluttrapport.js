@@ -104,7 +104,7 @@ class Sluttrapport extends Component {
                     </CheckBoxListItem>
                 </Paper>
                 <div className={formsStyle.buttonRow}>
-                    <Link to={{ pathname: 'erklaeringenGjelder', search: window.location.search }}>
+                    <Link to={{ pathname: 'vedlegg', search: window.location.search }}>
                         <Button color="primary" content="Forrige" arrow='left' />
                     </Link>
                     <Link to={{ pathname: 'erklaering', search: window.location.search }}>

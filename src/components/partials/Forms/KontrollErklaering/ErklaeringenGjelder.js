@@ -83,7 +83,7 @@ class ErklaeringenGjelder extends Component {
                         <Link to={{ pathname: 'start', search: window.location.search }}>
                             <Button color="primary" content="Forrige" arrow='left' />
                         </Link>
-                        <Link to={{ pathname: 'sluttrapport', search: window.location.search }}>
+                        <Link to={{ pathname: 'vedlegg', search: window.location.search }}>
                             <Button color="primary" content="Neste" arrow='right' />
                         </Link>
                     </div>
