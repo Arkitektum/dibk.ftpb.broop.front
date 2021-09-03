@@ -37,11 +37,11 @@ class Form extends Component {
 
         switch (formType) {
             case 'Ansvarsrett':
-                return <Ansvarsrett selectedSubmission={selectedSubmission} print={this.props.print} />
+                return <Ansvarsrett selectedSubmission={selectedSubmission} />
             case 'Kontrollerklaering':
-                return <KontrollErklaering selectedSubmission={selectedSubmission} stepId={stepId} print={this.props.print} />
+                return <KontrollErklaering selectedSubmission={selectedSubmission} stepId={stepId} />
             case 'Samsvarserklaering':
-                return <SamsvarsErklaering selectedSubmission={selectedSubmission} stepId={stepId} print={this.props.print} />
+                return <SamsvarsErklaering selectedSubmission={selectedSubmission} stepId={stepId} />
             default:
                 return ''
         }

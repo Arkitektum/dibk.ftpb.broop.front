@@ -15,9 +15,18 @@ import formsStyle from 'components/partials/Forms/Forms.module.scss';
 class EiendomByggested extends Component {
 
     renderEiendomByggestedItem(eiendomByggestedItem) {
+        const isPrint = localStorage.print === "true";
         return (
-            <dl key={0} className={formsStyle.fieldList}>
-                <div className={formsStyle.flex25}>
+            <div key={0} className="flex">
+                {
+                    isPrint
+                        ? (
+                            <div className="aside-on-print-header">
+                                Eiendom/Byggested
+                            </div>
+                        )
+                        : ''
+                }
                     <dt>Gårdsnr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.gaardsnummer}</dd>
                 </div>
                 <div className={formsStyle.flex25}>

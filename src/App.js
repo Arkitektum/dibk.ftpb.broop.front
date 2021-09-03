@@ -36,35 +36,38 @@ const store = configureStore(initialState);
 
 
 const renderHtmlString = () => {
-  const htmlString = renderToString(<div className="page"><App print /></div>);
-  //document.head.innerHTML = `<style>${printStyle}</style>`;
-  //document.body.innerHTML = htmlString;
+  localStorage.print = "true";
+  const htmlString = renderToString(<div className="page"><App /></div>);
+  localStorage.print = "false";
+
+  document.head.innerHTML = `<style>${printStyle}</style>`;
+  document.body.innerHTML = htmlString;
 
   const pdfContentString = `<html><head><style>${printStyle}</style></head><body>${htmlString}</body></html>`.replace(/\r?\n|\r/g, "");
   store.dispatch(convertSelectedFormToPDF(pdfContentString, 'D84A298B-5D3F-4D8C-BDC1-45EF3E2808B2'));
 }
 
 class App extends Component {
-  componentDidMount() {
-    //  setTimeout(() => {renderHtmlString();}, 1000)
-  }
+  
   render() {
+    const isPrint = localStorage.print === "true";
     return (<Provider store={store}>
       <ConnectedRouter history={history}>
         <BrowserRouter>
           {
-            this.props.print ? '' : (<MainNavigationBar />)
+            isPrint ? '' : (<MainNavigationBar />)
+          }
+          {
+            isPrint ? '' : (<button onClick={() => renderHtmlString()}>Last ned</button>)
           }
           <Switch>
-            <Route exact={true} path="/:formType/:submissionId/:stepId" render={(props) => (<Form {...props} print={this.props.print} />)} />
-            <Route exact={true} path="/:formType/:submissionId" render={(props) => (<Form {...props} print={this.props.print} />)} />
+            <Route exact={true} path="/:formType/:submissionId/:stepId" render={(props) => (<Form {...props} />)} />
+            <Route exact={true} path="/:formType/:submissionId" render={(props) => (<Form {...props} />)} />
             <Route exact={true} path="/:formType" render={(props) => (<Home {...props} />)} />
             <Route exact={true} path="/" render={(props) => (<Home {...props} />)} />
             <Route render={() => (<NotFound />)} />
           </Switch>
-          {
-            this.props.print ? '' : (<button onClick={() => renderHtmlString()}>Last ned</button>)
-          }
+
         </BrowserRouter>
       </ConnectedRouter>
     </Provider>);
