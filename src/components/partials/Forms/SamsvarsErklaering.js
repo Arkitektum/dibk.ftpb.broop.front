@@ -2,9 +2,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-// DIBK Design
-import { WizardNavigation } from 'dibk-design';
-
 // Components
 import Start from 'components/partials/Forms/SamsvarsErklaering/Start';
 import ErklaeringenGjelder from 'components/partials/Forms/SamsvarsErklaering/ErklaeringenGjelder';
@@ -30,73 +27,17 @@ class SamsvarsErklaeringer extends Component {
         }
     }
 
-    renderStep(activeStepId) {
-        switch (activeStepId.toLowerCase()) {
-            case 'start':
-                return <Start />
-            case 'erklaeringengjelder':
-                return <ErklaeringenGjelder />
-            case 'gjenstaaendearbeider':
-                return <GjenstaaendeArbeider />
-            case 'erklaering':
-                return <Erklaering />
-            default:
-                return activeStepId
-        }
-    }
-
-    renderPrint() {
-        return (
-            <React.Fragment>
-                <Start />
-                <ErklaeringenGjelder />
-                <GjenstaaendeArbeider />
-                <Erklaering />
-            </React.Fragment>
-        )
-    }
-
     render() {
         const formData = this.props.selectedForm?.formData;
-        const activeStepId = this.props.stepId || 'start';
-        const wizardSteps = {
-            start: {
-                id: 'start',
-                name: 'Start',
-                finished: false,
-                hasErrors: false,
-                link: { pathname: 'start' }
-            },
-            erklaeringenGjelder: {
-                id: 'erklaeringenGjelder',
-                name: 'Erklæringen gjelder',
-                finished: false,
-                hasErrors: false,
-                link: { pathname: 'erklaeringenGjelder' }
-            },
-            gjenstaaendeArbeider: {
-                id: 'gjenstaaendeArbeider',
-                name: 'Gjenstående arbeider',
-                finished: false,
-                hasErrors: false,
-                link: { pathname: 'gjenstaaendeArbeider' }
-            },
-            erklaering: {
-                id: 'erklaering',
-                name: 'Erklæring',
-                finished: false,
-                hasErrors: false,
-                link: { pathname: 'erklaering' }
-            }
-        };
         return formData
-            ? this.props.print
-                ? this.renderPrint()
-                : (
-                    <React.Fragment>
-                        <WizardNavigation steps={wizardSteps} activeStepId={activeStepId} />
-                        {this.renderStep(activeStepId)}
-                    </React.Fragment>)
+            ? (
+                <React.Fragment>
+                    <Start />
+                    <ErklaeringenGjelder />
+                    <GjenstaaendeArbeider />
+                    <Erklaering />
+                </React.Fragment>
+            )
             : (
                 <p>Ingen data for samsvarserklæring</p>
             )

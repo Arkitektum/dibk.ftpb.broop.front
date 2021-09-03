@@ -1,16 +1,12 @@
 // Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 // DIBK Design
-import { Button, CheckBoxListItem, Header, Paper } from 'dibk-design';
+import { CheckBoxListItem, Header, Paper } from 'dibk-design';
 
 // Actions
 import { updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
-
-// Stylesheets
-import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
 
 class Erklaeringer extends Component {
@@ -43,11 +39,6 @@ class Erklaeringer extends Component {
                         Ansvarlig kontrollerende foretak er kjent med reglene om straff og sanksjoner i plan- og bygningsloven kap.32, og at det kan medføre reaksjoner dersom vi har gitt uriktige opplysninger.
                     </p>
                 </Paper>
-                <div className={formsStyle.buttonRow}>
-                    <Link to={{ pathname: 'sluttrapport', search: window.location.search }}>
-                        <Button color="primary" content="Forrige" arrow='left' />
-                    </Link>
-                </div>
             </React.Fragment>
         )
     }

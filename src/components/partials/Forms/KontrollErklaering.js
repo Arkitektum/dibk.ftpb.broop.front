@@ -2,9 +2,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-// DIBK Design
-import { WizardNavigation } from 'dibk-design';
-
 // Components
 import Start from 'components/partials/Forms/KontrollErklaering/Start';
 import ErklaeringenGjelder from 'components/partials/Forms/KontrollErklaering/ErklaeringenGjelder';
@@ -31,85 +28,18 @@ class KontrollErklaeringer extends Component {
         }
     }
 
-    renderStep(activeStepId) {
-        switch (activeStepId.toLowerCase()) {
-            case 'start':
-                return <Start />
-            case 'erklaeringengjelder':
-                return <ErklaeringenGjelder />
-            case 'vedlegg':
-                return <Vedlegg />
-            case 'sluttrapport':
-                return <Sluttrapport />
-            case 'erklaering':
-                return <Erklaering />
-            default:
-                return activeStepId
-        }
-    }
-
-    renderPrint() {
-        return (
-            <React.Fragment>
-                <Start />
-                <ErklaeringenGjelder />
-                <Vedlegg />
-                <Sluttrapport />
-                <Erklaering />
-            </React.Fragment>
-        )
-    }
-
     render() {
         const formData = this.props.selectedForm?.formData;
-        const activeStepId = this.props.stepId || 'start';
-        const wizardSteps = {
-            start: {
-                id: 'start',
-                name: 'Start',
-                finished: false,
-                hasErrors: false,
-                link: { pathname: 'start' }
-            },
-            erklaeringenGjelder: {
-                id: 'erklaeringenGjelder',
-                name: 'Erklæringen gjelder',
-                finished: false,
-                hasErrors: false,
-                link: { pathname: 'erklaeringenGjelder' }
-            },
-            vedlegg: {
-                id: 'vedlegg',
-                name: 'Last opp vedlegg',
-                finished: false,
-                hasErrors: false,
-                link: { pathname: 'vedlegg' }
-            },
-            sluttrapport: {
-                id: 'sluttrapport',
-                name: 'Sluttrapport for kontroll',
-                finished: false,
-                hasErrors: false,
-                link: { pathname: 'sluttrapport' }
-            },
-            erklaering: {
-                id: 'erklaering',
-                name: 'Erklæring',
-                finished: false,
-                hasErrors: false,
-                link: { pathname: 'erklaering' }
-            }
-        };
         return formData
-            ? this.props.print
-                ? this.renderPrint()
-                : (
-                    <React.Fragment>
-                        <WizardNavigation steps={wizardSteps} activeStepId={activeStepId} />
-                        {this.renderStep(activeStepId)}
-                    </React.Fragment>
-                )
-
+            ? (
+                <React.Fragment>
+                    <Start />
+                    <ErklaeringenGjelder />
+                    <Vedlegg/>
+                    <Sluttrapport />
+                    <Erklaering />
+                </React.Fragment>
+            )
             : (
                 <p>Ingen data om ansvarlig søker</p>
             )

@@ -1,10 +1,9 @@
 // Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 // DIBK Design
-import { Button, Header, Paper, RadioButtonListItem } from 'dibk-design';
+import { Header, Paper, RadioButtonListItem } from 'dibk-design';
 
 // Actions
 import { updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
@@ -42,8 +41,8 @@ class GjenstaaendeArbeider extends Component {
 
         return formData ? (
             <React.Fragment>
-                <Header content="Gjenstående arbeider"></Header>
                 <Paper>
+                    <Header content="Gjenstående arbeider" size={2}></Header>
                     <fieldset className={formsStyle.fieldset}>
                         <legend>Det er ikke avdekket gjenstående arbeider innenfor arbeidsområdet som er til hinder for å gi:</legend>
                         <RadioButtonListItem
@@ -80,14 +79,6 @@ class GjenstaaendeArbeider extends Component {
                         </RadioButtonListItem>
                     </fieldset>
                 </Paper>
-                <div className={formsStyle.buttonRow}>
-                    <Link to={{ pathname: 'erklaeringenGjelder', search: window.location.search }}>
-                        <Button color="primary" content="Forrige" arrow='left' />
-                    </Link>
-                    <Link to={{ pathname: 'erklaering', search: window.location.search }}>
-                        <Button color="primary" content="Neste" arrow='right' />
-                    </Link>
-                </div>
             </React.Fragment>
         ) : ''
     }

@@ -1,10 +1,9 @@
 // Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 // DIBK Design
-import { Button, Header, Paper } from 'dibk-design';
+import { Header, Paper } from 'dibk-design';
 
 // Components
 import EiendomByggested from 'components/partials/Forms/FormParts/EiendomByggested';
@@ -27,9 +26,9 @@ class ErklaeringenGjelder extends Component {
         return formData
             ? (
                 <React.Fragment>
-                    <Header content="Erklæringen gjelder"></Header>
                     <Paper>
-                        <Header content="Eiendom/Byggested" size={2}></Header>
+                        <Header content="Erklæringen gjelder" size={2}></Header>
+                        <Header content="Eiendom/Byggested" size={3}></Header>
                         <EiendomByggested eiendomByggested={formData.eiendomByggested} />
                     </Paper>
                     <Paper>
@@ -67,14 +66,6 @@ class ErklaeringenGjelder extends Component {
                             </div>
                         </dl>
                     </Paper>
-                    <div className={formsStyle.buttonRow}>
-                        <Link to={{ pathname: 'start', search: window.location.search }}>
-                            <Button color="primary" content="Forrige" arrow='left' />
-                        </Link>
-                        <Link to={{ pathname: 'gjenstaaendeArbeider', search: window.location.search }}>
-                            <Button color="primary" content="Neste" arrow='right' />
-                        </Link>
-                    </div>
                 </React.Fragment>)
             : (
                 <p>Henter skjema</p>

@@ -1,10 +1,9 @@
 // Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 // DIBK Design
-import { Button, Header, InputField } from 'dibk-design';
+import { Header, InputField } from 'dibk-design';
 
 // Actions
 import { updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
@@ -50,12 +49,6 @@ class KontrollErklaeringer extends Component {
                                 label="Prosjektnavn"
                                 value={formData.prosjektnavn} />
                         </div>
-                    </div>
-                    <div className={`${formsStyle.buttonRow} ${formsStyle.reverse}`}>
-                        <div></div>
-                        <Link to={{ pathname: 'erklaeringenGjelder', search: window.location.search }}>
-                            <Button color="primary" content="Neste" arrow='right' />
-                        </Link>
                     </div>
                 </React.Fragment>
             )

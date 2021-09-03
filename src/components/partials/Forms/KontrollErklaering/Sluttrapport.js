@@ -1,16 +1,13 @@
 // Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 // DIBK Design
-import { Button, CheckBoxListItem, Header, Paper } from 'dibk-design';
+import { CheckBoxListItem, Header, Paper } from 'dibk-design';
 
 // Actions
 import { updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 
-// Stylesheets
-import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
 class Sluttrapport extends Component {
 
@@ -79,8 +76,10 @@ class Sluttrapport extends Component {
         const formData = this.props.selectedForm?.formData;
         return (
             <React.Fragment>
-                <Header content="Sluttrapport for kontroll"></Header>
                 <Paper>
+                    <div className="step-heading-on-print">
+                        <Header content="Sluttrapport for kontroll" size={2}></Header>
+                    </div>
                     <p>
                         Kryss av for om det er funnet avvik og om disse er lukket. Plan for uavhengig kontroll kan legges ved dette skjemaet ved å trykke på 'Oversikt - skjema og vedlegg' øverst til venstre.
                     </p>
@@ -103,14 +102,6 @@ class Sluttrapport extends Component {
                         Åpne avvik er rapportert til kommunen, se vedlagte plan for uavhengig kontroll
                     </CheckBoxListItem>
                 </Paper>
-                <div className={formsStyle.buttonRow}>
-                    <Link to={{ pathname: 'vedlegg', search: window.location.search }}>
-                        <Button color="primary" content="Forrige" arrow='left' />
-                    </Link>
-                    <Link to={{ pathname: 'erklaering', search: window.location.search }}>
-                        <Button color="primary" content="Neste" arrow='right' />
-                    </Link>
-                </div>
             </React.Fragment>
         )
 

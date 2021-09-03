@@ -1,16 +1,12 @@
 // Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 // DIBK Design
-import { Button, Header, Paper, CheckBoxListItem } from 'dibk-design';
+import { Header, Paper, CheckBoxListItem } from 'dibk-design';
 
 // Actions
 import { updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
-
-// Stylesheets
-import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
 class Erklaering extends Component {
 
@@ -19,8 +15,8 @@ class Erklaering extends Component {
 
         return formData ? (
             <React.Fragment>
-                <Header content="Erklæring"></Header>
                 <Paper>
+                    <Header content="Erklæring" size={2}></Header>
                     <CheckBoxListItem
                         id={`erklaering-erTEK10`}
                         onChange={event =>
@@ -44,11 +40,6 @@ class Erklaering extends Component {
                         Foretaket er kjent med reglene om straff og sanksjoner i plan- og bygnigsloven kap. 32, og at det kan medføre reaksjoner dersom det er gitt uriktige opplysninger.
                     </p>
                 </Paper>
-                <div className={formsStyle.buttonRow}>
-                    <Link to={{ pathname: 'gjenstaaendeArbeider', search: window.location.search }}>
-                        <Button color="primary" content="Forrige" arrow='left' />
-                    </Link>
-                </div>
             </React.Fragment>
         ) : ''
     }
