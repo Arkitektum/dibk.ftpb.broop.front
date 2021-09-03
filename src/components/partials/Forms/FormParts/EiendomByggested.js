@@ -27,32 +27,33 @@ class EiendomByggested extends Component {
                         )
                         : ''
                 }
-                    <dt>Gårdsnr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.gaardsnummer}</dd>
-                </div>
-                <div className={formsStyle.flex25}>
-                    <dt>Bruksnr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.bruksnummer}</dd>
-                </div>
-                <div className={formsStyle.flex25}>
-                    <dt>Festenr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.festenummer}</dd>
-                </div>
-                <div className={formsStyle.flex25}>
-                    <dt>Seksjonsnr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.seksjonsnummer}</dd>
-                </div>
-
-                <div className={formsStyle.flex50}>
-                    <dt>Bygningsnr.</dt><dd>{eiendomByggestedItem.bygningsnummer}</dd>
-                </div>
-                <div className={formsStyle.flex50}>
-                    <dt>Bolignr.</dt><dd>{eiendomByggestedItem.bolignummer}</dd>
-                </div>
-
-                <div className={formsStyle.flex100}>
-                    <dt>Kommunenummer.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.kommunenummer}</dd>
-                </div>
-                <div className={formsStyle.flex100}>
-                    <dt>Adresse</dt><dd>{formatAddress(eiendomByggestedItem.adresse)}</dd>
-                </div>
-            </dl>
+                <dl className={formsStyle.fieldList}>
+                    <div className={formsStyle.flex10}>
+                        <dt>Gårdsnr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.gaardsnummer}</dd>
+                    </div>
+                    <div className={formsStyle.flex10}>
+                        <dt>Bruksnr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.bruksnummer}</dd>
+                    </div>
+                    <div className={formsStyle.flex10}>
+                        <dt>Festenr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.festenummer}</dd>
+                    </div>
+                    <div className={formsStyle.flex10}>
+                        <dt>Seksjonsnr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.seksjonsnummer}</dd>
+                    </div>
+                    <div className={formsStyle.flex10}>
+                        <dt>Bygningsnr.</dt><dd>{eiendomByggestedItem.bygningsnummer}</dd>
+                    </div>
+                    <div className={formsStyle.flex10}>
+                        <dt>Bolignr.</dt><dd>{eiendomByggestedItem.bolignummer}</dd>
+                    </div>
+                    <div className={formsStyle.flex10}>
+                        <dt>Kommunenr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.kommunenummer}</dd>
+                    </div>
+                    <div className={formsStyle.flex100}>
+                        <dt>Adresse</dt><dd>{formatAddress(eiendomByggestedItem.adresse)}</dd>
+                    </div>
+                </dl>
+            </div>
         )
     }
 

@@ -19,8 +19,10 @@ class Erklaeringer extends Component {
         const formData = this.props.selectedForm?.formData;
         return (
             <React.Fragment>
-                <Header content="Erklæring"></Header>
                 <Paper>
+                    <div className="step-heading-on-print">
+                        <Header content="Erklæring" size={2}></Header>
+                    </div>
                     <CheckBoxListItem
                         id={`erklaering-gjennomfoertKontroll`}
                         onChange={event =>

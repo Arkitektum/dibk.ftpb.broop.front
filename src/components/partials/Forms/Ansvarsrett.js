@@ -98,11 +98,13 @@ class Ansvarsrett extends Component {
                     </Paper>
                     <Paper>
                         <Header content="Erklæring" size={2}></Header>
-                        <Erklaering
-                            ansvarsrett={formData.ansvarsrett}
-                            updateHandler={ansvarsrett => this.updateFormDataField(ansvarsrett, 'ansvarsrett')}
-                            saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm)}
-                        />
+                        <div className="gray-container-on-print">
+                            <Erklaering
+                                ansvarsrett={formData.ansvarsrett}
+                                updateHandler={ansvarsrett => this.updateFormDataField(ansvarsrett, 'ansvarsrett')}
+                                saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm)}
+                            />
+                        </div>
                     </Paper>
                 </React.Fragment>)
             : (

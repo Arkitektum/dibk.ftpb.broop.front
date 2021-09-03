@@ -84,6 +84,12 @@
     flex: 0;
 }
 
+
+:local(.flex10) {
+    flex: 1;
+    flex-basis: 10%;
+}
+
 :local(.flex25) {
     flex: 1;
     flex-basis: 25%;

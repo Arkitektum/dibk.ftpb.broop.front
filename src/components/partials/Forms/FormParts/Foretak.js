@@ -35,11 +35,11 @@ class Foretak extends Component {
             ? (
                 <React.Fragment>
                     <dl className={formsStyle.fieldList}>
-                        <div className={formsStyle.flex33}>
-                            <dt>Organisasjonsnummer</dt><dd>{foretak.organisasjonsnummer}</dd>
-                        </div>
                         <div className={formsStyle.flex66}>
                             <dt>Navn</dt><dd>{foretak.navn}</dd>
+                        </div>
+                        <div className={formsStyle.flex33}>
+                            <dt>Organisasjonsnummer</dt><dd>{foretak.organisasjonsnummer}</dd>
                         </div>
                         <div className={formsStyle.flex33}>
                             <dt>Adresse</dt><dd>{foretak.adresse?.adresselinje1}</dd>

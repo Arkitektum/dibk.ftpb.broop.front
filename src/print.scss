@@ -26,15 +26,47 @@ div.page-break {
     display: none;
 }
 
+.aside-on-print-header {
+    display: flex;
+    align-items: center;
+    background-color: #ededed;
+    border: 1px solid black;
+    margin-top: -1px;
+    padding: 6px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.gray-container-on-print {
+    background-color: #ededed;
+    border: 1px solid black;
+    padding: 6px;
+    font-size: 12px;
+}
+
+.flex {
+    display: flex;
+}
+
 h1 {
     page-break-before: always;
+    font-size: 18px;
 }
 
 div[class^="Header_headerContainer_"] {
     + span[class^="Forms_subtitle_"] {
         display: block;
-        margin-top: -20px;
-        margin-bottom: 20px;
+        margin-top: -10px;
+        margin-bottom: 5px;
+        font-size: 12px;
+    }
+    h2[class^="Header_header_"] {
+        background-color: #ccc;
+        border: 1px solid black;
+        margin: -0.5px;
+        padding: 4px 10px;
+        font-size: 12px;
+        font-weight: bold;
     }
 }
 
@@ -47,12 +79,16 @@ h6,
 div[class^="Header_headerContainer_"] {
     page-break-after: avoid;
 }
+
+*.step-heading-on-print {
+    page-break-before: auto;
+    page-break-after: avoid;
+}
+
 p {
-    margin: 0;
+    margin: 0 0 .25cm 0;
 }
-p + p {
-    margin-top: 0.5cm;
-}
+
 a {
     text-decoration: none;
     color: black;
@@ -103,8 +139,9 @@ fieldset {
 }
 
 label {
-    font-weight: bold;
+    font-weight: normal;
     display: block;
+    font-size: 12px;
 }
 
 input[type="text"],
@@ -116,7 +153,7 @@ input[type="email"] {
     background: none;
     border: none;
     margin-bottom: 10px;
-    font-size: 16px;
+    font-size: 12px;
     width: 100%;
     padding: 0;
     cursor: default;
@@ -138,11 +175,12 @@ select {
 
 dl {
     dt {
-        font-weight: bold;
+        font-weight: normal;
+        font-size: 12px;
     }
     dd {
         display: block;
-        font-size: 16px;
+        font-size: 12px;
         margin-inline-start: 0px;
         margin-bottom: 10px;
     }
@@ -157,42 +195,55 @@ div[class^="Paper_"] {
     background: white;
 }
 
-*[class^="Forms_fieldList_"] {
+*[class^="Forms_fieldList_"],
+*[class^="Forms_inputGroup_"] {
     display: flex;
     flex-wrap: wrap;
-    div[class^="Forms_flexAuto_"] {
-        flex: 0;
-    }
+    margin: 0;
+}
+div[class^="Forms_flex"] {
+    border: 1px solid black;
+    margin: -0.5px;
+    padding: 2px;
+}
 
-    div[class^="Forms_flex25_"] {
-        flex: 1;
-        flex-basis: 25%;
-    }
+div[class^="Forms_flexAuto_"] {
+    flex: 0;
+}
 
-    div[class^="Forms_flex33_"] {
-        flex: 1;
-        flex-basis: 33.3333%;
-    }
+div[class^="Forms_flex10_"] {
+    flex: 1;
+    flex-basis: 10%;
+}
 
-    div[class^="Forms_flex50_"] {
-        flex: 1;
-        flex-basis: 50%;
-    }
+div[class^="Forms_flex25_"] {
+    flex: 1;
+    flex-basis: 25%;
+}
 
-    div[class^="Forms_flex66_"] {
-        flex: 1;
-        flex-basis: 66.6666%;
-    }
+div[class^="Forms_flex33_"] {
+    flex: 1;
+    flex-basis: 33.3333%;
+}
 
-    div[class^="Forms_flex75_"] {
-        flex: 1;
-        flex-basis: 75%;
-    }
+div[class^="Forms_flex50_"] {
+    flex: 1;
+    flex-basis: 50%;
+}
 
-    div[class^="Forms_flex100_"] {
-        flex: 1;
-        flex-basis: 100%;
-    }
+div[class^="Forms_flex66_"] {
+    flex: 1;
+    flex-basis: 66.6666%;
+}
+
+div[class^="Forms_flex75_"] {
+    flex: 1;
+    flex-basis: 75%;
+}
+
+div[class^="Forms_flex100_"] {
+    flex: 1;
+    flex-basis: 100%;
 }
 
 div[class^="Forms_accordionItem_"] {
@@ -202,7 +253,7 @@ div[class^="Forms_accordionItem_"] {
 }
 
 div[class^="Accordion_accordion_"] {
-    padding: 24px;
+    padding: 12px;
 
     page-break-inside: avoid;
 
@@ -220,9 +271,7 @@ div[class^="Accordion_accordion_"] {
     }
 
     span[class^="Accordion_panelText_"] {
-        font-size: 24px;
-        margin-bottom: 12px;
-        display: block;
+        display: none;
     }
 }
 

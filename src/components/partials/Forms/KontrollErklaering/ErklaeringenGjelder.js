@@ -42,9 +42,12 @@ class ErklaeringenGjelder extends Component {
         return formData
             ? (
                 <React.Fragment>
-                    <Header content="Erklæringen gjelder"></Header>
+
                     <Paper>
-                        <Header content="Eiendom/Byggested" size={2}></Header>
+                        <div className="step-heading-on-print">
+                            <Header content="Erklæringen gjelder" size={2}></Header>
+                        </div>
+                        <Header content="Eiendom/Byggested" size={3}></Header>
                         <EiendomByggested eiendomByggested={formData.eiendomByggested} />
                     </Paper>
                     <Paper>
