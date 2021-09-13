@@ -201,17 +201,20 @@ div[class^="Paper_"] {
     flex-wrap: wrap;
     margin: 0;
 }
-div[class^="Forms_flex"] {
+div[class^="Forms_flex"],
+div[class^="print-flex-"] {
     border: 1px solid black;
     margin: -0.5px;
     padding: 2px;
 }
 
-div[class^="Forms_flexAuto_"] {
+div[class^="Forms_flexAuto_"],
+.print-flex-auto {
     flex: 0;
 }
 
-div[class^="Forms_flex10_"] {
+div[class^="Forms_flex10_"],
+.print-flex-10 {
     flex: 1;
     flex-basis: 10%;
 }

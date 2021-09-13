@@ -28,28 +28,28 @@ class EiendomByggested extends Component {
                         : ''
                 }
                 <dl className={formsStyle.fieldList}>
-                    <div className={formsStyle.flex10}>
+                    <div className="print-flex-10">
                         <dt>Gårdsnr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.gaardsnummer}</dd>
                     </div>
-                    <div className={formsStyle.flex10}>
+                    <div className="print-flex-10">
                         <dt>Bruksnr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.bruksnummer}</dd>
                     </div>
-                    <div className={formsStyle.flex10}>
+                    <div className="print-flex-10">
                         <dt>Festenr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.festenummer}</dd>
                     </div>
-                    <div className={formsStyle.flex10}>
+                    <div className="print-flex-10">
                         <dt>Seksjonsnr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.seksjonsnummer}</dd>
                     </div>
-                    <div className={formsStyle.flex10}>
+                    <div className="print-flex-10">
                         <dt>Bygningsnr.</dt><dd>{eiendomByggestedItem.bygningsnummer}</dd>
                     </div>
-                    <div className={formsStyle.flex10}>
+                    <div className="print-flex-10">
                         <dt>Bolignr.</dt><dd>{eiendomByggestedItem.bolignummer}</dd>
                     </div>
-                    <div className={formsStyle.flex10}>
+                    <div className="print-flex-10">
                         <dt>Kommunenr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.kommunenummer}</dd>
                     </div>
-                    <div className={formsStyle.flex100}>
+                    <div className="print-flex-100">
                         <dt>Adresse</dt><dd>{formatAddress(eiendomByggestedItem.adresse)}</dd>
                     </div>
                 </dl>
