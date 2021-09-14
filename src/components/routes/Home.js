@@ -16,6 +16,8 @@ import ContactInfo from 'components/partials/ContactInfo';
 import { fetchSubmission } from 'actions/SubmissionActions';
 import { fetchSelectedForm } from 'actions/FormActions';
 
+// Stylesheets
+import style from 'components/routes/Home.module.scss';
 
 class Home extends Component {
   constructor(props) {
@@ -88,32 +90,43 @@ class Home extends Component {
     const foretak = form?.formData?.foretak || form?.formData?.ansvarsrett?.foretak;
     switch (status) {
       case "tilSignering":
+      case "iArbeid":
         return (
           <React.Fragment>
-            <h1>Erklæring om ansvarsrett fra {form?.formData?.ansvarligSoeker?.navn} til signering</h1>
-            <p>Dette er en erklæring om ansvarsrett{this.getProjectNameForForm(form)}.</p>
-            {
-              foretak?.navn
-                ? (<p>Ansvarlig foretak er: {foretak.navn}</p>)
-                : ''
-            }
-            {
-              foretak?.kontaktperson?.navn
-                ? (<p>Kontaktperson hos ansvarlig foretak er: {foretak.kontaktperson.navn}</p>)
-                : ''
-            }
+            <div className={style.introText}>
+              <h1>Erklæring om ansvarsrett fra {form?.formData?.ansvarligSoeker?.navn} til signering</h1>
+              <div className={style.paragraphGroup}>
+                <p>Dette er en erklæring om ansvarsrett{this.getProjectNameForForm(form)}.</p>
+              </div>
+              <div className={style.paragraphGroup}>
+                {
+                  foretak?.navn
+                    ? (<p>Ansvarlig foretak er: {foretak.navn}</p>)
+                    : ''
+                }
+                {
+                  foretak?.kontaktperson?.navn
+                    ? (<p>Kontaktperson hos ansvarlig foretak er: {foretak.kontaktperson.navn}</p>)
+                    : ''
+                }
+              </div>
+              <div className={style.paragraphGroup}>
+                {
+                  form?.formData?.ansvarsrett?.ansvarsomraader?.length
+                    ? this.renderAnsvarsomraaderList(form.formData.ansvarsrett.ansvarsomraader)
+                    : ''
+                }
+              </div>
+            </div>
+            <div className={style.paragraphGroup}>
+              {
+                form?.formData?.frist
+                  ? <p>Frist for signering er ${form.formData.frist}.</p>
+                  : ''
+              }
+              <p>Etter signering blir erklæringen sendt til {form?.formData?.ansvarligSoeker?.navn}.</p>
+            </div>
 
-            {
-              form?.formData?.ansvarsrett?.ansvarsomraader?.length
-                ? this.renderAnsvarsomraaderList(form.formData.ansvarsrett.ansvarsomraader)
-                : ''
-            }
-            {
-              form?.formData?.frist
-                ? <p>Frist for signering er ${form.formData.frist}.</p>
-                : ''
-            }
-            <p>Etter signering blir erklæringen sendt til {form?.formData?.ansvarligSoeker?.navn}.</p>
 
             <ContactInfo />
 
@@ -122,28 +135,81 @@ class Home extends Component {
             </Link>
           </React.Fragment>
         );
-      case "iArbeid":
-        return (
-          <React.Fragment>
-            I arbeid
-          </React.Fragment>
-        );
       case "signert":
+        const foretakEpost = foretak?.epost || foretak?.kontaktperson?.epost;
         return (
           <React.Fragment>
-            Signert
+            <div className={style.introText}>
+              <h1>Erklæring er allerede signert</h1>
+              <div className={style.paragraphGroup}>
+                <p>
+                  {
+                    foretak?.navn
+                      ? `Erklæringen er allerede signert av ${foretak.navn}`
+                      : ''
+                  }
+                  {
+                    foretakEpost
+                      ? `En kopi av den signerte erklæringen er sendt til ${foretakEpost}.`
+                      : ''
+                  }
+                </p>
+              </div>
+              <div className={style.paragraphGroup}>
+                <p>Erklæringen gjelder{this.getProjectNameForForm(form)}.</p>
+              </div>
+            </div>
+            <ContactInfo />
           </React.Fragment>
         );
       case "avvist":
         return (
           <React.Fragment>
-            Avvist
+            <div className={style.introText}>
+              <h1>Erklæring er avvist</h1>
+              <div className={style.paragraphGroup}>
+                <p>
+                  {
+                    foretak?.navn
+                      ? `Erklæringen er avvist av ${foretak.navn} med følgende begrunnelse:`
+                      : ''
+                  }
+                </p>
+                <p>
+                  {
+                    foretak?.avvistBegrunnselse
+                      ? foretak?.avvistBegrunnselse
+                      : ''
+                  }
+                </p>
+              </div>
+              <div className={style.paragraphGroup}>
+                <p>Erklæringen gjelder{this.getProjectNameForForm(form)}.</p>
+              </div>
+              <div className={style.paragraphGroup}>
+                <p>Avvisningen og begrunnelsen er sendt til {form?.formData?.ansvarligSoeker?.navn}, som er ansvarlig søker</p>
+              </div>
+            </div>
+            <ContactInfo />
           </React.Fragment>
         );
       case "utgaatt":
         return (
           <React.Fragment>
-            Utgått
+            <div className={style.introText}>
+              <h1>Fristen for å signere erklæringen er utgått</h1>
+              <div className={style.paragraphGroup}>
+                {
+                  form?.formData?.frist
+                    ? <p>Fristen for å signere gikk ut ${form.formData.frist}.</p>
+                    : ''
+                }
+              </div>
+              <div className={style.paragraphGroup}>
+                <p>Erklæringen gjaldt{this.getProjectNameForForm(form)}.</p>
+              </div>
+            </div>
+            <ContactInfo type="utgaatt" />
           </React.Fragment>
         );
       default:
@@ -162,17 +228,15 @@ class Home extends Component {
         <div className='developmentTools'>
           <span>Testverktøy</span>
           <div>
-            <select onChange={event => this.fetchSubmission(event.target.value)}>
-              <option value="" disabled selected>Velg skjema</option>
+            <select defaultValue="" onChange={event => this.fetchSubmission(event.target.value)}>
+              <option value="" disabled>Velg skjema</option>
               <option value="D84A298B-5D3F-4D8C-BDC1-45EF3E2808B2">Ansvarsrett</option>
               <option value="07B1ACDB-BEBB-4B0A-BB1C-CB7ABA85A3AC">Kontrollerklæring</option>
               <option value="C79BA4D1-8404-4D6F-8967-BADF75951DE5">Samsvarserklæring</option>
             </select>
 
-
-
-            <select onChange={event => this.setState({ status: event.target.value })}>
-              <option value="" disabled selected>Velg status</option>
+            <select defaultValue="" onChange={event => this.setState({ status: event.target.value })}>
+              <option value="" disabled>Velg status</option>
               <option value="tilSignering">Til signering</option>
               <option value="iArbeid">I arbeid</option>
               <option value="signert">Signert</option>

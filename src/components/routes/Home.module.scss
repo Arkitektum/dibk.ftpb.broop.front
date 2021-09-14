@@ -1,0 +1,13 @@
+:local(.introText) {
+    margin-bottom: 70px;
+    :local(.paragraphGroup) {
+        margin-bottom: 20px;
+    }
+    p {
+        margin: 0;
+    }
+    ul {
+        margin: 0;
+        line-height: 1.6;
+    }
+}

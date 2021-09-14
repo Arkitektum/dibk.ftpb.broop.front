@@ -32,6 +32,7 @@ h3 {
   position: fixed;
   background: #303234;
   color: #fff;
+  width: 330px;
   top: 0;
   right: 0;
   z-index: 2;
@@ -42,5 +43,7 @@ h3 {
     background: #303234;
     color: #fff;
     font-size: 14px;;
+    line-height: 18px;
+    padding: 6px 4px;
   }
 }
