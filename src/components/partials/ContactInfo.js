@@ -22,28 +22,35 @@ class ContactInfo extends Component {
 
     getEmailAddress(form) {
         const ansvarligSoeker = form?.formData?.ansvarligSoeker;
-        return ansvarligSoeker.epost || ansvarligSoeker.kontaktperson.epost;
+        return ansvarligSoeker?.epost || ansvarligSoeker?.kontaktperson?.epost;
     }
 
     render() {
         const form = this.props.selectedForm
+
+        if (!form) {
+            return
+        }
+
         const name = form?.formData?.ansvarligSoeker?.navn;
         const phoneNumber = this.getPhoneNumber(form);
         const emailAddress = this.getEmailAddress(form);
 
-        let contactString = `Hvis du har spørsmål til erklæringen, kan du ta kontakt med ${name}`;
+        let phoneOrEmailString = '';
 
         if (phoneNumber && emailAddress) {
-            contactString += ` på telefon ${phoneNumber} eller e-post ${emailAddress}`;
+            phoneOrEmailString += ` på telefon ${phoneNumber} eller e-post ${emailAddress}`;
         } else if (phoneNumber) {
-            contactString += ` på telefon ${phoneNumber}`;
+            phoneOrEmailString += ` på telefon ${phoneNumber}`;
         } else if (emailAddress) {
-            contactString += ` på e-post ${emailAddress}`;
+            phoneOrEmailString += ` på e-post ${emailAddress}`;
         }
 
-        contactString += '.';
-
-        return form ? <p>{contactString}</p> : '';
+        if (this.props.type === 'utgaatt') {
+            return (<p>Ta kontakt med {name}{phoneOrEmailString} for å få erklæringen tilsendt på nytt.</p>);
+        } else {
+            return (<p>Hvis du har spørsmål til erklæringen, kan du ta kontakt med {name}{phoneOrEmailString}.</p>);
+        }
     }
 }
 
