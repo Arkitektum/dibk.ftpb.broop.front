@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // DIBK Design
-import { Accordion, CheckBoxListItem, InputField, RadioButtonListItem, Select } from 'dibk-design';
+import { Accordion, Button, CheckBoxListItem, Label, Textarea } from 'dibk-design';
 
 // Actions
 import { fetchCodelistFunksjon, fetchCodelistTiltaksklasse } from 'actions/CodelistActions';
 
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
+
 
 class AnsvarIByggeProsjekt extends Component {
 
@@ -35,19 +36,14 @@ class AnsvarIByggeProsjekt extends Component {
         this.props.saveHandler();
     }
 
-    handleTiltaksklasseOnChange(selectedOptionValue, property, index) {
-        const selectedCodelistItem = this.props.codelistTiltaksklasse?.containeditems.find(item => {
-            return item.codevalue === selectedOptionValue;
-        });
-        if (selectedCodelistItem) {
-            const value = {
-                kodeverdi: selectedCodelistItem.codevalue,
-                kodebeskrivelse: selectedCodelistItem.label
-            }
-            this.handleUpdate(value, property, index).then(() => {
-                this.handleSave()
-            });
+    handleTiltaksklasseOnChange(selectedValue, property, index) {
+        const value = {
+            kodeverdi: selectedValue,
+            kodebeskrivelse: selectedValue
         }
+        this.handleUpdate(value, property, index).then(() => {
+            this.handleSave()
+        });
     }
 
     convertCodelistFunksjonToOptionValues(codelistFunksjon) {
@@ -58,6 +54,12 @@ class AnsvarIByggeProsjekt extends Component {
                     value: item.codevalue
                 }
             }) : []
+    }
+
+    getOptionKeyFromOptionValueInList(codelist, value) {
+        return codelist.find(codelistItem => {
+            return codelistItem.value === value;
+        })?.key;
     }
 
     convertCodelistTiltaksklasseToOptionValues(codelistTiltaksklasse) {
@@ -86,23 +88,16 @@ class AnsvarIByggeProsjekt extends Component {
                     ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse,
                     ansvarsomraade.samsvarKontrollVedFerdigattest
                 ].some(samsvarKontroll => { return samsvarKontroll });
+                const funksjonOptionValues = this.convertCodelistFunksjonToOptionValues(this.props.codelistFunksjon);
+                const selectedFunksjonKey = this.getOptionKeyFromOptionValueInList(funksjonOptionValues, ansvarsomraade.funksjon?.kodeverdi);
+                const accordionTitle = `${selectedFunksjonKey} (tiltaksklasse ${ansvarsomraade.tiltaksklasse?.kodeverdi})`;
                 return (
                     <div key={index} className={formsStyle.accordionItem}>
-                        <Accordion title={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''} color={ansvarsomraade.funksjon?.kodeverdi ? colors[ansvarsomraade.funksjon?.kodeverdi] : 'default'}>
+                        <Accordion title={accordionTitle} expanded color={ansvarsomraade.funksjon?.kodeverdi ? colors[ansvarsomraade.funksjon?.kodeverdi] : 'default'}>
                             {/* TODO: Check if select field and API-request for code list is necessary */}
-                            <div className={formsStyle.inputGroup}>
-                                <Select
-                                    id={`ansvarsomraade-${index}-funksjon`}
-                                    onChange={() => { return false }}
-                                    label="Funksjon"
-                                    value={ansvarsomraade.funksjon?.kodeverdi}
-                                    contentOnly
-                                    keyAsContent
-                                    options={this.convertCodelistFunksjonToOptionValues(this.props.codelistFunksjon)} />
-                            </div>
                             <div className={`${formsStyle.inputGroup} hide-on-print`}>
                                 <div className={formsStyle.flex100}>
-                                    <InputField
+                                    <Textarea
                                         id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
                                         onChange={(event) => { this.handleUpdate(event.target.value, 'beskrivelseAvAnsvarsomraade', index) }}
                                         onBlur={() => this.handleSave()}
@@ -110,21 +105,24 @@ class AnsvarIByggeProsjekt extends Component {
                                         value={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''} />
                                 </div>
                             </div>
+                            <Label>Tiltaksklasse</Label>
+                            Beskrivelse under er skrevet av ansvarlig søker, men du kan oppdatere den.
                             <div className={formsStyle.inputGroup}>
                                 <div className={formsStyle.flexAuto}>
-                                    <Select
-                                        id={`ansvarsomraade-${index}-tiltaksklasse`}
-                                        onChange={(event) => { this.handleTiltaksklasseOnChange(event.target.value, 'tiltaksklasse', index) }}
-                                        label="Tiltaksklasse"
-                                        value={ansvarsomraade.tiltaksklasse?.kodeverdi}
-                                        options={this.convertCodelistTiltaksklasseToOptionValues(this.props.codelistTiltaksklasse)} />
+                                    <Button content="1" size="small" onClick={() => this.handleTiltaksklasseOnChange('1', 'tiltaksklasse', index)} noHover color={ansvarsomraade.tiltaksklasse?.kodeverdi === '1' ? 'primary' : 'default'} />
+                                </div>
+                                <div className={formsStyle.flexAuto}>
+                                    <Button content="2" size="small" onClick={() => this.handleTiltaksklasseOnChange('2', 'tiltaksklasse', index)} noHover color={ansvarsomraade.tiltaksklasse?.kodeverdi === '2' ? 'primary' : 'default'} />
+                                </div>
+                                <div className={formsStyle.flexAuto}>
+                                    <Button content="3" size="small" onClick={() => this.handleTiltaksklasseOnChange('3', 'tiltaksklasse', index)} noHover color={ansvarsomraade.tiltaksklasse?.kodeverdi === '3' ? 'primary' : 'default'} />
                                 </div>
                             </div>
                             {
                                 hasSamsvarKontroll
                                     ? (
-                                        <fieldset className={formsStyle.fieldset}>
-                                            <legend>Våre samsvarserklæringer/kontrollerklæringer vil foreligge ved (gjelder ikke for SØK)</legend>
+                                        <React.Fragment>
+                                            <label>Kontrollerklæringer vil foreligge ved</label>
                                             <CheckBoxListItem
                                                 id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
                                                 onChange={() => { return null }}
@@ -153,29 +151,10 @@ class AnsvarIByggeProsjekt extends Component {
                                                 contentOnly>
                                                 Ferdigattest
                                             </CheckBoxListItem>
-                                        </fieldset>
+                                        </React.Fragment>
                                     )
                                     : ''
                             }
-                            <fieldset className={formsStyle.fieldset}>
-                                <legend>Har foretaket sentral godkjenning som dekker ansvarsområdet?</legend>
-                                <RadioButtonListItem
-                                    id={`ansvarsomraade-${index}-dekkesOmraadeAvSentralGodkjenning-true`}
-                                    name="dekkesOmraadeAvSentralGodkjenning"
-                                    onChange={(event) => { this.handleUpdate(true, 'dekkesOmraadeAvSentralGodkjenning', index).then(() => { this.handleSave() }) }}
-                                    inputValue="true"
-                                    checked={ansvarsomraade.dekkesOmraadeAvSentralGodkjenning ? true : false}>
-                                    Ja
-                                </RadioButtonListItem>
-                                <RadioButtonListItem
-                                    id={`ansvarsomraade-${index}-dekkesOmraadeAvSentralGodkjenning-false`}
-                                    name="dekkesOmraadeAvSentralGodkjenning"
-                                    onChange={(event) => { this.handleUpdate(false, 'dekkesOmraadeAvSentralGodkjenning', index).then(() => { this.handleSave() }) }}
-                                    inputValue="false"
-                                    checked={!ansvarsomraade.dekkesOmraadeAvSentralGodkjenning ? true : false}>
-                                    Nei
-                                </RadioButtonListItem>
-                            </fieldset>
                         </Accordion>
                     </div>
                 )
