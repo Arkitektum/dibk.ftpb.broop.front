@@ -76,9 +76,7 @@ class EiendomByggested extends Component {
     render() {
         return this.props.eiendomByggested?.length
             ? this.props.eiendomByggested.map((eiendomByggestedItem, index) => {
-                return this.props.eiendomByggested.length === 1
-                    ? this.renderEiendomByggestedItem(eiendomByggestedItem)
-                    : this.renderEiendomByggestedListItem(eiendomByggestedItem, index);
+                return this.renderEiendomByggestedListItem(eiendomByggestedItem, index);
             })
             : (
                 <p>Ingen data for Eiendom/Byggested</p>
