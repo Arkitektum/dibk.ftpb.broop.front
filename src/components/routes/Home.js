@@ -66,7 +66,6 @@ class Home extends Component {
 
   renderAnsvarsomraaderList(ansvarsomraader) {
     const ansvarsomraadeByFunksjon = this.groupAnsvarsomraaderByFunksjon(ansvarsomraader);
-    console.log("ansvarsomraadeByFunksjon", ansvarsomraadeByFunksjon)
     return ansvarsomraadeByFunksjon && Object.keys(ansvarsomraadeByFunksjon)?.length
       ? Object.keys(ansvarsomraadeByFunksjon).map(ansvarsomraadeFunksjonKey => {
         const ansvarsomraadeFunksjon = ansvarsomraadeByFunksjon[ansvarsomraadeFunksjonKey];
