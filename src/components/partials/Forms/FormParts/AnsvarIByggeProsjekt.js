@@ -123,34 +123,58 @@ class AnsvarIByggeProsjekt extends Component {
                                     ? (
                                         <React.Fragment>
                                             <label>Kontrollerklæringer vil foreligge ved</label>
-                                            <CheckBoxListItem
-                                                id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
-                                                onChange={() => { return null }}
-                                                checked={ansvarsomraade.samsvarKontrollVedRammetillatelse ? true : false}
-                                                contentOnly>
-                                                Rammetillatelse
-                                            </CheckBoxListItem>
-                                            <CheckBoxListItem
-                                                id={`ansvarsomraade-${index}-samsvarKontrollVedIgangsettingstillatelse`}
-                                                onChange={() => { return null }}
-                                                checked={ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse ? true : false}
-                                                contentOnly>
-                                                Igangsettingstillatelse
-                                            </CheckBoxListItem>
-                                            <CheckBoxListItem
-                                                id={`ansvarsomraade-${index}-samsvarKontrollVedMidlertidigBrukstillatelse`}
-                                                onChange={() => { return null }}
-                                                checked={ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse ? true : false}
-                                                contentOnly>
-                                                Midlertidig brukstillatelse
-                                            </CheckBoxListItem>
-                                            <CheckBoxListItem
-                                                id={`ansvarsomraade-${index}-samsvarKontrollVedFerdigattest`}
-                                                onChange={() => { return null }}
-                                                checked={ansvarsomraade.samsvarKontrollVedFerdigattest ? true : false}
-                                                contentOnly>
-                                                Ferdigattest
-                                            </CheckBoxListItem>
+                                            {
+                                                ansvarsomraade.samsvarKontrollVedRammetillatelse
+                                                    ? (
+                                                        <CheckBoxListItem
+                                                            id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
+                                                            onChange={() => { return null }}
+                                                            checked
+                                                            contentOnly>
+                                                            Rammetillatelse
+                                                        </CheckBoxListItem>
+                                                    )
+                                                    : ''
+                                            }
+                                            {
+                                                ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse
+                                                    ? (
+                                                        <CheckBoxListItem
+                                                            id={`ansvarsomraade-${index}-samsvarKontrollVedIgangsettingstillatelse`}
+                                                            onChange={() => { return null }}
+                                                            checked
+                                                            contentOnly>
+                                                            Igangsettingstillatelse
+                                                        </CheckBoxListItem>
+                                                    )
+                                                    : ''
+                                            }
+                                            {
+                                                ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse
+                                                    ? (
+                                                        <CheckBoxListItem
+                                                            id={`ansvarsomraade-${index}-samsvarKontrollVedMidlertidigBrukstillatelse`}
+                                                            onChange={() => { return null }}
+                                                            checked
+                                                            contentOnly>
+                                                            Midlertidig brukstillatelse
+                                                        </CheckBoxListItem>
+                                                    )
+                                                    : ''
+                                            }
+                                            {
+                                                ansvarsomraade.samsvarKontrollVedFerdigattest
+                                                    ? (
+                                                        <CheckBoxListItem
+                                                            id={`ansvarsomraade-${index}-samsvarKontrollVedFerdigattest`}
+                                                            onChange={() => { return null }}
+                                                            checked
+                                                            contentOnly>
+                                                            Ferdigattest
+                                                        </CheckBoxListItem>
+                                                    )
+                                                    : ''
+                                            }
                                         </React.Fragment>
                                     )
                                     : ''
