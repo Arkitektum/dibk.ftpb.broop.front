@@ -5,7 +5,7 @@
   "dependencies": {
     "connected-react-router": "^6.7.0",
     "copy-webpack-plugin": "^6.0.0",
-    "dibk-design": "^0.3.12",
+    "dibk-design": "^0.4.0",
     "file-saver": "^2.0.5",
     "history": "^4.10.1",
     "raw-loader": "^4.0.2",
