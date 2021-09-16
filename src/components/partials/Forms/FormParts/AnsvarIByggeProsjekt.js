@@ -122,7 +122,7 @@ class AnsvarIByggeProsjekt extends Component {
                                 hasSamsvarKontroll
                                     ? (
                                         <React.Fragment>
-                                            <label>Kontrollerklæringer vil foreligge ved</label>
+                                            <Label>{ansvarsomraade?.funksjon?.kodeverdi === 'KONTROLL' ? 'Kontrollerklæringer vil foreligge ved' : 'Samsvarserklæringer vil foreligge ved'}</Label>
                                             {
                                                 ansvarsomraade.samsvarKontrollVedRammetillatelse
                                                     ? (

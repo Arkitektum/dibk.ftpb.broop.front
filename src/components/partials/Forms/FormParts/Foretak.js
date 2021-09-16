@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // DIBK Design
-import { InputField } from 'dibk-design';
+import { InputField, Label } from 'dibk-design';
 
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
@@ -36,19 +36,19 @@ class Foretak extends Component {
                 <React.Fragment>
                     <dl className={formsStyle.fieldList}>
                         <div className={formsStyle.flex66}>
-                            <dt>Navn</dt><dd>{foretak.navn}</dd>
+                            <dt><Label>Navn</Label></dt><dd>{foretak.navn}</dd>
                         </div>
                         <div className={formsStyle.flex33}>
-                            <dt>Organisasjonsnummer</dt><dd>{foretak.organisasjonsnummer}</dd>
+                            <dt><Label>Organisasjonsnummer</Label></dt><dd>{foretak.organisasjonsnummer}</dd>
                         </div>
                         <div className={formsStyle.flex33}>
-                            <dt>Adresse</dt><dd>{foretak.adresse?.adresselinje1}</dd>
+                            <dt><Label>Adresse</Label></dt><dd>{foretak.adresse?.adresselinje1}</dd>
                         </div>
                         <div className={formsStyle.flex33}>
-                            <dt>Postnr.</dt><dd>{foretak.adresse?.postnr}</dd>
+                            <dt><Label>Postnr.</Label></dt><dd>{foretak.adresse?.postnr}</dd>
                         </div>
                         <div className={formsStyle.flex33}>
-                            <dt>Poststed</dt><dd>{foretak.adresse?.poststed}</dd>
+                            <dt><Label>Poststed</Label></dt><dd>{foretak.adresse?.poststed}</dd>
                         </div>
                     </dl>
                     <div className={formsStyle.inputGroup}>
