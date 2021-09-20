@@ -20,15 +20,12 @@ class GjenstaaendeArbeider extends Component {
             ...this.props.selectedForm,
             formData: {
                 ...formData,
-                ansvarsrett: {
-                    ...formData.ansvarsrett,
-                    prosjekterende: {
-                        ...formData.ansvarsrett.kontrollerende,
-                        okForFerdigattest: property === 'okForFerdigattest',
-                        okForRammetillatelse: property === 'okForRammetillatelse',
-                        okForIgangsetting: property === 'okForIgangsetting',
-                        okForMidlertidigBrukstillatelse: property === 'okForMidlertidigBrukstillatelse'
-                    }
+                ansvarsrettProsjekterende: {
+                    ...formData.ansvarsrettProsjekterende,
+                    okForFerdigattest: property === 'okForFerdigattest',
+                    okForRammetillatelse: property === 'okForRammetillatelse',
+                    okForIgangsetting: property === 'okForIgangsetting',
+                    okForMidlertidigBrukstillatelse: property === 'okForMidlertidigBrukstillatelse'
                 }
             }
         }).then(selectedForm => {
@@ -49,7 +46,7 @@ class GjenstaaendeArbeider extends Component {
                             id={`gjenstaaendeArbeiderTilHinder-rammetillatelse`}
                             name="gjenstaaendeArbeiderTilHinder"
                             onChange={() => this.handleOnAnsvarsrettProsjekterendeSelect('okForRammetillatelse')}
-                            checked={formData.ansvarsrett?.prosjekterende?.okForRammetillatelse}
+                            checked={formData.ansvarsrettProsjekterende?.okForRammetillatelse}
                             inputValue="okForRammetillatelse">
                             Rammetillatelse
                         </RadioButtonListItem>
@@ -57,7 +54,7 @@ class GjenstaaendeArbeider extends Component {
                             id={`gjenstaaendeArbeiderTilHinder-igangsettingstillatelseEttTrinnsTillatelse`}
                             name="gjenstaaendeArbeiderTilHinder"
                             onChange={() => this.handleOnAnsvarsrettProsjekterendeSelect('okForIgangsetting')}
-                            checked={formData.ansvarsrett?.prosjekterende?.okForIgangsetting}
+                            checked={formData.ansvarsrettProsjekterende?.okForIgangsetting}
                             inputValue="okForIgangsetting">
                             Igangsettingstillatelse/ ett-trinns tillatelse
                         </RadioButtonListItem>
@@ -65,7 +62,7 @@ class GjenstaaendeArbeider extends Component {
                             id={`gjenstaaendeArbeiderTilHinder-midlertidigBrukstillatelse`}
                             name="midlertidigBrukstillatelse"
                             onChange={() => this.handleOnAnsvarsrettProsjekterendeSelect('okForMidlertidigBrukstillatelse')}
-                            checked={formData.ansvarsrett?.prosjekterende?.okForMidlertidigBrukstillatelse}
+                            checked={formData.ansvarsrettProsjekterende?.okForMidlertidigBrukstillatelse}
                             inputValue="okForMidlertidigBrukstillatelse">
                             Midlertidig brukstillatelse
                         </RadioButtonListItem>
@@ -73,7 +70,7 @@ class GjenstaaendeArbeider extends Component {
                             id={`gjenstaaendeArbeiderTilHinder-ferdigattest`}
                             name="ferdigattest"
                             onChange={() => this.handleOnAnsvarsrettProsjekterendeSelect('okForFerdigattest')}
-                            checked={formData.ansvarsrett?.prosjekterende?.okForFerdigattest}
+                            checked={formData.ansvarsrettProsjekterende?.okForFerdigattest}
                             inputValue="okForFerdigattest">
                             Ferdigattest
                         </RadioButtonListItem>

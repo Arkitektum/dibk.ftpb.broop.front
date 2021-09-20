@@ -47,19 +47,19 @@ class ErklaeringenGjelder extends Component {
                             <Header content="Erklæringen gjelder" size={2}></Header>
                         </div>
                         <Header content="Eiendom/Byggested" size={3}></Header>
-                        <EiendomByggested eiendomByggested={formData.eiendomByggested} />
+                        <EiendomByggested eiendomByggesteder={formData.eiendomByggesteder} />
                     </Paper>
                     <Paper>
                         <Header content="Ansvarlig kontrollerende" size={2}></Header>
                         <dl className={formsStyle.fieldList}>
                             <div className={formsStyle.flex50}>
-                                <dt>Organisasjonsnummer</dt><dd>{formData.foretak?.organisasjonsnummer}</dd>
+                                <dt>Organisasjonsnummer</dt><dd>{formData.ansvarligForetak?.organisasjonsnummer}</dd>
                             </div>
                             <div className={formsStyle.flex50}>
-                                <dt>Navn på foretak</dt><dd>{formData.foretak?.navn}</dd>
+                                <dt>Navn på foretak</dt><dd>{formData.ansvarligForetak?.navn}</dd>
                             </div>
                             <div className={formsStyle.flex100}>
-                                <dt>Kontaktperson</dt><dd>{formData.foretak?.kontaktperson?.navn}</dd>
+                                <dt>Kontaktperson</dt><dd>{formData.ansvarligForetak?.kontaktpersonNavn}</dd>
                             </div>
                         </dl>
                     </Paper>
@@ -70,14 +70,14 @@ class ErklaeringenGjelder extends Component {
                                 <dt>Dato for erklært ansvarsrett</dt>
                                 <dd>
                                     {
-                                        formData.ansvarsrett?.ansvarsrettErklaert
-                                            ? formatDate(formData.ansvarsrett?.ansvarsrettErklaert)
+                                        formData.ansvarsrettErklaertDato
+                                            ? formatDate(formData.ansvarsrettErklaertDato)
                                             : 'Dato er ikke angitt'
                                     }
                                 </dd>
                             </div>
                             <div className={formsStyle.flex100}>
-                                <dt>Beskrivelse av ansvarsområdet:</dt><dd>{formData.ansvarsrett?.beskrivelseAvAnsvarsomraadet}</dd>
+                                <dt>Beskrivelse av ansvarsområdet:</dt><dd>{formData.beskrivelseAvAnsvarsomraadet}</dd>
                             </div>
                         </dl>
                     </Paper>

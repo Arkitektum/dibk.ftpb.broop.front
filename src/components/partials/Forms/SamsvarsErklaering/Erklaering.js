@@ -24,13 +24,13 @@ class Erklaering extends Component {
                                 ...this.props.selectedForm,
                                 formData: {
                                     ...formData,
-                                    erTEK10: event.target.checked
+                                    erklaeringUtfoerelse: event.target.checked
                                 }
                             }).then(selectedForm => {
                                 this.props.saveSelectedForm(selectedForm);
                             })
                         }
-                        checked={formData.erTEK10}>
+                        checked={formData.erklaeringUtfoerelse}>
                         Vi bekrefter at prosjektering er i samsvar med ytelser i TEK og preaksepterte ytelser (VTEK) eller ved analyse som viser at forskriftens (TEK) funksjonskrav er oppfylt
                     </CheckBoxListItem>
                     <p>

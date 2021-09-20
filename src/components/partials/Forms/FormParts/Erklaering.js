@@ -12,7 +12,7 @@ class Erklaering extends Component {
 
     handleOnChange(value, property) {
         this.props.updateHandler({
-            ...this.props.ansvarsrett,
+            ...this.props.formData,
             [property]: value
         }).then(() => {
             this.props.saveHandler();
@@ -20,16 +20,16 @@ class Erklaering extends Component {
     }
 
     hasAnsvarsomraadeFunksjon(funksjonKode) {
-        return this.props.ansvarsrett?.ansvarsomraader?.length
-            ? this.props.ansvarsrett.ansvarsomraader.some(ansvarsomraade => {
-                return ansvarsomraade.funksjon?.kodeverdi === funksjonKode
+        return this.props.formData?.ansvarsomraader?.length
+            ? this.props.formData?.ansvarsomraader.some(ansvarsomraade => {
+                return ansvarsomraade.funksjonKode === funksjonKode
             })
             : false
     }
 
     render() {
-        const ansvarsrett = this.props.ansvarsrett;
-        return ansvarsrett && Object.keys(ansvarsrett).length
+        const formData = this.props.formData;
+        return formData
             ? (
                 <React.Fragment>
                     <p>Vi kjenner reglene om straff og sanksjoner i plan- og bygningsloven kapittel 32, og at uriktige opplysninger kan føre til reaksjoner.</p>
@@ -40,7 +40,7 @@ class Erklaering extends Component {
                                 <CheckBoxListItem
                                     id="erklaeringAnsvarligProsjekterende"
                                     onChange={(event) => { this.handleOnChange(event.target.checked, 'erklaeringAnsvarligProsjekterende') }}
-                                    checked={ansvarsrett.erklaeringAnsvarligProsjekterende ? true : false}>
+                                    checked={formData.erklaeringAnsvarligProsjekterende ? true : false}>
                                     Ansvarlig prosjekterende erklærer at prosjekteringen skal være planlagt, gjennomført og kvalitetssikret i henhold til pbl jf. SAK10 §12-3
                                 </CheckBoxListItem>
                             )
@@ -52,7 +52,7 @@ class Erklaering extends Component {
                                 <CheckBoxListItem
                                     id="erklaeringAnsvarligUtfoerende"
                                     onChange={(event) => { this.handleOnChange(event.target.checked, 'erklaeringAnsvarligUtfoerende') }}
-                                    checked={ansvarsrett.erklaeringAnsvarligUtfoerende ? true : false}>
+                                    checked={formData.erklaeringAnsvarligUtfoerende ? true : false}>
                                     Ansvarlig utførende erklærer at arbeidet ikke skal starte før produksjonsunderlaget er klart, jf. SAK 10, §12-4
                                 </CheckBoxListItem>
                             )
@@ -64,7 +64,7 @@ class Erklaering extends Component {
                                 <CheckBoxListItem
                                     id="erklaeringAnsvarligKontrollerende"
                                     onChange={(event) => { this.handleOnChange(event.target.checked, 'erklaeringAnsvarligKontrollerende') }}
-                                    checked={ansvarsrett.erklaeringAnsvarligKontrollerende ? true : false}>
+                                    checked={formData.erklaeringAnsvarligKontrollerende ? true : false}>
                                     Ansvarlig kontollerende erklærer uavhengighet fra foretaket det skal kontrollere §14-1
                                 </CheckBoxListItem>
                             )
@@ -79,7 +79,7 @@ class Erklaering extends Component {
 }
 
 Erklaering.propTypes = {
-    ansvarsrett: PropTypes.object.isRequired,
+    formData: PropTypes.object.isRequired,
     updateHandler: PropTypes.func.isRequired,
     saveHandler: PropTypes.func.isRequired
 };

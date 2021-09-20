@@ -29,16 +29,16 @@ class EiendomByggested extends Component {
                 }
                 <dl className={formsStyle.fieldList}>
                     <div className="print-flex-10">
-                        <dt>Gårdsnr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.gaardsnummer}</dd>
+                        <dt>Gårdsnr.</dt><dd>{eiendomByggestedItem.gaardsnummer}</dd>
                     </div>
                     <div className="print-flex-10">
-                        <dt>Bruksnr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.bruksnummer}</dd>
+                        <dt>Bruksnr.</dt><dd>{eiendomByggestedItem.bruksnummer}</dd>
                     </div>
                     <div className="print-flex-10">
-                        <dt>Festenr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.festenummer}</dd>
+                        <dt>Festenr.</dt><dd>{eiendomByggestedItem.festenummer}</dd>
                     </div>
                     <div className="print-flex-10">
-                        <dt>Seksjonsnr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.seksjonsnummer}</dd>
+                        <dt>Seksjonsnr.</dt><dd>{eiendomByggestedItem.seksjonsnummer}</dd>
                     </div>
                     <div className="print-flex-10">
                         <dt>Bygningsnr.</dt><dd>{eiendomByggestedItem.bygningsnummer}</dd>
@@ -47,25 +47,25 @@ class EiendomByggested extends Component {
                         <dt>Bolignr.</dt><dd>{eiendomByggestedItem.bolignummer}</dd>
                     </div>
                     <div className="print-flex-10">
-                        <dt>Kommunenr.</dt><dd>{eiendomByggestedItem.eiendomsidentifikasjon?.kommunenummer}</dd>
+                        <dt>Kommunenr.</dt><dd>{eiendomByggestedItem.kommunenummer}</dd>
                     </div>
                     <div className="print-flex-100">
-                        <dt>Adresse</dt><dd>{formatAddress(eiendomByggestedItem.adresse)}</dd>
+                        <dt>Adresse</dt><dd>{formatAddress(eiendomByggestedItem)}</dd>
                     </div>
                 </dl>
             </div>
         )
     }
 
-    renderEiendomByggestedListItem(eiendomByggestedItem, index) {
-        const adresse = formatAddress(eiendomByggestedItem.adresse);
-        const gaardsnummer = eiendomByggestedItem.eiendomsidentifikasjon?.gaardsnummer;
-        const bruksnummer = eiendomByggestedItem.eiendomsidentifikasjon?.bruksnummer;
+    renderEiendomByggestedListItem(eiendomByggested, index) {
+        const adresse = formatAddress(eiendomByggested);
+        const gaardsnummer = eiendomByggested?.gaardsnummer;
+        const bruksnummer = eiendomByggested?.bruksnummer;
         const title = `${adresse} - ${gaardsnummer}/${bruksnummer}`;
         return (
             <div key={index} className={formsStyle.accordionItem}>
                 <Accordion title={title}>
-                    {this.renderEiendomByggestedItem(eiendomByggestedItem)}
+                    {this.renderEiendomByggestedItem(eiendomByggested)}
                 </Accordion>
             </div>
         )
@@ -74,9 +74,9 @@ class EiendomByggested extends Component {
     renderEiendomByggested() { }
 
     render() {
-        return this.props.eiendomByggested?.length
-            ? this.props.eiendomByggested.map((eiendomByggestedItem, index) => {
-                return this.renderEiendomByggestedListItem(eiendomByggestedItem, index);
+        return this.props.eiendomByggesteder?.length
+            ? this.props.eiendomByggesteder.map((eiendomByggested, index) => {
+                return this.renderEiendomByggestedListItem(eiendomByggested, index);
             })
             : (
                 <p>Ingen data for Eiendom/Byggested</p>
@@ -85,7 +85,7 @@ class EiendomByggested extends Component {
 }
 
 EiendomByggested.propTypes = {
-    eiendomByggested: PropTypes.array.isRequired
+    eiendomByggesteder: PropTypes.array.isRequired
 };
 
 export default connect(null, null)(EiendomByggested);

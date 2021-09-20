@@ -129,7 +129,7 @@ class Home extends Component {
 
             <ContactInfo />
 
-            <Link to={`/${submission.innsendingsType}/${submission.referanseId}/`}>
+            <Link to={`/${submission.innsendingstype}/${submission.referanseId}/`}>
               <Button content="Logg inn" color='primary'></Button>
             </Link>
           </React.Fragment>
@@ -229,9 +229,9 @@ class Home extends Component {
           <div>
             <select defaultValue="" onChange={event => this.fetchSubmission(event.target.value)}>
               <option value="" disabled>Velg skjema</option>
-              <option value="D84A298B-5D3F-4D8C-BDC1-45EF3E2808B2">Ansvarsrett</option>
-              <option value="07B1ACDB-BEBB-4B0A-BB1C-CB7ABA85A3AC">Kontrollerklæring</option>
-              <option value="C79BA4D1-8404-4D6F-8967-BADF75951DE5">Samsvarserklæring</option>
+              <option value="15bfa3ca-aaa4-4c66-a64b-402eeabac496">Ansvarsrett</option>
+              <option value="f23ec5bb-92bc-48b3-9eb5-35f01234ae7b">Kontrollerklæring</option>
+              <option value="99d32a34-215f-45d3-a419-7e0b50953192">Samsvarserklæring</option>
             </select>
 
             <select defaultValue="" onChange={event => this.setState({ status: event.target.value })}>

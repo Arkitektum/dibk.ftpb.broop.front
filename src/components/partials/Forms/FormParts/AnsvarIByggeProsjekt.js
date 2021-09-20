@@ -36,16 +36,6 @@ class AnsvarIByggeProsjekt extends Component {
         this.props.saveHandler();
     }
 
-    handleTiltaksklasseOnChange(selectedValue, property, index) {
-        const value = {
-            kodeverdi: selectedValue,
-            kodebeskrivelse: selectedValue
-        }
-        this.handleUpdate(value, property, index).then(() => {
-            this.handleSave()
-        });
-    }
-
     convertCodelistFunksjonToOptionValues(codelistFunksjon) {
         return codelistFunksjon?.containeditems?.length
             ? codelistFunksjon?.containeditems.map(item => {
@@ -89,11 +79,11 @@ class AnsvarIByggeProsjekt extends Component {
                     ansvarsomraade.samsvarKontrollVedFerdigattest
                 ].some(samsvarKontroll => { return samsvarKontroll });
                 const funksjonOptionValues = this.convertCodelistFunksjonToOptionValues(this.props.codelistFunksjon);
-                const selectedFunksjonKey = this.getOptionKeyFromOptionValueInList(funksjonOptionValues, ansvarsomraade.funksjon?.kodeverdi);
-                const accordionTitle = `${selectedFunksjonKey} (tiltaksklasse ${ansvarsomraade.tiltaksklasse?.kodeverdi})`;
+                const selectedFunksjonKey = this.getOptionKeyFromOptionValueInList(funksjonOptionValues, ansvarsomraade.funksjonKode);
+                const accordionTitle = `${selectedFunksjonKey} (tiltaksklasse ${ansvarsomraade.tiltaksklasseKode})`;
                 return (
                     <div key={index} className={formsStyle.accordionItem}>
-                        <Accordion title={accordionTitle} expanded color={ansvarsomraade.funksjon?.kodeverdi ? colors[ansvarsomraade.funksjon?.kodeverdi] : 'default'}>
+                        <Accordion title={accordionTitle} expanded color={ansvarsomraade.funksjonKode ? colors[ansvarsomraade.funksjonKode] : 'default'}>
                             {/* TODO: Check if select field and API-request for code list is necessary */}
                             <div className={`${formsStyle.inputGroup} hide-on-print`}>
                                 <div className={formsStyle.flex100}>
@@ -109,13 +99,43 @@ class AnsvarIByggeProsjekt extends Component {
                             Beskrivelse under er skrevet av ansvarlig søker, men du kan oppdatere den.
                             <div className={formsStyle.inputGroup}>
                                 <div className={formsStyle.flexAuto}>
-                                    <Button content="1" size="small" onClick={() => this.handleTiltaksklasseOnChange('1', 'tiltaksklasse', index)} noHover color={ansvarsomraade.tiltaksklasse?.kodeverdi === '1' ? 'primary' : 'default'} />
+                                    <Button
+                                        content="1"
+                                        size="small"
+                                        onClick={
+                                            ansvarsomraade.tiltaksklasseKode !== '1'
+                                                ? () => this.handleUpdate('1', 'tiltaksklasseKode', index).then(() => { this.handleSave() })
+                                                : null
+                                        }
+                                        noHover
+                                        color={ansvarsomraade.tiltaksklasseKode === '1' ? 'primary' : 'default'}
+                                    />
                                 </div>
                                 <div className={formsStyle.flexAuto}>
-                                    <Button content="2" size="small" onClick={() => this.handleTiltaksklasseOnChange('2', 'tiltaksklasse', index)} noHover color={ansvarsomraade.tiltaksklasse?.kodeverdi === '2' ? 'primary' : 'default'} />
+                                    <Button
+                                        content="2"
+                                        size="small"
+                                        onClick={
+                                            ansvarsomraade.tiltaksklasseKode !== '2'
+                                                ? () => this.handleUpdate('2', 'tiltaksklasseKode', index).then(() => { this.handleSave() })
+                                                : null
+                                        }
+                                        noHover
+                                        color={ansvarsomraade.tiltaksklasseKode === '2' ? 'primary' : 'default'}
+                                    />
                                 </div>
                                 <div className={formsStyle.flexAuto}>
-                                    <Button content="3" size="small" onClick={() => this.handleTiltaksklasseOnChange('3', 'tiltaksklasse', index)} noHover color={ansvarsomraade.tiltaksklasse?.kodeverdi === '3' ? 'primary' : 'default'} />
+                                    <Button
+                                        content="3"
+                                        size="small"
+                                        onClick={
+                                            ansvarsomraade.tiltaksklasseKode !== '3'
+                                                ? () => this.handleUpdate('3', 'tiltaksklasseKode', index).then(() => { this.handleSave() })
+                                                : null
+                                        }
+                                        noHover
+                                        color={ansvarsomraade.tiltaksklasseKode === '3' ? 'primary' : 'default'}
+                                    />
                                 </div>
                             </div>
                             {

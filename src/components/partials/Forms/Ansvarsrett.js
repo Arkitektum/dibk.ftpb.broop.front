@@ -11,7 +11,7 @@ import AnsvarligSoeker from 'components/partials/Forms/FormParts/AnsvarligSoeker
 import EiendomByggested from 'components/partials/Forms/FormParts/EiendomByggested';
 import SentralGodkjenning from 'components/partials/Forms/FormParts/SentralGodkjenning';
 import Erklaering from 'components/partials/Forms/FormParts/Erklaering';
-import Foretak from 'components/partials/Forms/FormParts/Foretak';
+import AnsvarligForetak from 'components/partials/Forms/FormParts/AnsvarligForetak';
 
 // Actions
 import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
@@ -35,21 +35,18 @@ class Ansvarsrett extends Component {
         }
     }
 
-    updateAnsvarsomraader(ansvarsomraader) {
-        return this.updateFormDataField({
-            ...this.props.selectedForm.formData.ansvarsrett,
-            ansvarsomraader
-        }, 'ansvarsrett')
+    updateFormData(formData) {
+        return this.props.updateSelectedForm({
+            ...this.props.selectedForm,
+            formData
+        });
     }
 
     updateFormDataField(value, property) {
-        return this.props.updateSelectedForm({
-            ...this.props.selectedForm,
-            formData: {
-                ...this.props.selectedForm.formData,
-                [property]: value
-            }
-        });
+        return this.updateFormData({
+            ...this.props.selectedForm.formData,
+            [property]: value
+        })
     }
 
     render() {
@@ -70,14 +67,14 @@ class Ansvarsrett extends Component {
                     <Paper>
                         <Header content="Eiendom/Byggested" size={2}></Header>
                         <EiendomByggested
-                            eiendomByggested={formData.eiendomByggested}
+                            eiendomByggesteder={formData.eiendomByggesteder}
                         />
                     </Paper>
                     <Paper>
                         <Header content="Foretak" size={2}></Header>
-                        <Foretak
-                            foretak={formData.ansvarsrett?.foretak}
-                            updateHandler={foretak => this.updateFormDataField(foretak, 'foretak')}
+                        <AnsvarligForetak
+                            foretak={formData.ansvarligForetak}
+                            updateHandler={foretak => this.updateFormDataField(foretak, 'ansvarligForetak')}
                             saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm)}
                         />
                     </Paper>
@@ -85,8 +82,8 @@ class Ansvarsrett extends Component {
                     <Paper>
                         <Header content="Ansvar i byggeprosjekt" size={2}></Header>
                         <AnsvarIByggeProsjekt
-                            ansvarsomraader={formData.ansvarsrett.ansvarsomraader}
-                            updateHandler={ansvarsomraader => this.updateAnsvarsomraader(ansvarsomraader)}
+                            ansvarsomraader={formData.ansvarsomraader}
+                            updateHandler={ansvarsomraader => this.updateFormDataField(ansvarsomraader, 'ansvarsomraader')}
                             saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm)}
                         />
                     </Paper>
@@ -105,8 +102,8 @@ class Ansvarsrett extends Component {
                         <Header content="Erklæring" size={2}></Header>
                         <div className="gray-container-on-print">
                             <Erklaering
-                                ansvarsrett={formData.ansvarsrett}
-                                updateHandler={ansvarsrett => this.updateFormDataField(ansvarsrett, 'ansvarsrett')}
+                                formData={formData}
+                                updateHandler={formData => this.updateFormData(formData)}
                                 saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm)}
                             />
                         </div>

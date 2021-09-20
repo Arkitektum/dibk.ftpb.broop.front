@@ -11,8 +11,8 @@ import { updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 
 class Sluttrapport extends Component {
 
-    toggleAnsvarsrettKontrollerendeValue(property, kontrollerende) {
-        const newValue = !kontrollerende?.[property];
+    toggleAnsvarsrettKontrollerendeValue(property, ansvarsrettKontrollerende) {
+        const newValue = !ansvarsrettKontrollerende?.[property];
 
         switch (property) {
             case 'ingenAvvik':
@@ -23,49 +23,46 @@ class Sluttrapport extends Component {
                         aapneAvvik: false
                     }
                     : {
-                        ...kontrollerende,
+                        ...ansvarsrettKontrollerende,
                         ingenAvvik: false,
                     }
             case 'observerteAvvik':
                 return newValue
                     ? {
-                        ...kontrollerende,
+                        ...ansvarsrettKontrollerende,
                         ingenAvvik: false,
                         observerteAvvik: true
                     }
                     : {
-                        ...kontrollerende,
+                        ...ansvarsrettKontrollerende,
                         observerteAvvik: false,
                     }
             case 'aapneAvvik':
                 return newValue
                     ? {
-                        ...kontrollerende,
+                        ...ansvarsrettKontrollerende,
                         ingenAvvik: false,
                         aapneAvvik: true
                     }
                     : {
-                        ...kontrollerende,
+                        ...ansvarsrettKontrollerende,
                         aapneAvvik: false,
                     }
             default:
-                return kontrollerende;
+                return ansvarsrettKontrollerende;
         }
     }
 
     handleOnAnsvarsrettKontrollerendeChange(property) {
         const formData = this.props.selectedForm?.formData;
-        const oldKontrollerende = formData.ansvarsrett?.kontrollerende;
-        const kontrollerende = this.toggleAnsvarsrettKontrollerendeValue(property, oldKontrollerende);
+        const oldAnsvarsrettKontrollerende = formData.ansvarsrettKontrollerende;
+        const ansvarsrettKontrollerende = this.toggleAnsvarsrettKontrollerendeValue(property, oldAnsvarsrettKontrollerende);
 
         this.props.updateSelectedForm({
             ...this.props.selectedForm,
             formData: {
                 ...formData,
-                ansvarsrett: {
-                    ...formData.ansvarsrett,
-                    kontrollerende
-                }
+                ansvarsrettKontrollerende
             }
         }).then(selectedForm => {
             this.props.saveSelectedForm(selectedForm);
@@ -86,19 +83,19 @@ class Sluttrapport extends Component {
                     <CheckBoxListItem
                         id={`ansvarsomraade-avvik-ingen`}
                         onChange={() => this.handleOnAnsvarsrettKontrollerendeChange('ingenAvvik')}
-                        checked={formData.ansvarsrett?.kontrollerende?.ingenAvvik}>
+                        checked={formData.ansvarsrettKontrollerende?.ingenAvvik}>
                         Ingen avvik er funnet, se vedlagte plan for uavhengig kontroll
                     </CheckBoxListItem>
                     <CheckBoxListItem
                         id={`ansvarsomraade-avvik-observert`}
                         onChange={() => this.handleOnAnsvarsrettKontrollerendeChange('observerteAvvik')}
-                        checked={formData.ansvarsrett?.kontrollerende?.observerteAvvik}>
+                        checked={formData.ansvarsrettKontrollerende?.observerteAvvik}>
                         Observerte avvik er lukket, se vedlagte plan for uavhengig kontroll
                     </CheckBoxListItem>
                     <CheckBoxListItem
                         id={`ansvarsomraade-avvik-aapne`}
                         onChange={() => this.handleOnAnsvarsrettKontrollerendeChange('aapneAvvik')}
-                        checked={formData.ansvarsrett?.kontrollerende?.aapneAvvik}>
+                        checked={formData.ansvarsrettKontrollerende?.aapneAvvik}>
                         Åpne avvik er rapportert til kommunen, se vedlagte plan for uavhengig kontroll
                     </CheckBoxListItem>
                 </Paper>

@@ -22,16 +22,16 @@ class AnsvarligSoeker extends Component {
                         <dt><Label>Navn på foretak</Label></dt><dd>{ansvarligSoeker.navn}</dd>
                     </div>
                     <div className={formsStyle.flex100}>
-                        <dt><Label>Kontaktperson</Label></dt><dd>{ansvarligSoeker.kontaktperson?.navn}</dd>
+                        <dt><Label>Kontaktperson</Label></dt><dd>{ansvarligSoeker.kontaktpersonNavn}</dd>
                     </div>
                     <div className={formsStyle.flex50}>
-                        <dt><Label>Telefon</Label></dt><dd>{ansvarligSoeker.kontaktperson?.telefonnummer}</dd>
+                        <dt><Label>Telefon</Label></dt><dd>{ansvarligSoeker.kontaktpersonTelefonnummer}</dd>
                     </div>
                     <div className={formsStyle.flex50}>
-                        <dt><Label>Mobiltelefon</Label></dt><dd>{ansvarligSoeker.kontaktperson?.mobilnummer}</dd>
+                        <dt><Label>Mobiltelefon</Label></dt><dd>{ansvarligSoeker.kontaktpersonMobilnummer}</dd>
                     </div>
                     <div className={formsStyle.flex100}>
-                        <dt><Label>E-post</Label></dt><dd>{ansvarligSoeker.kontaktperson?.epost}</dd>
+                        <dt><Label>E-post</Label></dt><dd>{ansvarligSoeker.kontaktpersonEpost}</dd>
                     </div>
                 </dl>
             )
