@@ -23,15 +23,53 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: null
+      status: null,
+      formFromUrlParameter: null,
+      selectedFormOptionId: "",
+      exampleForms: [
+        {
+          value: "15bfa3ca-aaa4-4c66-a64b-402eeabac496",
+          label: "Ansvarsrett"
+        },
+        {
+          value: "f23ec5bb-92bc-48b3-9eb5-35f01234ae7b",
+          label: "Kontrollerklæring"
+        },
+        {
+          value: "99d32a34-215f-45d3-a419-7e0b50953192",
+          label: "Samsvarserklæring"
+        }
+      ]
+    }
+  }
+
+  componentDidMount() {
+    const referanseId = this.props.location.query?.referanseId;
+    if (referanseId) {
+      this.fetchSubmission(referanseId).then(form => {
+        this.setState({
+          status: form.status,
+          formFromUrlParameter: {
+            value: form.referanseId,
+            label: form.innsendingstype
+          },
+          selectedFormOptionId: form.referanseId
+        });
+      });
     }
   }
 
 
   fetchSubmission(guid) {
-    this.props.fetchSubmission(guid).then(response => {
+    return this.props.fetchSubmission(guid).then(() => {
       if (this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length) {
-        this.props.fetchSelectedForm(this.props.selectedSubmission);
+        return this.props.fetchSelectedForm(this.props.selectedSubmission).then((response) => {
+          const selectedForm = response.payload;
+          this.setState({
+            selectedFormOptionId: selectedForm.referanseId
+          });
+          return selectedForm;
+        });
       }
     })
   }
@@ -88,7 +126,7 @@ class Home extends Component {
   renderContent(status, form, submission) {
     const foretak = form?.formData?.foretak || form?.formData?.ansvarsrett?.foretak;
     switch (status) {
-      case "tilSignering":
+      case "Opprettet":
       case "iArbeid":
         return (
           <React.Fragment>
@@ -227,16 +265,23 @@ class Home extends Component {
         <div className='developmentTools'>
           <span>Testverktøy</span>
           <div>
-            <select defaultValue="" onChange={event => this.fetchSubmission(event.target.value)}>
+            <select defaultValue="" value={this.state.selectedFormOptionId} onChange={event => this.fetchSubmission(event.target.value)}>
               <option value="" disabled>Velg skjema</option>
-              <option value="15bfa3ca-aaa4-4c66-a64b-402eeabac496">Ansvarsrett</option>
-              <option value="f23ec5bb-92bc-48b3-9eb5-35f01234ae7b">Kontrollerklæring</option>
-              <option value="99d32a34-215f-45d3-a419-7e0b50953192">Samsvarserklæring</option>
+              {
+                this.state.exampleForms.map(exampleForm => {
+                  return <option key={exampleForm.value} value={exampleForm.value}>{exampleForm.label}</option>
+                })
+              }
+              {
+                this.state.formFromUrlParameter
+                  ? (<option value={this.state.formFromUrlParameter.value}>{this.state.formFromUrlParameter.label} (Fra Id)</option>)
+                  : ''
+              }
             </select>
 
-            <select defaultValue="" onChange={event => this.setState({ status: event.target.value })}>
+            <select defaultValue="" value={this.state.status} onChange={event => this.setState({ status: event.target.value })}>
               <option value="" disabled>Velg status</option>
-              <option value="tilSignering">Til signering</option>
+              <option value="Opprettet">Til signering</option>
               <option value="iArbeid">I arbeid</option>
               <option value="signert">Signert</option>
               <option value="avvist">Avvist</option>
@@ -256,7 +301,8 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
   selectedSubmission: state.selectedSubmission,
-  selectedForm: state.selectedForm
+  selectedForm: state.selectedForm,
+  location: state.router.location
 });
 
 const mapDispatchToProps = {

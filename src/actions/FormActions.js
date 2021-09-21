@@ -30,7 +30,7 @@ export const fetchSelectedForm = submission => dispatch => {
     const formPath = submission._links?.[formType]?.href;
     if (formPath?.length) {
         return fetch(`${internalApiUrl}${formPath}`).then(res => res.json()).then(form => {
-            getKommunenavnAsync(form).then(kommunenavn => {
+            return getKommunenavnAsync(form).then(kommunenavn => {
                 form.formData.eiendomByggesteder[0].kommunenavn = kommunenavn;
                 return dispatch({ type: FETCH_SELECTED_FORM, payload: form })
             })
