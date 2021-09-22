@@ -11,14 +11,22 @@ import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
 class AnsvarligForetak extends Component {
 
-    handleSave() {
-        this.props.saveHandler();
-    }
-
     handleUpdate(value, property) {
         let updatedForetak = this.props.foretak;
         updatedForetak[property] = value;
         return this.props.updateHandler(updatedForetak);
+    }
+
+    handleSave() {
+        this.props.saveHandler();
+    }
+
+    handleUpdateAndSaveIfChanged(newValue, property) {
+        const oldValue = this.props.foretak[property];
+        this.handleUpdate(newValue, property);
+        if (newValue !== oldValue) {
+            this.handleSave()
+        }
     }
 
 
@@ -49,27 +57,27 @@ class AnsvarligForetak extends Component {
                         <div className={formsStyle.flex33}>
                             <InputField
                                 id='foretak-kontaktperson-navn'
-                                onChange={(event) => { this.handleUpdate(event.target.value, 'kontaktpersonNavn') }}
-                                onBlur={() => { this.handleSave() }}
+                                onChange={() => { return false }}
+                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonNavn') }}
                                 label="Kontaktperson"
-                                value={foretak.kontaktpersonNavn || ''} />
+                                defaultValue={foretak.kontaktpersonNavn || ''} />
                         </div>
                         <div className={formsStyle.flex33}>
                             <InputField
                                 id='foretak-kontaktperson-mobilnummer'
-                                onChange={(event) => { this.handleUpdate(event.target.value, 'kontaktpersonMobilnummer') }}
-                                onBlur={() => { this.handleSave() }}
+                                onChange={() => { return false }}
+                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonMobilnummer') }}
                                 label='Mobiltelefon'
-                                value={foretak.kontaktpersonMobilnummer || ''}
+                                defaultValue={foretak.kontaktpersonMobilnummer || ''}
                                 type='tel' />
                         </div>
                         <div className={formsStyle.flex33}>
                             <InputField
                                 id='foretak-kontaktperson-epost'
-                                onChange={(event) => { this.handleUpdate(event.target.value, 'kontaktpersonEpost') }}
-                                onBlur={() => { this.handleSave() }}
+                                onChange={() => { return false }}
+                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonEpost') }}
                                 label="E-post"
-                                value={foretak.kontaktpersonEpost || ''}
+                                defaultValue={foretak.kontaktpersonEpost || ''}
                                 type='email' />
                         </div>
                     </div>

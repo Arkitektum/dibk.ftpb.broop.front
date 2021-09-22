@@ -36,6 +36,14 @@ class AnsvarIByggeProsjekt extends Component {
         this.props.saveHandler();
     }
 
+    handleUpdateAndSaveIfChanged(newValue, property, index) {
+        const oldValue = this.props.ansvarsomraader[index][property];
+        this.handleUpdate(newValue, property, index);
+        if (newValue !== oldValue) {
+            this.handleSave()
+        }
+    }
+
     convertCodelistFunksjonToOptionValues(codelistFunksjon) {
         return codelistFunksjon?.containeditems?.length
             ? codelistFunksjon?.containeditems.map(item => {
@@ -89,10 +97,11 @@ class AnsvarIByggeProsjekt extends Component {
                                 <div className={formsStyle.flex100}>
                                     <Textarea
                                         id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
-                                        onChange={(event) => { this.handleUpdate(event.target.value, 'beskrivelseAvAnsvarsomraade', index) }}
-                                        onBlur={() => this.handleSave()}
+                                        onChange={() => { return false }}
+                                        onBlur={(event) => this.handleUpdateAndSaveIfChanged(event.target.value, 'beskrivelseAvAnsvarsomraade', index)}
                                         label="Beskrivelse av ansvarsområdet"
-                                        value={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''} />
+                                        defaultValue={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''}
+                                    />
                                 </div>
                             </div>
                             <Label>Tiltaksklasse</Label>
@@ -102,11 +111,7 @@ class AnsvarIByggeProsjekt extends Component {
                                     <Button
                                         content="1"
                                         size="small"
-                                        onClick={
-                                            ansvarsomraade.tiltaksklasseKode !== '1'
-                                                ? () => this.handleUpdate('1', 'tiltaksklasseKode', index).then(() => { this.handleSave() })
-                                                : null
-                                        }
+                                        onClick={() => this.handleUpdateAndSaveIfChanged('1', 'tiltaksklasseKode', index)}
                                         noHover
                                         color={ansvarsomraade.tiltaksklasseKode === '1' ? 'primary' : 'default'}
                                     />
@@ -115,11 +120,7 @@ class AnsvarIByggeProsjekt extends Component {
                                     <Button
                                         content="2"
                                         size="small"
-                                        onClick={
-                                            ansvarsomraade.tiltaksklasseKode !== '2'
-                                                ? () => this.handleUpdate('2', 'tiltaksklasseKode', index).then(() => { this.handleSave() })
-                                                : null
-                                        }
+                                        onClick={() => this.handleUpdateAndSaveIfChanged('2', 'tiltaksklasseKode', index)}
                                         noHover
                                         color={ansvarsomraade.tiltaksklasseKode === '2' ? 'primary' : 'default'}
                                     />
@@ -128,11 +129,7 @@ class AnsvarIByggeProsjekt extends Component {
                                     <Button
                                         content="3"
                                         size="small"
-                                        onClick={
-                                            ansvarsomraade.tiltaksklasseKode !== '3'
-                                                ? () => this.handleUpdate('3', 'tiltaksklasseKode', index).then(() => { this.handleSave() })
-                                                : null
-                                        }
+                                        onClick={() => this.handleUpdateAndSaveIfChanged('3', 'tiltaksklasseKode', index)}
                                         noHover
                                         color={ansvarsomraade.tiltaksklasseKode === '3' ? 'primary' : 'default'}
                                     />
