@@ -140,58 +140,34 @@ class AnsvarIByggeProsjekt extends Component {
                                     ? (
                                         <React.Fragment>
                                             <Label>{ansvarsomraade?.funksjon?.kodeverdi === 'KONTROLL' ? 'Kontrollerklæringer vil foreligge ved' : 'Samsvarserklæringer vil foreligge ved'}</Label>
-                                            {
-                                                ansvarsomraade.samsvarKontrollVedRammetillatelse
-                                                    ? (
-                                                        <CheckBoxListItem
-                                                            id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
-                                                            onChange={() => { return null }}
-                                                            checked
-                                                            contentOnly>
-                                                            Rammetillatelse
-                                                        </CheckBoxListItem>
-                                                    )
-                                                    : ''
-                                            }
-                                            {
-                                                ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse
-                                                    ? (
-                                                        <CheckBoxListItem
-                                                            id={`ansvarsomraade-${index}-samsvarKontrollVedIgangsettingstillatelse`}
-                                                            onChange={() => { return null }}
-                                                            checked
-                                                            contentOnly>
-                                                            Igangsettingstillatelse
-                                                        </CheckBoxListItem>
-                                                    )
-                                                    : ''
-                                            }
-                                            {
-                                                ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse
-                                                    ? (
-                                                        <CheckBoxListItem
-                                                            id={`ansvarsomraade-${index}-samsvarKontrollVedMidlertidigBrukstillatelse`}
-                                                            onChange={() => { return null }}
-                                                            checked
-                                                            contentOnly>
-                                                            Midlertidig brukstillatelse
-                                                        </CheckBoxListItem>
-                                                    )
-                                                    : ''
-                                            }
-                                            {
-                                                ansvarsomraade.samsvarKontrollVedFerdigattest
-                                                    ? (
-                                                        <CheckBoxListItem
-                                                            id={`ansvarsomraade-${index}-samsvarKontrollVedFerdigattest`}
-                                                            onChange={() => { return null }}
-                                                            checked
-                                                            contentOnly>
-                                                            Ferdigattest
-                                                        </CheckBoxListItem>
-                                                    )
-                                                    : ''
-                                            }
+                                            <CheckBoxListItem
+                                                id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
+                                                onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedRammetillatelse', index)}
+                                                checked={ansvarsomraade.samsvarKontrollVedRammetillatelse}
+                                            >
+                                                Rammetillatelse
+                                            </CheckBoxListItem>
+                                            <CheckBoxListItem
+                                                id={`ansvarsomraade-${index}-samsvarKontrollVedIgangsettingstillatelse`}
+                                                onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedIgangsettingstillatelse', index)}
+                                                checked={ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse}
+                                            >
+                                                Igangsettingstillatelse
+                                            </CheckBoxListItem>
+                                            <CheckBoxListItem
+                                                id={`ansvarsomraade-${index}-samsvarKontrollVedMidlertidigBrukstillatelse`}
+                                                onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedMidlertidigBrukstillatelse', index)}
+                                                checked={ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse}
+                                            >
+                                                Midlertidig brukstillatelse
+                                            </CheckBoxListItem>
+                                            <CheckBoxListItem
+                                                id={`ansvarsomraade-${index}-samsvarKontrollVedFerdigattest`}
+                                                onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedFerdigattest', index)}
+                                                checked={ansvarsomraade.samsvarKontrollVedFerdigattest}
+                                            >
+                                                Ferdigattest
+                                            </CheckBoxListItem>
                                         </React.Fragment>
                                     )
                                     : ''
