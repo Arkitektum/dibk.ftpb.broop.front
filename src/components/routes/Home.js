@@ -145,8 +145,9 @@ class Home extends Component {
 
   renderContent(status, form, submission) {
     switch (status) {
-      case "Opprettet":
-      case "iArbeid":
+      case "opprettet":
+      case "underBehandling":
+      case "tilSignering":
         return (
           <React.Fragment>
             <div className={style.introText}>
@@ -249,7 +250,7 @@ class Home extends Component {
             <ContactInfo />
           </React.Fragment>
         );
-      case "utgaatt":
+      case "utgått":
         return (
           <React.Fragment>
             <div className={style.introText}>
@@ -309,22 +310,19 @@ class Home extends Component {
 
             <select value={this.state.status || ""} onChange={event => this.setState({ status: event.target.value })}>
               <option value="" disabled>Velg status</option>
-              <option value="Opprettet">Til signering</option>
-              <option value="iArbeid">I arbeid</option>
+              <option value="opprettet">Opprettet</option>
+              <option value="underBehandling">Under behandling</option>
+              <option value="tilSignering">Til signering</option>
               <option value="signert">Signert</option>
               <option value="avvist">Avvist</option>
-              <option value="utgaatt">Utgått</option>
+              <option value="utgått">Utgått</option>
             </select>
           </div>
           <pre>Skjemareferanse:<br />{submission.referanseId || 'Ingen skjema er valgt'}</pre>
         </div>
 
-
         {this.state.errorMessage ? this.renderErrorMessage(this.state.errorMessage) : ''}
         {form ? this.renderContent(status, form, submission) : ''}
-
-
-
       </Container>
     )
   }
