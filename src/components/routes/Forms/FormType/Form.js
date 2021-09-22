@@ -33,15 +33,13 @@ class Form extends Component {
     }
 
     renderForm(formType, selectedSubmission) {
-        const stepId = this.props.match.params.stepId;
-
         switch (formType) {
             case 'Ansvarsrett':
                 return <Ansvarsrett selectedSubmission={selectedSubmission} />
             case 'Kontrollerklaering':
-                return <KontrollErklaering selectedSubmission={selectedSubmission} stepId={stepId} />
+                return <KontrollErklaering selectedSubmission={selectedSubmission} />
             case 'Samsvarserklaering':
-                return <SamsvarsErklaering selectedSubmission={selectedSubmission} stepId={stepId} />
+                return <SamsvarsErklaering selectedSubmission={selectedSubmission} />
             default:
                 return ''
         }
@@ -49,8 +47,8 @@ class Form extends Component {
 
 
     render() {
-        const formType = this.props.match.params.formType;
         const selectedSubmission = this.props.selectedSubmission
+        const formType = selectedSubmission.innsendingstype;
         return selectedSubmission
             ? (
                 <Container>

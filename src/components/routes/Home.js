@@ -167,7 +167,7 @@ class Home extends Component {
 
             <ContactInfo />
 
-            <Link to={`/${submission.innsendingstype}/${submission.referanseId}/`}>
+            <Link to={`/skjema/${submission.referanseId}/`}>
               <Button content="Logg inn" color='primary'></Button>
             </Link>
           </React.Fragment>
