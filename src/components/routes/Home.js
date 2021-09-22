@@ -265,7 +265,7 @@ class Home extends Component {
         <div className='developmentTools'>
           <span>Testverktøy</span>
           <div>
-            <select defaultValue="" value={this.state.selectedFormOptionId} onChange={event => this.fetchSubmission(event.target.value)}>
+            <select value={this.state.selectedFormOptionId} onChange={event => this.fetchSubmission(event.target.value)}>
               <option value="" disabled>Velg skjema</option>
               {
                 this.state.exampleForms.map(exampleForm => {
@@ -279,7 +279,7 @@ class Home extends Component {
               }
             </select>
 
-            <select defaultValue="" value={this.state.status} onChange={event => this.setState({ status: event.target.value })}>
+            <select value={this.state.status || ""} onChange={event => this.setState({ status: event.target.value })}>
               <option value="" disabled>Velg status</option>
               <option value="Opprettet">Til signering</option>
               <option value="iArbeid">I arbeid</option>
