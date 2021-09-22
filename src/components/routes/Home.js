@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 // DIBK Design
-import { Button } from 'dibk-design';
+import { Button, Header } from 'dibk-design';
 
 // Template
 import Container from 'components/template/Container';
@@ -26,6 +26,7 @@ class Home extends Component {
       status: null,
       formFromUrlParameter: null,
       selectedFormOptionId: "",
+      errorMessage: null,
       exampleForms: [
         {
           value: "15bfa3ca-aaa4-4c66-a64b-402eeabac496",
@@ -44,33 +45,53 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const referanseId = this.props.location.query?.referanseId;
-    if (referanseId) {
-      this.fetchSubmission(referanseId).then(form => {
-        this.setState({
-          formFromUrlParameter: {
-            value: form.referanseId,
-            label: form.innsendingstype
-          }
-        });
+    const submissionId = this.props.match.params.submissionId;
+    if (submissionId) {
+      this.fetchSubmission(submissionId).then(form => {
+        if (form) {
+          this.setState({
+            formFromUrlParameter: {
+              value: form.referanseId,
+              label: form.innsendingstype
+            },
+            errorMessage: null
+          });
+        } else {
+          this.setState({
+            errorMessage: `Kunne ikke hente skjema med referanse: ${submissionId}`
+          });
+        }
+      }).catch(error => {
+        console.log("Home component did mount", error);
       });
     }
   }
 
 
-  fetchSubmission(guid) {
-    return this.props.fetchSubmission(guid).then(() => {
+  fetchSubmission(submissionId) {
+    return this.props.fetchSubmission(submissionId).then(() => {
       if (this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length) {
         return this.props.fetchSelectedForm(this.props.selectedSubmission).then((response) => {
           const selectedForm = response.payload;
-          this.setState({
-            selectedFormOptionId: selectedForm.referanseId,
-            status: selectedForm.status
-          });
+          if (selectedForm) {
+            this.setState({
+              selectedFormOptionId: selectedForm.referanseId,
+              status: selectedForm.status,
+              errorMessage: null
+            });
+          } else {
+            this.setState({
+              errorMessage: `Kunne ikke hente skjema med referanse: ${submissionId}`
+            });
+          }
           return selectedForm;
+        }).catch(error => {
+          console.log("fetchSelectedForm", error)
         });
       }
-    })
+    }).catch(error => {
+      console.log("fetchSubmission", error)
+    });
   }
 
   getProjectNameForForm(form) {
@@ -129,7 +150,7 @@ class Home extends Component {
         return (
           <React.Fragment>
             <div className={style.introText}>
-              <h1>Erklæring om ansvarsrett fra {form?.formData?.ansvarligSoeker?.navn} til signering</h1>
+              <Header content={`Erklæring om ansvarsrett fra ${form?.formData?.ansvarligSoeker?.navn} til signering`} />
               <div className={style.paragraphGroup}>
                 <p>Dette er en erklæring om ansvarsrett{this.getProjectNameForForm(form)}.</p>
               </div>
@@ -165,7 +186,7 @@ class Home extends Component {
 
             <ContactInfo />
 
-            <Link to={`/skjema/${submission.referanseId}/`}>
+            <Link to={`/skjema/${submission.referanseId}/rediger`}>
               <Button content="Logg inn" color='primary'></Button>
             </Link>
           </React.Fragment>
@@ -175,7 +196,7 @@ class Home extends Component {
         return (
           <React.Fragment>
             <div className={style.introText}>
-              <h1>Erklæring er allerede signert</h1>
+              <Header content="Erklæring er allerede signert" />
               <div className={style.paragraphGroup}>
                 <p>
                   {
@@ -201,7 +222,7 @@ class Home extends Component {
         return (
           <React.Fragment>
             <div className={style.introText}>
-              <h1>Erklæring er avvist</h1>
+              <Header content="Erklæring er avvist" />
               <div className={style.paragraphGroup}>
                 <p>
                   {
@@ -232,7 +253,7 @@ class Home extends Component {
         return (
           <React.Fragment>
             <div className={style.introText}>
-              <h1>Fristen for å signere erklæringen er utgått</h1>
+              <Header content="Fristen for å signere erklæringen er utgått" />
               <div className={style.paragraphGroup}>
                 {
                   form?.formData?.frist
@@ -250,6 +271,15 @@ class Home extends Component {
       default:
         return '';
     }
+  }
+
+  renderErrorMessage(errorMessage) {
+    return (
+      <React.Fragment>
+        <Header content="Feil" />
+        <p>{errorMessage}</p>
+      </React.Fragment>
+    );
   }
 
 
@@ -289,7 +319,10 @@ class Home extends Component {
           <pre>Skjemareferanse:<br />{submission.referanseId || 'Ingen skjema er valgt'}</pre>
         </div>
 
-        {this.renderContent(status, form, submission)}
+
+        {this.state.errorMessage ? this.renderErrorMessage(this.state.errorMessage) : ''}
+        {form ? this.renderContent(status, form, submission) : ''}
+
 
 
       </Container>
