@@ -48,12 +48,10 @@ class Home extends Component {
     if (referanseId) {
       this.fetchSubmission(referanseId).then(form => {
         this.setState({
-          status: form.status,
           formFromUrlParameter: {
             value: form.referanseId,
             label: form.innsendingstype
-          },
-          selectedFormOptionId: form.referanseId
+          }
         });
       });
     }
@@ -66,7 +64,8 @@ class Home extends Component {
         return this.props.fetchSelectedForm(this.props.selectedSubmission).then((response) => {
           const selectedForm = response.payload;
           this.setState({
-            selectedFormOptionId: selectedForm.referanseId
+            selectedFormOptionId: selectedForm.referanseId,
+            status: selectedForm.status
           });
           return selectedForm;
         });
@@ -78,11 +77,11 @@ class Home extends Component {
     let projectName = '';
     if (form?.formData?.prosjektNavn) { // TODO add to API
       projectName += ` for ${form.formData.prosjektNavn}`;
-    } else if (form?.formData?.eiendomByggested?.[0]?.adresse?.adresselinje1) {
-      projectName += ` for ${form.formData.eiendomByggested[0].adresse.adresselinje1}`;
+    } else if (form?.formData?.eiendomByggesteder?.[0]?.adresselinje1) {
+      projectName += ` for ${form.formData.eiendomByggesteder[0].adresselinje1}`;
     }
-    if (form?.formData?.eiendomByggested?.[0]?.kommunenavn) { // TODO add to API
-      projectName += ` i ${form.formData.eiendomByggested[0].kommunenavn}`;
+    if (form?.formData?.eiendomByggesteder?.[0]?.kommunenavn) {
+      projectName += ` i ${form.formData.eiendomByggesteder[0].kommunenavn}`;
     }
     return projectName;
 
@@ -91,13 +90,13 @@ class Home extends Component {
   groupAnsvarsomraaderByFunksjon(ansvarsomraader) {
     let ansvarsomraaderGrouped = {}
     ansvarsomraader.forEach(ansvarsomraade => {
-      if (!ansvarsomraaderGrouped[ansvarsomraade.funksjon.kodeverdi]) {
-        ansvarsomraaderGrouped[ansvarsomraade.funksjon.kodeverdi] = {
-          kodebeskrivelse: ansvarsomraade.funksjon.kodebeskrivelse,
+      if (!ansvarsomraaderGrouped[ansvarsomraade.funksjonKode]) {
+        ansvarsomraaderGrouped[ansvarsomraade.funksjonKode] = {
+          funksjonBeskrivelse: ansvarsomraade.funksjonBeskrivelse,
           ansvarsomraader: []
         };
       }
-      ansvarsomraaderGrouped[ansvarsomraade.funksjon.kodeverdi].ansvarsomraader.push(ansvarsomraade);
+      ansvarsomraaderGrouped[ansvarsomraade.funksjonKode].ansvarsomraader.push(ansvarsomraade);
     })
     return ansvarsomraaderGrouped;
   }
@@ -114,7 +113,7 @@ class Home extends Component {
         })
         return (
           <ul key={ansvarsomraadeFunksjonKey}>
-            <li>{ansvarsomraadeFunksjon?.kodebeskrivelse}</li>
+            <li>{ansvarsomraadeFunksjon?.funksjonBeskrivelse}</li>
             <ul>{ansvarsomraadeListElements}</ul>
           </ul>
         )
@@ -124,7 +123,6 @@ class Home extends Component {
 
 
   renderContent(status, form, submission) {
-    const foretak = form?.formData?.foretak || form?.formData?.ansvarsrett?.foretak;
     switch (status) {
       case "Opprettet":
       case "iArbeid":
@@ -137,20 +135,20 @@ class Home extends Component {
               </div>
               <div className={style.paragraphGroup}>
                 {
-                  foretak?.navn
-                    ? (<p>Ansvarlig foretak er: {foretak.navn}</p>)
+                  form?.formData?.ansvarligForetak?.navn
+                    ? (<p>Ansvarlig foretak er: {form.formData.ansvarligForetak.navn}</p>)
                     : ''
                 }
                 {
-                  foretak?.kontaktperson?.navn
-                    ? (<p>Kontaktperson hos ansvarlig foretak er: {foretak.kontaktperson.navn}</p>)
+                  form?.formData?.ansvarligForetak?.kontaktpersonNavn
+                    ? (<p>Kontaktperson hos ansvarlig foretak er: {form.formData.ansvarligForetak.kontaktpersonNavn}</p>)
                     : ''
                 }
               </div>
               <div className={style.paragraphGroup}>
                 {
-                  form?.formData?.ansvarsrett?.ansvarsomraader?.length
-                    ? this.renderAnsvarsomraaderList(form.formData.ansvarsrett.ansvarsomraader)
+                  form?.formData?.ansvarsomraader?.length
+                    ? this.renderAnsvarsomraaderList(form.formData.ansvarsomraader)
                     : ''
                 }
               </div>
@@ -173,7 +171,7 @@ class Home extends Component {
           </React.Fragment>
         );
       case "signert":
-        const foretakEpost = foretak?.epost || foretak?.kontaktperson?.epost;
+        const foretakEpost = form?.formData?.ansvarligForetak?.epost || form?.formData?.foretak?.kontaktpersonEpost;
         return (
           <React.Fragment>
             <div className={style.introText}>
@@ -181,8 +179,8 @@ class Home extends Component {
               <div className={style.paragraphGroup}>
                 <p>
                   {
-                    foretak?.navn
-                      ? `Erklæringen er allerede signert av ${foretak.navn}`
+                    form?.formData?.foretak?.navn
+                      ? `Erklæringen er allerede signert av ${form.formData.foretak.navn}`
                       : ''
                   }
                   {
@@ -207,15 +205,15 @@ class Home extends Component {
               <div className={style.paragraphGroup}>
                 <p>
                   {
-                    foretak?.navn
-                      ? `Erklæringen er avvist av ${foretak.navn} med følgende begrunnelse:`
+                    form?.formData?.ansvarligForetak?.navn
+                      ? `Erklæringen er avvist av ${form.formData.ansvarligForetak.navn} med følgende begrunnelse:`
                       : ''
                   }
                 </p>
                 <p>
                   {
-                    foretak?.avvistBegrunnselse
-                      ? foretak?.avvistBegrunnselse
+                    form?.formData?.ansvarligForetak?.avvistBegrunnselse // TODO add to API
+                      ? form.formData.ansvarligForetak.avvistBegrunnselse
                       : ''
                   }
                 </p>
@@ -238,7 +236,7 @@ class Home extends Component {
               <div className={style.paragraphGroup}>
                 {
                   form?.formData?.frist
-                    ? <p>Fristen for å signere gikk ut ${form.formData.frist}.</p>
+                    ? <p>Fristen for å signere gikk ut ${form.formData.frist}.</p> // TODO add to API
                     : ''
                 }
               </div>
