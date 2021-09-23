@@ -28,11 +28,11 @@ class Form extends Component {
 
     renderForm(formType, selectedSubmission) {
         switch (formType) {
-            case 'Ansvarsrett':
+            case 'ansvarsrett':
                 return <Ansvarsrett selectedSubmission={selectedSubmission} />
-            case 'Kontrollerklaering':
+            case 'kontrollerklaering':
                 return <KontrollErklaering selectedSubmission={selectedSubmission} />
-            case 'Samsvarserklaering':
+            case 'samsvarserklaering':
                 return <SamsvarsErklaering selectedSubmission={selectedSubmission} />
             default:
                 return ''
