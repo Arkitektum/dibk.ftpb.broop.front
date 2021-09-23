@@ -15,12 +15,6 @@ import { fetchSubmission } from 'actions/SubmissionActions';
 
 
 class Form extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            form: null
-        }
-    }
 
     componentDidMount() {
         const submissionId = this.props.match.params.submissionId;
