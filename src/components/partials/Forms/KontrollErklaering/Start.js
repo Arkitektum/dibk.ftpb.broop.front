@@ -59,7 +59,6 @@ class KontrollErklaeringer extends Component {
 }
 
 const mapStateToProps = state => ({
-    selectedSubmission: state.selectedSubmission,
     selectedForm: state.selectedForm
 });
 
