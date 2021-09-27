@@ -5,13 +5,22 @@ export const formatAddress = (address) => {
         if (address.postnr || address.poststed) {
             formattedAddress += ', ';
         }
+    } else if (address.gaardsnummer || address.bruksnummer) {
+        if (address.gaardsnummer) {
+            formattedAddress += `Gårdsnr. ${address.gaardsnummer}, `
+        }
+        if (address.bruksnummer) {
+            formattedAddress += `Bruksnr. ${address.bruksnummer}, `
+        }
     }
+
     if (address.postnr) {
         formattedAddress += address.postnr;
         if (address.poststed) {
             formattedAddress += ' '
         }
     }
+
     if (address.poststed) {
         formattedAddress += address.poststed
     }
