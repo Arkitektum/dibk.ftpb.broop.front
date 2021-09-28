@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+// DIBK Design
+import { Button } from 'dibk-design';
+
 // Template
 import Container from 'components/template/Container';
 
@@ -47,6 +50,9 @@ class Form extends Component {
             ? (
                 <Container>
                     {this.renderForm(formType, selectedSubmission)}
+                    <a href={`https://arkitektum.github.io/dibk.ftpb.broop.dummySigning/?skjema=${selectedSubmission.referanseId}`} target="_blank" rel="noopener noreferrer">
+                        <Button content="Til signering" color="primary" />
+                    </a>
                 </Container>)
             : (
                 <Container>
