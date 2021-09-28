@@ -29,15 +29,15 @@ class Home extends Component {
       errorMessage: null,
       exampleForms: [
         {
-          value: "15bfa3ca-aaa4-4c66-a64b-402eeabac496",
+          value: "4a7e625b-53ad-4390-8c7f-9d721bd10714",
           label: "Ansvarsrett"
         },
         {
-          value: "f23ec5bb-92bc-48b3-9eb5-35f01234ae7b",
+          value: "d218e589-e3b4-444c-a97d-9bb0bcd1658b",
           label: "Kontrollerklæring"
         },
         {
-          value: "99d32a34-215f-45d3-a419-7e0b50953192",
+          value: "f452d039-3dbf-4bd8-922c-8b6d3709481e",
           label: "Samsvarserklæring"
         }
       ]
