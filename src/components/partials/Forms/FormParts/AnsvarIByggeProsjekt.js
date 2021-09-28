@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // DIBK Design
-import { Accordion, Button, CheckBoxListItem, Label, Textarea } from 'dibk-design';
+import { Accordion, Button, CheckBoxInput, CheckBoxListItem, Label, Textarea } from 'dibk-design';
 
 // Actions
 import { fetchCodelistFunksjon, fetchCodelistTiltaksklasse } from 'actions/CodelistActions';
@@ -153,34 +153,34 @@ class AnsvarIByggeProsjekt extends Component {
                                         <React.Fragment>
                                             <Label><b>{ansvarsomraade?.funksjon?.kodeverdi === 'KONTROLL' ? 'Kontrollerklæringer vil foreligge ved' : 'Samsvarserklæringer vil foreligge ved'}</b></Label>
                                             Dersom ansvarlig søker har registrert feil planlagt milepæl, må du oppdatere denne.
-                                            <CheckBoxListItem
+                                            <CheckBoxInput
                                                 id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
                                                 onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedRammetillatelse', index)}
                                                 checked={ansvarsomraade.samsvarKontrollVedRammetillatelse}
                                             >
                                                 Rammetillatelse
-                                            </CheckBoxListItem>
-                                            <CheckBoxListItem
+                                            </CheckBoxInput>
+                                            <CheckBoxInput
                                                 id={`ansvarsomraade-${index}-samsvarKontrollVedIgangsettingstillatelse`}
                                                 onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedIgangsettingstillatelse', index)}
                                                 checked={ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse}
                                             >
                                                 Igangsettingstillatelse
-                                            </CheckBoxListItem>
-                                            <CheckBoxListItem
+                                            </CheckBoxInput>
+                                            <CheckBoxInput
                                                 id={`ansvarsomraade-${index}-samsvarKontrollVedMidlertidigBrukstillatelse`}
                                                 onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedMidlertidigBrukstillatelse', index)}
                                                 checked={ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse}
                                             >
                                                 Midlertidig brukstillatelse
-                                            </CheckBoxListItem>
-                                            <CheckBoxListItem
+                                            </CheckBoxInput>
+                                            <CheckBoxInput
                                                 id={`ansvarsomraade-${index}-samsvarKontrollVedFerdigattest`}
                                                 onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedFerdigattest', index)}
                                                 checked={ansvarsomraade.samsvarKontrollVedFerdigattest}
                                             >
                                                 Ferdigattest
-                                            </CheckBoxListItem>
+                                            </CheckBoxInput>
                                         </React.Fragment>
                                     )
                                     : ''
