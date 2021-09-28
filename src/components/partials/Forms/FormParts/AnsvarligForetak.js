@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // DIBK Design
-import { InputField, Label } from 'dibk-design';
+import { Header, InputField, Label } from 'dibk-design';
+
+// Helpers
+import { formatAddress } from 'helpers/formatHelpers';
 
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
@@ -33,6 +36,8 @@ class AnsvarligForetak extends Component {
 
     render() {
         const foretak = this.props.foretak;
+        const adresse = formatAddress(this.props.foretak);
+        const telefonNummerList = [foretak.telefonnummer, foretak.mobilnummer].filter(nummer => { return nummer?.length });
         return foretak && Object.keys(foretak).length
             ? (
                 <React.Fragment>
@@ -43,16 +48,44 @@ class AnsvarligForetak extends Component {
                         <div className={formsStyle.flex33}>
                             <dt><Label>Organisasjonsnummer</Label></dt><dd>{foretak.organisasjonsnummer}</dd>
                         </div>
-                        <div className={formsStyle.flex33}>
-                            <dt><Label>Adresse</Label></dt><dd>{foretak.adresselinje1}</dd>
-                        </div>
-                        <div className={formsStyle.flex33}>
-                            <dt><Label>Postnr.</Label></dt><dd>{foretak.postnr}</dd>
-                        </div>
-                        <div className={formsStyle.flex33}>
-                            <dt><Label>Poststed</Label></dt><dd>{foretak.poststed}</dd>
-                        </div>
+                        {
+                            adresse?.length
+                                ? (
+                                    <div className={formsStyle.flex33}>
+                                        <dt><Label>Adresse</Label></dt><dd>{adresse}</dd>
+                                    </div>
+                                )
+                                : ''
+                        }
+                        {
+                            telefonNummerList.length
+                                ? (
+                                    <div className={formsStyle.flex33}>
+                                        <dt><Label>Telefon</Label></dt>
+                                        <dd>
+                                            <ul className={formsStyle.cleanList}>
+                                                {
+                                                    telefonNummerList.map((nummer, index) => {
+                                                        return <li key={index}>{nummer}</li>
+                                                    })
+                                                }
+                                            </ul>
+                                        </dd>
+                                    </div>
+                                )
+                                : ''
+                        }
+                        {
+                            foretak.epost?.length
+                                ? (
+                                    <div className={formsStyle.flex33}>
+                                        <dt><Label>E-post</Label></dt><dd>{foretak.epost}</dd>
+                                    </div>
+                                )
+                                : ''
+                        }
                     </dl>
+                    <Header size={3} content="Kontaktperson" />
                     <div className={formsStyle.inputGroup}>
                         <div className={formsStyle.flex33}>
                             <InputField
