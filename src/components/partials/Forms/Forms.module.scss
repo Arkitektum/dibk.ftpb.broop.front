@@ -5,6 +5,11 @@
         margin-top: -12px;
     }
 }
+
+:local(.fieldSection){
+    margin-bottom: 20px;
+}
+
 :local(dl.fieldList) {
     margin: -6px;
     > div {

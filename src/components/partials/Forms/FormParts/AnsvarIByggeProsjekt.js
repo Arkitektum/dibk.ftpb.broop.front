@@ -93,53 +93,66 @@ class AnsvarIByggeProsjekt extends Component {
                     <div key={index} className={formsStyle.accordionItem}>
                         <Accordion title={accordionTitle} expanded color={ansvarsomraade.funksjonKode ? colors[ansvarsomraade.funksjonKode] : 'default'}>
                             {/* TODO: Check if select field and API-request for code list is necessary */}
-                            <div className={`${formsStyle.inputGroup} hide-on-print`}>
-                                <div className={formsStyle.flex100}>
-                                    <Textarea
-                                        id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
-                                        onChange={() => { return false }}
-                                        onBlur={(event) => this.handleUpdateAndSaveIfChanged(event.target.value, 'beskrivelseAvAnsvarsomraade', index)}
-                                        label="Beskrivelse av ansvarsområdet"
-                                        defaultValue={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''}
-                                    />
-                                </div>
+
+                            <div className={formsStyle.fieldSection}>
+                                {
+                                    ansvarsomraade.funksjonKode === "SØK"
+                                        ? "Erklæringen brukes ved endring av ansvarlig søker"
+                                        : (
+                                            <div className={`${formsStyle.inputGroup} hide-on-print`}>
+                                                <div className={formsStyle.flex100}>
+                                                    <Label><b>Beskrivelse av ansvarsområde</b></Label>
+                                                    Beskrivelsen under er skrevet av ansvarlig søker, men du kan oppdatere den.
+                                                    <Textarea
+                                                        id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
+                                                        onChange={() => { return false }}
+                                                        onBlur={(event) => this.handleUpdateAndSaveIfChanged(event.target.value, 'beskrivelseAvAnsvarsomraade', index)}
+                                                        defaultValue={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''}
+                                                    />
+                                                </div>
+                                            </div>
+                                        )
+                                }
                             </div>
-                            <Label>Tiltaksklasse</Label>
-                            Beskrivelse under er skrevet av ansvarlig søker, men du kan oppdatere den.
-                            <div className={formsStyle.inputGroup}>
-                                <div className={formsStyle.flexAuto}>
-                                    <Button
-                                        content="1"
-                                        size="small"
-                                        onClick={() => this.handleUpdateAndSaveIfChanged('1', 'tiltaksklasseKode', index)}
-                                        noHover
-                                        color={ansvarsomraade.tiltaksklasseKode === '1' ? 'primary' : 'default'}
-                                    />
-                                </div>
-                                <div className={formsStyle.flexAuto}>
-                                    <Button
-                                        content="2"
-                                        size="small"
-                                        onClick={() => this.handleUpdateAndSaveIfChanged('2', 'tiltaksklasseKode', index)}
-                                        noHover
-                                        color={ansvarsomraade.tiltaksklasseKode === '2' ? 'primary' : 'default'}
-                                    />
-                                </div>
-                                <div className={formsStyle.flexAuto}>
-                                    <Button
-                                        content="3"
-                                        size="small"
-                                        onClick={() => this.handleUpdateAndSaveIfChanged('3', 'tiltaksklasseKode', index)}
-                                        noHover
-                                        color={ansvarsomraade.tiltaksklasseKode === '3' ? 'primary' : 'default'}
-                                    />
+                            <div className={formsStyle.fieldSection}>
+                                <Label><b>Tiltaksklasse</b></Label>
+                                Dersom ansvarlig søker har registrert feil tiltaksklasse for ansvarsområdet, må du oppdatere denne.
+                                <div className={formsStyle.inputGroup}>
+                                    <div className={formsStyle.flexAuto}>
+                                        <Button
+                                            content="1"
+                                            size="small"
+                                            onClick={() => this.handleUpdateAndSaveIfChanged('1', 'tiltaksklasseKode', index)}
+                                            noHover
+                                            color={ansvarsomraade.tiltaksklasseKode === '1' ? 'primary' : 'default'}
+                                        />
+                                    </div>
+                                    <div className={formsStyle.flexAuto}>
+                                        <Button
+                                            content="2"
+                                            size="small"
+                                            onClick={() => this.handleUpdateAndSaveIfChanged('2', 'tiltaksklasseKode', index)}
+                                            noHover
+                                            color={ansvarsomraade.tiltaksklasseKode === '2' ? 'primary' : 'default'}
+                                        />
+                                    </div>
+                                    <div className={formsStyle.flexAuto}>
+                                        <Button
+                                            content="3"
+                                            size="small"
+                                            onClick={() => this.handleUpdateAndSaveIfChanged('3', 'tiltaksklasseKode', index)}
+                                            noHover
+                                            color={ansvarsomraade.tiltaksklasseKode === '3' ? 'primary' : 'default'}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             {
                                 hasSamsvarKontroll
                                     ? (
                                         <React.Fragment>
-                                            <Label>{ansvarsomraade?.funksjon?.kodeverdi === 'KONTROLL' ? 'Kontrollerklæringer vil foreligge ved' : 'Samsvarserklæringer vil foreligge ved'}</Label>
+                                            <Label><b>{ansvarsomraade?.funksjon?.kodeverdi === 'KONTROLL' ? 'Kontrollerklæringer vil foreligge ved' : 'Samsvarserklæringer vil foreligge ved'}</b></Label>
+                                            Dersom ansvarlig søker har registrert feil planlagt milepæl, må du oppdatere denne.
                                             <CheckBoxListItem
                                                 id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
                                                 onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedRammetillatelse', index)}
