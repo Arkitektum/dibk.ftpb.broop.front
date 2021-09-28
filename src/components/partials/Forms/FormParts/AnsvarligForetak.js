@@ -57,7 +57,6 @@ class AnsvarligForetak extends Component {
                         <div className={formsStyle.flex33}>
                             <InputField
                                 id='foretak-kontaktperson-navn'
-                                onChange={() => { return false }}
                                 onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonNavn') }}
                                 label="Kontaktperson"
                                 defaultValue={foretak.kontaktpersonNavn || ''} />
@@ -65,7 +64,6 @@ class AnsvarligForetak extends Component {
                         <div className={formsStyle.flex33}>
                             <InputField
                                 id='foretak-kontaktperson-mobilnummer'
-                                onChange={() => { return false }}
                                 onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonMobilnummer') }}
                                 label='Mobiltelefon'
                                 defaultValue={foretak.kontaktpersonMobilnummer || ''}
@@ -74,7 +72,6 @@ class AnsvarligForetak extends Component {
                         <div className={formsStyle.flex33}>
                             <InputField
                                 id='foretak-kontaktperson-epost'
-                                onChange={() => { return false }}
                                 onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonEpost') }}
                                 label="E-post"
                                 defaultValue={foretak.kontaktpersonEpost || ''}
