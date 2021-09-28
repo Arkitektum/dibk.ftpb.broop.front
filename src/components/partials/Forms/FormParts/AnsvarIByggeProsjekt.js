@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // DIBK Design
-import { Accordion, Button, CheckBoxInput, CheckBoxListItem, Label, Textarea } from 'dibk-design';
+import { Accordion, Button, CheckBoxInput, Label, Textarea } from 'dibk-design';
 
 // Actions
 import { fetchCodelistFunksjon, fetchCodelistTiltaksklasse } from 'actions/CodelistActions';
