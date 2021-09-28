@@ -61,6 +61,9 @@ class App extends Component {
             isPrint ? '' : (<button onClick={() => renderHtmlString()}>Last ned</button>)
           }
           <Switch>
+            <Route exact={true} path="/skjema/:submissionId/signert" render={(props) => (<Form {...props} />)} />
+            <Route exact={true} path="/skjema/:submissionId/signatur-avvist" render={(props) => (<Form {...props} />)} />
+            <Route exact={true} path="/skjema/:submissionId/signatur-error" render={(props) => (<Form {...props} />)} />
             <Route exact={true} path="/skjema/:submissionId/rediger" render={(props) => (<Form {...props} />)} />
             <Route exact={true} path="/skjema/:submissionId" render={(props) => (<Home {...props} />)} />
             <Route exact={true} path="/skjema" render={(props) => (<Home {...props} />)} />
