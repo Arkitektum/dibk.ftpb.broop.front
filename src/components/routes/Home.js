@@ -17,7 +17,7 @@ import { fetchSubmission } from 'actions/SubmissionActions';
 import { fetchSelectedForm } from 'actions/FormActions';
 
 // Stylesheets
-import style from 'components/routes/Home.module.scss';
+import commonStyle from 'components/routes/common.module.scss';
 
 class Home extends Component {
   constructor(props) {
@@ -149,12 +149,12 @@ class Home extends Component {
       case "iArbeid":
         return (
           <React.Fragment>
-            <div className={style.introText}>
+            <div className={commonStyle.introText}>
               <Header content={`Erklæring om ansvarsrett fra ${form?.formData?.ansvarligSoeker?.navn} til signering`} />
-              <div className={style.paragraphGroup}>
+              <div className={commonStyle.paragraphGroup}>
                 <p>Dette er en erklæring om ansvarsrett{this.getProjectNameForForm(form)}.</p>
               </div>
-              <div className={style.paragraphGroup}>
+              <div className={commonStyle.paragraphGroup}>
                 {
                   form?.formData?.ansvarligForetak?.navn
                     ? (<p>Ansvarlig foretak er: {form.formData.ansvarligForetak.navn}</p>)
@@ -166,7 +166,7 @@ class Home extends Component {
                     : ''
                 }
               </div>
-              <div className={style.paragraphGroup}>
+              <div className={commonStyle.paragraphGroup}>
                 {
                   form?.formData?.ansvarsomraader?.length
                     ? this.renderAnsvarsomraaderList(form.formData.ansvarsomraader)
@@ -174,7 +174,7 @@ class Home extends Component {
                 }
               </div>
             </div>
-            <div className={style.paragraphGroup}>
+            <div className={commonStyle.paragraphGroup}>
               {
                 form?.formData?.frist
                   ? <p>Frist for signering er ${form.formData.frist}.</p>
@@ -195,9 +195,9 @@ class Home extends Component {
         const foretakEpost = form?.formData?.ansvarligForetak?.epost || form?.formData?.foretak?.kontaktpersonEpost;
         return (
           <React.Fragment>
-            <div className={style.introText}>
+            <div className={commonStyle.introText}>
               <Header content="Erklæring er allerede signert" />
-              <div className={style.paragraphGroup}>
+              <div className={commonStyle.paragraphGroup}>
                 <p>
                   {
                     form?.formData?.foretak?.navn
@@ -211,7 +211,7 @@ class Home extends Component {
                   }
                 </p>
               </div>
-              <div className={style.paragraphGroup}>
+              <div className={commonStyle.paragraphGroup}>
                 <p>Erklæringen gjelder{this.getProjectNameForForm(form)}.</p>
               </div>
             </div>
@@ -221,9 +221,9 @@ class Home extends Component {
       case "avvist":
         return (
           <React.Fragment>
-            <div className={style.introText}>
+            <div className={commonStyle.introText}>
               <Header content="Erklæring er avvist" />
-              <div className={style.paragraphGroup}>
+              <div className={commonStyle.paragraphGroup}>
                 <p>
                   {
                     form?.formData?.ansvarligForetak?.navn
@@ -239,10 +239,10 @@ class Home extends Component {
                   }
                 </p>
               </div>
-              <div className={style.paragraphGroup}>
+              <div className={commonStyle.paragraphGroup}>
                 <p>Erklæringen gjelder{this.getProjectNameForForm(form)}.</p>
               </div>
-              <div className={style.paragraphGroup}>
+              <div className={commonStyle.paragraphGroup}>
                 <p>Avvisningen og begrunnelsen er sendt til {form?.formData?.ansvarligSoeker?.navn}, som er ansvarlig søker</p>
               </div>
             </div>
@@ -252,16 +252,16 @@ class Home extends Component {
       case "utgaatt":
         return (
           <React.Fragment>
-            <div className={style.introText}>
+            <div className={commonStyle.introText}>
               <Header content="Fristen for å signere erklæringen er utgått" />
-              <div className={style.paragraphGroup}>
+              <div className={commonStyle.paragraphGroup}>
                 {
                   form?.formData?.frist
                     ? <p>Fristen for å signere gikk ut ${form.formData.frist}.</p> // TODO add to API
                     : ''
                 }
               </div>
-              <div className={style.paragraphGroup}>
+              <div className={commonStyle.paragraphGroup}>
                 <p>Erklæringen gjaldt{this.getProjectNameForForm(form)}.</p>
               </div>
             </div>
