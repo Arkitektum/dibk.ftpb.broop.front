@@ -46,13 +46,18 @@ class Form extends Component {
     render() {
         const selectedSubmission = this.props.selectedSubmission
         const formType = selectedSubmission.innsendingstype;
+        let signingUrl = `https://arkitektum.github.io/dibk.ftpb.broop.dummySigning/?skjema=${selectedSubmission.referanseId}`;
+        signingUrl += process?.env?.NODE_ENV === 'development' ? '&origin=localhost' : '';
         return selectedSubmission
             ? (
                 <Container>
                     {this.renderForm(formType, selectedSubmission)}
-                    <a href={`https://arkitektum.github.io/dibk.ftpb.broop.dummySigning/?skjema=${selectedSubmission.referanseId}`} target="_blank" rel="noopener noreferrer">
+                    <a href={signingUrl}>
                         <Button content="Til signering" color="primary" />
                     </a>
+                    {
+                        
+                    }
                 </Container>)
             : (
                 <Container>
