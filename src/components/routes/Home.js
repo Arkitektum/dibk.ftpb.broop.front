@@ -16,6 +16,9 @@ import ContactInfo from 'components/partials/ContactInfo';
 import { fetchSubmission } from 'actions/SubmissionActions';
 import { fetchSelectedForm } from 'actions/FormActions';
 
+// Helpers
+import { formatProjectNameForForm } from 'helpers/formatHelpers';
+
 // Stylesheets
 import commonStyle from 'components/routes/common.module.scss';
 
@@ -94,19 +97,7 @@ class Home extends Component {
     });
   }
 
-  getProjectNameForForm(form) {
-    let projectName = '';
-    if (form?.formData?.prosjektNavn) { // TODO add to API
-      projectName += ` for ${form.formData.prosjektNavn}`;
-    } else if (form?.formData?.eiendomByggesteder?.[0]?.adresselinje1) {
-      projectName += ` for ${form.formData.eiendomByggesteder[0].adresselinje1}`;
-    }
-    if (form?.formData?.eiendomByggesteder?.[0]?.kommunenavn) {
-      projectName += ` i ${form.formData.eiendomByggesteder[0].kommunenavn}`;
-    }
-    return projectName;
 
-  }
 
   groupAnsvarsomraaderByFunksjon(ansvarsomraader) {
     let ansvarsomraaderGrouped = {}
@@ -152,7 +143,7 @@ class Home extends Component {
             <div className={commonStyle.introText}>
               <Header content={`Erklæring om ansvarsrett fra ${form?.formData?.ansvarligSoeker?.navn} til signering`} />
               <div className={commonStyle.paragraphGroup}>
-                <p>Dette er en erklæring om ansvarsrett{this.getProjectNameForForm(form)}.</p>
+                <p>Dette er en erklæring om ansvarsrett{formatProjectNameForForm(form)}.</p>
               </div>
               <div className={commonStyle.paragraphGroup}>
                 {
@@ -212,7 +203,7 @@ class Home extends Component {
                 </p>
               </div>
               <div className={commonStyle.paragraphGroup}>
-                <p>Erklæringen gjelder{this.getProjectNameForForm(form)}.</p>
+                <p>Erklæringen gjelder{formatProjectNameForForm(form)}.</p>
               </div>
             </div>
             <ContactInfo />
@@ -240,7 +231,7 @@ class Home extends Component {
                 </p>
               </div>
               <div className={commonStyle.paragraphGroup}>
-                <p>Erklæringen gjelder{this.getProjectNameForForm(form)}.</p>
+                <p>Erklæringen gjelder{formatProjectNameForForm(form)}.</p>
               </div>
               <div className={commonStyle.paragraphGroup}>
                 <p>Avvisningen og begrunnelsen er sendt til {form?.formData?.ansvarligSoeker?.navn}, som er ansvarlig søker</p>
@@ -262,7 +253,7 @@ class Home extends Component {
                 }
               </div>
               <div className={commonStyle.paragraphGroup}>
-                <p>Erklæringen gjaldt{this.getProjectNameForForm(form)}.</p>
+                <p>Erklæringen gjaldt{formatProjectNameForForm(form)}.</p>
               </div>
             </div>
             <ContactInfo type="utgaatt" />

@@ -37,3 +37,16 @@ export const formatDate = timestamp => {
     const day = date.getDate();
     return `${day}. ${month} ${year}`;
 }
+
+export const formatProjectNameForForm = form => {
+    let projectName = '';
+    if (form?.formData?.prosjektNavn) { // TODO add to API
+      projectName += ` for ${form.formData.prosjektNavn}`;
+    } else if (form?.formData?.eiendomByggesteder?.[0]?.adresselinje1) {
+      projectName += ` for ${form.formData.eiendomByggesteder[0].adresselinje1}`;
+    }
+    if (form?.formData?.eiendomByggesteder?.[0]?.kommunenavn) {
+      projectName += ` i ${form.formData.eiendomByggesteder[0].kommunenavn}`;
+    }
+    return projectName;
+  }
