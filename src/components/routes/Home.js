@@ -136,6 +136,7 @@ class Home extends Component {
 
   renderContent(status, form, submission) {
     switch (status) {
+      case "opprettet":
       case "tilSignering":
       case "iArbeid":
         return (
@@ -300,6 +301,7 @@ class Home extends Component {
 
             <select value={this.state.status || ""} onChange={event => this.setState({ status: event.target.value })}>
               <option value="" disabled>Velg status</option>
+              <option value="opprettet">Opprettet</option>
               <option value="tilSignering">Til signering</option>
               <option value="iArbeid">I arbeid</option>
               <option value="signert">Signert</option>
