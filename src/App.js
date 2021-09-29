@@ -13,6 +13,7 @@ import configureStore, { history } from 'utils/configureStore';
 // Routes
 import Home from 'components/routes/Home';
 import Form from 'components/routes/Forms/FormType/Form';
+import Receipt from 'components/routes/Receipt';
 import NotFound from 'components/routes/NotFound';
 
 // Partials
@@ -61,9 +62,9 @@ class App extends Component {
             isPrint ? '' : (<button onClick={() => renderHtmlString()}>Last ned</button>)
           }
           <Switch>
-            <Route exact={true} path="/skjema/:submissionId/signert" render={(props) => (<Form {...props} />)} />
-            <Route exact={true} path="/skjema/:submissionId/signatur-avvist" render={(props) => (<Form {...props} />)} />
-            <Route exact={true} path="/skjema/:submissionId/signatur-error" render={(props) => (<Form {...props} />)} />
+            <Route exact={true} path="/skjema/:submissionId/signert" render={(props) => (<Receipt {...props} status="signert" />)} />
+            <Route exact={true} path="/skjema/:submissionId/signatur-avvist" render={(props) => (<Receipt {...props} status="avvist" />)} />
+            <Route exact={true} path="/skjema/:submissionId/signatur-error" render={(props) => (<Receipt {...props} status="error" />)} />
             <Route exact={true} path="/skjema/:submissionId/rediger" render={(props) => (<Form {...props} />)} />
             <Route exact={true} path="/skjema/:submissionId" render={(props) => (<Home {...props} />)} />
             <Route exact={true} path="/skjema" render={(props) => (<Home {...props} />)} />
