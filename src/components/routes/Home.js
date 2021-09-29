@@ -32,17 +32,17 @@ class Home extends Component {
       errorMessage: null,
       exampleForms: [
         {
-          value: "4a7e625b-53ad-4390-8c7f-9d721bd10714",
+          value: "2593ecac-fad0-420b-b760-b6a98005df42",
           label: "Ansvarsrett"
         },
         {
-          value: "d218e589-e3b4-444c-a97d-9bb0bcd1658b",
+          value: "0e9f692e-c4a3-4b88-8c42-a0f0a7a759a1",
           label: "Kontrollerklæring"
         },
         {
-          value: "f452d039-3dbf-4bd8-922c-8b6d3709481e",
+          value: "152b9329-e64d-43a9-92f1-daa110230347",
           label: "Samsvarserklæring"
-        }
+		}
       ]
     }
   }
