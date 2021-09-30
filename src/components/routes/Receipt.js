@@ -14,9 +14,11 @@ import ContactInfo from 'components/partials/ContactInfo';
 // Actions
 import { fetchSubmission } from 'actions/SubmissionActions';
 import { fetchSelectedForm } from 'actions/FormActions';
+import { updateSignedStatus } from 'actions/SigningActions';
 
 // Helpers
 import { formatProjectNameForForm } from 'helpers/formatHelpers';
+import { getStageFromStatus } from 'helpers/signingHelpers';
 
 // Stylesheets
 import commonStyle from 'components/routes/common.module.scss';
@@ -47,6 +49,8 @@ class Receipt extends Component {
                 console.log("Home component did mount", error);
             });
         }
+        const stage = getStageFromStatus(this.props.status);
+        this.props.updateSignedStatus(submissionId, 'query-token-a-roonie', stage) // TODO: get query token
     }
 
 
@@ -86,9 +90,7 @@ class Receipt extends Component {
                         <div className={commonStyle.introText}>
                             <Header content="Erklæring er signert" />
                             <div className={commonStyle.paragraphGroup}>
-                                <p>
-                                    <p>Erklæringen om ansvarsrett for {formatProjectNameForForm(form)} er signert og sendt til ansvarlig søker.</p>
-                                </p>
+                                <p>Erklæringen om ansvarsrett for {formatProjectNameForForm(form)} er signert og sendt til ansvarlig søker.</p>
                             </div>
                             <div className={commonStyle.paragraphGroup}>
                                 <p>En kopi av den signerte erklæringen er sendt til {foretakEpost}. Du kan også laste ned en kopi ved å trykke på knappen under.</p>
@@ -132,7 +134,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     fetchSubmission,
-    fetchSelectedForm
+    fetchSelectedForm,
+    updateSignedStatus
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Receipt);
