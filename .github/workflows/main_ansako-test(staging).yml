@@ -26,9 +26,7 @@ jobs:
           npm run test --if-present
 
       - name: Find and Replace Password - Using Build Variable
-        run: find ./build/config.json -type f -exec sed -i ''s/#{INTERNALAPIURL}#/${{ secrets.INTERNALAPIURL }}/g'' {} \;
-      - name: Bash - Show JSON Contents
-        run: cat ./build/config.json
+        run: (Get-Content -path ./build/config.json -Raw) -replace '#{INTERNALAPIURL}#',{{ secrets.INTERNALAPIURL }}
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
