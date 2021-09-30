@@ -82,18 +82,22 @@ class Receipt extends Component {
 
 
     renderContent(status, form, submission) {
+        const foretakEpost = form?.formData?.ansvarligForetak?.epost || form?.formData?.foretak?.kontaktpersonEpost;
         switch (status) {
             case "signert":
-                const foretakEpost = form?.formData?.ansvarligForetak?.epost || form?.formData?.foretak?.kontaktpersonEpost;
                 return (
                     <React.Fragment>
                         <div className={commonStyle.introText}>
                             <Header content="Erklæring er signert" />
                             <div className={commonStyle.paragraphGroup}>
-                                <p>Erklæringen om ansvarsrett for {formatProjectNameForForm(form)} er signert og sendt til ansvarlig søker.</p>
+                                <p>Erklæringen om ansvarsrett{formatProjectNameForForm(form)?.length ? ` for ${formatProjectNameForForm(form)}` : ''} er signert og sendt til ansvarlig søker.</p>
                             </div>
                             <div className={commonStyle.paragraphGroup}>
-                                <p>En kopi av den signerte erklæringen er sendt til {foretakEpost}. Du kan også laste ned en kopi ved å trykke på knappen under.</p>
+                                <p>{
+                                    foretakEpost?.length
+                                        ? `En kopi av den signerte erklæringen er sendt til ${foretakEpost}. Du kan også laste ned en kopi ved å trykke på knappen under.`
+                                        : 'Du kan laste ned en kopi ved å trykke på knappen under.'}
+                                </p>
                             </div>
                             <div className={commonStyle.paragraphGroup}>
                                 <p><b>NB!</b> Direktoratet for byggkvalitet tar ikke ansvaret for å lagre erklæringen, og den blir slettet fra vårt system innen 12 måneder. Pass derfor på at du selv holder arkiv og oversikt over signerte erklæringer.</p>
