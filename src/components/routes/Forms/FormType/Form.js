@@ -1,6 +1,10 @@
 // Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { renderToString } from 'react-dom/server'
+
+// Componentstststsnts
+import App from 'App';
 
 // DIBK Design
 import { Button } from 'dibk-design';
@@ -15,6 +19,11 @@ import SamsvarsErklaering from 'components/partials/Forms/SamsvarsErklaering';
 
 // Actions
 import { fetchSubmission } from 'actions/SubmissionActions';
+import { initiateSigning } from 'actions/SigningActions';
+import { convertSelectedFormToPDF } from 'actions/PrintActions';
+
+/* eslint import/no-webpack-loader-syntax: off */
+import printStyle from '!!raw-loader!sass-loader!../../../../print.scss';
 
 
 class Form extends Component {
@@ -43,21 +52,41 @@ class Form extends Component {
     }
 
 
+    renderHtmlContentForPdf() {
+        localStorage.print = "true";
+        const htmlString = renderToString(<div className="page"><App /></div>);
+        localStorage.print = "false";
+        const htmlContentString = `<html><head><style>${printStyle}</style></head><body>${htmlString}</body></html>`.replace(/\r?\n|\r/g, "");
+        return htmlContentString;
+    }
+
+    handleSigningButtonClick() {
+        const htmlContentForPdf = this.renderHtmlContentForPdf();
+        const selectedSubmission = this.props.selectedSubmission
+        this.props.convertSelectedFormToPDF(htmlContentForPdf, selectedSubmission.referanseId).then(() => {
+            this.props.initiateSigning(selectedSubmission.referanseId, 'token-a-roonie').then(response => {
+                let signingUrl = response.signingUrl;
+                signingUrl += `?skjema=${selectedSubmission.referanseId}`;
+                signingUrl += process?.env?.NODE_ENV === 'development' ? '&origin=localhost' : '';
+                window.location.href = signingUrl;
+            });
+        })
+
+
+
+
+    }
+
+
     render() {
         const selectedSubmission = this.props.selectedSubmission
         const formType = selectedSubmission.innsendingstype;
-        let signingUrl = `https://arkitektum.github.io/dibk.ftpb.broop.dummySigning/?skjema=${selectedSubmission.referanseId}`;
-        signingUrl += process?.env?.NODE_ENV === 'development' ? '&origin=localhost' : '';
+
         return selectedSubmission
             ? (
                 <Container>
                     {this.renderForm(formType, selectedSubmission)}
-                    <a href={signingUrl}>
-                        <Button content="Til signering" color="primary" />
-                    </a>
-                    {
-                        
-                    }
+                    <Button content="Til signering" color="primary" onClick={() => this.handleSigningButtonClick()} />
                 </Container>)
             : (
                 <Container>
@@ -73,7 +102,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    fetchSubmission
+    fetchSubmission,
+    initiateSigning,
+    convertSelectedFormToPDF
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

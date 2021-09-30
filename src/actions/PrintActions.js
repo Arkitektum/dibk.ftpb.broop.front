@@ -10,7 +10,6 @@ const saveFileContent = (blob) => {
 
 export const convertSelectedFormToPDF = (htmlString, submissionId) => dispatch => {
     const internalApiUrl = getEnvironmentVariable('internalApiUrl');
-
     const formPath = `/api/v1/HtmlToPdf/${submissionId}`;
     const fetchOptions = {
         method: 'POST',
@@ -20,7 +19,5 @@ export const convertSelectedFormToPDF = (htmlString, submissionId) => dispatch =
         },
         body: htmlString
     };
-    return fetch(`${internalApiUrl}${formPath}`, fetchOptions).then(res => res.blob()).then(blob => {
-        saveFileContent(blob);
-    });
+    return fetch(`${internalApiUrl}${formPath}`, fetchOptions);
 }
