@@ -1,6 +1,6 @@
 {
   "name": "dibk-ftb-broop-front",
-  "version": "0.1.40",
+  "version": "0.1.41",
   "private": true,
   "dependencies": {
     "connected-react-router": "^6.7.0",
