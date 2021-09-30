@@ -50,6 +50,5 @@ jobs:
         with:
           app-name: 'ansako-test'
           slot-name: 'staging'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_02CAD7733DA04753A2769E2B74F192B4 }}
-          package: build
-#          package: .
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_02CAD7733DA04753A2769E2B74F192B4 }}          
+          package: .
