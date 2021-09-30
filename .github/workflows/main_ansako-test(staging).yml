@@ -26,7 +26,7 @@ jobs:
           npm run test --if-present
 
       - name: Find and Replace Password - Using Build Variable
-        run: find ./build/config.json -type f -exec sed -i ''s/https://dibk-ftpb-broop-api.azurewebsites.net/${{ secrets.INTERNALAPIURL }}/g'' {} \;
+        run: find ./build/config.json -type f -exec sed -i ''s/#{INTERNALAPIURL}#/${{ secrets.INTERNALAPIURL }}/g'' {} \;
       - name: Bash - Show JSON Contents
         run: cat ./build/config.json
       
