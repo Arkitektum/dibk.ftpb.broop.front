@@ -26,7 +26,7 @@ jobs:
           npm run test --if-present
 
       - name: set config value for internal api
-        run: (Get-Content -path ./build/config.json -Raw) -replace '#{INTERNALAPIURL}#','''${{ secrets.INTERNALAPIURL }}'''
+        run: (Get-Content -path ./build/config.json -Raw) -replace '#{INTERNALAPIURL}#',"${{ secrets.INTERNALAPIURL }}"
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
