@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // DIBK Design
-import { Button, Header } from 'dibk-design';
+import { Button, Header, InputField } from 'dibk-design';
 
 // Template
 import Container from 'components/template/Container';
@@ -103,6 +103,29 @@ class Receipt extends Component {
                                 <p><b>NB!</b> Direktoratet for byggkvalitet tar ikke ansvaret for å lagre erklæringen, og den blir slettet fra vårt system innen 12 måneder. Pass derfor på at du selv holder arkiv og oversikt over signerte erklæringer.</p>
                             </div>
                             <Button content="Last ned en kopi" color="primary" />
+                        </div>
+                        <ContactInfo />
+                    </React.Fragment>
+                );
+            case "avvist":
+                return (
+                    <React.Fragment>
+                        <div className={commonStyle.introText}>
+                            <Header content="Erklæring er avvist" />
+                            <div className={commonStyle.paragraphGroup}>
+                                <p>Du har avvist erklæringen om ansvarsrett{formatProjectNameForForm(form)?.length ? ` for ${formatProjectNameForForm(form)}` : ''}, med følgende beskjed til ansvarlig søker:</p>
+                                <p>
+                                    {
+                                        form?.formData?.ansvarligForetak?.avvistBegrunnselse // TODO add to API
+                                            ? form.formData.ansvarligForetak.avvistBegrunnselse
+                                            : ''
+                                    }
+                                </p>
+                            </div>
+                            <div className={commonStyle.paragraphGroup}>
+                                <InputField id="foretakEpost" value={foretakEpost} type="email" label="E-postadresse:" />
+                            </div>
+                            <Button content="Send kopi på e-post" color="primary" />
                         </div>
                         <ContactInfo />
                     </React.Fragment>
