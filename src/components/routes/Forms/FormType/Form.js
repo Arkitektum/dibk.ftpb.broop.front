@@ -7,7 +7,7 @@ import { renderToString } from 'react-dom/server'
 import App from 'App';
 
 // DIBK Design
-import { Button } from 'dibk-design';
+import { Button, LoadingAnimation } from 'dibk-design';
 
 // Template
 import Container from 'components/template/Container';
@@ -27,6 +27,14 @@ import printStyle from '!!raw-loader!sass-loader!../../../../print.scss';
 
 
 class Form extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            convertingSelectedFormToPDF: false,
+            initiatingSigning: false
+        }
+    }
 
     componentDidMount() {
         const submissionId = this.props.match.params.submissionId;
@@ -61,10 +69,20 @@ class Form extends Component {
     }
 
     handleSigningButtonClick() {
+        this.setState({
+            convertingSelectedFormToPDF: true
+        });
         const htmlContentForPdf = this.renderHtmlContentForPdf();
         const selectedSubmission = this.props.selectedSubmission
         this.props.convertSelectedFormToPDF(htmlContentForPdf, selectedSubmission.referanseId).then(() => {
+            this.setState({
+                convertingSelectedFormToPDF: false,
+                initiatingSigning: true
+            });
             this.props.initiateSigning(selectedSubmission.referanseId, 'token-a-roonie').then(response => {
+                this.setState({
+                    initiatingSigning: false
+                });
                 let signingUrl = response.signingUrl;
                 signingUrl += `?skjema=${selectedSubmission.referanseId}`;
                 signingUrl += process?.env?.NODE_ENV === 'development' ? '&origin=localhost' : '';
@@ -87,6 +105,11 @@ class Form extends Component {
                 <Container>
                     {this.renderForm(formType, selectedSubmission)}
                     <Button content="Til signering" color="primary" onClick={() => this.handleSigningButtonClick()} />
+                    {
+                        this.state.convertingSelectedFormToPDF || this.state.initiatingSigning
+                            ? <LoadingAnimation fixed="true" message={this.state.convertingSelectedFormToPDF ? 'Genererer PDF-fil' : 'Klargjør signering'} />
+                            : ''
+                    }
                 </Container>)
             : (
                 <Container>
