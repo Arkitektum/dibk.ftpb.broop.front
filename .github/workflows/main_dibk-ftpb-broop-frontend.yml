@@ -30,6 +30,13 @@ jobs:
         npm run build --if-present
         npm run test --if-present
 
+    - name: set config value for internal api
+      uses: jacobtomlinson/gha-find-replace@master
+      with:
+          find: "#{INTERNALAPIURL}#"
+          replace: "${{ secrets.INTERNALAPIURL_DEV }}"
+          include: ".\/build\/config.json"
+
     - name: Run Azure webapp deploy action using publish profile credentials
       uses: azure/webapps-deploy@v2
       with:
