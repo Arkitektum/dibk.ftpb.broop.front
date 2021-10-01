@@ -65,6 +65,7 @@ class App extends Component {
             <Route exact={true} path="/skjema/:submissionId/signert" render={(props) => (<Receipt {...props} status="signert" />)} />
             <Route exact={true} path="/skjema/:submissionId/signatur-avvist" render={(props) => (<Receipt {...props} status="avvist" />)} />
             <Route exact={true} path="/skjema/:submissionId/signatur-error" render={(props) => (<Receipt {...props} status="error" />)} />
+            <Route exact={true} path="/skjema/:submissionId/avvis" render={(props) => (<Form {...props} showRejectModal />)} />
             <Route exact={true} path="/skjema/:submissionId/rediger" render={(props) => (<Form {...props} />)} />
             <Route exact={true} path="/skjema/:submissionId" render={(props) => (<Home {...props} />)} />
             <Route exact={true} path="/skjema" render={(props) => (<Home {...props} />)} />
