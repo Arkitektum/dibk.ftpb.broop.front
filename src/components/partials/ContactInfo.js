@@ -48,6 +48,8 @@ class ContactInfo extends Component {
 
         if (this.props.type === 'utgaatt') {
             return (<p>Ta kontakt med {name}{phoneOrEmailString} for å få erklæringen tilsendt på nytt.</p>);
+        } else if (this.props.type === 'rediger') {
+            return (<p>Hvis du oppdager feil eller har spørsmål til erklæringen, kan du ta kontakt med {name}{phoneOrEmailString}.</p>);
         } else {
             return (<p>Hvis du har spørsmål til erklæringen, kan du ta kontakt med {name}{phoneOrEmailString}.</p>);
         }
