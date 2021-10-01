@@ -35,15 +35,16 @@ class ContactInfo extends Component {
         const name = form?.formData?.ansvarligSoeker?.navn;
         const phoneNumber = this.getPhoneNumber(form);
         const emailAddress = this.getEmailAddress(form);
+        const emailAddressLinkElement = emailAddress ? <a href={`mailto:${emailAddress}`}>{emailAddress}</a> : '';
 
-        let phoneOrEmailString = '';
+        let phoneOrEmailString;
 
         if (phoneNumber && emailAddress) {
-            phoneOrEmailString += ` på telefon ${phoneNumber} eller e-post ${emailAddress}`;
+            phoneOrEmailString = <React.Fragment> på telefon {phoneNumber} eller e-post {emailAddressLinkElement}</React.Fragment>;
         } else if (phoneNumber) {
-            phoneOrEmailString += ` på telefon ${phoneNumber}`;
+            phoneOrEmailString = <React.Fragment> på telefon {phoneNumber}</React.Fragment>;
         } else if (emailAddress) {
-            phoneOrEmailString += ` på e-post ${emailAddress}`;
+            phoneOrEmailString = <React.Fragment> på e-post ${emailAddress}</React.Fragment>;
         }
 
         if (this.props.type === 'utgaatt') {
