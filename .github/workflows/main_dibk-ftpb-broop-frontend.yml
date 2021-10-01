@@ -35,7 +35,7 @@ jobs:
       with:
         find: "#{INTERNALAPIURL}#"
         replace: "${{ secrets.INTERNALAPIURL_DEV }}"
-        include: ".\/build\/config.json"
+        #include: ".\/build\/config.json"
 
     - name: Run Azure webapp deploy action using publish profile credentials
       uses: azure/webapps-deploy@v2
