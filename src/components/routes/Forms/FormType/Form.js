@@ -16,6 +16,7 @@ import Container from 'components/template/Container';
 import Ansvarsrett from 'components/partials/Forms/Ansvarsrett';
 import KontrollErklaering from 'components/partials/Forms/KontrollErklaering';
 import SamsvarsErklaering from 'components/partials/Forms/SamsvarsErklaering';
+import ContactInfo from 'components/partials/ContactInfo';
 
 // Actions
 import { fetchSubmission } from 'actions/SubmissionActions';
@@ -110,6 +111,7 @@ class Form extends Component {
                             ? <LoadingAnimation fixed="true" message={this.state.convertingSelectedFormToPDF ? 'Genererer PDF-fil' : 'Klargjør signering'} />
                             : ''
                     }
+                    <ContactInfo />
                 </Container>)
             : (
                 <Container>
