@@ -23,6 +23,7 @@ import ContactInfo from 'components/partials/ContactInfo';
 
 // Actions
 import { fetchSubmission } from 'actions/SubmissionActions';
+import { fetchSelectedForm } from 'actions/FormActions';
 import { initiateSigning } from 'actions/SigningActions';
 import { convertSelectedFormToPDF } from 'actions/PrintActions';
 
@@ -38,10 +39,9 @@ class Form extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            convertingSelectedFormToPDF: false,
-            initiatingSigning: false,
             redirect: null,
-            rejectionMessage: null
+            rejectionMessage: null,
+            loadingMessage: null
         }
         this.handleClickOutsideRejectDialog = this.handleClickOutsideRejectDialog.bind(this);
 
@@ -50,10 +50,7 @@ class Form extends Component {
     componentDidMount() {
         const submissionId = this.props.match.params.submissionId;
         if (!this.props.selectedSubmission || !Object.keys(this.props.selectedSubmission).length) {
-            this.props.fetchSubmission(submissionId).then((response) => {
-                const submission = response?.payload || null;
-                this.setState({ submission });
-            });
+            this.fecthFormData(submissionId);
         }
     }
 
@@ -62,6 +59,45 @@ class Form extends Component {
             this.setState({ redirect: null });
         }
     }
+
+    fecthFormData(submissionId) {
+        this.setState({
+            loadingMessage: 'Henter innsending'
+        });
+        return this.props.fetchSubmission(submissionId).then(() => {
+            this.setState({
+                loadingMessage: 'Henter skjema'
+            });
+            if (this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length) {
+                return this.props.fetchSelectedForm(this.props.selectedSubmission).then((response) => {
+                    const selectedForm = response.payload;
+                    if (selectedForm) {
+                        this.setState({
+                            errorMessage: null,
+                            loadingMessage: null
+                        });
+                    } else {
+                        this.setState({
+                            errorMessage: `Kunne ikke hente skjema med referanse: ${submissionId}`,
+                            loadingMessage: null
+                        });
+                    }
+                    return selectedForm;
+                }).catch(error => {
+                    console.log("fetchSelectedForm", error)
+                    this.setState({
+                        loadingMessage: null
+                    });
+                });
+            }
+        }).catch(error => {
+            console.log("fetchSubmission", error)
+            this.setState({
+                loadingMessage: null
+            });
+        });
+    }
+
 
     renderForm(formType, selectedSubmission) {
         switch (formType) {
@@ -87,23 +123,30 @@ class Form extends Component {
 
     handleSigningButtonClick() {
         this.setState({
-            convertingSelectedFormToPDF: true
+            loadingMessage: 'Genererer PDF-fil'
         });
         const htmlContentForPdf = this.renderHtmlContentForPdf();
         const selectedSubmission = this.props.selectedSubmission
         this.props.convertSelectedFormToPDF(htmlContentForPdf, selectedSubmission.referanseId).then(() => {
             this.setState({
-                convertingSelectedFormToPDF: false,
-                initiatingSigning: true
+                loadingMessage: 'Klargjør signering'
             });
             this.props.initiateSigning(selectedSubmission.referanseId, 'token-a-roonie').then(response => {
                 this.setState({
-                    initiatingSigning: false
+                    loadingMessage: null
                 });
                 let signingUrl = response.signingUrl;
                 signingUrl += `?skjema=${selectedSubmission.referanseId}`;
                 signingUrl += process?.env?.NODE_ENV === 'development' ? '&origin=localhost' : '';
                 window.location.href = signingUrl;
+            }).catch(error => {
+                this.setState({
+                    loadingMessage: null
+                });
+            });
+        }).catch(error => {
+            this.setState({
+                loadingMessage: null
             });
         })
     }
@@ -127,8 +170,8 @@ class Form extends Component {
                         {this.renderForm(formType, selectedSubmission)}
                         <Button content="Til signering" color="primary" onClick={() => this.handleSigningButtonClick()} />
                         {
-                            this.state.convertingSelectedFormToPDF || this.state.initiatingSigning
-                                ? <LoadingAnimation fixed="true" message={this.state.convertingSelectedFormToPDF ? 'Genererer PDF-fil' : 'Klargjør signering'} />
+                            this.state.loadingMessage?.length
+                                ? <LoadingAnimation fixed message={this.state.loadingMessage} />
                                 : ''
                         }
                         <div className={`${commonStyle.marginTop} ${commonStyle.marginBottom}`}>
@@ -177,6 +220,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     fetchSubmission,
+    fetchSelectedForm,
     initiateSigning,
     convertSelectedFormToPDF
 };

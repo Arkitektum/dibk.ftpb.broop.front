@@ -38,48 +38,54 @@ class Receipt extends Component {
     componentDidMount() {
         const submissionId = this.props.match.params.submissionId;
         if (submissionId) {
-            this.fetchSubmission(submissionId).then(form => {
-                if (form) {
-                    this.setState({
-                        errorMessage: null
-                    });
-                } else {
-                    this.setState({
-                        errorMessage: `Kunne ikke hente skjema med referanse: ${submissionId}`
-                    });
-                }
-            }).catch(error => {
-                console.log("Home component did mount", error);
-            });
+            this.fecthFormData(submissionId);
         }
         const stage = getStageFromStatus(this.props.status);
         this.props.updateSignedStatus(submissionId, 'query-token-a-roonie', stage) // TODO: get query token
     }
 
-
-    fetchSubmission(submissionId) {
+    fecthFormData(submissionId) {
+        this.setState({
+            loadingMessage: 'Henter innsending'
+        });
         return this.props.fetchSubmission(submissionId).then(() => {
             if (this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length) {
+                this.setState({
+                    loadingMessage: 'Henter skjema'
+                });
                 return this.props.fetchSelectedForm(this.props.selectedSubmission).then((response) => {
                     const selectedForm = response.payload;
                     if (selectedForm) {
                         this.setState({
                             selectedFormOptionId: selectedForm.referanseId,
                             status: selectedForm.status,
-                            errorMessage: null
+                            errorMessage: null,
+                            loadingMessage: null
                         });
                     } else {
                         this.setState({
-                            errorMessage: `Kunne ikke hente skjema med referanse: ${submissionId}`
+                            errorMessage: `Kunne ikke hente skjema med referanse: ${submissionId}`,
+                            loadingMessage: null
                         });
                     }
                     return selectedForm;
                 }).catch(error => {
                     console.log("fetchSelectedForm", error)
+                    this.setState({
+                        loadingMessage: null
+                    });
                 });
             }
         }).catch(error => {
             console.log("fetchSubmission", error)
+            this.setState({
+                loadingMessage: null
+            });
+        });
+    }
+
+    
+
     handleDownloadButtonClick() {
         const submissionId = this.props.match.params.submissionId;
         this.setState({
