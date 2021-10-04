@@ -11,3 +11,11 @@
         line-height: 1.6;
     }
 }
+
+:local(.marginTop) {
+    margin-top: 50px;
+}
+
+:local(.marginBottom) {
+    margin-bottom: 50px;
+}
