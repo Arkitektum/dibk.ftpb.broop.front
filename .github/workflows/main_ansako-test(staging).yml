@@ -27,7 +27,10 @@ jobs:
 
       - name: set config value for internal api
         run: ((Get-Content -path ./build/config.json -Raw) -replace '#{INTERNALAPIURL}#',"${{ secrets.INTERNALAPIURL }}") | Set-Content -Path ./build/config.json
-      
+
+      - name: set environment
+        run: ((Get-Content -path ./build/config.json -Raw) -replace '#{ENVIRONMENT}#',"test") | Set-Content -Path ./build/config.json
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
