@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // DIBK Design
-import { Button, Header, InputField } from 'dibk-design';
+import { Button, Header, InputField, LoadingAnimation } from 'dibk-design';
 
 // Template
 import Container from 'components/template/Container';
@@ -14,11 +14,12 @@ import ContactInfo from 'components/partials/ContactInfo';
 // Actions
 import { fetchSubmission } from 'actions/SubmissionActions';
 import { fetchSelectedForm } from 'actions/FormActions';
-import { updateSignedStatus } from 'actions/SigningActions';
+import { updateSignedStatus, getSignedDocument } from 'actions/SigningActions';
 
 // Helpers
 import { formatProjectNameForForm } from 'helpers/formatHelpers';
 import { getStageFromStatus } from 'helpers/signingHelpers';
+import { saveFileContentFromBlob } from 'helpers/fileHelpers';
 
 // Stylesheets
 import commonStyle from 'components/routes/common.module.scss';
@@ -28,56 +29,79 @@ class Receipt extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            errorMessage: null
-        }
+            errorMessage: null,
+            loadingMessage: null
+        };
+        this.handleDownloadButtonClick = this.handleDownloadButtonClick.bind(this);
     }
 
     componentDidMount() {
         const submissionId = this.props.match.params.submissionId;
         if (submissionId) {
-            this.fetchSubmission(submissionId).then(form => {
-                if (form) {
-                    this.setState({
-                        errorMessage: null
-                    });
-                } else {
-                    this.setState({
-                        errorMessage: `Kunne ikke hente skjema med referanse: ${submissionId}`
-                    });
-                }
-            }).catch(error => {
-                console.log("Home component did mount", error);
-            });
+            this.fecthFormData(submissionId);
         }
         const stage = getStageFromStatus(this.props.status);
         this.props.updateSignedStatus(submissionId, 'query-token-a-roonie', stage) // TODO: get query token
     }
 
-
-    fetchSubmission(submissionId) {
+    fecthFormData(submissionId) {
+        this.setState({
+            loadingMessage: 'Henter innsending'
+        });
         return this.props.fetchSubmission(submissionId).then(() => {
             if (this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length) {
+                this.setState({
+                    loadingMessage: 'Henter skjema'
+                });
                 return this.props.fetchSelectedForm(this.props.selectedSubmission).then((response) => {
                     const selectedForm = response.payload;
                     if (selectedForm) {
                         this.setState({
                             selectedFormOptionId: selectedForm.referanseId,
                             status: selectedForm.status,
-                            errorMessage: null
+                            errorMessage: null,
+                            loadingMessage: null
                         });
                     } else {
                         this.setState({
-                            errorMessage: `Kunne ikke hente skjema med referanse: ${submissionId}`
+                            errorMessage: `Kunne ikke hente skjema med referanse: ${submissionId}`,
+                            loadingMessage: null
                         });
                     }
                     return selectedForm;
                 }).catch(error => {
                     console.log("fetchSelectedForm", error)
+                    this.setState({
+                        loadingMessage: null
+                    });
                 });
             }
         }).catch(error => {
             console.log("fetchSubmission", error)
+            this.setState({
+                loadingMessage: null
+            });
         });
+    }
+
+    
+
+    handleDownloadButtonClick() {
+        const submissionId = this.props.match.params.submissionId;
+        this.setState({
+            loadingMessage: 'Henter signert dokument'
+        });
+        this.props.getSignedDocument(submissionId).then(signedDocument => {
+            saveFileContentFromBlob(signedDocument.blob, signedDocument.filename);
+            this.setState({
+                loadingMessage: null
+            });
+        }).catch(error => {
+            this.setState({
+                loadingMessage: null
+            });
+        });
+
     }
 
 
@@ -102,7 +126,7 @@ class Receipt extends Component {
                             <div className={commonStyle.paragraphGroup}>
                                 <p><b>NB!</b> Direktoratet for byggkvalitet tar ikke ansvaret for å lagre erklæringen, og den blir slettet fra vårt system innen 12 måneder. Pass derfor på at du selv holder arkiv og oversikt over signerte erklæringer.</p>
                             </div>
-                            <Button content="Last ned en kopi" color="primary" />
+                            <Button onClick={this.handleDownloadButtonClick} content="Last ned en kopi" color="primary" />
                         </div>
                         <ContactInfo />
                     </React.Fragment>
@@ -144,6 +168,11 @@ class Receipt extends Component {
         return submission && form
             ? (
                 <Container>
+                    {
+                        this.state.loadingMessage?.length
+                            ? <LoadingAnimation fixed message={this.state.loadingMessage} />
+                            : ''
+                    }
                     {this.renderContent(status, form, submission)}
                 </Container>)
             : (
@@ -162,7 +191,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     fetchSubmission,
     fetchSelectedForm,
-    updateSignedStatus
+    updateSignedStatus,
+    getSignedDocument
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Receipt);

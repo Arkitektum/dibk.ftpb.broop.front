@@ -1,12 +1,5 @@
-// import { saveAs } from 'file-saver';
-
 // Helpers
 import { getEnvironmentVariable } from 'helpers/environmentVariableHelpers.js';
-
-// const saveFileContent = (blob) => {
-//     const filename = "AnSaKo.pdf";
-//     saveAs(blob, filename);
-// }
 
 export const convertSelectedFormToPDF = (htmlString, submissionId) => dispatch => {
     const internalApiUrl = getEnvironmentVariable('internalApiUrl');

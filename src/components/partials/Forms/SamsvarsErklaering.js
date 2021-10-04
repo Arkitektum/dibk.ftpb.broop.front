@@ -8,24 +8,8 @@ import ErklaeringenGjelder from 'components/partials/Forms/SamsvarsErklaering/Er
 import GjenstaaendeArbeider from 'components/partials/Forms/SamsvarsErklaering/GjenstaaendeArbeider';
 import Erklaering from 'components/partials/Forms/SamsvarsErklaering/Erklaering';
 
-// Actions
-import { fetchSelectedForm, updateSelectedForm } from 'actions/FormActions';
 
 class SamsvarsErklaeringer extends Component {
-
-    componentDidMount() {
-        if (this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length) {
-            this.props.fetchSelectedForm(this.props.selectedSubmission);
-        }
-    }
-
-    componentDidUpdate() {
-        const hasSelectedSubmission = this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length;
-        const hasSelectedForm = this.props.selectedForm && Object.keys(this.props.selectedForm).length;
-        if (hasSelectedSubmission && !hasSelectedForm) {
-            this.props.fetchSelectedForm(this.props.selectedSubmission);
-        }
-    }
 
     render() {
         const formData = this.props.selectedForm?.formData;
@@ -49,11 +33,6 @@ const mapStateToProps = state => ({
     selectedForm: state.selectedForm
 });
 
-const mapDispatchToProps = {
-    fetchSelectedForm,
-    updateSelectedForm
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SamsvarsErklaeringer);
+export default connect(mapStateToProps, null)(SamsvarsErklaeringer);
 
 

@@ -14,26 +14,12 @@ import Erklaering from 'components/partials/Forms/FormParts/Erklaering';
 import AnsvarligForetak from 'components/partials/Forms/FormParts/AnsvarligForetak';
 
 // Actions
-import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
+import { updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
 class Ansvarsrett extends Component {
-
-    componentDidMount() {
-        if (this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length) {
-            this.props.fetchSelectedForm(this.props.selectedSubmission);
-        }
-    }
-
-    componentDidUpdate() {
-        const hasSelectedSubmission = this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length;
-        const hasSelectedForm = this.props.selectedForm && Object.keys(this.props.selectedForm).length;
-        if (hasSelectedSubmission && !hasSelectedForm) {
-            this.props.fetchSelectedForm(this.props.selectedSubmission);
-        }
-    }
 
     updateFormData(formData) {
         return this.props.updateSelectedForm({
@@ -121,7 +107,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    fetchSelectedForm,
     updateSelectedForm,
     saveSelectedForm
 };
