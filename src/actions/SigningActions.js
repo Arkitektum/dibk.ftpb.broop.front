@@ -36,3 +36,25 @@ export const updateSignedStatus = (submissionId, statusQueryToken, stage) => dis
         return response;
     });
 }
+
+
+const getFilenameFromContentDisposition = contentDisposition => {
+    const regex = new RegExp(`filename=(.*?);`, 'gm')
+    return regex.exec(contentDisposition)?.[1] || null;
+}
+
+export const getSignedDocument = (submissionId) => dispatch => {
+    const internalApiUrl = getEnvironmentVariable('internalApiUrl');
+    const formPath = `/api/v1/signering/${submissionId}/signed-document`;
+
+    return fetch(`${internalApiUrl}${formPath}`).then(response => {
+        const contentDisposition = response.headers.get('Content-Disposition');
+        const filename = getFilenameFromContentDisposition(contentDisposition) || 'skjema.pdf';
+        return response.blob().then(blob => {
+            return {
+                filename,
+                blob
+            }
+        });
+    });
+}
