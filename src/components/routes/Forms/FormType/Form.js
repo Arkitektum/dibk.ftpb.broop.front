@@ -1,7 +1,7 @@
 // Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { renderToString } from 'react-dom/server'
+import { renderToString } from 'react-dom/server';
 import { Link, Redirect } from 'react-router-dom';
 
 
@@ -26,6 +26,9 @@ import { fetchSubmission } from 'actions/SubmissionActions';
 import { fetchSelectedForm } from 'actions/FormActions';
 import { initiateSigning } from 'actions/SigningActions';
 import { convertSelectedFormToPDF } from 'actions/PrintActions';
+
+// Helpers
+import { getEnvironmentVariable } from 'helpers/environmentVariableHelpers';
 
 // Stylesheets
 import commonStyle from 'components/routes/common.module.scss';
@@ -136,8 +139,9 @@ class Form extends Component {
                     loadingMessage: null
                 });
                 let signingUrl = response.signingUrl;
+                const environment = getEnvironmentVariable('environment');
                 signingUrl += `?skjema=${selectedSubmission.referanseId}`;
-                signingUrl += process?.env?.NODE_ENV === 'development' ? '&origin=localhost' : '';
+                signingUrl += environment?.length ? `&environment=${environment}` : '';
                 window.location.href = signingUrl;
             }).catch(error => {
                 this.setState({
