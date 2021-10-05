@@ -6,10 +6,3 @@ export const fetchCodelistFunksjon = (guid) => dispatch => {
         return dispatch({ type: FETCH_CODELIST_FUNSKJON, payload: codelist })
     });
 }
-
-export const fetchCodelistTiltaksklasse = (guid) => dispatch => {
-    const apiUrl = 'https://register.dev.geonorge.no/api/kodelister/byggesoknad/tiltaksklasse.json?'
-    return fetch(apiUrl).then(res => res.json()).then(codelist => {
-        return dispatch({ type: FETCH_CODELIST_TILTAKSKLASSE, payload: codelist })
-    });
-}

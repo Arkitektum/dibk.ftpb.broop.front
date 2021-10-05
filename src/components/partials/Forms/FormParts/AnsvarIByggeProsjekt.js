@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { Accordion, Button, CheckBoxInput, Label, Textarea } from 'dibk-design';
 
 // Actions
-import { fetchCodelistFunksjon, fetchCodelistTiltaksklasse } from 'actions/CodelistActions';
+import { fetchCodelistFunksjon } from 'actions/CodelistActions';
 
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
@@ -17,12 +17,8 @@ class AnsvarIByggeProsjekt extends Component {
 
     componentDidMount() {
         const hasCodelistFunksjon = this.props.codelistFunksjon && Object.keys(this.props.codelistFunksjon).length;
-        const hasCodelistTiltaksklasse = this.props.codelistTiltaksklasse && Object.keys(this.props.codelistTiltaksklasse).length;
         if (!hasCodelistFunksjon) {
             this.props.fetchCodelistFunksjon();
-        }
-        if (!hasCodelistTiltaksklasse) {
-            this.props.fetchCodelistTiltaksklasse();
         }
     }
 
@@ -58,16 +54,6 @@ class AnsvarIByggeProsjekt extends Component {
         return codelist.find(codelistItem => {
             return codelistItem.value === value;
         })?.key;
-    }
-
-    convertCodelistTiltaksklasseToOptionValues(codelistTiltaksklasse) {
-        return codelistTiltaksklasse?.containeditems?.length
-            ? codelistTiltaksklasse?.containeditems.map(item => {
-                return {
-                    key: item.label,
-                    value: item.codevalue
-                }
-            }) : []
     }
 
     render() {
@@ -202,13 +188,11 @@ AnsvarIByggeProsjekt.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    codelistFunksjon: state.codelistFunksjon,
-    codelistTiltaksklasse: state.codelistTiltaksklasse
+    codelistFunksjon: state.codelistFunksjon
 });
 
 const mapDispatchToProps = {
-    fetchCodelistFunksjon,
-    fetchCodelistTiltaksklasse
+    fetchCodelistFunksjon
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AnsvarIByggeProsjekt);
