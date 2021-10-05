@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import WebFont from 'webfontloader';
-import { renderToString } from 'react-dom/server'
+//import { renderToString } from 'react-dom/server'
 
 // Utils
 import configureStore, { history } from 'utils/configureStore';
@@ -20,10 +20,10 @@ import NotFound from 'components/routes/NotFound';
 import MainNavigationBar from 'components/partials/MainNavigationBar';
 
 // Actionks
-import { convertSelectedFormToPDF } from 'actions/PrintActions';
+//import { convertSelectedFormToPDF } from 'actions/PrintActions';
 
 /* eslint import/no-webpack-loader-syntax: off */
-import printStyle from '!!raw-loader!sass-loader!./print.scss';
+//import printStyle from '!!raw-loader!sass-loader!./print.scss';
 
 
 WebFont.load({
@@ -36,7 +36,7 @@ const initialState = {};
 const store = configureStore(initialState);
 
 
-const renderHtmlString = () => {
+/*const renderHtmlString = () => {
   localStorage.print = "true";
   const htmlString = renderToString(<div className="page"><App /></div>);
   localStorage.print = "false";
@@ -46,7 +46,7 @@ const renderHtmlString = () => {
 
   const pdfContentString = `<html><head><style>${printStyle}</style></head><body>${htmlString}</body></html>`.replace(/\r?\n|\r/g, "");
   store.dispatch(convertSelectedFormToPDF(pdfContentString, 'D84A298B-5D3F-4D8C-BDC1-45EF3E2808B2'));
-}
+}*/
 
 class App extends Component {
   
@@ -59,7 +59,7 @@ class App extends Component {
             isPrint ? '' : (<MainNavigationBar />)
           }
           {
-            isPrint ? '' : (<button onClick={() => renderHtmlString()}>Last ned</button>)
+           // isPrint ? '' : (<button onClick={() => renderHtmlString()}>Preview PDF</button>)
           }
           <Switch>
             <Route exact={true} path="/skjema/:submissionId/signert" render={(props) => (<Receipt {...props} status="signert" />)} />
