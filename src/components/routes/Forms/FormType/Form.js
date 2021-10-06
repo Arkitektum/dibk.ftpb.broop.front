@@ -23,7 +23,7 @@ import ContactInfo from 'components/partials/ContactInfo';
 
 // Actions
 import { fetchSubmission } from 'actions/SubmissionActions';
-import { fetchSelectedForm } from 'actions/FormActions';
+import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 import { initiateSigning } from 'actions/SigningActions';
 import { convertSelectedFormToPDF } from 'actions/PrintActions';
 
@@ -47,7 +47,7 @@ class Form extends Component {
             loadingMessage: null
         }
         this.handleClickOutsideRejectDialog = this.handleClickOutsideRejectDialog.bind(this);
-
+        this.handleSubmitRejectionButtonClick = this.handleSubmitRejectionButtonClick.bind(this);
     }
 
     componentDidMount() {
@@ -100,7 +100,6 @@ class Form extends Component {
             });
         });
     }
-
 
     renderForm(formType, selectedSubmission) {
         switch (formType) {
@@ -161,6 +160,16 @@ class Form extends Component {
         });
     }
 
+    handleSubmitRejectionButtonClick() {
+        return this.props.updateSelectedForm({
+            ...this.props.form,
+            status: 'avvist',
+            statusReason: this.state.rejectionMessage
+        }).then((updatedForm) => {
+            this.props.saveSelectedForm(updatedForm)
+        });
+    }
+
 
     render() {
         const selectedSubmission = this.props.selectedSubmission
@@ -195,7 +204,7 @@ class Form extends Component {
                                         <p>Her Må du skrive en begrunnelse til ansvarlig søker:</p>
                                         <Textarea id="rejectionMessage" onChange={event => this.setState({ rejectionMessage: event.target.value })} />
                                         <div className={commonStyle.marginTop}>
-                                            <Button content="Avvis og send" color="primary" disabled={!this.state.rejectionMessage?.trim()?.length} />
+                                            <Button content="Avvis og send" onClick={this.handleSubmitRejectionButtonClick} color="primary" disabled={!this.state.rejectionMessage?.trim()?.length} />
                                         </div>
                                         <p>
                                             <Link to="rediger" title='Avvis erklæring'>
@@ -225,6 +234,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     fetchSubmission,
     fetchSelectedForm,
+    updateSelectedForm,
+    saveSelectedForm,
     initiateSigning,
     convertSelectedFormToPDF
 };
