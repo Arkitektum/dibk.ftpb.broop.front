@@ -171,6 +171,17 @@ class AnsvarIByggeProsjekt extends Component {
                                     )
                                     : ''
                             }
+                            <div>
+                                <Label>Dekker den sentrale godkjenningen ansvarsområdene over?</Label>
+                                <div className={formsStyle.inputGroup}>
+                                    <div>
+                                        <Button content="Ja" size="small" onClick={() => this.handleUpdateAndSaveIfChanged(true, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === true ? 'primary' : 'default'} />
+                                    </div>
+                                    <div>
+                                        <Button content="Nei" size="small" onClick={() => this.handleUpdateAndSaveIfChanged(false, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === false ? 'primary' : 'default'} />
+                                    </div>
+                                </div>
+                            </div>
                         </Accordion>
                     </div>
                 )

@@ -32,20 +32,6 @@ class SentralGodkjenning extends Component {
                         </div>
                     </div>
                 </div>
-                <div>
-                    <Label>Dekker den sentrale godkjenningen ansvarsområdene over?</Label>
-                    <div className={formsStyle.inputGroup}>
-                        <div>
-                            <Button content="Ja" size="small" onClick={() => this.setState({ dekkerSentralGodkjenningAnsvarsomraadene: 'ja' })} noHover color={this.state.dekkerSentralGodkjenningAnsvarsomraadene === 'ja' ? 'primary' : 'default'} />
-                        </div>
-                        <div>
-                            <Button content="Delvis" size="small" onClick={() => this.setState({ dekkerSentralGodkjenningAnsvarsomraadene: 'delvis' })} noHover color={this.state.dekkerSentralGodkjenningAnsvarsomraadene === 'delvis' ? 'primary' : 'default'} />
-                        </div>
-                        <div>
-                            <Button content="Nei" size="small" onClick={() => this.setState({ dekkerSentralGodkjenningAnsvarsomraadene: 'nei' })} noHover color={this.state.dekkerSentralGodkjenningAnsvarsomraadene === 'nei' ? 'primary' : 'default'} />
-                        </div>
-                    </div>
-                </div>
             </React.Fragment>
         )
 
