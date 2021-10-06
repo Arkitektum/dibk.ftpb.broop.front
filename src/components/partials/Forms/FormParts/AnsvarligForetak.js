@@ -85,41 +85,54 @@ class AnsvarligForetak extends Component {
                                 : ''
                         }
                     </dl>
+                    <p>
+                        Opplysningene er lagt inn av ansvarlig søker. Kontakt dem hvis du oppdager feil.
+                    </p>
+                    <Label>
+                        <b>
+                            Har foretaket sentral godkjenning?
+                        </b>
+                    </Label>
+                    {foretak.harSentralGodkjenning ? 'Ja' : 'Nei'}
+                    <p>
+                        Svaret er hentet fra register for sentral godkjenning eller lagt inn av ansvarlig søker.
+                    </p>
                     <Header size={3} content="Kontaktperson" />
-                    <div className={formsStyle.inputGroup}>
-                        <div className={formsStyle.flex33}>
-                            <InputField
-                                id='foretak-kontaktperson-navn'
-                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonNavn') }}
-                                label="Kontaktperson"
-                                defaultValue={foretak.kontaktpersonNavn || ''} />
-                        </div>
-                        <div className={formsStyle.flex33}>
-                            <InputField
-                                id='foretak-kontaktperson-mobilnummer'
-                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonMobilnummer') }}
-                                label='Mobiltelefon'
-                                defaultValue={foretak.kontaktpersonMobilnummer || ''}
-                                type='tel' />
-                        </div>
-                        <div className={formsStyle.flex33}>
-                            <InputField
-                                id='foretak-kontaktperson-epost'
-                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonEpost') }}
-                                label="E-post"
-                                defaultValue={foretak.kontaktpersonEpost || ''}
-                                type='email' />
-                        </div>
+                    <div className="print-flex-10">
+                        <InputField
+                            id='foretak-kontaktperson-navn'
+                            onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonNavn') }}
+                            label="Kontaktperson"
+                            defaultValue={foretak.kontaktpersonNavn || ''} />
+                    </div>
+                    <div className="print-flex-10">
+                        <InputField
+                            id='foretak-kontaktperson-telefonnummer'
+                            onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonTelefonnummer') }}
+                            label='Telefon'
+                            defaultValue={foretak.kontaktpersonTelefonnummer || ''}
+                            type='tel' />
+                    </div>
+                    <div className="print-flex-10">
+                        <InputField
+                            id='foretak-kontaktperson-mobilnummer'
+                            onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonMobilnummer') }}
+                            label='Mobiltelefon'
+                            defaultValue={foretak.kontaktpersonMobilnummer || ''}
+                            type='tel' />
+                    </div>
+                    <div className="print-flex-10">
+                        <InputField
+                            id='foretak-kontaktperson-epost'
+                            onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonEpost') }}
+                            label="E-post"
+                            defaultValue={foretak.kontaktpersonEpost || ''}
+                            type='email' />
                     </div>
                     <p>
-                        <b>
-                            {
-                                foretak.harSentralGodkjenning
-                                    ? 'Foretaket har sentral godkjenning'
-                                    : 'Foretaket har ikke sentral godkjenning'
-                            }
-                        </b>
+                        Opplysningene er lagt inn av ansvarlig søker. Du kan endre navn, telefon og e-post til kontaktpersonen.
                     </p>
+
                 </React.Fragment>
             )
             : (
