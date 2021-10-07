@@ -23,7 +23,7 @@ import ContactInfo from 'components/partials/ContactInfo';
 // Actions
 import { fetchSubmission } from 'actions/SubmissionActions';
 import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
-import { initiateSigning } from 'actions/SigningActions';
+import { updateSignedStatus } from 'actions/SigningActions';
 import { convertSelectedFormToPDF } from 'actions/PrintActions';
 
 // Helpers
@@ -132,7 +132,7 @@ class Form extends Component {
             this.setState({
                 loadingMessage: 'Klargjør signering'
             });
-            this.props.initiateSigning(selectedSubmission.referanseId, 'token-a-roonie').then(response => {
+            this.props.updateSignedStatus(selectedSubmission.referanseId, 'token-a-roonie', 'InitiateSigning').then(response => {
                 this.setState({
                     loadingMessage: null
                 });
@@ -235,7 +235,7 @@ const mapDispatchToProps = {
     fetchSelectedForm,
     updateSelectedForm,
     saveSelectedForm,
-    initiateSigning,
+    updateSignedStatus,
     convertSelectedFormToPDF
 };
 
