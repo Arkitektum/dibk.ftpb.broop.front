@@ -168,7 +168,7 @@ class Home extends Component {
             </div>
             <div className={commonStyle.paragraphGroup}>
               {
-                form?.formData?.frist
+                form?.formData?.frist // Add frist to APPI
                   ? <p>Frist for signering er ${form.formData.frist}.</p>
                   : ''
               }
@@ -225,7 +225,7 @@ class Home extends Component {
                 </p>
                 <p>
                   {
-                    form?.formData?.ansvarligForetak?.avvistBegrunnselse // TODO add to API
+                    form?.formData?.ansvarligForetak?.avvistBegrunnselse // TODO add avvistBegrunnselse to API
                       ? form.formData.ansvarligForetak.avvistBegrunnselse
                       : ''
                   }
@@ -249,7 +249,7 @@ class Home extends Component {
               <div className={commonStyle.paragraphGroup}>
                 {
                   form?.formData?.frist
-                    ? <p>Fristen for å signere gikk ut ${form.formData.frist}.</p> // TODO add to API
+                    ? <p>Fristen for å signere gikk ut ${form.formData.frist}.</p> // TODO add frist to API
                     : ''
                 }
               </div>

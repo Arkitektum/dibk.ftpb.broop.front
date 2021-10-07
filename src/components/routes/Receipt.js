@@ -140,7 +140,7 @@ class Receipt extends Component {
                                 <p>Du har avvist erklæringen om ansvarsrett{formatProjectNameForForm(form)?.length ? ` for ${formatProjectNameForForm(form)}` : ''}, med følgende beskjed til ansvarlig søker:</p>
                                 <p>
                                     {
-                                        form?.formData?.ansvarligForetak?.avvistBegrunnselse // TODO add to API
+                                        form?.formData?.ansvarligForetak?.avvistBegrunnselse // TODO add avvistBegrunnelse to API
                                             ? form.formData.ansvarligForetak.avvistBegrunnselse
                                             : ''
                                     }
