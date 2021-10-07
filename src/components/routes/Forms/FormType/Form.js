@@ -9,11 +9,10 @@ import { Link, Redirect } from 'react-router-dom';
 import App from 'App';
 
 // DIBK Design
-import { Button, Header, LoadingAnimation, Textarea } from 'dibk-design';
+import { Button, Dialog, Header, LoadingAnimation, Textarea } from 'dibk-design';
 
 // Template
 import Container from 'components/template/Container';
-import Dialog from 'components/template/Dialog';
 
 // Partials
 import Ansvarsrett from 'components/partials/Forms/Ansvarsrett';
@@ -199,7 +198,7 @@ class Form extends Component {
                         {
                             this.props.showRejectModal
                                 ? (
-                                    <Dialog onClickOutside={this.handleClickOutsideRejectDialog} maxWidth="960px">
+                                    <Dialog onClickOutside={this.handleClickOutsideRejectDialog} closeButton maxWidth="960px">
                                         <Header content="Du har valgt å avvise erklæringen" size={2} />
                                         <p>Her Må du skrive en begrunnelse til ansvarlig søker:</p>
                                         <Textarea id="rejectionMessage" onChange={event => this.setState({ rejectionMessage: event.target.value })} />
