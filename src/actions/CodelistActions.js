@@ -1,4 +1,4 @@
-import { FETCH_CODELIST_FUNSKJON, FETCH_CODELIST_TILTAKSKLASSE } from 'constants/types';
+import { FETCH_CODELIST_FUNSKJON } from 'constants/types';
 
 export const fetchCodelistFunksjon = (guid) => dispatch => {
     const apiUrl = 'https://register.dev.geonorge.no/api/kodelister/byggesoknad/funksjon.json?'
