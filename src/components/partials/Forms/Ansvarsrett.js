@@ -9,7 +9,6 @@ import { Header, Paper } from 'dibk-design';
 import AnsvarIByggeProsjekt from 'components/partials/Forms/FormParts/AnsvarIByggeProsjekt';
 import AnsvarligSoeker from 'components/partials/Forms/FormParts/AnsvarligSoeker';
 import EiendomByggested from 'components/partials/Forms/FormParts/EiendomByggested';
-import SentralGodkjenning from 'components/partials/Forms/FormParts/SentralGodkjenning';
 import Erklaering from 'components/partials/Forms/FormParts/Erklaering';
 import AnsvarligForetak from 'components/partials/Forms/FormParts/AnsvarligForetak';
 
@@ -109,10 +108,6 @@ class Ansvarsrett extends Component {
                         <AnsvarligSoeker
                             ansvarligSoeker={formData.ansvarligSoeker}
                         />
-                    </Paper>
-                    <Paper>
-                        <Header content="Sentral godkjenning" size={2}></Header>
-                        <SentralGodkjenning />
                     </Paper>
                     <Paper>
                         <Header content="Erklæring" size={2}></Header>
