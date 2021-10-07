@@ -56,7 +56,7 @@ class Form extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate() {
         if (this.state.redirect) {
             this.setState({ redirect: null });
         }
