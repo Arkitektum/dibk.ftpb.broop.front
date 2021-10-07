@@ -98,40 +98,42 @@ class AnsvarligForetak extends Component {
                         Svaret er hentet fra register for sentral godkjenning eller lagt inn av ansvarlig søker.
                     </p>
                     <Header size={3} content="Kontaktperson" />
-                    <div className="print-flex-10">
-                        <InputField
-                            id='foretak-kontaktperson-navn'
-                            onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonNavn') }}
-                            label="Kontaktperson"
+                    <div className={formsStyle.fieldList}>
+                        <div className="print-flex-10">
+                            <InputField
+                                id='foretak-kontaktperson-navn'
+                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonNavn') }}
+                                label="Kontaktperson"
                                 width="400px"
-                            defaultValue={foretak.kontaktpersonNavn || ''} />
-                    </div>
-                    <div className="print-flex-10">
-                        <InputField
-                            id='foretak-kontaktperson-telefonnummer'
-                            onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonTelefonnummer') }}
-                            label='Telefon'
-                            defaultValue={foretak.kontaktpersonTelefonnummer || ''}
+                                defaultValue={foretak.kontaktpersonNavn || ''} />
+                        </div>
+                        <div className="print-flex-10">
+                            <InputField
+                                id='foretak-kontaktperson-telefonnummer'
+                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonTelefonnummer') }}
+                                label='Telefon'
+                                defaultValue={foretak.kontaktpersonTelefonnummer || ''}
                                 width="200px"
-                            type='tel' />
-                    </div>
-                    <div className="print-flex-10">
-                        <InputField
-                            id='foretak-kontaktperson-mobilnummer'
-                            onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonMobilnummer') }}
-                            label='Mobiltelefon'
-                            defaultValue={foretak.kontaktpersonMobilnummer || ''}
+                                type='tel' />
+                        </div>
+                        <div className="print-flex-10">
+                            <InputField
+                                id='foretak-kontaktperson-mobilnummer'
+                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonMobilnummer') }}
+                                label='Mobiltelefon'
+                                defaultValue={foretak.kontaktpersonMobilnummer || ''}
                                 width="200px"
-                            type='tel' />
-                    </div>
-                    <div className="print-flex-10">
-                        <InputField
-                            id='foretak-kontaktperson-epost'
-                            onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonEpost') }}
-                            label="E-post"
-                            defaultValue={foretak.kontaktpersonEpost || ''}
+                                type='tel' />
+                        </div>
+                        <div className="print-flex-10">
+                            <InputField
+                                id='foretak-kontaktperson-epost'
+                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonEpost') }}
+                                label="E-post"
+                                defaultValue={foretak.kontaktpersonEpost || ''}
                                 width="400px"
-                            type='email' />
+                                type='email' />
+                        </div>
                     </div>
                     <p>
                         Opplysningene er lagt inn av ansvarlig søker. Du kan endre navn, telefon og e-post til kontaktpersonen.

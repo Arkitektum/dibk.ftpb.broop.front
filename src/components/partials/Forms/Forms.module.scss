@@ -10,11 +10,10 @@
     margin-bottom: 20px;
 }
 
-:local(dl.fieldList) {
-    margin: -6px;
+:local(.fieldList) {
     > div {
         min-width: 120px;
-        padding: 6px;
+        margin-bottom: 12px;
         dt {
             font-weight: bold;
             font-size: 18px;
