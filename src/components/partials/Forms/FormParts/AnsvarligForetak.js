@@ -103,6 +103,7 @@ class AnsvarligForetak extends Component {
                             id='foretak-kontaktperson-navn'
                             onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonNavn') }}
                             label="Kontaktperson"
+                                width="400px"
                             defaultValue={foretak.kontaktpersonNavn || ''} />
                     </div>
                     <div className="print-flex-10">
@@ -111,6 +112,7 @@ class AnsvarligForetak extends Component {
                             onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonTelefonnummer') }}
                             label='Telefon'
                             defaultValue={foretak.kontaktpersonTelefonnummer || ''}
+                                width="200px"
                             type='tel' />
                     </div>
                     <div className="print-flex-10">
@@ -119,6 +121,7 @@ class AnsvarligForetak extends Component {
                             onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonMobilnummer') }}
                             label='Mobiltelefon'
                             defaultValue={foretak.kontaktpersonMobilnummer || ''}
+                                width="200px"
                             type='tel' />
                     </div>
                     <div className="print-flex-10">
@@ -127,6 +130,7 @@ class AnsvarligForetak extends Component {
                             onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonEpost') }}
                             label="E-post"
                             defaultValue={foretak.kontaktpersonEpost || ''}
+                                width="400px"
                             type='email' />
                     </div>
                     <p>

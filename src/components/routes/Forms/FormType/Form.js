@@ -201,7 +201,7 @@ class Form extends Component {
                                     <Dialog onClickOutside={this.handleClickOutsideRejectDialog} closeButton maxWidth="960px">
                                         <Header content="Du har valgt å avvise erklæringen" size={2} />
                                         <p>Her Må du skrive en begrunnelse til ansvarlig søker:</p>
-                                        <Textarea id="rejectionMessage" onChange={event => this.setState({ rejectionMessage: event.target.value })} />
+                                        <Textarea id="rejectionMessage" onChange={event => this.setState({ rejectionMessage: event.target.value })} resize="vertical" />
                                         <div className={commonStyle.marginTop}>
                                             <Button content="Avvis og send" onClick={this.handleSubmitRejectionButtonClick} color="primary" disabled={!this.state.rejectionMessage?.trim()?.length} />
                                         </div>

@@ -4090,9 +4090,9 @@ detect-port-alt@1.1.6:
     debug "^2.6.0"
 
 dibk-design@^0.4.0:
-  version "0.4.8"
-  resolved "https://registry.yarnpkg.com/dibk-design/-/dibk-design-0.4.8.tgz#ec71d9e485483e771e18003bc4ac82b9b684ddf9"
-  integrity sha512-UeiyAc/hdfX6tlUXNpcnwue7xDpF/qwVNr9ZgoSY+rj0zAlZd2tMndEbxSZ7BeizDlWnmAw8Rp0nt0MdmjaTPg==
+  version "0.4.10"
+  resolved "https://registry.yarnpkg.com/dibk-design/-/dibk-design-0.4.10.tgz#4cb1706d0bd0b48d9aef220aa0e6061d688de3f0"
+  integrity sha512-AYED7T1WrNkx3Z+wDRXTSpNOiL8F66NgHSD1GpJN1toBiG9P1MwIJAXNSy3jU1MfwcE7YjPBew9+Inf6zak+Hg==
   dependencies:
     prop-types "^15.6.2"
     react "^17.0.1"

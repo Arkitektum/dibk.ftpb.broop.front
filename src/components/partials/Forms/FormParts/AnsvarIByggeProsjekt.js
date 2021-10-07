@@ -93,6 +93,7 @@ class AnsvarIByggeProsjekt extends Component {
                                                         id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
                                                         onChange={() => { return false }}
                                                         onBlur={(event) => this.handleUpdateAndSaveIfChanged(event.target.value, 'beskrivelseAvAnsvarsomraade', index)}
+                                                        resize="vertical"
                                                         defaultValue={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''}
                                                     />
                                                 </div>
