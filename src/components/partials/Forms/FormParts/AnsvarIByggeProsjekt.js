@@ -172,7 +172,9 @@ class AnsvarIByggeProsjekt extends Component {
                                     : ''
                             }
                             <div>
-                                <Label>Dekker den sentrale godkjenningen ansvarsområdene over?</Label>
+                                <Label>
+                                    <b>Dekker den sentrale godkjenningen ansvarsområdene over?</b>
+                                </Label>
                                 <div className={formsStyle.inputGroup}>
                                     <div>
                                         <Button content="Ja" size="small" onClick={() => this.handleUpdateAndSaveIfChanged(true, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === true ? 'primary' : 'default'} />
