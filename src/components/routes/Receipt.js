@@ -40,22 +40,22 @@ class Receipt extends Component {
         const urlParams = new URLSearchParams(window.location.search);
         const statusQueryToken = urlParams.get('status_query_token');
         if (submissionId) {
-            this.fecthFormData(submissionId);
-        }
-        const isRejectedFromSigningSolution = this.props.status === 'avvist' && statusQueryToken?.length > 0;
-        if (isRejectedFromSigningSolution) {
-            this.props.updateSelectedForm({
-                ...this.props.selectedForm,
-                status: 'avvist',
-                statusReason: 'Erklæringen har blitt avvist fra signeringsløsningen'
-            }).then((updatedForm) => {
-                this.props.saveSelectedForm(updatedForm);
+            this.fecthFormData(submissionId).then(() => {
+                const isRejectedFromSigningSolution = this.props.status === 'avvist' && statusQueryToken?.length > 0;
+                if (isRejectedFromSigningSolution) {
+                    this.props.updateSelectedForm({
+                        ...this.props.selectedForm,
+                        status: 'avvist',
+                        statusReason: 'Erklæringen har blitt avvist fra signeringsløsningen'
+                    }).then((updatedForm) => {
+                        this.props.saveSelectedForm(updatedForm);
+                    });
+                }
+                const stage = getStageFromStatus(this.props.status);
+                this.props.updateSignedStatus(submissionId, statusQueryToken, stage);
             });
         }
 
-        const stage = getStageFromStatus(this.props.status);
-
-        this.props.updateSignedStatus(submissionId, statusQueryToken, stage);
     }
 
     fecthFormData(submissionId) {
