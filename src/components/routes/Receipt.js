@@ -13,7 +13,7 @@ import ContactInfo from 'components/partials/ContactInfo';
 
 // Actions
 import { fetchSubmission } from 'actions/SubmissionActions';
-import { fetchSelectedForm } from 'actions/FormActions';
+import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 import { updateSignedStatus, getSignedDocument } from 'actions/SigningActions';
 
 // Helpers
@@ -37,11 +37,25 @@ class Receipt extends Component {
 
     componentDidMount() {
         const submissionId = this.props.match.params.submissionId;
+        const urlParams = new URLSearchParams(window.location.search);
+        const statusQueryToken = urlParams.get('status_query_token');
         if (submissionId) {
             this.fecthFormData(submissionId);
         }
+        const isRejectedFromSigningSolution = this.props.status === 'avvist' && statusQueryToken?.length > 0;
+        if (isRejectedFromSigningSolution) {
+            this.props.updateSelectedForm({
+                ...this.props.selectedForm,
+                status: 'avvist',
+                statusReason: 'Erklæringen har blitt avvist fra signeringsløsningen'
+            }).then((updatedForm) => {
+                this.props.saveSelectedForm(updatedForm);
+            });
+        }
+
         const stage = getStageFromStatus(this.props.status);
-        this.props.updateSignedStatus(submissionId, 'query-token-a-roonie', stage) // TODO: get query token
+
+        this.props.updateSignedStatus(submissionId, statusQueryToken, stage);
     }
 
     fecthFormData(submissionId) {
@@ -84,7 +98,7 @@ class Receipt extends Component {
         });
     }
 
-    
+
 
     handleDownloadButtonClick() {
         const submissionId = this.props.match.params.submissionId;
@@ -191,6 +205,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     fetchSubmission,
     fetchSelectedForm,
+    updateSelectedForm,
+    saveSelectedForm,
     updateSignedStatus,
     getSignedDocument
 };
