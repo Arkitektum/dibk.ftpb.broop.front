@@ -7,7 +7,6 @@ import Container from 'components/template/Container';
 
 // Stylesheets
 import style from 'components/partials/Footer.module.scss';
-import commonStyle from 'components/routes/common.module.scss';
 
 
 class Footer extends Component {
@@ -27,10 +26,10 @@ class Footer extends Component {
                         Kontakt Direktoratet for byggkvalitet på <a href="mailto:ftb@dibk.no">ftb@dibk.no</a>
                     </p>
                     <p>
-                        <a href="#">Personvernerklæring</a>
+                        <a href="#personvernerklaering">Personvernerklæring</a> {/*TODO: add component*/}
                     </p>
                     <p>
-                        <a href="#">Tilgjengelighetserklæring</a>
+                        <a href="#tilgjengelighetserklaering">Tilgjengelighetserklæring</a> {/*TODO: add component*/}
                     </p>
                 </Container>
             </div>
