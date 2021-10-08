@@ -225,8 +225,8 @@ class Home extends Component {
                 </p>
                 <p>
                   {
-                    form?.formData?.ansvarligForetak?.avvistBegrunnselse // TODO add avvistBegrunnselse to API
-                      ? form.formData.ansvarligForetak.avvistBegrunnselse
+                    form?.statusReason?.length
+                      ? form.statusReason
                       : ''
                   }
                 </p>
