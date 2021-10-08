@@ -1,7 +1,7 @@
 // Helpers
 import { getEnvironmentVariable } from 'helpers/environmentVariableHelpers.js';
 
-export const updateSignedStatus = (submissionId, statusQueryToken, stage) => dispatch => {
+export const updateSignedStatus = (submissionId, statusQueryToken, stage) => () => {
     const internalApiUrl = getEnvironmentVariable('internalApiUrl');
     const formPath = `/api/v1/signering/${submissionId}`;
     const fetchOptions = {
@@ -11,7 +11,7 @@ export const updateSignedStatus = (submissionId, statusQueryToken, stage) => dis
         },
         body: JSON.stringify({
             toStage: stage,
-            statusQueryToken
+            ...(statusQueryToken?.length && { statusQueryToken }),
         })
     };
     return fetch(`${internalApiUrl}${formPath}`, fetchOptions).then(res => res.json()).then(response => {

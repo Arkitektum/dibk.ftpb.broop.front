@@ -132,7 +132,7 @@ class Form extends Component {
             this.setState({
                 loadingMessage: 'Klargjør signering'
             });
-            this.props.updateSignedStatus(selectedSubmission.referanseId, 'token-a-roonie', 'InitiateSigning').then(response => {
+            this.props.updateSignedStatus(selectedSubmission.referanseId, null, 'InitiateSigning').then(response => {
                 this.setState({
                     loadingMessage: null
                 });
