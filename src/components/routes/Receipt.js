@@ -147,7 +147,7 @@ class Receipt extends Component {
                                 </p>
                             </div>
                             <div className={commonStyle.paragraphGroup}>
-                                <InputField id="foretakEpost" value={foretakEpost} type="email" label="E-postadresse:" />
+                                <InputField id="foretakEpost" defaultValue={foretakEpost} type="email" label="E-postadresse:" />
                             </div>
                             <Button content="Send kopi på e-post" color="primary" />
                         </div>
