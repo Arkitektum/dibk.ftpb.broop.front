@@ -57,12 +57,6 @@ class AnsvarIByggeProsjekt extends Component {
     }
 
     render() {
-        const colors = {
-            SØK: 'default',
-            PRO: 'lightCyan',
-            UTF: 'lightOrange',
-            KONTROLL: 'lightLime'
-        }
         const ansvarsomraader = this.props.ansvarsomraader;
         return ansvarsomraader?.length
             ? ansvarsomraader.map((ansvarsomraade, index) => {
@@ -77,7 +71,7 @@ class AnsvarIByggeProsjekt extends Component {
                 const accordionTitle = `${selectedFunksjonKey} (tiltaksklasse ${ansvarsomraade.tiltaksklasseKode})`;
                 return (
                     <div key={index} className={formsStyle.accordionItem}>
-                        <Accordion title={accordionTitle} expanded color={ansvarsomraade.funksjonKode ? colors[ansvarsomraade.funksjonKode] : 'default'}>
+                        <Accordion title={accordionTitle} expanded color="lightLime">
                             {/* TODO: Check if select field and API-request for code list is necessary */}
 
                             <div className={formsStyle.fieldSection}>
