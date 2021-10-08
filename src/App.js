@@ -18,6 +18,7 @@ import NotFound from 'components/routes/NotFound';
 
 // Partials
 import MainNavigationBar from 'components/partials/MainNavigationBar';
+import Footer from 'components/partials/Footer';
 
 // Actionks
 //import { convertSelectedFormToPDF } from 'actions/PrintActions';
@@ -49,7 +50,7 @@ const store = configureStore(initialState);
 }*/
 
 class App extends Component {
-  
+
   render() {
     const isPrint = localStorage.print === "true";
     return (<Provider store={store}>
@@ -59,7 +60,7 @@ class App extends Component {
             isPrint ? '' : (<MainNavigationBar />)
           }
           {
-           // isPrint ? '' : (<button onClick={() => renderHtmlString()}>Preview PDF</button>)
+            // isPrint ? '' : (<button onClick={() => renderHtmlString()}>Preview PDF</button>)
           }
           <Switch>
             <Route exact={true} path="/skjema/:submissionId/signert" render={(props) => (<Receipt {...props} status="signert" />)} />
@@ -73,6 +74,7 @@ class App extends Component {
             <Route render={() => (<NotFound />)} />
           </Switch>
 
+          <Footer />
         </BrowserRouter>
       </ConnectedRouter>
     </Provider>);
