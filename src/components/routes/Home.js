@@ -281,7 +281,6 @@ class Home extends Component {
     const submission = this.props.selectedSubmission;
     return (
       <Container>
-
         <div className='developmentTools'>
           <span>Testverktøy</span>
           <div>
@@ -298,7 +297,6 @@ class Home extends Component {
                   : ''
               }
             </select>
-
             <select value={this.state.status || ""} onChange={event => this.setState({ status: event.target.value })}>
               <option value="" disabled>Velg status</option>
               <option value="opprettet">Opprettet</option>

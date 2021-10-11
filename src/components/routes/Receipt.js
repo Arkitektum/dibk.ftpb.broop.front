@@ -119,7 +119,7 @@ class Receipt extends Component {
     }
 
 
-    renderContent(status, form, submission) {
+    renderContent(status, form) {
         const foretakEpost = form?.formData?.ansvarligForetak?.epost || form?.formData?.foretak?.kontaktpersonEpost;
         switch (status) {
             case "signert":
@@ -187,7 +187,7 @@ class Receipt extends Component {
                             ? <LoadingAnimation fixed message={this.state.loadingMessage} />
                             : ''
                     }
-                    {this.renderContent(status, form, submission)}
+                    {this.renderContent(status, form)}
                 </Container>)
             : (
                 <Container>
@@ -212,5 +212,3 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Receipt);
-
-
