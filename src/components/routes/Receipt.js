@@ -52,7 +52,20 @@ class Receipt extends Component {
                     });
                 }
                 const stage = getStageFromStatus(this.props.status);
-                this.props.updateSignedStatus(submissionId, statusQueryToken, stage);
+                this.setState({
+                    loadingMessage: 'Oppdaterer signeringsstatus'
+                });
+                this.props.updateSignedStatus(submissionId, statusQueryToken, stage).then(() => {
+                    this.setState({
+                        loadingMessage: null
+                    });
+                }).catch(error => {
+                    console.log("updateSignedStatus", error)
+                    this.setState({
+                        errorMessage: 'Kunne ikke oppdatere signeringsstatus',
+                        loadingMessage: null
+                    });
+                });
             });
         }
 
