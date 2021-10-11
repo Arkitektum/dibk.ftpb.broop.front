@@ -60,12 +60,6 @@ class AnsvarIByggeProsjekt extends Component {
         const ansvarsomraader = this.props.ansvarsomraader;
         return ansvarsomraader?.length
             ? ansvarsomraader.map((ansvarsomraade, index) => {
-                const hasSamsvarKontroll = [
-                    ansvarsomraade.samsvarKontrollVedRammetillatelse,
-                    ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse,
-                    ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse,
-                    ansvarsomraade.samsvarKontrollVedFerdigattest
-                ].some(samsvarKontroll => { return samsvarKontroll });
                 const funksjonOptionValues = this.convertCodelistFunksjonToOptionValues(this.props.codelistFunksjon);
                 const selectedFunksjonKey = this.getOptionKeyFromOptionValueInList(funksjonOptionValues, ansvarsomraade.funksjonKode);
                 const accordionTitle = `${selectedFunksjonKey} (tiltaksklasse ${ansvarsomraade.tiltaksklasseKode})`;
@@ -129,7 +123,7 @@ class AnsvarIByggeProsjekt extends Component {
                                 </div>
                             </div>
                             {
-                                hasSamsvarKontroll
+                                ansvarsomraade?.funksjon?.kodeverdi !== 'SOK'
                                     ? (
                                         <React.Fragment>
                                             <Label><b>{ansvarsomraade?.funksjon?.kodeverdi === 'KONTROLL' ? 'Kontrollerklæringer vil foreligge ved' : 'Samsvarserklæringer vil foreligge ved'}</b></Label>
