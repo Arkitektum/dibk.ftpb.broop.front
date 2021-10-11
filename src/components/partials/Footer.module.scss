@@ -5,7 +5,13 @@
     color: #fff;
     padding: 16px 0;
     text-align: right;
-    a {
+    a,
+    :local(.link) {
         color: #fff;
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover {
+            text-decoration: none;
+        }
     }
 }
