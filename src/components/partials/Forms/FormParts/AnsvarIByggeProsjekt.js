@@ -97,6 +97,7 @@ class AnsvarIByggeProsjekt extends Component {
                                         <Button
                                             content="1"
                                             size="small"
+                                            rounded
                                             onClick={() => this.handleUpdateAndSaveIfChanged('1', 'tiltaksklasseKode', index)}
                                             noHover
                                             color={ansvarsomraade.tiltaksklasseKode === '1' ? 'primary' : 'default'}
@@ -106,6 +107,7 @@ class AnsvarIByggeProsjekt extends Component {
                                         <Button
                                             content="2"
                                             size="small"
+                                            rounded
                                             onClick={() => this.handleUpdateAndSaveIfChanged('2', 'tiltaksklasseKode', index)}
                                             noHover
                                             color={ansvarsomraade.tiltaksklasseKode === '2' ? 'primary' : 'default'}
@@ -115,6 +117,7 @@ class AnsvarIByggeProsjekt extends Component {
                                         <Button
                                             content="3"
                                             size="small"
+                                            rounded
                                             onClick={() => this.handleUpdateAndSaveIfChanged('3', 'tiltaksklasseKode', index)}
                                             noHover
                                             color={ansvarsomraade.tiltaksklasseKode === '3' ? 'primary' : 'default'}
@@ -160,16 +163,16 @@ class AnsvarIByggeProsjekt extends Component {
                                     )
                                     : ''
                             }
-                            <div>
+                            <div className={formsStyle.fieldSection}>
                                 <Label>
                                     <b>Dekker den sentrale godkjenningen ansvarsområdene over?</b>
                                 </Label>
                                 <div className={formsStyle.inputGroup}>
                                     <div>
-                                        <Button content="Ja" size="small" onClick={() => this.handleUpdateAndSaveIfChanged(true, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === true ? 'primary' : 'default'} />
+                                        <Button content="Ja" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(true, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === true ? 'primary' : 'default'} />
                                     </div>
                                     <div>
-                                        <Button content="Nei" size="small" onClick={() => this.handleUpdateAndSaveIfChanged(false, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === false ? 'primary' : 'default'} />
+                                        <Button content="Nei" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(false, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === false ? 'primary' : 'default'} />
                                     </div>
                                 </div>
                             </div>
