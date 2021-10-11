@@ -40,7 +40,8 @@ class Erklaering extends Component {
                                 <CheckBoxListItem
                                     id="erklaeringAnsvarligProsjekterende"
                                     onChange={(event) => { this.handleOnChange(event.target.checked, 'erklaeringAnsvarligProsjekterende') }}
-                                    checked={formData.erklaeringAnsvarligProsjekterende ? true : false}>
+                                    checked={formData.erklaeringAnsvarligProsjekterende ? true : false}
+                                    compact>
                                     Ansvarlig prosjekterende erklærer at prosjekteringen skal være planlagt, gjennomført og kvalitetssikret i henhold til pbl jf. SAK10 §12-3
                                 </CheckBoxListItem>
                             )
@@ -52,7 +53,8 @@ class Erklaering extends Component {
                                 <CheckBoxListItem
                                     id="erklaeringAnsvarligUtfoerende"
                                     onChange={(event) => { this.handleOnChange(event.target.checked, 'erklaeringAnsvarligUtfoerende') }}
-                                    checked={formData.erklaeringAnsvarligUtfoerende ? true : false}>
+                                    checked={formData.erklaeringAnsvarligUtfoerende ? true : false}
+                                    compact>
                                     Ansvarlig utførende erklærer at arbeidet ikke skal starte før produksjonsunderlaget er klart, jf. SAK 10, §12-4
                                 </CheckBoxListItem>
                             )
@@ -64,7 +66,8 @@ class Erklaering extends Component {
                                 <CheckBoxListItem
                                     id="erklaeringAnsvarligKontrollerende"
                                     onChange={(event) => { this.handleOnChange(event.target.checked, 'erklaeringAnsvarligKontrollerende') }}
-                                    checked={formData.erklaeringAnsvarligKontrollerende ? true : false}>
+                                    checked={formData.erklaeringAnsvarligKontrollerende ? true : false}
+                                    compact>
                                     Ansvarlig kontollerende erklærer uavhengighet fra foretaket det skal kontrollere §14-1
                                 </CheckBoxListItem>
                             )
