@@ -192,7 +192,7 @@ class Form extends Component {
                             </Link>
                             <p>
                                 Trykk på lenken over hvis du ikke ønsker å signere erklæringen.<br />
-                                Du får muligheten til å skrive en begrunnelse som sendes til ansvarlig søker.
+                                Du må begrunne hvorfor du avviser erklæringen. Begrunnelsen sendes til ansvarlig søker.
                             </p>
                         </div>
                         {
@@ -200,7 +200,7 @@ class Form extends Component {
                                 ? (
                                     <Dialog onClickOutside={this.handleClickOutsideRejectDialog} closeButton maxWidth="960px">
                                         <Header content="Du har valgt å avvise erklæringen" size={2} />
-                                        <p>Her Må du skrive en begrunnelse til ansvarlig søker:</p>
+                                        <p>Her må du skrive en begrunnelse til ansvarlig søker:</p>
                                         <Textarea id="rejectionMessage" onChange={event => this.setState({ rejectionMessage: event.target.value })} resize="vertical" />
                                         <div className={commonStyle.marginTop}>
                                             <Button content="Avvis og send" onClick={this.handleSubmitRejectionButtonClick} color="primary" disabled={!this.state.rejectionMessage?.trim()?.length} />

@@ -32,8 +32,7 @@ class Erklaering extends Component {
         return formData
             ? (
                 <React.Fragment>
-                    <p>Vi kjenner reglene om straff og sanksjoner i plan- og bygningsloven kapittel 32, og at uriktige opplysninger kan føre til reaksjoner.</p>
-                    <p>Vi forplikter oss å stille med riktig kompetanse i byggeprosjekt, jf. SAK10 kapittel 10 og 11.</p>
+                    <p>Vi er kjent med reglene om straff og sanksjoner i plan- og bygningsloven kapittel 32, og at det kan føre til reaksjoner dersom vi oppgir uriktige opplysninger. Vi forplikter oss å stille med riktig kompetanse i byggeprosjekt, jf. SAK10 kapittel 10 og 11.</p>
                     {
                         this.hasAnsvarsomraadeFunksjon("PRO")
                             ? (
@@ -73,6 +72,9 @@ class Erklaering extends Component {
                             )
                             : ''
                     }
+                    <p>
+                        Ved å signere, bekrefter du samtidig at du er legitimert til å binde foretaket ansvarlig til arbeidene som er beskrevet i erklæringen.
+                    </p>
                 </React.Fragment>
             )
             : (
