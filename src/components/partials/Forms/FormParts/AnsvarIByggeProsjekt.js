@@ -126,10 +126,10 @@ class AnsvarIByggeProsjekt extends Component {
                                 </div>
                             </div>
                             {
-                                ansvarsomraade?.funksjon?.kodeverdi !== 'SOK'
+                                ansvarsomraade?.funksjonKode !== 'SØK'
                                     ? (
                                         <div className={formsStyle.fieldSection}>
-                                            <Label><b>{ansvarsomraade?.funksjon?.kodeverdi === 'KONTROLL' ? 'Kontrollerklæringer vil foreligge ved' : 'Samsvarserklæringer vil foreligge ved'}</b></Label>
+                                            <Label><b>{ansvarsomraade?.funksjonKode === 'KONTROLL' ? 'Kontrollerklæringer vil foreligge ved' : 'Samsvarserklæringer vil foreligge ved'}</b></Label>
                                             Dersom ansvarlig søker har registrert feil planlagt milepæl, må du oppdatere denne.
                                             <CheckBoxListItem
                                                 id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
