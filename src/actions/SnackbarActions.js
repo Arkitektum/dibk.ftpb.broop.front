@@ -19,3 +19,7 @@ export const showSnackbarMessage = (message, timeout) => (dispatch, getState) =>
         }
     })
 }
+
+export const hideSnackbarMessage = () => (dispatch) => {
+    dispatch({ type: UPDATE_SNACKBAR_VISIBLE, payload: false });
+}

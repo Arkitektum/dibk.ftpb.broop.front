@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import style from './Snackbar.module.scss';
 
 class Snackbar extends React.Component {
-
     render() {
         return <div className={style.snackbarContainer}>
             <div className={style.snackbarContent}>
                 {this.props.message}
-                <button onClick={this.props.onClickOutside} className={style.closeButton}></button>
+                <button onClick={() => this.props.onCloseClick()} className={style.closeButton}></button>
             </div>
         </div>;
     }
