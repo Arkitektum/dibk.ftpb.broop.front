@@ -1,6 +1,9 @@
 // Types
 import { FETCH_SELECTED_FORM, UPDATE_SELECTED_FORM, SAVE_SELECTED_FORM } from 'constants/types';
 
+// Actions
+import { showSnackbarMessage } from 'actions/SnackbarActions';
+
 // Helpers
 import { getEnvironmentVariable } from 'helpers/environmentVariableHelpers.js';
 
@@ -49,6 +52,7 @@ export const updateSelectedForm = form => dispatch => {
 }
 
 export const saveSelectedForm = form => dispatch => {
+    dispatch(showSnackbarMessage('Lagrer skjema', 3000))
     const internalApiUrl = getEnvironmentVariable('internalApiUrl');
     const formPath = form._links?.self?.href;
     const fetchOptions = {
@@ -59,6 +63,7 @@ export const saveSelectedForm = form => dispatch => {
         body: JSON.stringify(form)
     };
     return fetch(`${internalApiUrl}${formPath}`, fetchOptions).then(res => res.json()).then(form => {
+        dispatch(showSnackbarMessage('Skjema er lagret', 3000))
         return dispatch({ type: SAVE_SELECTED_FORM, payload: form })
     });
 }

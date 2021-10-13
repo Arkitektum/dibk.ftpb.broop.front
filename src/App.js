@@ -20,6 +20,9 @@ import NotFound from 'components/routes/NotFound';
 import MainNavigationBar from 'components/partials/MainNavigationBar';
 import Footer from 'components/partials/Footer';
 
+// Template
+import SnackbarContainer from 'components/template/SnackbarContainer';
+
 // Actionks
 //import { convertSelectedFormToPDF } from 'actions/PrintActions';
 
@@ -73,8 +76,8 @@ class App extends Component {
             <Route exact={true} path="/" render={(props) => (<Home {...props} />)} />
             <Route render={() => (<NotFound />)} />
           </Switch>
-
           <Footer />
+          <SnackbarContainer />
         </BrowserRouter>
       </ConnectedRouter>
     </Provider>);
