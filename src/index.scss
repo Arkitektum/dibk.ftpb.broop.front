@@ -28,6 +28,14 @@ h3 {
   margin: 0 0 8px;
 }
 
+a {
+  text-decoration: underline;
+  color: $color-default-text;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 .developmentTools {
   position: fixed;
   background: #303234;
