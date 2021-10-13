@@ -19,7 +19,6 @@ import { updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 import { formatProjectNameForForm } from 'helpers/formatHelpers';
 
 // Stylesheets
-import formsStyle from 'components/partials/Forms/Forms.module.scss';
 import commonStyle from 'components/routes/common.module.scss';
 
 class Ansvarsrett extends Component {
