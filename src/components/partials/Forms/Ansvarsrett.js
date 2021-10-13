@@ -44,33 +44,29 @@ class Ansvarsrett extends Component {
         return formData
             ? (
                 <React.Fragment>
-                    <Paper>
-                        <div className={commonStyle.paragraphGroup}>
-                            <p>Dette er en erklæring om ansvarsrett{formatProjectNameForForm(form)}.</p>
-                        </div>
-                        <div className={commonStyle.paragraphGroup}>
-                            {
-                                form?.formData?.frist // Add frist to APPI
-                                    ? <p>Frist for signering er ${form.formData.frist}. Etter fristen er det ikke lenger mulig å signere erklæringen.</p>
-                                    : ''
-                            }
-                            {
-                                form?.formData?.ansvarligSoeker?.navn
-                                    ? (<p>Etter signering blir erklæringen sendt til {form.formData.ansvarligSoeker.navn}, som er ansvarlig søker.</p>)
-                                    : ''
-                            }
-                        </div>
+                    <div className={commonStyle.paragraphGroup}>
+                        <p>Dette er en erklæring om ansvarsrett{formatProjectNameForForm(form)}.</p>
                         {
-                            isPrint
-                                ? (
-                                    <dl>
-                                        <dt>Kommunens saksnummer (år/sekvensnummer):</dt>
-                                        <dd>{formData.kommunensSaksnummer?.saksaar}/{formData.kommunensSaksnummer?.sakssekvensnummer}</dd>
-                                    </dl>
-                                )
+                            form?.formData?.frist // Add frist to APPI
+                                ? <p>Frist for signering er ${form.formData.frist}. Etter fristen er det ikke lenger mulig å signere erklæringen.</p>
                                 : ''
                         }
-                    </Paper>
+                        {
+                            form?.formData?.ansvarligSoeker?.navn
+                                ? (<p>Etter signering blir erklæringen sendt til {form.formData.ansvarligSoeker.navn}, som er ansvarlig søker.</p>)
+                                : ''
+                        }
+                    </div>
+                    {
+                        isPrint
+                            ? (
+                                <dl>
+                                    <dt>Kommunens saksnummer (år/sekvensnummer):</dt>
+                                    <dd>{formData.kommunensSaksnummer?.saksaar}/{formData.kommunensSaksnummer?.sakssekvensnummer}</dd>
+                                </dl>
+                            )
+                            : ''
+                    }
 
                     <Paper>
                         <Header content="Eiendom/Byggested" size={2}></Header>
