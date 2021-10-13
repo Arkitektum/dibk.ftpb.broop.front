@@ -1,0 +1,41 @@
+@import "../../style/abstracts/_all.scss";
+
+:local(.snackbarContainer) {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    :local(.snackbarContent) {
+        box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%);
+        margin: 8px;
+        border-radius: 4px;
+        background-color: #333;
+        color: rgba(255, 255, 255, 0.87);
+        padding: 6px 8px 6px 12px;
+        line-height: 1;
+
+        :local(.closeButton) {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.87);
+            display: inline-block;
+            margin-left: 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            &:hover {
+                text-decoration: none;
+                background-color: rgba(255, 255, 255, 0.15);
+            }
+            &::after {
+                font-family: "Helvetica", "Arial", sans-serif;
+                display: inline-block;
+                content: "\00d7";
+                font-size: 24px;
+            }
+        }
+    }
+}
