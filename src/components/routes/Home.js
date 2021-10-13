@@ -42,7 +42,7 @@ class Home extends Component {
         {
           value: "152b9329-e64d-43a9-92f1-daa110230347",
           label: "Samsvarserklæring"
-		}
+        }
       ]
     }
   }
@@ -142,7 +142,9 @@ class Home extends Component {
         return (
           <React.Fragment>
             <div className={commonStyle.introText}>
-              <Header content={`Erklæring om ansvarsrett fra ${form?.formData?.ansvarligSoeker?.navn} til signering`} />
+              <div className={commonStyle.paragraphGroup}>
+                <p><b>Erklæring om ansvarsrett fra {form?.formData?.ansvarligSoeker?.navn} til signering</b></p>
+              </div>
               <div className={commonStyle.paragraphGroup}>
                 <p>Dette er en erklæring om ansvarsrett{formatProjectNameForForm(form)}.</p>
               </div>
@@ -188,7 +190,9 @@ class Home extends Component {
         return (
           <React.Fragment>
             <div className={commonStyle.introText}>
-              <Header content="Erklæring er allerede signert" />
+              <div className={commonStyle.paragraphGroup}>
+                <p><b>Erklæring er allerede signert</b></p>
+              </div>
               <div className={commonStyle.paragraphGroup}>
                 <p>
                   {
@@ -214,7 +218,9 @@ class Home extends Component {
         return (
           <React.Fragment>
             <div className={commonStyle.introText}>
-              <Header content="Erklæring er avvist" />
+              <div className={commonStyle.paragraphGroup}>
+                <p><b>Erklæring er avvist</b></p>
+              </div>
               <div className={commonStyle.paragraphGroup}>
                 <p>
                   {
@@ -245,7 +251,9 @@ class Home extends Component {
         return (
           <React.Fragment>
             <div className={commonStyle.introText}>
-              <Header content="Fristen for å signere erklæringen er utgått" />
+              <div className={commonStyle.paragraphGroup}>
+                <p><b>Fristen for å signere erklæringen er utgått</b></p>
+              </div>
               <div className={commonStyle.paragraphGroup}>
                 {
                   form?.formData?.frist
@@ -311,6 +319,11 @@ class Home extends Component {
             </select>
           </div>
           <pre>Skjemareferanse:<br />{submission.referanseId || 'Ingen skjema er valgt'}</pre>
+        </div>
+
+        <div className={commonStyle.headerSection}>
+          <Header content="Erklæring om ansvarsrett"></Header>
+          <span className={commonStyle.subtitle}>etter plan- og bygningsloven(pbl) § 23-3</span>
         </div>
 
         {this.state.errorMessage ? this.renderErrorMessage(this.state.errorMessage) : ''}

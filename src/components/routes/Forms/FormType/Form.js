@@ -5,7 +5,7 @@ import { renderToString } from 'react-dom/server';
 import { Link, Redirect } from 'react-router-dom';
 
 
-// Componentstststsnts
+// Components
 import App from 'App';
 
 // DIBK Design
@@ -179,6 +179,10 @@ class Form extends Component {
             return selectedSubmission
                 ? (
                     <Container>
+                        <div className={commonStyle.headerSection}>
+                            <Header content="Erklæring om ansvarsrett"></Header>
+                            <span className={commonStyle.subtitle}>etter plan- og bygningsloven(pbl) § 23-3</span>
+                        </div>
                         {this.renderForm(formType, selectedSubmission)}
                         <Button content="Til signering" color="primary" onClick={() => this.handleSigningButtonClick()} />
                         {

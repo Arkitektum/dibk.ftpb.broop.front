@@ -139,7 +139,7 @@ class Receipt extends Component {
                 return (
                     <React.Fragment>
                         <div className={commonStyle.introText}>
-                            <Header content="Erklæring er signert" />
+                            <p><b>Erklæring er signert</b></p>
                             <div className={commonStyle.paragraphGroup}>
                                 <p>Erklæringen om ansvarsrett{formatProjectNameForForm(form)?.length ? ` for ${formatProjectNameForForm(form)}` : ''} er signert og sendt til ansvarlig søker.</p>
                             </div>
@@ -162,7 +162,7 @@ class Receipt extends Component {
                 return (
                     <React.Fragment>
                         <div className={commonStyle.introText}>
-                            <Header content="Erklæring er avvist" />
+                            <p><b>Erklæring er avvist</b></p>
                             <div className={commonStyle.paragraphGroup}>
                                 <p>Du har avvist erklæringen om ansvarsrett{formatProjectNameForForm(form)?.length ? ` for ${formatProjectNameForForm(form)}` : ''}, med følgende beskjed til ansvarlig søker:</p>
                                 <p>
@@ -195,6 +195,10 @@ class Receipt extends Component {
         return submission && form
             ? (
                 <Container>
+                    <div className={commonStyle.headerSection}>
+                        <Header content="Erklæring om ansvarsrett"></Header>
+                        <span className={commonStyle.subtitle}>etter plan- og bygningsloven(pbl) § 23-3</span>
+                    </div>
                     {
                         this.state.loadingMessage?.length
                             ? <LoadingAnimation fixed message={this.state.loadingMessage} />

@@ -1,3 +1,11 @@
+:local(.headerSection) {
+    margin-bottom: 24px;
+    :local(.subtitle) {
+        display: block;
+        margin-top: -12px;
+    }
+}
+
 :local(.introText) {
     margin-bottom: 70px;
     :local(.paragraphGroup) {

@@ -45,12 +45,6 @@ class Ansvarsrett extends Component {
         return formData
             ? (
                 <React.Fragment>
-                    <div className={formsStyle.headerSection}>
-                        <Header content="Erklæring om ansvarsrett"></Header>
-                        <span className={formsStyle.subtitle}>etter plan- og bygningsloven(pbl) § 23-3</span>
-                    </div>
-
-
                     <Paper>
                         <div className={commonStyle.paragraphGroup}>
                             <p>Dette er en erklæring om ansvarsrett{formatProjectNameForForm(form)}.</p>
