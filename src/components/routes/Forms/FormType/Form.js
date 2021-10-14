@@ -53,7 +53,11 @@ class Form extends Component {
     componentDidMount() {
         const submissionId = this.props.match.params.submissionId;
         if (!this.props.selectedSubmission || !Object.keys(this.props.selectedSubmission).length) {
-            this.fecthFormData(submissionId);
+            this.fecthFormData(submissionId).then(form => {
+                this.redirectIfNotValidStatus();
+            });
+        } else {
+            this.redirectIfNotValidStatus();
         }
     }
 
@@ -61,6 +65,19 @@ class Form extends Component {
         if (this.state.redirect) {
             this.setState({ redirect: null });
         }
+    }
+
+    redirectIfNotValidStatus() {
+        const validStatuses = ['tilSignering','iArbeid']
+        const isValidStatus = validStatuses.some(status => {
+            return this.props.form.status === status;
+        });
+        if (!isValidStatus) {
+            this.setState({
+                redirect: `/skjema/${this.props.form.referanseId}`
+            });
+        }
+        
     }
 
     fecthFormData(submissionId) {
