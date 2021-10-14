@@ -92,7 +92,7 @@ class AnsvarIByggeProsjekt extends Component {
                             <div className={formsStyle.fieldSection}>
                                 <Label><b>Tiltaksklasse</b></Label>
                                 Dersom ansvarlig søker har registrert feil tiltaksklasse for ansvarsområdet, må du oppdatere denne.
-                                <div className={formsStyle.inputGroup}>
+                                <div className={`${formsStyle.inputGroup} ${formsStyle.buttonRow}`}>
                                     <div className={formsStyle.flexAuto}>
                                         <Button
                                             content="1"
@@ -171,7 +171,7 @@ class AnsvarIByggeProsjekt extends Component {
                                 <Label>
                                     <b>Dekker den sentrale godkjenningen ansvarsområdene over?</b>
                                 </Label>
-                                <div className={formsStyle.inputGroup}>
+                                <div className={`${formsStyle.inputGroup} ${formsStyle.buttonRow}`}>
                                     <div>
                                         <Button content="Ja" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(true, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === true ? 'primary' : 'default'} />
                                     </div>

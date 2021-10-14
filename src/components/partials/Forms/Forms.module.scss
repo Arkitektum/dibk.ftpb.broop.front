@@ -34,9 +34,12 @@
     flex-wrap: wrap;
     margin: -6px;
     > div {
-        min-width: 120px;
         padding: 6px;
     }
+}
+
+:local(.buttonRow) {
+    margin: 5px 0;
 }
 
 :local(.fieldset) {
@@ -54,23 +57,6 @@
         padding: 0;
         position: relative;
         top: 1.5em;
-    }
-}
-
-:local(.buttonRow) {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    &:local(.reverse) {
-        flex-direction: row-reverse;
-    }
-    > * {
-        display: contents;
-        color: transparent;
-
-        button {
-            margin-right: 0;
-        }
     }
 }
 
