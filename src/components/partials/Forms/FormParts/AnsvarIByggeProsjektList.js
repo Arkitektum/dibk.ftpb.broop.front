@@ -15,6 +15,18 @@ import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
 class AnsvarIByggeProsjektList extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            errors: {
+                beskrivelseAvAnsvarsomraade: {
+                    hasErrors: false,
+                    message: null
+                }
+            }
+        }
+    }
+
     componentDidMount() {
         const hasCodelistFunksjon = this.props.codelistFunksjon && Object.keys(this.props.codelistFunksjon).length;
         if (!hasCodelistFunksjon) {
@@ -30,6 +42,27 @@ class AnsvarIByggeProsjektList extends Component {
 
     handleSave() {
         this.props.saveHandler();
+    }
+
+    validateBeskrivelseAvAnsvarsomraade(beskrivelseAvAnsvarsomraade) {
+        let message;
+        if (beskrivelseAvAnsvarsomraade?.length >= 2000) {
+            message = 'Beskrivelsen kan ikke være lenger enn 2000 tegn.';
+        } else if (beskrivelseAvAnsvarsomraade?.length === 0) {
+            message = 'Du må fylle ut en beskrivelse av ansvarsområdet.'
+        }
+
+        if (this.state.errors.beskrivelseAvAnsvarsomraade.message !== message) {
+            this.setState({
+                errors: {
+                    ...this.state.errors,
+                    beskrivelseAvAnsvarsomraade: {
+                        hasErrors: message?.length > 0,
+                        message
+                    }
+                }
+            })
+        }
     }
 
     handleUpdateAndSaveIfChanged(newValue, property, index) {
@@ -79,9 +112,11 @@ class AnsvarIByggeProsjektList extends Component {
                                                     Beskrivelsen under er skrevet av ansvarlig søker, men du kan oppdatere den.
                                                     <Textarea
                                                         id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
-                                                        onChange={() => { return false }}
+                                                        onChange={event => this.validateBeskrivelseAvAnsvarsomraade(event.target.value)}
                                                         onBlur={(event) => this.handleUpdateAndSaveIfChanged(event.target.value, 'beskrivelseAvAnsvarsomraade', index)}
                                                         resize="vertical"
+                                                        hasErrors={this.state.errors.beskrivelseAvAnsvarsomraade.hasErrors}
+                                                        errorMessage={this.state.errors.beskrivelseAvAnsvarsomraade.message}
                                                         defaultValue={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''}
                                                     />
                                                 </div>
