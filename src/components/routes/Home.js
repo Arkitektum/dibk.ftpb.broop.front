@@ -14,7 +14,7 @@ import ContactInfo from 'components/partials/ContactInfo';
 
 // Actions
 import { fetchSubmission } from 'actions/SubmissionActions';
-import { fetchSelectedForm } from 'actions/FormActions';
+import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 
 // Helpers
 import { formatProjectNameForForm } from 'helpers/formatHelpers';
@@ -26,7 +26,6 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: null,
       formFromUrlParameter: null,
       selectedFormOptionId: "",
       errorMessage: null,
@@ -97,6 +96,16 @@ class Home extends Component {
     });
   }
 
+  handleStatusOnChange(status) {
+    return this.props.updateSelectedForm({
+      ...this.props.selectedForm,
+      status
+    }).then((updatedForm) => {
+      this.props.saveSelectedForm(updatedForm);
+
+    });
+  }
+
 
 
   groupAnsvarsomraaderByFunksjon(ansvarsomraader) {
@@ -134,8 +143,8 @@ class Home extends Component {
   }
 
 
-  renderContent(status, form, submission) {
-    switch (status) {
+  renderContent(form, submission) {
+    switch (form.status) {
       case "tilSignering":
       case "iArbeid":
         return (
@@ -283,7 +292,6 @@ class Home extends Component {
 
 
   render() {
-    const status = this.state.status;
     const form = this.props.selectedForm;
     const submission = this.props.selectedSubmission;
     return (
@@ -304,7 +312,7 @@ class Home extends Component {
                   : ''
               }
             </select>
-            <select value={this.state.status || ""} onChange={event => this.setState({ status: event.target.value })}>
+            <select value={form.status || ""} onChange={event => this.handleStatusOnChange(event.target.value)}>
               <option value="" disabled>Velg status</option>
               <option value="tilSignering">Til signering</option>
               <option value="iArbeid">I arbeid</option>
@@ -325,7 +333,7 @@ class Home extends Component {
         </div>
 
         {this.state.errorMessage ? this.renderErrorMessage(this.state.errorMessage) : ''}
-        {form ? this.renderContent(status, form, submission) : ''}
+        {form ? this.renderContent(form, submission) : ''}
       </Container>
     )
   }
@@ -339,7 +347,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchSubmission,
-  fetchSelectedForm
+  fetchSelectedForm,
+  updateSelectedForm,
+  saveSelectedForm
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
