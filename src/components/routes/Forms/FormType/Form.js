@@ -165,7 +165,10 @@ class Form extends Component {
             status: 'avvist',
             statusReason: this.state.rejectionMessage
         }).then((updatedForm) => {
-            this.props.saveSelectedForm(updatedForm)
+            this.props.saveSelectedForm(updatedForm).then(() => {
+                window.location.href = `/skjema/${this.props.form.referanseId}/signatur-avvist`;
+            })
+
         });
     }
 
