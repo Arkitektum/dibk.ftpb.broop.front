@@ -28,6 +28,7 @@ import { convertSelectedFormToPDF } from 'actions/PrintActions';
 
 // Helpers
 import { getEnvironmentVariable } from 'helpers/environmentVariableHelpers';
+import { signingButtonShouldBeDisabled } from 'helpers/signingHelpers';
 
 // Stylesheets
 import commonStyle from 'components/routes/common.module.scss';
@@ -187,7 +188,7 @@ class Form extends Component {
                             <span className={commonStyle.subtitle}>etter plan- og bygningsloven(pbl) § 23-3</span>
                         </div>
                         {this.renderForm(formType, selectedSubmission)}
-                        <Button content="Til signering" color="primary" onClick={() => this.handleSigningButtonClick()} />
+                        <Button content="Til signering" color="primary" disabled={signingButtonShouldBeDisabled(this.props.form)} onClick={() => this.handleSigningButtonClick()} />
                         {
                             this.state.loadingMessage?.length
                                 ? <LoadingAnimation fixed message={this.state.loadingMessage} />
