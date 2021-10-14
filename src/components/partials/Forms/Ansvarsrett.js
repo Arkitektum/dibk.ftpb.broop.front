@@ -7,7 +7,6 @@ import { Header, Paper } from 'dibk-design';
 
 // Components
 import AnsvarIByggeProsjektList from 'components/partials/Forms/FormParts/AnsvarIByggeProsjektList';
-import AnsvarligSoeker from 'components/partials/Forms/FormParts/AnsvarligSoeker';
 import EiendomByggestedList from 'components/partials/Forms/FormParts/EiendomByggestedList';
 import Erklaering from 'components/partials/Forms/FormParts/Erklaering';
 import AnsvarligForetak from 'components/partials/Forms/FormParts/AnsvarligForetak';
@@ -93,12 +92,6 @@ class Ansvarsrett extends Component {
                         />
                     </Paper>
                     <div className="page-break"></div>
-                    <Paper>
-                        <Header content="Ansvarlig søker" size={2}></Header>
-                        <AnsvarligSoeker
-                            ansvarligSoeker={formData.ansvarligSoeker}
-                        />
-                    </Paper>
                     <Paper>
                         <Header content="Erklæring" size={2}></Header>
                         <div className="gray-container-on-print">
