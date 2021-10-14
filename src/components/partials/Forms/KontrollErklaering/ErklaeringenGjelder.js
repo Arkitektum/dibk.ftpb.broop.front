@@ -48,6 +48,7 @@ class ErklaeringenGjelder extends Component {
                         </div>
                         <Header content="Eiendom/Byggested" size={3}></Header>
                         <EiendomByggestedList eiendomByggesteder={formData.eiendomByggesteder} />
+                        <p>Trykk på eiendommen for å se detaljer om byggestedet</p>
                     </Paper>
                     <Paper>
                         <Header content="Ansvarlig kontrollerende" size={2}></Header>

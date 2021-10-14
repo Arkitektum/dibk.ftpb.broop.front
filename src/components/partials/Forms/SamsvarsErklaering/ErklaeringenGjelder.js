@@ -30,6 +30,7 @@ class ErklaeringenGjelder extends Component {
                         <Header content="Erklæringen gjelder" size={2}></Header>
                         <Header content="Eiendom/Byggested" size={3}></Header>
                         <EiendomByggestedList eiendomByggesteder={formData.eiendomByggesteder} />
+                        <p>Trykk på eiendommen for å se detaljer om byggestedet</p>
                     </Paper>
                     <Paper>
                         <Header content="Ansvarlig foretak" size={2}></Header>
