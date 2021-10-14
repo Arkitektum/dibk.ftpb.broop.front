@@ -46,8 +46,8 @@ class Ansvarsrett extends Component {
                     <div className={commonStyle.paragraphGroup}>
                         <p>Dette er en erklæring om ansvarsrett{formatProjectNameForForm(form)}.</p>
                         {
-                            form?.formData?.frist // Add frist to APPI
-                                ? <p>Frist for signering er ${form.formData.frist}. Etter fristen er det ikke lenger mulig å signere erklæringen.</p>
+                            form?.signeringsfrist
+                                ? <p>Frist for signering er ${form.signeringsfrist}. Etter fristen er det ikke lenger mulig å signere erklæringen.</p>
                                 : ''
                         }
                         {

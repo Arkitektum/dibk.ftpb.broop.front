@@ -170,8 +170,8 @@ class Home extends Component {
             </div>
             <div className={commonStyle.paragraphGroup}>
               {
-                form?.formData?.frist // Add frist to APPI
-                  ? <p>Frist for signering er ${form.formData.frist}.</p>
+                form?.signeringsfrist
+                  ? <p>Frist for signering er ${form.signeringsfrist}.</p>
                   : ''
               }
               <p>Etter signering blir erklæringen sendt til {form?.formData?.ansvarligSoeker?.navn}.</p>
@@ -256,8 +256,8 @@ class Home extends Component {
               </div>
               <div className={commonStyle.paragraphGroup}>
                 {
-                  form?.formData?.frist
-                    ? <p>Fristen for å signere gikk ut ${form.formData.frist}.</p> // TODO add frist to API
+                  form?.signeringsfrist
+                    ? <p>Fristen for å signere gikk ut ${form.signeringsfrist}.</p>
                     : ''
                 }
               </div>
