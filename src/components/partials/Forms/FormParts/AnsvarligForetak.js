@@ -43,16 +43,16 @@ class AnsvarligForetak extends Component {
                 <React.Fragment>
                     <dl className={formsStyle.fieldList}>
                         <div className={formsStyle.flex66}>
-                            <dt><Label>Navn</Label></dt><dd>{foretak.navn}</dd>
+                            <dt><Label><b>Navn</b></Label></dt><dd>{foretak.navn}</dd>
                         </div>
                         <div className={formsStyle.flex33}>
-                            <dt><Label>Organisasjonsnummer</Label></dt><dd>{foretak.organisasjonsnummer}</dd>
+                            <dt><Label><b>Organisasjonsnummer</b></Label></dt><dd>{foretak.organisasjonsnummer}</dd>
                         </div>
                         {
                             adresse?.length
                                 ? (
                                     <div className={formsStyle.flex33}>
-                                        <dt><Label>Adresse</Label></dt><dd>{adresse}</dd>
+                                        <dt><Label><b>Adresse</b></Label></dt><dd>{adresse}</dd>
                                     </div>
                                 )
                                 : ''
@@ -61,7 +61,7 @@ class AnsvarligForetak extends Component {
                             telefonNummerList.length
                                 ? (
                                     <div className={formsStyle.flex33}>
-                                        <dt><Label>Telefon</Label></dt>
+                                        <dt><Label><b>Telefon</b></Label></dt>
                                         <dd>
                                             <ul className={formsStyle.cleanList}>
                                                 {
@@ -79,7 +79,7 @@ class AnsvarligForetak extends Component {
                             foretak.epost?.length
                                 ? (
                                     <div className={formsStyle.flex33}>
-                                        <dt><Label>E-post</Label></dt><dd>{foretak.epost}</dd>
+                                        <dt><Label><b>E-post</b></Label></dt><dd>{foretak.epost}</dd>
                                     </div>
                                 )
                                 : ''
