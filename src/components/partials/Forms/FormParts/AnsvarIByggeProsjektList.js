@@ -62,7 +62,7 @@ class AnsvarIByggeProsjektList extends Component {
             ? ansvarsomraader.map((ansvarsomraade, index) => {
                 const funksjonOptionValues = this.convertCodelistFunksjonToOptionValues(this.props.codelistFunksjon);
                 const selectedFunksjonKey = this.getOptionKeyFromOptionValueInList(funksjonOptionValues, ansvarsomraade.funksjonKode);
-                const accordionTitle = `${selectedFunksjonKey} (tiltaksklasse ${ansvarsomraade.tiltaksklasseKode})`;
+                const accordionTitle = `${selectedFunksjonKey}${ansvarsomraade?.funksjonKode !== 'SØK' ? ' (tiltaksklasse' + ansvarsomraade.tiltaksklasseKode + ')' : ''}`;
                 return (
                     <div key={index} className={formsStyle.accordionItem}>
                         <Accordion title={accordionTitle} expanded color="lightLime">
@@ -91,7 +91,6 @@ class AnsvarIByggeProsjektList extends Component {
                             </div>
                             <div className={formsStyle.fieldSection}>
                                 <Label><b>Tiltaksklasse</b></Label>
-                                Dersom ansvarlig søker har registrert feil tiltaksklasse for ansvarsområdet, må du oppdatere denne.
                                 <div className={`${formsStyle.inputGroup} ${formsStyle.buttonRow}`}>
                                     <div className={formsStyle.flexAuto}>
                                         <Button
@@ -128,58 +127,60 @@ class AnsvarIByggeProsjektList extends Component {
                             {
                                 ansvarsomraade?.funksjonKode !== 'SØK'
                                     ? (
-                                        <div className={formsStyle.fieldSection}>
-                                            <Label><b>{ansvarsomraade?.funksjonKode === 'KONTROLL' ? 'Kontrollerklæringer vil foreligge ved' : 'Samsvarserklæringer vil foreligge ved'}</b></Label>
-                                            Dersom ansvarlig søker har registrert feil planlagt milepæl, må du oppdatere denne.
-                                            <CheckBoxListItem
-                                                id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
-                                                onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedRammetillatelse', index)}
-                                                checked={ansvarsomraade.samsvarKontrollVedRammetillatelse}
-                                                compact
-                                            >
-                                                Rammetillatelse
-                                            </CheckBoxListItem>
-                                            <CheckBoxListItem
-                                                id={`ansvarsomraade-${index}-samsvarKontrollVedIgangsettingstillatelse`}
-                                                onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedIgangsettingstillatelse', index)}
-                                                checked={ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse}
-                                                compact
-                                            >
-                                                Igangsettingstillatelse
-                                            </CheckBoxListItem>
-                                            <CheckBoxListItem
-                                                id={`ansvarsomraade-${index}-samsvarKontrollVedMidlertidigBrukstillatelse`}
-                                                onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedMidlertidigBrukstillatelse', index)}
-                                                checked={ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse}
-                                                compact
-                                            >
-                                                Midlertidig brukstillatelse
-                                            </CheckBoxListItem>
-                                            <CheckBoxListItem
-                                                id={`ansvarsomraade-${index}-samsvarKontrollVedFerdigattest`}
-                                                onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedFerdigattest', index)}
-                                                checked={ansvarsomraade.samsvarKontrollVedFerdigattest}
-                                                compact
-                                            >
-                                                Ferdigattest
-                                            </CheckBoxListItem>
-                                        </div>
+                                        <React.Fragment>
+                                            <div className={formsStyle.fieldSection}>
+                                                <Label><b>{ansvarsomraade?.funksjonKode === 'KONTROLL' ? 'Kontrollerklæringer vil foreligge ved' : 'Samsvarserklæringer vil foreligge ved'}</b></Label>
+                                                Dersom ansvarlig søker har registrert feil planlagt milepæl, må du oppdatere denne.
+                                                <CheckBoxListItem
+                                                    id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
+                                                    onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedRammetillatelse', index)}
+                                                    checked={ansvarsomraade.samsvarKontrollVedRammetillatelse}
+                                                    compact
+                                                >
+                                                    Rammetillatelse
+                                                </CheckBoxListItem>
+                                                <CheckBoxListItem
+                                                    id={`ansvarsomraade-${index}-samsvarKontrollVedIgangsettingstillatelse`}
+                                                    onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedIgangsettingstillatelse', index)}
+                                                    checked={ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse}
+                                                    compact
+                                                >
+                                                    Igangsettingstillatelse
+                                                </CheckBoxListItem>
+                                                <CheckBoxListItem
+                                                    id={`ansvarsomraade-${index}-samsvarKontrollVedMidlertidigBrukstillatelse`}
+                                                    onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedMidlertidigBrukstillatelse', index)}
+                                                    checked={ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse}
+                                                    compact
+                                                >
+                                                    Midlertidig brukstillatelse
+                                                </CheckBoxListItem>
+                                                <CheckBoxListItem
+                                                    id={`ansvarsomraade-${index}-samsvarKontrollVedFerdigattest`}
+                                                    onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedFerdigattest', index)}
+                                                    checked={ansvarsomraade.samsvarKontrollVedFerdigattest}
+                                                    compact
+                                                >
+                                                    Ferdigattest
+                                                </CheckBoxListItem>
+                                            </div>
+                                            <div className={formsStyle.fieldSection}>
+                                                <Label>
+                                                    <b>Dekker den sentrale godkjenningen ansvarsområdene over?</b>
+                                                </Label>
+                                                <div className={`${formsStyle.inputGroup} ${formsStyle.buttonRow}`}>
+                                                    <div>
+                                                        <Button content="Ja" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(true, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === true ? 'primary' : 'default'} />
+                                                    </div>
+                                                    <div>
+                                                        <Button content="Nei" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(false, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === false ? 'primary' : 'default'} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </React.Fragment>
                                     )
                                     : ''
                             }
-                            <div className={formsStyle.fieldSection}>
-                                <Label>
-                                    <b>Dekker den sentrale godkjenningen ansvarsområdene over?</b>
-                                </Label>
-                                <div className={`${formsStyle.inputGroup} ${formsStyle.buttonRow}`}>
-                                    <div>
-                                        <Button content="Ja" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(true, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === true ? 'primary' : 'default'} />
-                                    </div>
-                                    <div>
-                                        <Button content="Nei" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(false, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === false ? 'primary' : 'default'} />
-                                    </div>
-                                </div>
-                            </div>
                         </Accordion>
                     </div>
                 )
