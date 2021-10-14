@@ -129,29 +129,34 @@ class Form extends Component {
         });
         const htmlContentForPdf = this.renderHtmlContentForPdf();
         const selectedSubmission = this.props.selectedSubmission
-        this.props.convertSelectedFormToPDF(htmlContentForPdf, selectedSubmission.referanseId).then(() => {
-            this.setState({
-                loadingMessage: 'Klargjør signering'
-            });
-            this.props.updateSignedStatus(selectedSubmission.referanseId, null, 'InitiateSigning').then(response => {
+
+        if (this.props.form?.signeringsUrl?.length) {
+            window.location.href = this.props.form?.signeringsUrl;
+        } else {
+            this.props.convertSelectedFormToPDF(htmlContentForPdf, selectedSubmission.referanseId).then(() => {
                 this.setState({
-                    loadingMessage: null
+                    loadingMessage: 'Klargjør signering'
                 });
-                let signingUrl = response.signingUrl;
-                const environment = getEnvironmentVariable('environment');
-                signingUrl += `?skjema=${selectedSubmission.referanseId}`;
-                signingUrl += environment?.length ? `&environment=${environment}` : '';
-                window.location.href = signingUrl;
+                this.props.updateSignedStatus(selectedSubmission.referanseId, null, 'InitiateSigning').then(response => {
+                    this.setState({
+                        loadingMessage: null
+                    });
+                    let signingUrl = response.signingUrl;
+                    const environment = getEnvironmentVariable('environment');
+                    signingUrl += `?skjema=${selectedSubmission.referanseId}`;
+                    signingUrl += environment?.length ? `&environment=${environment}` : '';
+                    window.location.href = signingUrl;
+                }).catch(error => {
+                    this.setState({
+                        loadingMessage: null
+                    });
+                });
             }).catch(error => {
                 this.setState({
                     loadingMessage: null
                 });
-            });
-        }).catch(error => {
-            this.setState({
-                loadingMessage: null
-            });
-        })
+            })
+        }
     }
 
     handleClickOutsideRejectDialog() {
