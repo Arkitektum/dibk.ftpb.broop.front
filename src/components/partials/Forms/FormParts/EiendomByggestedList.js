@@ -12,7 +12,7 @@ import { formatAddress } from 'helpers/formatHelpers';
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
-class EiendomByggested extends Component {
+class EiendomByggestedList extends Component {
 
     getMunicipalityField(eiendomByggested) {
         let municipalityField;
@@ -130,8 +130,8 @@ class EiendomByggested extends Component {
     }
 }
 
-EiendomByggested.propTypes = {
+EiendomByggestedList.propTypes = {
     eiendomByggesteder: PropTypes.array.isRequired
 };
 
-export default connect(null, null)(EiendomByggested);
+export default connect(null, null)(EiendomByggestedList);

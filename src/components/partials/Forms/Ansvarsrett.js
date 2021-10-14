@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 import { Header, Paper } from 'dibk-design';
 
 // Components
-import AnsvarIByggeProsjekt from 'components/partials/Forms/FormParts/AnsvarIByggeProsjekt';
+import AnsvarIByggeProsjektList from 'components/partials/Forms/FormParts/AnsvarIByggeProsjektList';
 import AnsvarligSoeker from 'components/partials/Forms/FormParts/AnsvarligSoeker';
-import EiendomByggested from 'components/partials/Forms/FormParts/EiendomByggested';
+import EiendomByggestedList from 'components/partials/Forms/FormParts/EiendomByggestedList';
 import Erklaering from 'components/partials/Forms/FormParts/Erklaering';
 import AnsvarligForetak from 'components/partials/Forms/FormParts/AnsvarligForetak';
 
@@ -70,7 +70,7 @@ class Ansvarsrett extends Component {
 
                     <Paper>
                         <Header content="Eiendom/Byggested" size={2}></Header>
-                        <EiendomByggested
+                        <EiendomByggestedList
                             eiendomByggesteder={formData.eiendomByggesteder}
                         />
                     </Paper>
@@ -85,7 +85,7 @@ class Ansvarsrett extends Component {
                     <div className="page-break"></div>
                     <Paper>
                         <Header content="Ansvar i byggeprosjekt" size={2}></Header>
-                        <AnsvarIByggeProsjekt
+                        <AnsvarIByggeProsjektList
                             ansvarsomraader={formData.ansvarsomraader}
                             updateHandler={ansvarsomraader => this.updateFormDataField(ansvarsomraader, 'ansvarsomraader')}
                             saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm)}

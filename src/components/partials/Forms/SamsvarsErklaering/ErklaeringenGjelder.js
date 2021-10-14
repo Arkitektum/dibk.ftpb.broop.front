@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Header, Paper } from 'dibk-design';
 
 // Components
-import EiendomByggested from 'components/partials/Forms/FormParts/EiendomByggested';
+import EiendomByggestedList from 'components/partials/Forms/FormParts/EiendomByggestedList';
 
 // Actions
 import { updateSelectedForm } from 'actions/FormActions';
@@ -29,7 +29,7 @@ class ErklaeringenGjelder extends Component {
                     <Paper>
                         <Header content="Erklæringen gjelder" size={2}></Header>
                         <Header content="Eiendom/Byggested" size={3}></Header>
-                        <EiendomByggested eiendomByggesteder={formData.eiendomByggesteder} />
+                        <EiendomByggestedList eiendomByggesteder={formData.eiendomByggesteder} />
                     </Paper>
                     <Paper>
                         <Header content="Ansvarlig foretak" size={2}></Header>

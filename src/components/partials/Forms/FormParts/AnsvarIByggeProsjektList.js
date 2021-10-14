@@ -13,7 +13,7 @@ import { fetchCodelistFunksjon } from 'actions/CodelistActions';
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
 
 
-class AnsvarIByggeProsjekt extends Component {
+class AnsvarIByggeProsjektList extends Component {
 
     componentDidMount() {
         const hasCodelistFunksjon = this.props.codelistFunksjon && Object.keys(this.props.codelistFunksjon).length;
@@ -190,7 +190,7 @@ class AnsvarIByggeProsjekt extends Component {
     }
 }
 
-AnsvarIByggeProsjekt.propTypes = {
+AnsvarIByggeProsjektList.propTypes = {
     ansvarsomraader: PropTypes.array.isRequired,
     updateHandler: PropTypes.func.isRequired,
     saveHandler: PropTypes.func.isRequired
@@ -204,4 +204,4 @@ const mapDispatchToProps = {
     fetchCodelistFunksjon
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AnsvarIByggeProsjekt);
+export default connect(mapStateToProps, mapDispatchToProps)(AnsvarIByggeProsjektList);
