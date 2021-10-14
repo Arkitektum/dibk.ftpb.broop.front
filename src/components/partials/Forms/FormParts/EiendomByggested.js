@@ -110,7 +110,7 @@ class EiendomByggested extends Component {
 
         return (
             <div key={index} className={formsStyle.accordionItem}>
-                <Accordion title={title}>
+                <Accordion title={title} color="lightLime">
                     {this.renderEiendomByggestedItem(eiendomByggested)}
                 </Accordion>
             </div>
