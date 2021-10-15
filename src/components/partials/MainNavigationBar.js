@@ -40,7 +40,7 @@ class MainNavigationBar extends Component {
       return <Redirect to={this.state.redirect} />;
     } else {
       return (
-        <NavigationBar logoLink="/">
+        <NavigationBar logoLink="https://dibk.no/" openLogoLinkInNewTab>
           <div className={style.buttonContainer}>
             <Button content="Logg ut" size="small" onClick={() => this.handleOnLogOut()} />
           </div>
