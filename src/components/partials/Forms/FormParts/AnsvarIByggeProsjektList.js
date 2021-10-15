@@ -95,7 +95,7 @@ class AnsvarIByggeProsjektList extends Component {
             ? ansvarsomraader.map((ansvarsomraade, index) => {
                 const funksjonOptionValues = this.convertCodelistFunksjonToOptionValues(this.props.codelistFunksjon);
                 const selectedFunksjonKey = this.getOptionKeyFromOptionValueInList(funksjonOptionValues, ansvarsomraade.funksjonKode);
-                const accordionTitle = `${selectedFunksjonKey}${ansvarsomraade?.funksjonKode !== 'SØK' ? ' (tiltaksklasse' + ansvarsomraade.tiltaksklasseKode + ')' : ''}`;
+                const accordionTitle = `${selectedFunksjonKey}${ansvarsomraade?.funksjonKode !== 'SØK' ? ' (tiltaksklasse ' + ansvarsomraade.tiltaksklasseKode + ')' : ''}`;
                 return (
                     <div key={index} className={formsStyle.accordionItem}>
                         <Accordion title={accordionTitle} expanded color="lightLime">
@@ -217,6 +217,7 @@ class AnsvarIByggeProsjektList extends Component {
                                                     )
                                                     : ''
                                             }
+                                            <p>Ansvarlig søker har foreslått noen opplysninger, men du kan endre eller oppdatere beskrivelsen og valgene.</p>
                                         </React.Fragment>
                                     )
                                     : ''

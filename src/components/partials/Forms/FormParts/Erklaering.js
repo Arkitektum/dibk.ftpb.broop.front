@@ -32,7 +32,7 @@ class Erklaering extends Component {
         return formData
             ? (
                 <React.Fragment>
-                    <p>Vi er kjent med reglene om straff og sanksjoner i plan- og bygningsloven kapittel 32, og at det kan føre til reaksjoner dersom vi oppgir uriktige opplysninger. Vi forplikter oss å stille med riktig kompetanse i byggeprosjekt, jf. SAK10 kapittel 10 og 11.</p>
+                    <p>Vi er kjent med reglene om straff og sanksjoner i plan- og bygningsloven kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger. Vi forplikter oss å stille med riktig kompetanse i byggeprosjekt, jf. SAK10 kapittel 10 og 11.</p>
                     {
                         this.hasAnsvarsomraadeFunksjon("PRO")
                             ? (
@@ -41,7 +41,7 @@ class Erklaering extends Component {
                                     onChange={(event) => { this.handleOnChange(event.target.checked, 'erklaeringAnsvarligProsjekterende') }}
                                     checked={formData.erklaeringAnsvarligProsjekterende ? true : false}
                                     compact>
-                                    Ansvarlig prosjekterende erklærer at prosjekteringen skal være planlagt, gjennomført og kvalitetssikret i henhold til pbl jf. SAK10 §12-3
+                                    Ansvarlig prosjekterende erklærer at prosjekteringen skal være planlagt, gjennomført og kvalitetssikret i henhold til plan- og bygningsloven, jf. SAK10 § 12-3.
                                 </CheckBoxListItem>
                             )
                             : ''
@@ -54,7 +54,7 @@ class Erklaering extends Component {
                                     onChange={(event) => { this.handleOnChange(event.target.checked, 'erklaeringAnsvarligUtfoerende') }}
                                     checked={formData.erklaeringAnsvarligUtfoerende ? true : false}
                                     compact>
-                                    Ansvarlig utførende erklærer at arbeidet ikke skal starte før produksjonsunderlaget er klart, jf. SAK 10, §12-4
+                                    Ansvarlig utførende erklærer at arbeidet ikke skal starte før det foreligger kvalitetssikret produksjonsunderlag for den respektive del av utførelsen, jf. SAK10, § 12-4.
                                 </CheckBoxListItem>
                             )
                             : ''
@@ -67,7 +67,7 @@ class Erklaering extends Component {
                                     onChange={(event) => { this.handleOnChange(event.target.checked, 'erklaeringAnsvarligKontrollerende') }}
                                     checked={formData.erklaeringAnsvarligKontrollerende ? true : false}
                                     compact>
-                                    Ansvarlig kontollerende erklærer uavhengighet fra foretaket det skal kontrollere §14-1
+                                    Ansvarlig kontrollerende erklærer uavhengighet, jf. SAK10 § 14-1, og vil redegjøre for endringer som kan påvirke uavhengigheten, jf. SAK10 § 12-5.
                                 </CheckBoxListItem>
                             )
                             : ''
