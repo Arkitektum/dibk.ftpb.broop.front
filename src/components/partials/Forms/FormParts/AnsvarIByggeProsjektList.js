@@ -198,19 +198,25 @@ class AnsvarIByggeProsjektList extends Component {
                                                     Ferdigattest
                                                 </CheckBoxListItem>
                                             </div>
-                                            <div className={formsStyle.fieldSection}>
-                                                <Label>
-                                                    <b>Dekker den sentrale godkjenningen ansvarsområdene over?</b>
-                                                </Label>
-                                                <div className={`${formsStyle.inputGroup} ${formsStyle.buttonRow}`}>
-                                                    <div>
-                                                        <Button content="Ja" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(true, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === true ? 'primary' : 'default'} />
-                                                    </div>
-                                                    <div>
-                                                        <Button content="Nei" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(false, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === false ? 'primary' : 'default'} />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {
+                                                this.props.selectedForm?.formData?.ansvarligForetak?.harSentralGodkjenning
+                                                    ? (
+                                                        <div className={formsStyle.fieldSection}>
+                                                            <Label>
+                                                                <b>Dekker den sentrale godkjenningen ansvarsområdene over?</b>
+                                                            </Label>
+                                                            <div className={`${formsStyle.inputGroup} ${formsStyle.buttonRow}`}>
+                                                                <div>
+                                                                    <Button content="Ja" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(true, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === true ? 'primary' : 'default'} />
+                                                                </div>
+                                                                <div>
+                                                                    <Button content="Nei" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(false, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === false ? 'primary' : 'default'} />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                    : ''
+                                            }
                                         </React.Fragment>
                                     )
                                     : ''
@@ -227,6 +233,7 @@ class AnsvarIByggeProsjektList extends Component {
 
 AnsvarIByggeProsjektList.propTypes = {
     ansvarsomraader: PropTypes.array.isRequired,
+    selectedForm: PropTypes.object.isRequired,
     updateHandler: PropTypes.func.isRequired,
     saveHandler: PropTypes.func.isRequired
 };
