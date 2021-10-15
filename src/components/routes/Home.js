@@ -1,7 +1,7 @@
 // Dependencies
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 // DIBK Design
 import { Button, Header } from 'dibk-design';
@@ -15,6 +15,7 @@ import ContactInfo from 'components/partials/ContactInfo';
 // Actions
 import { fetchSubmission } from 'actions/SubmissionActions';
 import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
+import { signIn } from 'actions/IsSignedInActions';
 
 // Helpers
 import { formatProjectNameForForm } from 'helpers/formatHelpers';
@@ -26,6 +27,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      redirect: null,
       formFromUrlParameter: null,
       selectedFormOptionId: "",
       errorMessage: null,
@@ -66,6 +68,12 @@ class Home extends Component {
       }).catch(error => {
         console.log("Home component did mount", error);
       });
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.state.redirect) {
+      this.setState({ redirect: null });
     }
   }
 
@@ -142,6 +150,13 @@ class Home extends Component {
       : 'no list';
   }
 
+  handleOnLogIn() {
+    this.props.signIn();
+    this.setState({
+      redirect: `/skjema/${this.props.selectedForm.referanseId}/rediger`
+    })
+  }
+
 
   renderContent(form, submission) {
     switch (form.status) {
@@ -187,10 +202,7 @@ class Home extends Component {
 
 
             <ContactInfo />
-
-            <Link to={`/skjema/${submission.referanseId}/rediger`}>
-              <Button content="Logg inn" color='primary'></Button>
-            </Link>
+            <Button content="Logg inn" color='primary' onClick={() => this.handleOnLogIn()} />
           </React.Fragment>
         );
       case "signert":
@@ -294,48 +306,52 @@ class Home extends Component {
   render() {
     const form = this.props.selectedForm;
     const submission = this.props.selectedSubmission;
-    return (
-      <Container>
-        <div className='developmentTools'>
-          <span>Testverktøy</span>
-          <div>
-            <select value={this.state.selectedFormOptionId} onChange={event => this.fetchSubmission(event.target.value)}>
-              <option value="" disabled>Velg skjema</option>
-              {
-                this.state.exampleForms.map(exampleForm => {
-                  return <option key={exampleForm.value} value={exampleForm.value}>{exampleForm.label}</option>
-                })
-              }
-              {
-                this.state.formFromUrlParameter
-                  ? (<option value={this.state.formFromUrlParameter.value}>{this.state.formFromUrlParameter.label} (Fra Id)</option>)
-                  : ''
-              }
-            </select>
-            <select value={form.status || ""} onChange={event => this.handleStatusOnChange(event.target.value)}>
-              <option value="" disabled>Velg status</option>
-              <option value="tilSignering">Til signering</option>
-              <option value="iArbeid">I arbeid</option>
-              <option value="signert">Signert</option>
-              <option value="avvist">Avvist</option>
-              <option value="utgaatt">Utgått</option>
-              <option value="trukket">Trukket</option>
-              <option value="avsluttet">Avsluttet</option>
-              <option value="feilet">Feilet</option>
-            </select>
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    } else {
+      return (
+        <Container>
+          <div className='developmentTools'>
+            <span>Testverktøy</span>
+            <div>
+              <select value={this.state.selectedFormOptionId} onChange={event => this.fetchSubmission(event.target.value)}>
+                <option value="" disabled>Velg skjema</option>
+                {
+                  this.state.exampleForms.map(exampleForm => {
+                    return <option key={exampleForm.value} value={exampleForm.value}>{exampleForm.label}</option>
+                  })
+                }
+                {
+                  this.state.formFromUrlParameter
+                    ? (<option value={this.state.formFromUrlParameter.value}>{this.state.formFromUrlParameter.label} (Fra Id)</option>)
+                    : ''
+                }
+              </select>
+              <select value={form.status || ""} onChange={event => this.handleStatusOnChange(event.target.value)}>
+                <option value="" disabled>Velg status</option>
+                <option value="tilSignering">Til signering</option>
+                <option value="iArbeid">I arbeid</option>
+                <option value="signert">Signert</option>
+                <option value="avvist">Avvist</option>
+                <option value="utgaatt">Utgått</option>
+                <option value="trukket">Trukket</option>
+                <option value="avsluttet">Avsluttet</option>
+                <option value="feilet">Feilet</option>
+              </select>
+            </div>
+            <pre>Skjemareferanse:<br />{submission.referanseId || 'Ingen skjema er valgt'}</pre>
           </div>
-          <pre>Skjemareferanse:<br />{submission.referanseId || 'Ingen skjema er valgt'}</pre>
-        </div>
 
-        <div className={commonStyle.headerSection}>
-          <Header content="Erklæring om ansvarsrett"></Header>
-          <span className={commonStyle.subtitle}>etter plan- og bygningsloven (pbl) § 23-3</span>
-        </div>
+          <div className={commonStyle.headerSection}>
+            <Header content="Erklæring om ansvarsrett"></Header>
+            <span className={commonStyle.subtitle}>etter plan- og bygningsloven (pbl) § 23-3</span>
+          </div>
 
-        {this.state.errorMessage ? this.renderErrorMessage(this.state.errorMessage) : ''}
-        {form ? this.renderContent(form, submission) : ''}
-      </Container>
-    )
+          {this.state.errorMessage ? this.renderErrorMessage(this.state.errorMessage) : ''}
+          {form ? this.renderContent(form, submission) : ''}
+        </Container>
+      )
+    }
   }
 }
 
@@ -349,7 +365,8 @@ const mapDispatchToProps = {
   fetchSubmission,
   fetchSelectedForm,
   updateSelectedForm,
-  saveSelectedForm
+  saveSelectedForm,
+  signIn
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
