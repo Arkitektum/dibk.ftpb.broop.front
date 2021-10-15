@@ -41,9 +41,15 @@ class MainNavigationBar extends Component {
     } else {
       return (
         <NavigationBar logoLink="https://dibk.no/" openLogoLinkInNewTab>
-          <div className={style.buttonContainer}>
-            <Button content="Logg ut" size="small" onClick={() => this.handleOnLogOut()} />
-          </div>
+          {
+            this.props.isSignedIn
+              ? (
+                <div className={style.buttonContainer}>
+                  <Button content="Logg ut" size="small" onClick={() => this.handleOnLogOut()} />
+                </div>
+              )
+              : ''
+          }
         </NavigationBar>
       )
     }
@@ -51,7 +57,8 @@ class MainNavigationBar extends Component {
 }
 
 const mapStateToProps = state => ({
-  selectedForm: state.selectedForm
+  selectedForm: state.selectedForm,
+  isSignedIn: state.isSignedIn
 });
 
 const mapDispatchToProps = {
