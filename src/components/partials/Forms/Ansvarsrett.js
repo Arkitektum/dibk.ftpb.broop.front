@@ -84,9 +84,10 @@ class Ansvarsrett extends Component {
                     </Paper>
                     <div className="page-break"></div>
                     <Paper>
-                        <Header content="Ansvar i byggeprosjekt" size={2}></Header>
+                        <Header content="Ansvar i byggeprosjektet" size={2}></Header>
                         <AnsvarIByggeProsjektList
                             ansvarsomraader={formData.ansvarsomraader}
+                            selectedForm={this.props.selectedForm}
                             updateHandler={ansvarsomraader => this.updateFormDataField(ansvarsomraader, 'ansvarsomraader')}
                             saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm)}
                         />

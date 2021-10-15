@@ -104,7 +104,7 @@ class AnsvarIByggeProsjektList extends Component {
                             <div className={formsStyle.fieldSection}>
                                 {
                                     ansvarsomraade.funksjonKode === "SØK"
-                                        ? "Erklæringen brukes ved endring av ansvarlig søker"
+                                        ? "Erklæringen brukes ved endring av ansvarlig søker."
                                         : (
                                             <div className={`${formsStyle.inputGroup} hide-on-print`}>
                                                 <div className={formsStyle.flex100}>
@@ -165,7 +165,6 @@ class AnsvarIByggeProsjektList extends Component {
                                         <React.Fragment>
                                             <div className={formsStyle.fieldSection}>
                                                 <Label><b>{ansvarsomraade?.funksjonKode === 'KONTROLL' ? 'Kontrollerklæringer vil foreligge ved' : 'Samsvarserklæringer vil foreligge ved'}</b></Label>
-                                                Dersom ansvarlig søker har registrert feil planlagt milepæl, må du oppdatere denne.
                                                 <CheckBoxListItem
                                                     id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
                                                     onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedRammetillatelse', index)}
