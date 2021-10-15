@@ -329,7 +329,7 @@ class Home extends Component {
 
         <div className={commonStyle.headerSection}>
           <Header content="Erklæring om ansvarsrett"></Header>
-          <span className={commonStyle.subtitle}>etter plan- og bygningsloven(pbl) § 23-3</span>
+          <span className={commonStyle.subtitle}>etter plan- og bygningsloven (pbl) § 23-3</span>
         </div>
 
         {this.state.errorMessage ? this.renderErrorMessage(this.state.errorMessage) : ''}

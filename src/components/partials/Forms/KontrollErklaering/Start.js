@@ -21,7 +21,7 @@ class KontrollErklaeringer extends Component {
                 <React.Fragment>
                     <div className={formsStyle.headerSection}>
                         <Header content="Kontrollerklæring med sluttrapport"></Header>
-                        <span className={formsStyle.subtitle}>etter plan- og bygningsloven(pbl) § 24-2, jf. SAK 10 § 12-5 og § 14-8</span>
+                        <span className={formsStyle.subtitle}>etter plan- og bygningsloven (pbl) § 24-2, jf. SAK 10 § 12-5 og § 14-8</span>
                         <p>Etter signering blir erklæringen sendt til søker.</p>
                     </div>
                     <dl className={`${formsStyle.fieldList} ${formsStyle.inlineFieldList}`}>

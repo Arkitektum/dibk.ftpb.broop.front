@@ -207,7 +207,7 @@ class Form extends Component {
                     <Container>
                         <div className={commonStyle.headerSection}>
                             <Header content="Erklæring om ansvarsrett"></Header>
-                            <span className={commonStyle.subtitle}>etter plan- og bygningsloven(pbl) § 23-3</span>
+                            <span className={commonStyle.subtitle}>etter plan- og bygningsloven (pbl) § 23-3</span>
                         </div>
                         {this.renderForm(formType, selectedSubmission)}
                         <Button content="Til signering" color="primary" disabled={signingButtonShouldBeDisabled(this.props.form)} onClick={() => this.handleSigningButtonClick()} />
