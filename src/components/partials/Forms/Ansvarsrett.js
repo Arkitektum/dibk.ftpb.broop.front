@@ -15,7 +15,7 @@ import AnsvarligForetak from 'components/partials/Forms/FormParts/AnsvarligForet
 import { updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 
 // Helpers
-import { formatProjectNameForForm } from 'helpers/formatHelpers';
+import { formatDate, formatProjectNameForForm } from 'helpers/formatHelpers';
 
 // Stylesheets
 import commonStyle from 'components/routes/common.module.scss';
@@ -47,7 +47,7 @@ class Ansvarsrett extends Component {
                         <p>Dette er en erklæring om ansvarsrett{formatProjectNameForForm(form)}.</p>
                         {
                             form?.signeringsfrist
-                                ? <p>Frist for signering er ${form.signeringsfrist}. Etter fristen er det ikke lenger mulig å signere erklæringen.</p>
+                                ? <p>Frist for signering er {formatDate(form.signeringsfrist)}. Etter fristen er det ikke lenger mulig å signere erklæringen.</p>
                                 : ''
                         }
                         {

@@ -18,7 +18,7 @@ import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions
 import { signIn } from 'actions/IsSignedInActions';
 
 // Helpers
-import { formatProjectNameForForm } from 'helpers/formatHelpers';
+import { formatDate, formatProjectNameForForm } from 'helpers/formatHelpers';
 
 // Stylesheets
 import commonStyle from 'components/routes/common.module.scss';
@@ -194,7 +194,7 @@ class Home extends Component {
             <div className={commonStyle.paragraphGroup}>
               {
                 form?.signeringsfrist
-                  ? <p>Frist for signering er ${form.signeringsfrist}.</p>
+                  ? <p>Frist for signering er {formatDate(form.signeringsfrist)}.</p>
                   : ''
               }
               <p>Etter signering blir erklæringen sendt til {form?.formData?.ansvarligSoeker?.navn}.</p>
@@ -277,7 +277,7 @@ class Home extends Component {
               <div className={commonStyle.paragraphGroup}>
                 {
                   form?.signeringsfrist
-                    ? <p>Fristen for å signere gikk ut ${form.signeringsfrist}.</p>
+                    ? <p>Fristen for å signere gikk ut {formatDate(form.signeringsfrist)}.</p>
                     : ''
                 }
               </div>
