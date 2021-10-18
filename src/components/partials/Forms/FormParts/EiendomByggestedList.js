@@ -49,23 +49,23 @@ class EiendomByggestedList extends Component {
                         municipalityField
                             ? (
                                 <div className="print-flex-10">
-                                    <dt><Label>{municipalityField.label}</Label></dt><dd>{municipalityField.value}</dd>
+                                    <dt><Label><b>{municipalityField.label}</b></Label></dt><dd>{municipalityField.value}</dd>
                                 </div>
                             )
                             : ''
                     }
 
                     <div className="print-flex-10">
-                        <dt><Label>Gårdsnr.</Label></dt><dd>{eiendomByggested.gaardsnummer}</dd>
+                        <dt><Label><b>Gårdsnummer</b></Label></dt><dd>{eiendomByggested.gaardsnummer}</dd>
                     </div>
                     <div className="print-flex-10">
-                        <dt><Label>Bruksnr.</Label></dt><dd>{eiendomByggested.bruksnummer}</dd>
+                        <dt><Label><b>Bruksnummer</b></Label></dt><dd>{eiendomByggested.bruksnummer}</dd>
                     </div>
                     {
                         eiendomByggested.festenummer
                             ? (
                                 <div className="print-flex-10">
-                                    <dt><Label>Festenr.</Label></dt><dd>{eiendomByggested.festenummer}</dd>
+                                    <dt><Label><b>Festenummer</b></Label></dt><dd>{eiendomByggested.festenummer}</dd>
                                 </div>
                             )
                             : ''
@@ -74,7 +74,7 @@ class EiendomByggestedList extends Component {
                         eiendomByggested.seksjonsnummer
                             ? (
                                 <div className="print-flex-10">
-                                    <dt><Label>Seksjonsnr.</Label></dt><dd>{eiendomByggested.seksjonsnummer}</dd>
+                                    <dt><Label><b>Seksjonsnummer</b></Label></dt><dd>{eiendomByggested.seksjonsnummer}</dd>
                                 </div>
                             )
                             : ''
@@ -83,7 +83,7 @@ class EiendomByggestedList extends Component {
                         eiendomByggested.bygningsnummer
                             ? (
                                 <div className="print-flex-10">
-                                    <dt><Label>Bygningsnr.</Label></dt><dd>{eiendomByggested.bygningsnummer}</dd>
+                                    <dt><Label><b>Bygningsnummer</b></Label></dt><dd>{eiendomByggested.bygningsnummer}</dd>
                                 </div>
                             )
                             : ''
@@ -92,7 +92,7 @@ class EiendomByggestedList extends Component {
                         eiendomByggested.bolignummer
                             ? (
                                 <div className="print-flex-10">
-                                    <dt><Label>Bolignr.</Label></dt><dd>{eiendomByggested.bolignummer}</dd>
+                                    <dt><Label><b>Bolignummer</b></Label></dt><dd>{eiendomByggested.bolignummer}</dd>
                                 </div>
                             )
                             : ''
