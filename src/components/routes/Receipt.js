@@ -133,22 +133,26 @@ class Receipt extends Component {
 
 
     renderContent(status, form) {
-        const foretakEpost = form?.formData?.ansvarligForetak?.epost || form?.formData?.foretak?.kontaktpersonEpost;
         switch (status) {
             case "signert":
+                let epostAdresse = form?.formData?.ansvarligForetak?.kontaktpersonEpost?.length
+                    ? form?.formData?.ansvarligForetak?.kontaktpersonEpost
+                    : form?.formData?.ansvarligForetak?.epost?.length
+                        ? form?.formData?.ansvarligForetak?.epost
+                        : null;
                 return (
                     <React.Fragment>
                         <div className={commonStyle.introText}>
-                            <p><b>Erklæring er signert</b></p>
+                            <p><b>Erklæringen er signert</b></p>
                             <div className={commonStyle.paragraphGroup}>
-                                <p>Erklæringen om ansvarsrett{formatProjectNameForForm(form)?.length ? ` for ${formatProjectNameForForm(form)}` : ''} er signert og sendt til ansvarlig søker.</p>
+                                <p>Erklæringen om ansvarsrett{formatProjectNameForForm(form)?.length ? ` ${formatProjectNameForForm(form)}` : ''} er signert og sendt til ansvarlig søker.</p>
                             </div>
                             <div className={commonStyle.paragraphGroup}>
-                                <p>{
-                                    foretakEpost?.length
-                                        ? `En kopi av den signerte erklæringen er sendt til ${foretakEpost}. Du kan også laste ned en kopi ved å trykke på knappen under.`
-                                        : 'Du kan laste ned en kopi ved å trykke på knappen under.'}
-                                </p>
+                                {
+                                    epostAdresse
+                                        ? <p>En kopi av den signerte erklæringen er sendt til <a href={`mailto:${epostAdresse}`}>{epostAdresse}</a>. Du kan også laste ned en kopi ved å trykke på knappen under.</p>
+                                        : <p>Du kan laste ned en kopi ved å trykke på knappen under.</p>
+                                }
                             </div>
                             <div className={commonStyle.paragraphGroup}>
                                 <p><b>NB!</b> Direktoratet for byggkvalitet tar ikke ansvaret for å lagre erklæringen, og den blir slettet fra vårt system innen 12 måneder. Pass derfor på at du selv holder arkiv og oversikt over signerte erklæringer.</p>
@@ -174,7 +178,7 @@ class Receipt extends Component {
                                 </p>
                             </div>
                             <div className={commonStyle.paragraphGroup}>
-                                <InputField id="foretakEpost" defaultValue={foretakEpost} type="email" label="E-postadresse:" />
+                                <InputField id="foretakEpost" defaultValue={form?.formData?.foretak?.kontaktpersonEpost || ''} type="email" label="E-postadresse:" />
                             </div>
                             <Button content="Send kopi på e-post" color="primary" />
                         </div>
