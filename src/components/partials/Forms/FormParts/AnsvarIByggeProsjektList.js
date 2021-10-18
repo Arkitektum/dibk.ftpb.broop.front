@@ -203,7 +203,7 @@ class AnsvarIByggeProsjektList extends Component {
                                                     ? (
                                                         <div className={formsStyle.fieldSection}>
                                                             <Label>
-                                                                <b>Dekker den sentrale godkjenningen ansvarsområdene over?</b>
+                                                                <b>Dekker den sentrale godkjenningen ansvarsområdet?</b>
                                                             </Label>
                                                             <div className={`${formsStyle.inputGroup} ${formsStyle.buttonRow}`}>
                                                                 <div>
