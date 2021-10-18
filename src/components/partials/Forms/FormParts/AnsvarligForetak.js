@@ -35,16 +35,25 @@ class AnsvarligForetak extends Component {
 
 
     render() {
+        const isPrint = localStorage.print === "true";
         const foretak = this.props.foretak;
         const adresse = formatAddress(this.props.foretak);
         const telefonNummerList = [foretak.telefonnummer, foretak.mobilnummer].filter(nummer => { return nummer?.length });
         return foretak && Object.keys(foretak).length
             ? (
                 <React.Fragment>
+                    {!isPrint ? <Header content={foretak.navn} size={3}></Header> : ''}
+
                     <dl className={formsStyle.fieldList}>
-                        <div className={formsStyle.flex66}>
-                            <dt><Label><b>Navn</b></Label></dt><dd>{foretak.navn}</dd>
-                        </div>
+                        {
+                            isPrint
+                                ? (
+                                    <div className={formsStyle.flex66}>
+                                        <dt><Label><b>Navn</b></Label></dt><dd>{foretak.navn}</dd>
+                                    </div>
+                                )
+                                : ''
+                        }
                         <div className={formsStyle.flex33}>
                             <dt><Label><b>Organisasjonsnummer</b></Label></dt><dd>{foretak.organisasjonsnummer}</dd>
                         </div>
@@ -95,7 +104,7 @@ class AnsvarligForetak extends Component {
                     </Label>
                     {foretak.harSentralGodkjenning ? 'Ja' : 'Nei'}
                     <p>
-                        Svaret er hentet fra register for sentral godkjenning eller lagt inn av ansvarlig søker.
+                        Svaret er hentet fra register for sentral godkjenning eller er lagt inn av ansvarlig søker.
                     </p>
                     <Header size={3} content="Kontaktperson" />
                     <div className={formsStyle.fieldList}>
@@ -103,7 +112,7 @@ class AnsvarligForetak extends Component {
                             <InputField
                                 id='foretak-kontaktperson-navn'
                                 onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonNavn') }}
-                                label="Kontaktperson"
+                                label="Navn"
                                 width="400px"
                                 defaultValue={foretak.kontaktpersonNavn || ''} />
                         </div>

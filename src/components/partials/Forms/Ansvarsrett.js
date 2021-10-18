@@ -75,7 +75,7 @@ class Ansvarsrett extends Component {
                         <p>Trykk på eiendommen for å se detaljer om byggestedet</p>
                     </Paper>
                     <Paper>
-                        <Header content="Foretak" size={2}></Header>
+                        <Header content="Ansvarlig foretak" size={2}></Header>
                         <AnsvarligForetak
                             foretak={formData.ansvarligForetak}
                             updateHandler={foretak => this.updateFormDataField(foretak, 'ansvarligForetak')}
