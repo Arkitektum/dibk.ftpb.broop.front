@@ -49,19 +49,22 @@ class AnsvarligForetak extends Component {
                             isPrint
                                 ? (
                                     <div className={formsStyle.flex66}>
-                                        <dt><Label><b>Navn</b></Label></dt><dd>{foretak.navn}</dd>
+                                        <dt><Label>Navn</Label></dt>
+                                        <dd>{foretak.navn}</dd>
                                     </div>
                                 )
                                 : ''
                         }
                         <div className={formsStyle.flex33}>
-                            <dt><Label><b>Organisasjonsnummer</b></Label></dt><dd>{foretak.organisasjonsnummer}</dd>
+                            <dt><Label>Organisasjonsnummer</Label>
+                            </dt><dd>{foretak.organisasjonsnummer}</dd>
                         </div>
                         {
                             adresse?.length
                                 ? (
                                     <div className={formsStyle.flex33}>
-                                        <dt><Label><b>Adresse</b></Label></dt><dd>{adresse}</dd>
+                                        <dt><Label>Adresse</Label>
+                                        </dt><dd>{adresse}</dd>
                                     </div>
                                 )
                                 : ''
@@ -70,7 +73,7 @@ class AnsvarligForetak extends Component {
                             telefonNummerList.length
                                 ? (
                                     <div className={formsStyle.flex33}>
-                                        <dt><Label><b>Telefon</b></Label></dt>
+                                        <dt><Label>Telefon</Label></dt>
                                         <dd>
                                             <ul className={formsStyle.cleanList}>
                                                 {
@@ -88,7 +91,8 @@ class AnsvarligForetak extends Component {
                             foretak.epost?.length
                                 ? (
                                     <div className={formsStyle.flex33}>
-                                        <dt><Label><b>E-post</b></Label></dt><dd>{foretak.epost}</dd>
+                                        <dt><Label>E-post</Label></dt>
+                                        <dd>{foretak.epost}</dd>
                                     </div>
                                 )
                                 : ''

@@ -79,7 +79,7 @@ class AnsvarIByggeProsjekt extends Component {
                                 : (
                                     <div className={`${formsStyle.inputGroup} hide-on-print`}>
                                         <div className={formsStyle.flex100}>
-                                            <Label><b>Beskrivelse av ansvarsområde</b></Label>
+                                            <Label>Beskrivelse av ansvarsområde</Label>
                                             <Textarea
                                                 id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
                                                 onChange={event => this.validateBeskrivelseAvAnsvarsomraade(event.target.value)}
@@ -95,7 +95,7 @@ class AnsvarIByggeProsjekt extends Component {
                         }
                     </div>
                     <div className={formsStyle.fieldSection}>
-                        <Label><b>Tiltaksklasse</b></Label>
+                        <Label>Tiltaksklasse</Label>
                         <div className={`${formsStyle.inputGroup} ${formsStyle.buttonRow}`}>
                             <div className={formsStyle.flexAuto}>
                                 <Button
@@ -134,7 +134,7 @@ class AnsvarIByggeProsjekt extends Component {
                             ? (
                                 <React.Fragment>
                                     <div className={formsStyle.fieldSection}>
-                                        <Label><b>{ansvarsomraade?.funksjonKode === 'KONTROLL' ? 'Kontrollerklæringer vil foreligge ved' : 'Samsvarserklæringer vil foreligge ved'}</b></Label>
+                                        <Label>{ansvarsomraade?.funksjonKode === 'KONTROLL' ? 'Kontrollerklæringer vil foreligge ved' : 'Samsvarserklæringer vil foreligge ved'}</Label>
                                         <CheckBoxListItem
                                             id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
                                             onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedRammetillatelse', index)}
@@ -172,9 +172,7 @@ class AnsvarIByggeProsjekt extends Component {
                                         this.props.selectedForm?.formData?.ansvarligForetak?.harSentralGodkjenning
                                             ? (
                                                 <div className={formsStyle.fieldSection}>
-                                                    <Label>
-                                                        <b>Dekker den sentrale godkjenningen ansvarsområdet?</b>
-                                                    </Label>
+                                                    <Label>Dekker den sentrale godkjenningen ansvarsområdet?</Label>
                                                     <div className={`${formsStyle.inputGroup} ${formsStyle.buttonRow}`}>
                                                         <div>
                                                             <Button content="Ja" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(true, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === true ? 'primary' : 'default'} />
