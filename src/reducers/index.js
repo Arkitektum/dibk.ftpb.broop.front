@@ -1,6 +1,7 @@
 // Dependencies
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
+import { reducer as oidcReducer } from 'redux-oidc';
 
 // Reducers
 import SelectedFormReducer from 'reducers/SelectedFormReducer';
@@ -12,6 +13,7 @@ import IsSignedInReducer from 'reducers/IsSignedInReducer';
 
 const reducers = history => combineReducers({
   router: connectRouter(history),
+  oidc: oidcReducer,
   selectedForm: SelectedFormReducer,
   selectedSubmission: SelectedSubmissionReducer,
   snackbarMessage: SnackbarMessageReducer,
