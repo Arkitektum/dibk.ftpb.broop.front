@@ -112,7 +112,6 @@ class AnsvarIByggeProsjektList extends Component {
                                             <div className={`${formsStyle.inputGroup} hide-on-print`}>
                                                 <div className={formsStyle.flex100}>
                                                     <Label><b>Beskrivelse av ansvarsområde</b></Label>
-                                                    Beskrivelsen under er skrevet av ansvarlig søker, men du kan oppdatere den.
                                                     <Textarea
                                                         id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
                                                         onChange={event => this.validateBeskrivelseAvAnsvarsomraade(event.target.value)}
