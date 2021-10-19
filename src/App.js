@@ -1,6 +1,7 @@
 // Dependecies
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import { OidcProvider } from 'redux-oidc';
 import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
@@ -9,12 +10,18 @@ import WebFont from 'webfontloader';
 
 // Utils
 import configureStore, { history } from 'utils/configureStore';
+import userManagerPromise from 'utils/userManager';
 
 // Routes
 import Home from 'components/routes/Home';
 import Form from 'components/routes/Forms/FormType/Form';
 import Receipt from 'components/routes/Receipt';
 import NotFound from 'components/routes/NotFound';
+import OidcCallback from 'components/routes/OidcCallback';
+import OidcSignoutCallback from 'components/routes/OidcSignoutCallback';
+
+// Helpers
+import { getEnvironmentVariable } from 'helpers/environmentVariableHelpers.js';
 
 // Partials
 import MainNavigationBar from 'components/partials/MainNavigationBar';
@@ -37,7 +44,10 @@ WebFont.load({
 });
 
 const initialState = {};
-const store = configureStore(initialState);
+const storePromise = configureStore(initialState, userManagerPromise);
+let store = null;
+let userManager = null;
+
 
 
 /*const renderHtmlString = () => {
@@ -53,34 +63,70 @@ const store = configureStore(initialState);
 }*/
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      storeIsLoaded: false,
+      userManagerIsLoaded: false
+    };
+  }
+
+  componentDidMount() {
+    storePromise.then((storeConfig) => {
+      store = storeConfig;
+      if (!this.state.userManagerIsLoaded) {
+        this.setState({
+          userManagerIsLoaded: true
+        });
+      }
+    });
+    userManagerPromise.then(userManagerConfig => {
+      userManager = userManagerConfig;
+      this.setState({
+        storeIsLoaded: true
+      })
+    })
+  }
+
+  handleLogoutClick(event) {
+    event.preventDefault();
+    this.props.userManager.signoutRedirect({ 'id_token_hint': this.props.user.id_token });
+    this.props.userManager.removeUser();
+  }
 
   render() {
     const isPrint = localStorage.print === "true";
-    return (<Provider store={store}>
-      <ConnectedRouter history={history}>
-        <BrowserRouter>
-          {
-            isPrint ? '' : (<MainNavigationBar />)
-          }
-          {
-            // isPrint ? '' : (<button onClick={() => renderHtmlString()}>Preview PDF</button>)
-          }
-          <Switch>
-            <Route exact={true} path="/skjema/:submissionId/signert" render={(props) => (<Receipt {...props} status="signert" />)} />
-            <Route exact={true} path="/skjema/:submissionId/signatur-avvist" render={(props) => (<Receipt {...props} status="avvist" />)} />
-            <Route exact={true} path="/skjema/:submissionId/signatur-error" render={(props) => (<Receipt {...props} status="error" />)} />
-            <Route exact={true} path="/skjema/:submissionId/avvis" render={(props) => (<Form {...props} showRejectModal />)} />
-            <Route exact={true} path="/skjema/:submissionId/rediger" render={(props) => (<Form {...props} />)} />
-            <Route exact={true} path="/skjema/:submissionId" render={(props) => (<Home {...props} />)} />
-            <Route exact={true} path="/skjema" render={(props) => (<Home {...props} />)} />
-            <Route exact={true} path="/" render={(props) => (<Home {...props} />)} />
-            <Route render={() => (<NotFound />)} />
-          </Switch>
-          <Footer />
-          <SnackbarContainer />
-        </BrowserRouter>
-      </ConnectedRouter>
-    </Provider>);
+    if (this.state && userManager && this.state.userManagerIsLoaded && this.state.storeIsLoaded) {
+      return (<Provider store={store}>
+        <OidcProvider userManager={userManager} store={store}>
+          <ConnectedRouter history={history}>
+            <BrowserRouter>
+              {
+                isPrint ? '' : (<MainNavigationBar userManager={userManager} />)
+              }
+              {
+                // isPrint ? '' : (<button onClick={() => renderHtmlString()}>Preview PDF</button>)
+              }
+              <Switch>
+                <Route exact path="/signin-oidc" render={() => (<OidcCallback userManager={userManager} />)} />
+                <Route exact path="/signout-callback-oidc" render={() => (<OidcSignoutCallback userManager={userManager} />)} />
+                <Route exact={true} path="/skjema/:submissionId/signert" render={(props) => (<Receipt {...props} status="signert" />)} />
+                <Route exact={true} path="/skjema/:submissionId/signatur-avvist" render={(props) => (<Receipt {...props} status="avvist" />)} />
+                <Route exact={true} path="/skjema/:submissionId/signatur-error" render={(props) => (<Receipt {...props} status="error" />)} />
+                <Route exact={true} path="/skjema/:submissionId/avvis" render={(props) => (<Form {...props} showRejectModal />)} />
+                <Route exact={true} path="/skjema/:submissionId/rediger" render={(props) => (<Form {...props} />)} />
+                <Route exact={true} path="/skjema/:submissionId" render={(props) => (<Home userManager={userManager} {...props} />)} />
+                <Route exact={true} path="/skjema" render={(props) => (<Home userManager={userManager} {...props} />)} />
+                <Route exact={true} path="/" render={(props) => (<Home userManager={userManager} {...props} />)} />
+                <Route render={() => (<NotFound />)} />
+              </Switch>
+              <Footer />
+              <SnackbarContainer />
+            </BrowserRouter>
+          </ConnectedRouter>
+        </OidcProvider>
+      </Provider>);
+    } else return '';
   }
 }
 
