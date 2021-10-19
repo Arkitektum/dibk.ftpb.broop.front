@@ -20,9 +20,6 @@ import NotFound from 'components/routes/NotFound';
 import OidcCallback from 'components/routes/OidcCallback';
 import OidcSignoutCallback from 'components/routes/OidcSignoutCallback';
 
-// Helpers
-import { getEnvironmentVariable } from 'helpers/environmentVariableHelpers.js';
-
 // Partials
 import MainNavigationBar from 'components/partials/MainNavigationBar';
 import Footer from 'components/partials/Footer';
