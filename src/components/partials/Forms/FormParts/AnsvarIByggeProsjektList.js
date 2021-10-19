@@ -95,7 +95,10 @@ class AnsvarIByggeProsjektList extends Component {
             ? ansvarsomraader.map((ansvarsomraade, index) => {
                 const funksjonOptionValues = this.convertCodelistFunksjonToOptionValues(this.props.codelistFunksjon);
                 const selectedFunksjonKey = this.getOptionKeyFromOptionValueInList(funksjonOptionValues, ansvarsomraade.funksjonKode);
-                const accordionTitle = `${selectedFunksjonKey}${ansvarsomraade?.funksjonKode !== 'SØK' ? ' (tiltaksklasse ' + ansvarsomraade.tiltaksklasseKode + ')' : ''}`;
+                let accordionTitle = `${selectedFunksjonKey}`;
+                if (ansvarsomraade?.funksjonKode !== 'SØK' && ansvarsomraade?.tiltaksklasseKode?.length) {
+                    accordionTitle += ` (tiltaksklasse ${ansvarsomraade.tiltaksklasseKode})`;
+                }
                 return (
                     <div key={index} className={formsStyle.accordionItem}>
                         <Accordion title={accordionTitle} expanded color="lightLime">
