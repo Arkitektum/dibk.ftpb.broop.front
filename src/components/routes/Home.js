@@ -15,7 +15,6 @@ import ContactInfo from 'components/partials/ContactInfo';
 // Actions
 import { fetchSubmission } from 'actions/SubmissionActions';
 import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
-import { signIn } from 'actions/IsSignedInActions';
 
 // Helpers
 import { formatDate, formatProjectNameForForm } from 'helpers/formatHelpers';
@@ -45,7 +44,8 @@ class Home extends Component {
           label: "Samsvarserklæring"
         }
       ]
-    }
+    };
+    this.handleLoginClick = this.handleLoginClick.bind(this);
   }
 
   componentDidMount() {
@@ -77,6 +77,10 @@ class Home extends Component {
     }
   }
 
+  handleLoginClick(event) {
+    event.preventDefault();
+    this.props.userManager.signinRedirect({ 'state': { signinRedirectPath: `/skjema/${this.props.selectedForm?.referanseId}/rediger` } });
+  }
 
   fetchSubmission(submissionId) {
     return this.props.fetchSubmission(submissionId).then(() => {
@@ -150,13 +154,6 @@ class Home extends Component {
       : 'no list';
   }
 
-  handleOnLogIn() {
-    this.props.signIn();
-    this.setState({
-      redirect: `/skjema/${this.props.selectedForm.referanseId}/rediger`
-    })
-  }
-
 
   renderContent(form, submission) {
     switch (form.status) {
@@ -202,7 +199,7 @@ class Home extends Component {
 
 
             <ContactInfo />
-            <Button content="Logg inn" color='primary' onClick={() => this.handleOnLogIn()} />
+            <Button content="Logg inn" color='primary' onClick={this.handleLoginClick} />
           </React.Fragment>
         );
       case "signert":
@@ -365,8 +362,7 @@ const mapDispatchToProps = {
   fetchSubmission,
   fetchSelectedForm,
   updateSelectedForm,
-  saveSelectedForm,
-  signIn
+  saveSelectedForm
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

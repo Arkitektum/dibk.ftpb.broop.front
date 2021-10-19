@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 class CallbackPage extends React.Component {
     successCallback = () => {
-        const pathname = this.props.oidc?.user?.state?.pathname || '';
+        const pathname = this.props.oidc?.user?.state?.signinRedirectPath || '';
         this.props.history.push(pathname);
     };
 
