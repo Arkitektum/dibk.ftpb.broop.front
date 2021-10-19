@@ -42,6 +42,12 @@ jobs:
         find: "#{ENVIRONMENT}#"
         replace: "dev"
 
+    - name: set hostname value
+      uses: jacobtomlinson/gha-find-replace@master
+      with:
+        find: "#{HOSTNAME}#"
+        replace: "https://dibk-ftpb-broop-frontend.azurewebsites.net"        
+
     - name: Run Azure webapp deploy action using publish profile credentials
       uses: azure/webapps-deploy@v2
       with:

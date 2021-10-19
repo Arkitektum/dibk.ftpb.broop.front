@@ -31,6 +31,9 @@ jobs:
       - name: set environment
         run: ((Get-Content -path ./build/config.json -Raw) -replace '#{ENVIRONMENT}#',"test") | Set-Content -Path ./build/config.json
 
+      - name: set hostname
+        run: ((Get-Content -path ./build/config.json -Raw) -replace '#{HOSTNAME}#',"https://ansako-test.dibk.no") | Set-Content -Path ./build/config.json        
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:

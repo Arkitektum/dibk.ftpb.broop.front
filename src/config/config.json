@@ -4,6 +4,6 @@
     "internalApiUrl": "#{INTERNALAPIURL}#",
     "oidc_client_id": "6945e280-056d-4f62-8508-19ae113a87fd",
     "oidc_authority": "https://oidc-ver2.difi.no/idporten-oidc-provider/",
-    "oidc_redirect_uri": "https://dibk-ftpb-broop-frontend.azurewebsites.net/signin-oidc",
-    "oidc_post_logout_redirect_uri": "https://dibk-ftpb-broop-frontend.azurewebsites.net/signout-callback-oidc"
+    "oidc_redirect_uri": "#{HOSTNAME}#/signin-oidc",
+    "oidc_post_logout_redirect_uri": "#{HOSTNAME}#/signout-callback-oidc"
 }
