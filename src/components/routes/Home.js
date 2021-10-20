@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 // DIBK Design
-import { Button, Header } from 'dibk-design';
+import { Button, Header, LoadingAnimation } from 'dibk-design';
 
 // Template
 import Container from 'components/template/Container';
@@ -58,7 +58,8 @@ class Home extends Component {
               value: form.referanseId,
               label: form.innsendingstype
             },
-            errorMessage: null
+            errorMessage: null,
+            loadingMessage: null
           });
         } else {
           this.setState({
@@ -83,7 +84,13 @@ class Home extends Component {
   }
 
   fetchSubmission(submissionId) {
+    this.setState({
+      loadingMessage: 'Henter innsending'
+    });
     return this.props.fetchSubmission(submissionId).then(() => {
+      this.setState({
+        loadingMessage: 'Henter skjema'
+      });
       if (this.props.selectedSubmission && Object.keys(this.props.selectedSubmission).length) {
         return this.props.fetchSelectedForm(this.props.selectedSubmission).then((response) => {
           const selectedForm = response.payload;
@@ -91,20 +98,32 @@ class Home extends Component {
             this.setState({
               selectedFormOptionId: selectedForm.referanseId,
               status: selectedForm.status,
-              errorMessage: null
+              errorMessage: null,
+              loadingMessage: null
             });
           } else {
             this.setState({
-              errorMessage: `Kunne ikke hente skjema med referanse: ${submissionId}`
+              errorMessage: `Kunne ikke hente skjema med referanse: ${submissionId}`,
+              loadingMessage: null
             });
           }
           return selectedForm;
         }).catch(error => {
           console.log("fetchSelectedForm", error)
+          this.setState({
+            loadingMessage: null
+          });
         });
       }
     }).catch(error => {
       console.log("fetchSubmission", error)
+      this.setState({
+        loadingMessage: null
+      });
+    }).finally(() => {
+      this.setState({
+        loadingMessage: null
+      });
     });
   }
 
@@ -346,6 +365,11 @@ class Home extends Component {
 
           {this.state.errorMessage ? this.renderErrorMessage(this.state.errorMessage) : ''}
           {form ? this.renderContent(form, submission) : ''}
+          {
+            this.state.loadingMessage?.length
+              ? <LoadingAnimation fixed message={this.state.loadingMessage} />
+              : ''
+          }
         </Container>
       )
     }
