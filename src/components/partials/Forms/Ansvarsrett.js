@@ -73,7 +73,7 @@ class Ansvarsrett extends Component {
                         <EiendomByggestedList
                             eiendomByggesteder={formData.eiendomByggesteder}
                         />
-                        <p>Trykk på eiendommen for å se detaljer om byggestedet</p>
+                        <p>Trykk på eiendommen for å se detaljer om byggestedet.</p>
                     </Paper>
                     <Paper>
                         <Header content="Ansvarlig foretak" size={2}></Header>
