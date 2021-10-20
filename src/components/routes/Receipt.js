@@ -37,6 +37,7 @@ class Receipt extends Component {
 
     componentDidMount() {
         const submissionId = this.props.match.params.submissionId;
+        const accessToken = this.props.oidc?.user?.access_token;
         const urlParams = new URLSearchParams(window.location.search);
         const statusQueryToken = urlParams.get('status_query_token');
         if (submissionId) {
@@ -48,14 +49,14 @@ class Receipt extends Component {
                         status: 'avvist',
                         statusReason: 'Erklæringen har blitt avvist fra signeringsløsningen'
                     }).then((updatedForm) => {
-                        this.props.saveSelectedForm(updatedForm);
+                        this.props.saveSelectedForm(updatedForm, accessToken);
                     });
                 }
                 const stage = getStageFromStatus(this.props.status);
                 this.setState({
                     loadingMessage: 'Oppdaterer signeringsstatus'
                 });
-                this.props.updateSignedStatus(submissionId, statusQueryToken, stage).then(() => {
+                this.props.updateSignedStatus(submissionId, statusQueryToken, stage, accessToken).then(() => {
                     this.setState({
                         loadingMessage: null
                     });
@@ -115,10 +116,11 @@ class Receipt extends Component {
 
     handleDownloadButtonClick() {
         const submissionId = this.props.match.params.submissionId;
+        const accessToken = this.props.oidc?.user?.access_token;
         this.setState({
             loadingMessage: 'Henter signert dokument'
         });
-        this.props.getSignedDocument(submissionId).then(signedDocument => {
+        this.props.getSignedDocument(submissionId, accessToken).then(signedDocument => {
             saveFileContentFromBlob(signedDocument.blob, signedDocument.filename);
             this.setState({
                 loadingMessage: null
@@ -220,7 +222,8 @@ class Receipt extends Component {
 
 const mapStateToProps = state => ({
     selectedSubmission: state.selectedSubmission,
-    selectedForm: state.selectedForm
+    selectedForm: state.selectedForm,
+    oidc: state.oidc
 });
 
 const mapDispatchToProps = {

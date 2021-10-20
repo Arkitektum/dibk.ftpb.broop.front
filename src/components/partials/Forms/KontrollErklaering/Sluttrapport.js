@@ -55,6 +55,7 @@ class Sluttrapport extends Component {
 
     handleOnAnsvarsrettKontrollerendeChange(property) {
         const formData = this.props.selectedForm?.formData;
+        const accessToken = this.props.oidc?.user?.access_token;
         const oldAnsvarsrettKontrollerende = formData.ansvarsrettKontrollerende;
         const ansvarsrettKontrollerende = this.toggleAnsvarsrettKontrollerendeValue(property, oldAnsvarsrettKontrollerende);
 
@@ -65,7 +66,7 @@ class Sluttrapport extends Component {
                 ansvarsrettKontrollerende
             }
         }).then(selectedForm => {
-            this.props.saveSelectedForm(selectedForm);
+            this.props.saveSelectedForm(selectedForm, accessToken);
         });
     }
 
@@ -106,7 +107,8 @@ class Sluttrapport extends Component {
 }
 
 const mapStateToProps = state => ({
-    selectedForm: state.selectedForm
+    selectedForm: state.selectedForm,
+    oidc: state.oidc
 });
 
 const mapDispatchToProps = {

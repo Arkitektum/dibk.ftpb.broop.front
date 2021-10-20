@@ -12,6 +12,7 @@ import { updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 class Erklaeringer extends Component {
 
     render() {
+        const accessToken = this.props.oidc?.user?.access_token;
         const formData = this.props.selectedForm?.formData;
         return (
             <React.Fragment>
@@ -29,7 +30,7 @@ class Erklaeringer extends Component {
                                     erklaeringKontroll: event.target.checked
                                 }
                             }).then(selectedForm => {
-                                this.props.saveSelectedForm(selectedForm);
+                                this.props.saveSelectedForm(selectedForm, accessToken);
                             })
                         }
                         checked={formData.erklaeringKontroll}>
@@ -45,7 +46,8 @@ class Erklaeringer extends Component {
 }
 
 const mapStateToProps = state => ({
-    selectedForm: state.selectedForm
+    selectedForm: state.selectedForm,
+    oidc: state.oidc
 });
 
 const mapDispatchToProps = {

@@ -68,7 +68,7 @@ class Form extends Component {
     }
 
     redirectIfNotValidStatus() {
-        const validStatuses = ['tilSignering','iArbeid']
+        const validStatuses = ['tilSignering', 'iArbeid']
         const isValidStatus = validStatuses.some(status => {
             return this.props.form.status === status;
         });
@@ -77,7 +77,7 @@ class Form extends Component {
                 redirect: `/skjema/${this.props.form.referanseId}`
             });
         }
-        
+
     }
 
     fecthFormData(submissionId) {
@@ -150,11 +150,12 @@ class Form extends Component {
         if (this.props.form?.signeringsUrl?.length) {
             window.location.href = this.props.form?.signeringsUrl;
         } else {
-            this.props.convertSelectedFormToPDF(htmlContentForPdf, selectedSubmission.referanseId).then(() => {
+            const accessToken = this.props.oidc?.user?.access_token;
+            this.props.convertSelectedFormToPDF(htmlContentForPdf, selectedSubmission.referanseId, accessToken).then(() => {
                 this.setState({
                     loadingMessage: 'Klargjør signering'
                 });
-                this.props.updateSignedStatus(selectedSubmission.referanseId, null, 'InitiateSigning').then(response => {
+                this.props.updateSignedStatus(selectedSubmission.referanseId, null, 'InitiateSigning', accessToken).then(response => {
                     this.setState({
                         loadingMessage: null
                     });
@@ -188,7 +189,8 @@ class Form extends Component {
             status: 'avvist',
             statusReason: this.state.rejectionMessage
         }).then((updatedForm) => {
-            this.props.saveSelectedForm(updatedForm).then(() => {
+            const accessToken = this.props.oidc?.user?.access_token;
+            this.props.saveSelectedForm(updatedForm, accessToken).then(() => {
                 window.location.href = `/skjema/${this.props.form.referanseId}/signatur-avvist`;
             })
 
@@ -257,7 +259,8 @@ class Form extends Component {
 const mapStateToProps = state => ({
     selectedSubmission: state.selectedSubmission,
     form: state.selectedForm,
-    location: state.router.location
+    location: state.router.location,
+    oidc: state.oidc
 });
 
 const mapDispatchToProps = {

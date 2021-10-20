@@ -15,6 +15,7 @@ class KontrollErklaeringer extends Component {
 
     render() {
         const formData = this.props.selectedForm?.formData;
+        const accessToken = this.props.oidc?.user?.access_token;
         return formData
             ? (
                 <React.Fragment>
@@ -44,7 +45,7 @@ class KontrollErklaeringer extends Component {
                                     });
                                 }}
                                 onBlur={() => {
-                                    this.props.saveSelectedForm(this.props.selectedForm);
+                                    this.props.saveSelectedForm(this.props.selectedForm, accessToken);
                                 }}
                                 label="Prosjektnavn"
                                 value={formData.prosjektnavn} />
@@ -59,7 +60,8 @@ class KontrollErklaeringer extends Component {
 }
 
 const mapStateToProps = state => ({
-    selectedForm: state.selectedForm
+    selectedForm: state.selectedForm,
+    oidc: state.oidc
 });
 
 const mapDispatchToProps = {

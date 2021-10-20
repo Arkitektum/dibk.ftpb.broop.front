@@ -1,7 +1,7 @@
 // Helpers
 import { getEnvironmentVariable } from 'helpers/environmentVariableHelpers.js';
 
-export const updateSignedStatus = (submissionId, statusQueryToken, stage) => () => {
+export const updateSignedStatus = (submissionId, statusQueryToken, stage, accessToken) => () => {
     const internalApiUrl = getEnvironmentVariable('internalApiUrl');
     const formPath = `/api/v1/signering/${submissionId}`;
     const fetchOptions = {
@@ -25,7 +25,7 @@ const getFilenameFromContentDisposition = contentDisposition => {
     return regex.exec(contentDisposition)?.[1] || null;
 }
 
-export const getSignedDocument = (submissionId) => dispatch => {
+export const getSignedDocument = (submissionId, accessToken) => dispatch => {
     const internalApiUrl = getEnvironmentVariable('internalApiUrl');
     const formPath = `/api/v1/signering/${submissionId}/signed-document`;
 

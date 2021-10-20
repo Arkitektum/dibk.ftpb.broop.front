@@ -51,14 +51,16 @@ export const updateSelectedForm = form => dispatch => {
 
 }
 
-export const saveSelectedForm = form => dispatch => {
+export const saveSelectedForm = (form, accessToken) => dispatch => {
     dispatch(showSnackbarMessage('Lagrer skjema', 3000))
     const internalApiUrl = getEnvironmentVariable('internalApiUrl');
     const formPath = form._links?.self?.href;
+    const bearerToken = `Bearer ${accessToken}`;
     const fetchOptions = {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': bearerToken
         },
         body: JSON.stringify(form)
     };

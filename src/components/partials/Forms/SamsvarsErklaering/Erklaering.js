@@ -12,7 +12,7 @@ class Erklaering extends Component {
 
     render() {
         const formData = this.props.selectedForm?.formData;
-
+        const accessToken = this.props.oidc?.user?.access_token;
         return formData ? (
             <React.Fragment>
                 <Paper>
@@ -27,7 +27,7 @@ class Erklaering extends Component {
                                     erklaeringUtfoerelse: event.target.checked
                                 }
                             }).then(selectedForm => {
-                                this.props.saveSelectedForm(selectedForm);
+                                this.props.saveSelectedForm(selectedForm, accessToken);
                             })
                         }
                         checked={formData.erklaeringUtfoerelse}>
@@ -46,7 +46,8 @@ class Erklaering extends Component {
 }
 
 const mapStateToProps = state => ({
-    selectedForm: state.selectedForm
+    selectedForm: state.selectedForm,
+    oidc: state.oidc
 });
 
 const mapDispatchToProps = {

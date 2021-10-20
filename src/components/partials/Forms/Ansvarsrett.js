@@ -40,6 +40,7 @@ class Ansvarsrett extends Component {
         const isPrint = localStorage.print === "true";
         const form = this.props.selectedForm;
         const formData = form?.formData;
+        const accessToken = this.props.oidc?.user?.access_token;
         return formData
             ? (
                 <React.Fragment>
@@ -79,7 +80,7 @@ class Ansvarsrett extends Component {
                         <AnsvarligForetak
                             foretak={formData.ansvarligForetak}
                             updateHandler={foretak => this.updateFormDataField(foretak, 'ansvarligForetak')}
-                            saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm)}
+                            saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm, accessToken)}
                         />
                     </Paper>
                     <div className="page-break"></div>
@@ -88,7 +89,7 @@ class Ansvarsrett extends Component {
                         <AnsvarIByggeProsjektList
                             ansvarsomraader={formData.ansvarsomraader}
                             updateHandler={ansvarsomraader => this.updateFormDataField(ansvarsomraader, 'ansvarsomraader')}
-                            saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm)}
+                            saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm, accessToken)}
                         />
                     </Paper>
                     <div className="page-break"></div>
@@ -98,7 +99,7 @@ class Ansvarsrett extends Component {
                             <Erklaering
                                 formData={formData}
                                 updateHandler={formData => this.updateFormData(formData)}
-                                saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm)}
+                                saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm, accessToken)}
                             />
                         </div>
                     </Paper>
@@ -111,7 +112,8 @@ class Ansvarsrett extends Component {
 
 const mapStateToProps = state => ({
     selectedSubmission: state.selectedSubmission,
-    selectedForm: state.selectedForm
+    selectedForm: state.selectedForm,
+    oidc: state.oidc
 });
 
 const mapDispatchToProps = {

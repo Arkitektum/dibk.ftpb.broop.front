@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { DragAndDropFileInput, Header, Paper } from 'dibk-design';
 
 // Actions
-import { updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
+import { updateSelectedForm } from 'actions/FormActions';
 
 
 class Vedlegg extends Component {
@@ -37,8 +37,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    updateSelectedForm,
-    saveSelectedForm
+    updateSelectedForm
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Vedlegg);

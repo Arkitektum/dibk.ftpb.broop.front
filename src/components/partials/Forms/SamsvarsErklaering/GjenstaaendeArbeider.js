@@ -16,6 +16,7 @@ class GjenstaaendeArbeider extends Component {
 
     handleOnAnsvarsrettProsjekterendeSelect(property) {
         const formData = this.props.selectedForm?.formData;
+        const accessToken = this.props.oidc?.user?.access_token;
         this.props.updateSelectedForm({
             ...this.props.selectedForm,
             formData: {
@@ -29,7 +30,7 @@ class GjenstaaendeArbeider extends Component {
                 }
             }
         }).then(selectedForm => {
-            this.props.saveSelectedForm(selectedForm);
+            this.props.saveSelectedForm(selectedForm, accessToken);
         });
     }
 
@@ -82,7 +83,8 @@ class GjenstaaendeArbeider extends Component {
 }
 
 const mapStateToProps = state => ({
-    selectedForm: state.selectedForm
+    selectedForm: state.selectedForm,
+    oidc: state.oidc
 });
 
 const mapDispatchToProps = {
