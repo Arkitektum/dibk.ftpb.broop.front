@@ -1,8 +1,8 @@
 // Dependencies
-import {createUserManager} from 'redux-oidc';
+import { createUserManager } from 'redux-oidc';
 
 // Helpers
-import {getEnvironmentVariable} from 'helpers/environmentVariableHelpers.js';
+import { getEnvironmentVariable } from 'helpers/environmentVariableHelpers.js';
 
 const configIsLoaded = () => {
   return new Promise((resolve, reject) => {
@@ -13,8 +13,12 @@ const configIsLoaded = () => {
         redirect_uri: getEnvironmentVariable('oidc_redirect_uri'),
         post_logout_redirect_uri: getEnvironmentVariable('oidc_post_logout_redirect_uri'),
         response_type: "code",
-        scope: "openid profile arkitektum:ansakointernalapi",
-        loadUserInfo: false
+        scope: "openid profile",
+        acr_values: "Level4",
+        ui_locales: "nb",
+        resource: 'arkitektum:ansakointernalapi',
+        loadUserInfo: false,
+        revokeAccessTokenOnSignout: true
       }
       resolve(userManagerConfig);
     } else {
