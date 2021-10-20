@@ -28,7 +28,7 @@ export const formatAddress = (address) => {
     return formattedAddress;
 }
 
-const monthNames = ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember'];
+const monthNames = ['januar', 'februar', 'mars', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'desember'];
 
 export const formatDate = timestamp => {
     const date = new Date(timestamp);
