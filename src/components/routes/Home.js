@@ -141,7 +141,9 @@ class Home extends Component {
 
   groupAnsvarsomraaderByFunksjon(ansvarsomraader) {
     let ansvarsomraaderGrouped = {}
-    ansvarsomraader.forEach(ansvarsomraade => {
+    ansvarsomraader.filter(ansvarsomraade => {
+      return ansvarsomraade.beskrivelseAvAnsvarsomraade?.length;
+    }).forEach(ansvarsomraade => {
       if (!ansvarsomraaderGrouped[ansvarsomraade.funksjonKode]) {
         ansvarsomraaderGrouped[ansvarsomraade.funksjonKode] = {
           funksjonBeskrivelse: ansvarsomraade.funksjonBeskrivelse,
