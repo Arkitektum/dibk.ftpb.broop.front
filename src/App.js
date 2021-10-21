@@ -16,6 +16,7 @@ import userManagerPromise from 'utils/userManager';
 import Home from 'components/routes/Home';
 import Form from 'components/routes/Forms/FormType/Form';
 import Receipt from 'components/routes/Receipt';
+import SignedOut from 'components/routes/SignedOut';
 import NotFound from 'components/routes/NotFound';
 import OidcCallback from 'components/routes/OidcCallback';
 import OidcSignoutCallback from 'components/routes/OidcSignoutCallback';
@@ -107,6 +108,7 @@ class App extends Component {
               <Switch>
                 <Route exact path="/signin-oidc" render={() => (<OidcCallback userManager={userManager} />)} />
                 <Route exact path="/signout-callback-oidc" render={() => (<OidcSignoutCallback userManager={userManager} />)} />
+                <Route exact={true} path="/skjema/:submissionId/utlogget" render={(props) => (<SignedOut {...props} />)} />
                 <Route exact={true} path="/skjema/:submissionId/signert" render={(props) => (<Receipt {...props} status="signert" />)} />
                 <Route exact={true} path="/skjema/:submissionId/signatur-avvist" render={(props) => (<Receipt {...props} status="avvist" />)} />
                 <Route exact={true} path="/skjema/:submissionId/signatur-error" render={(props) => (<Receipt {...props} status="error" />)} />
