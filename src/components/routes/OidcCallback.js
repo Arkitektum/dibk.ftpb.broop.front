@@ -29,8 +29,7 @@ class CallbackPage extends React.Component {
 }
 
 CallbackPage.propTypes = {
-    userManager: PropTypes.object.isRequired,
-    pathname: PropTypes.string
+    userManager: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({ oidc: state.oidc });
