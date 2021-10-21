@@ -109,7 +109,11 @@ class Receipt extends Component {
             this.setState({
                 loadingMessage: null
             });
-        });
+        }).finally(() => {
+            this.setState({
+                loadingMessage: null
+            });
+        });;
     }
 
 
