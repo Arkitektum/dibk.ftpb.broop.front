@@ -11,7 +11,7 @@ const getKommunenavnAsync = form => {
     return new Promise((resolve, reject) => {
         if (form?.formData?.eiendomByggesteder?.[0]?.kommunenavn && form?.formData?.eiendomByggesteder?.[0]?.kommunenavn.length) {
             resolve(form.formData.eiendomByggesteder[0].kommunenavn);
-        } else if (form?.formData?.eiendomByggesteder?.[0]?.kommunenummer) {
+        } else if (form?.formData?.eiendomByggesteder?.[0]?.kommunenummer && !isNaN(form?.formData?.eiendomByggesteder?.[0]?.kommunenummer) && form?.formData?.eiendomByggesteder?.[0]?.kommunenummer?.toString().length === 4) {
             const kommunenummer = form.formData.eiendomByggesteder[0].kommunenummer
             const apiUrl = `https://test-admbygg.dibk.no/api/municipalities/${kommunenummer}`;
             return fetch(apiUrl).then(res => res.json()).then(municipality => {
@@ -21,7 +21,7 @@ const getKommunenavnAsync = form => {
                 resolve(null);
             });
         } else {
-            reject('Finner ikke kommunenavn');
+            resolve(null);
         }
     })
 }
