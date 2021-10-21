@@ -17,7 +17,10 @@ class MainNavigationBar extends Component {
 
   handleLogoutClick(event) {
     event.preventDefault();
-    this.props.userManager.signoutRedirect({ 'id_token_hint': this.props.user.id_token });
+    this.props.userManager.signoutRedirect({ 
+      'id_token_hint': this.props.user.id_token,
+      'state': { signoutRedirectPath: `/skjema/${this.props.selectedForm?.referanseId}/utlogget` }
+    });
     this.props.userManager.removeUser();
   }
 

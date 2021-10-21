@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 
 class SignoutCallbackPage extends React.Component {
     successCallback = () => {
-        this.props.history.push('/');
+        const pathname = this.props.oidc?.user?.state?.signoutRedirectPath || '';
+        this.props.history.push(pathname);
     };
 
     render() {
@@ -17,9 +18,7 @@ class SignoutCallbackPage extends React.Component {
                 userManager={this.props.userManager}
                 successCallback={this.successCallback}
                 errorCallback={error => {
-                    if (this.props && this.props.history) {
-                        this.props.history.push("/");
-                    }
+                    this.props.history.push("/");
                     console.error(error);
                 }}
             >
@@ -33,4 +32,6 @@ SignoutCallbackPage.propTypes = {
     userManager: PropTypes.object.isRequired
 };
 
-export default withRouter(connect(null)(SignoutCallbackPage));
+const mapStateToProps = state => ({ oidc: state.oidc });
+
+export default withRouter(connect(mapStateToProps, null)(SignoutCallbackPage));
