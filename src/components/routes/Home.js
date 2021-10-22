@@ -172,7 +172,11 @@ class Home extends Component {
           </ul>
         )
       })
-      : 'no list';
+      : (
+        <ul>
+          <li>Ansvarlig søker</li>
+        </ul>
+      );
   }
 
 
@@ -191,37 +195,45 @@ class Home extends Component {
               </div>
               <div className={commonStyle.paragraphGroup}>
                 {
-                  form?.formData?.ansvarligForetak?.navn
-                    ? (<p>Ansvarlig foretak er: {form.formData.ansvarligForetak.navn}</p>)
-                    : ''
-                }
-                {
-                  form?.formData?.ansvarligForetak?.kontaktpersonNavn
-                    ? (<p>Kontaktperson hos ansvarlig foretak er: {form.formData.ansvarligForetak.kontaktpersonNavn}</p>)
+                  form?.formData?.ansvarligForetak?.navn || form?.formData?.ansvarligForetak?.kontaktpersonNavn
+                    ? (
+                      <React.Fragment>
+                        <b>Hvem er ansvarlig for signering?</b>
+                        {
+                          form?.formData?.ansvarligForetak?.navn
+                            ? (<p>Ansvarlig foretak er: {form.formData.ansvarligForetak.navn}</p>)
+                            : ''
+                        }
+                        {
+                          form?.formData?.ansvarligForetak?.kontaktpersonNavn
+                            ? (<p>Kontaktperson hos ansvarlig foretak er: {form.formData.ansvarligForetak.kontaktpersonNavn}</p>)
+                            : ''
+                        }
+                      </React.Fragment>
+                    )
                     : ''
                 }
               </div>
-              <div className={commonStyle.paragraphGroup}>
-                {
-                  form?.formData?.ansvarsomraader?.length
-                    ? this.renderAnsvarsomraaderList(form.formData.ansvarsomraader)
-                    : ''
-                }
-              </div>
-            </div>
-            <div className={commonStyle.paragraphGroup}>
               {
                 form?.signeringsfrist
-                  ? <p>Frist for signering er {formatDate(form.signeringsfrist)}.</p>
+                  ? (
+                    <div className={commonStyle.paragraphGroup}>
+                      <b>Frist for signering</b>
+                      <div>Frist for signering er {formatDate(form.signeringsfrist)}. Etter fristen vil det ikke lenger være mulig å signere erklæringen</div>
+                    </div>
+                  )
                   : ''
               }
-              <p>Etter signering blir erklæringen sendt til {form?.formData?.ansvarligSoeker?.navn}.</p>
+              <div className={commonStyle.paragraphGroup}>
+                <b>Erklæringen gjelder</b>
+                {this.renderAnsvarsomraaderList(form.formData.ansvarsomraader)}
+              </div>
             </div>
-
-
             <ContactInfo />
-            <Button content="Logg inn" color='primary' onClick={this.handleLoginClick} />
-          </React.Fragment>
+            <div className={commonStyle.marginTop}>
+              <Button content="Logg inn" color='primary' onClick={this.handleLoginClick} />
+            </div>
+          </React.Fragment >
         );
       case "signert":
         const foretakEpost = form?.formData?.ansvarligForetak?.epost || form?.formData?.foretak?.kontaktpersonEpost;
