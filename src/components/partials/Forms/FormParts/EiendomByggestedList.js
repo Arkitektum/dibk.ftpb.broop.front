@@ -15,13 +15,14 @@ import formsStyle from 'components/partials/Forms/Forms.module.scss';
 class EiendomByggestedList extends Component {
 
     getMunicipalityField(eiendomByggested) {
+        const isPrint = localStorage.print === "true";
         let municipalityField;
         if (eiendomByggested.kommunenavn) {
             municipalityField = {
                 label: 'Kommune',
                 value: eiendomByggested.kommunenummer ? `${eiendomByggested.kommunenavn} (${eiendomByggested.kommunenummer})` : `${eiendomByggested.kommunenavn}`
             }
-        } else if (eiendomByggested.kommunenummer) {
+        } else if (eiendomByggested.kommunenummer || isPrint) {
             municipalityField = {
                 label: 'Kommunenummer',
                 value: eiendomByggested.kommunenummer
@@ -65,7 +66,7 @@ class EiendomByggestedList extends Component {
                         <dd>{eiendomByggested.bruksnummer}</dd>
                     </div>
                     {
-                        eiendomByggested.festenummer
+                        eiendomByggested.festenummer || isPrint
                             ? (
                                 <div className="print-flex-10">
                                     <dt><Label>Festenummer</Label></dt>
@@ -75,7 +76,7 @@ class EiendomByggestedList extends Component {
                             : ''
                     }
                     {
-                        eiendomByggested.seksjonsnummer
+                        eiendomByggested.seksjonsnummer || isPrint
                             ? (
                                 <div className="print-flex-10">
                                     <dt><Label>Seksjonsnummer</Label>
@@ -85,7 +86,7 @@ class EiendomByggestedList extends Component {
                             : ''
                     }
                     {
-                        eiendomByggested.bygningsnummer
+                        eiendomByggested.bygningsnummer || isPrint
                             ? (
                                 <div className="print-flex-10">
                                     <dt><Label>Bygningsnummer</Label></dt>
@@ -95,7 +96,7 @@ class EiendomByggestedList extends Component {
                             : ''
                     }
                     {
-                        eiendomByggested.bolignummer
+                        eiendomByggested.bolignummer || isPrint
                             ? (
                                 <div className="print-flex-10">
                                     <dt><Label>Bolignummer</Label></dt>

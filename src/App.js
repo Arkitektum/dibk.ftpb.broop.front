@@ -122,7 +122,9 @@ class App extends Component {
                 <Route exact={true} path="/" render={(props) => (<Home userManager={userManager} {...props} />)} />
                 <Route render={() => (<NotFound />)} />
               </Switch>
-              <Footer />
+              {
+                isPrint ? '' : (<Footer />)
+              }
               <SnackbarContainer />
             </BrowserRouter>
           </ConnectedRouter>
