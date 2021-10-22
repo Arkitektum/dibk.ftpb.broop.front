@@ -48,21 +48,21 @@ class AnsvarligForetak extends Component {
                         {
                             isPrint
                                 ? (
-                                    <div className={formsStyle.flex66}>
+                                    <div className="print-flex-66">
                                         <dt><Label>Navn</Label></dt>
                                         <dd>{foretak.navn}</dd>
                                     </div>
                                 )
                                 : ''
                         }
-                        <div className={formsStyle.flex33}>
+                        <div className="print-flex-33">
                             <dt><Label>Organisasjonsnummer</Label>
                             </dt><dd>{foretak.organisasjonsnummer}</dd>
                         </div>
                         {
                             adresse?.length
                                 ? (
-                                    <div className={formsStyle.flex33}>
+                                    <div className="print-flex-33">
                                         <dt><Label>Adresse</Label>
                                         </dt><dd>{adresse}</dd>
                                     </div>
@@ -72,7 +72,7 @@ class AnsvarligForetak extends Component {
                         {
                             telefonNummerList.length
                                 ? (
-                                    <div className={formsStyle.flex33}>
+                                    <div className="print-flex-33">
                                         <dt><Label>Telefon</Label></dt>
                                         <dd>
                                             <ul className={formsStyle.cleanList}>
@@ -90,7 +90,7 @@ class AnsvarligForetak extends Component {
                         {
                             foretak.epost?.length
                                 ? (
-                                    <div className={formsStyle.flex33}>
+                                    <div className="print-flex-33">
                                         <dt><Label>E-post</Label></dt>
                                         <dd>{foretak.epost}</dd>
                                     </div>

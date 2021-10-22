@@ -77,56 +77,48 @@ class AnsvarIByggeProsjekt extends Component {
                             ansvarsomraade.funksjonKode === "SØK"
                                 ? "Erklæringen brukes ved endring av ansvarlig søker."
                                 : (
-                                    <div className={`${formsStyle.inputGroup} hide-on-print`}>
-                                        <div className={formsStyle.flex100}>
-                                            <Label>Beskrivelse av ansvarsområde</Label>
-                                            <Textarea
-                                                id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
-                                                onChange={event => this.validateBeskrivelseAvAnsvarsomraade(event.target.value)}
-                                                onBlur={(event) => this.handleUpdateAndSaveIfChanged(event.target.value, 'beskrivelseAvAnsvarsomraade', index)}
-                                                resize="vertical"
-                                                hasErrors={this.state.errors.beskrivelseAvAnsvarsomraade.hasErrors}
-                                                errorMessage={this.state.errors.beskrivelseAvAnsvarsomraade.message}
-                                                defaultValue={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''}
-                                            />
-                                        </div>
+                                    <div className="hide-on-print">
+                                        <Label>Beskrivelse av ansvarsområde</Label>
+                                        <Textarea
+                                            id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
+                                            onChange={event => this.validateBeskrivelseAvAnsvarsomraade(event.target.value)}
+                                            onBlur={(event) => this.handleUpdateAndSaveIfChanged(event.target.value, 'beskrivelseAvAnsvarsomraade', index)}
+                                            resize="vertical"
+                                            hasErrors={this.state.errors.beskrivelseAvAnsvarsomraade.hasErrors}
+                                            errorMessage={this.state.errors.beskrivelseAvAnsvarsomraade.message}
+                                            defaultValue={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''}
+                                        />
                                     </div>
                                 )
                         }
                     </div>
                     <div className={formsStyle.fieldSection}>
                         <Label>Tiltaksklasse</Label>
-                        <div className={`${formsStyle.inputGroup} ${formsStyle.buttonRow}`}>
-                            <div className={formsStyle.flexAuto}>
-                                <Button
-                                    content="1"
-                                    size="small"
-                                    rounded
-                                    onClick={() => this.handleUpdateAndSaveIfChanged('1', 'tiltaksklasseKode', index)}
-                                    noHover
-                                    color={ansvarsomraade.tiltaksklasseKode === '1' ? 'primary' : 'default'}
-                                />
-                            </div>
-                            <div className={formsStyle.flexAuto}>
-                                <Button
-                                    content="2"
-                                    size="small"
-                                    rounded
-                                    onClick={() => this.handleUpdateAndSaveIfChanged('2', 'tiltaksklasseKode', index)}
-                                    noHover
-                                    color={ansvarsomraade.tiltaksklasseKode === '2' ? 'primary' : 'default'}
-                                />
-                            </div>
-                            <div className={formsStyle.flexAuto}>
-                                <Button
-                                    content="3"
-                                    size="small"
-                                    rounded
-                                    onClick={() => this.handleUpdateAndSaveIfChanged('3', 'tiltaksklasseKode', index)}
-                                    noHover
-                                    color={ansvarsomraade.tiltaksklasseKode === '3' ? 'primary' : 'default'}
-                                />
-                            </div>
+                        <div className={formsStyle.buttonRow}>
+                            <Button
+                                content="1"
+                                size="small"
+                                rounded
+                                onClick={() => this.handleUpdateAndSaveIfChanged('1', 'tiltaksklasseKode', index)}
+                                noHover
+                                color={ansvarsomraade.tiltaksklasseKode === '1' ? 'primary' : 'default'}
+                            />
+                            <Button
+                                content="2"
+                                size="small"
+                                rounded
+                                onClick={() => this.handleUpdateAndSaveIfChanged('2', 'tiltaksklasseKode', index)}
+                                noHover
+                                color={ansvarsomraade.tiltaksklasseKode === '2' ? 'primary' : 'default'}
+                            />
+                            <Button
+                                content="3"
+                                size="small"
+                                rounded
+                                onClick={() => this.handleUpdateAndSaveIfChanged('3', 'tiltaksklasseKode', index)}
+                                noHover
+                                color={ansvarsomraade.tiltaksklasseKode === '3' ? 'primary' : 'default'}
+                            />
                         </div>
                     </div>
                     {
@@ -184,7 +176,7 @@ class AnsvarIByggeProsjekt extends Component {
                                             ? (
                                                 <div className={formsStyle.fieldSection}>
                                                     <Label>Dekker den sentrale godkjenningen ansvarsområdet?</Label>
-                                                    <div className={`${formsStyle.inputGroup} ${formsStyle.buttonRow}`}>
+                                                    <div className={formsStyle.buttonRow}>
                                                         <div>
                                                             <Button content="Ja" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(true, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === true ? 'primary' : 'default'} />
                                                         </div>

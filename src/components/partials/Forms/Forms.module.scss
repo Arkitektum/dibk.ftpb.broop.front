@@ -29,17 +29,9 @@
     }
 }
 
-:local(.inputGroup) {
-    display: flex;
-    flex-wrap: wrap;
-    margin: -6px;
-    > div {
-        padding: 6px;
-    }
-}
-
 :local(.buttonRow) {
     margin: 5px 0;
+    display: flex;
 }
 
 :local(.fieldset) {
@@ -60,46 +52,6 @@
     }
 }
 
-:local(.flexAuto) {
-    flex: 0;
-}
-
-
-:local(.flex10) {
-    flex: 1;
-    flex-basis: 10%;
-}
-
-:local(.flex25) {
-    flex: 1;
-    flex-basis: 25%;
-}
-
-:local(.flex33) {
-    flex: 1;
-    flex-basis: 33.3333%;
-}
-
-:local(.flex50) {
-    flex: 1;
-    flex-basis: 25%;
-}
-
-:local(.flex66) {
-    flex: 1;
-    flex-basis: 66.6666%;
-}
-
-:local(.flex75) {
-    flex: 1;
-    flex-basis: 25%;
-}
-
-:local(.flex100) {
-    flex: 1;
-    flex-basis: 100%;
-}
-
 :local(.accordionItem) {
     margin-bottom: 20px;
     :local(.fieldset) {
@@ -108,7 +60,6 @@
         margin: 0;
     }
 }
-
 
 :local(.cleanList) {
     list-style: none;

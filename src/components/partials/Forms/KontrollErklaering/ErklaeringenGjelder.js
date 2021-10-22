@@ -53,13 +53,13 @@ class ErklaeringenGjelder extends Component {
                     <Paper>
                         <Header content="Ansvarlig kontrollerende" size={2}></Header>
                         <dl className={formsStyle.fieldList}>
-                            <div className={formsStyle.flex50}>
+                            <div className="print-flex-50">
                                 <dt>Organisasjonsnummer</dt><dd>{formData.ansvarligForetak?.organisasjonsnummer}</dd>
                             </div>
-                            <div className={formsStyle.flex50}>
+                            <div className="print-flex-50">
                                 <dt>Navn på foretak</dt><dd>{formData.ansvarligForetak?.navn}</dd>
                             </div>
-                            <div className={formsStyle.flex100}>
+                            <div className="print-flex-100">
                                 <dt>Kontaktperson</dt><dd>{formData.ansvarligForetak?.kontaktpersonNavn}</dd>
                             </div>
                         </dl>
@@ -67,7 +67,7 @@ class ErklaeringenGjelder extends Component {
                     <Paper>
                         <Header content="Ansvarsområde" size={2}></Header>
                         <dl className={formsStyle.fieldList}>
-                            <div className={formsStyle.flex100}>
+                            <div className="print-flex-100">
                                 <dt>Dato for erklært ansvarsrett</dt>
                                 <dd>
                                     {
@@ -77,7 +77,7 @@ class ErklaeringenGjelder extends Component {
                                     }
                                 </dd>
                             </div>
-                            <div className={formsStyle.flex100}>
+                            <div className="print-flex-100">
                                 <dt>Beskrivelse av ansvarsområdet:</dt><dd>{formData.beskrivelseAvAnsvarsomraadet}</dd>
                             </div>
                         </dl>

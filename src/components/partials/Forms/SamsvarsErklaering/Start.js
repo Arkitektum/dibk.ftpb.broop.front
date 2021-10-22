@@ -25,31 +25,28 @@ class KontrollErklaeringer extends Component {
                         <p>Etter signering blir erklæringen sendt til ansvarlig søker.</p>
                     </div>
                     <dl className={`${formsStyle.fieldList} ${formsStyle.inlineFieldList}`}>
-                        <div className={formsStyle.flex50}>
+                        <div className="print-flex-50">
                             <dt>Kommunens saksnummer (år/sekvensnummer):</dt>
                             <dd>{formData.kommunensSaksnummer?.saksaar}/{formData.kommunensSaksnummer?.sakssekvensnummer}</dd>
                         </div>
                     </dl>
-                    <div className={formsStyle.inputGroup}>
-                        <div className={formsStyle.flex50}>
-
-                            <InputField
-                                id={`prosjektnavn`}
-                                onChange={event => {
-                                    this.props.updateSelectedForm({
-                                        ...this.props.selectedForm,
-                                        formData: {
-                                            ...formData,
-                                            prosjektnavn: event.target.value
-                                        }
-                                    });
-                                }}
-                                onBlur={() => {
-                                    this.props.saveSelectedForm(this.props.selectedForm, accessToken);
-                                }}
-                                label="Prosjektnavn"
-                                value={formData.prosjektnavn} />
-                        </div>
+                    <div className="print-flex-50">
+                        <InputField
+                            id={`prosjektnavn`}
+                            onChange={event => {
+                                this.props.updateSelectedForm({
+                                    ...this.props.selectedForm,
+                                    formData: {
+                                        ...formData,
+                                        prosjektnavn: event.target.value
+                                    }
+                                });
+                            }}
+                            onBlur={() => {
+                                this.props.saveSelectedForm(this.props.selectedForm, accessToken);
+                            }}
+                            label="Prosjektnavn"
+                            value={formData.prosjektnavn} />
                     </div>
                 </React.Fragment>
             )

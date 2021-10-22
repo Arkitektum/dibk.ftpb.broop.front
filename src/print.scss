@@ -86,7 +86,7 @@ div[class^="Header_headerContainer_"] {
 }
 
 p {
-    margin: 0 0 .25cm 0;
+    margin: 0 0 0.25cm 0;
 }
 
 a {
@@ -132,6 +132,13 @@ table {
     margin-top: 2cm;
     margin-right: 2cm;
     margin-bottom: 2cm;
+}
+
+div[class^="common_headerSection_"] {
+    margin-bottom: 20px;
+    h1 {
+        margin: 0;
+    }
 }
 
 fieldset {
@@ -201,50 +208,48 @@ div[class^="Paper_"] {
     flex-wrap: wrap;
     margin: 0;
 }
-div[class^="Forms_flex"],
+
 div[class^="print-flex-"] {
     border: 1px solid black;
     margin: -0.5px;
     padding: 2px;
 }
 
-div[class^="Forms_flexAuto_"],
 .print-flex-auto {
     flex: 0;
 }
 
-div[class^="Forms_flex10_"],
 .print-flex-10 {
     flex: 1;
     flex-basis: 10%;
 }
 
-div[class^="Forms_flex25_"] {
+.print-flex-25 {
     flex: 1;
     flex-basis: 25%;
 }
 
-div[class^="Forms_flex33_"] {
+.print-flex-33 {
     flex: 1;
     flex-basis: 33.3333%;
 }
 
-div[class^="Forms_flex50_"] {
+.print-flex-50 {
     flex: 1;
     flex-basis: 50%;
 }
 
-div[class^="Forms_flex66_"] {
+.print-flex-66 {
     flex: 1;
     flex-basis: 66.6666%;
 }
 
-div[class^="Forms_flex75_"] {
+.print-flex-75 {
     flex: 1;
     flex-basis: 75%;
 }
 
-div[class^="Forms_flex100_"] {
+.print-flex-100 {
     flex: 1;
     flex-basis: 100%;
 }
@@ -256,22 +261,7 @@ div[class^="Forms_accordionItem_"] {
 }
 
 div[class^="Accordion_accordion_"] {
-    padding: 12px;
-
     page-break-inside: avoid;
-
-    &[class*="Accordion_default_"] {
-        background-color: $color-default;
-    }
-    &[class*="Accordion_lightCyan_"] {
-        background-color: $color-light-cyan;
-    }
-    &[class*="Accordion_lightOrange_"] {
-        background-color: $color-light-orange;
-    }
-    &[class*="Accordion_lightLime_"] {
-        background-color: $color-light-lime;
-    }
 
     span[class^="Accordion_panelText_"] {
         display: none;
