@@ -52,7 +52,12 @@ class ContactInfo extends Component {
         } else if (this.props.type === 'rediger') {
             return (<p>Hvis du oppdager feil eller har spørsmål til erklæringen, kan du ta kontakt med {name}{phoneOrEmailString}.</p>);
         } else {
-            return (<p>Hvis du har spørsmål til erklæringen, kan du ta kontakt med {name}{phoneOrEmailString}.</p>);
+            return (
+                <React.Fragment>
+                    <b>Har du spørsmål?</b>
+                    <div>Hvis du har spørsmål til erklæringen, kan du ta kontakt med {name}{phoneOrEmailString}.</div>
+                </React.Fragment>
+            );
         }
     }
 }
