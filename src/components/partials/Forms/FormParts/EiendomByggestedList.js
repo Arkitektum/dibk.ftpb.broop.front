@@ -24,7 +24,7 @@ class EiendomByggestedList extends Component {
             }
         } else if (eiendomByggested.kommunenummer || isPrint) {
             municipalityField = {
-                label: 'Kommunenummer',
+                label: isPrint ? 'Kommunenr.' : 'Kommunenummer',
                 value: eiendomByggested.kommunenummer
             }
         }
@@ -39,15 +39,15 @@ class EiendomByggestedList extends Component {
                 {
                     isPrint
                         ? (
-                            <div className="aside-on-print-header">
-                                Eiendom/Byggested
+                            <div className="aside-on-print-header" style={{width: '92px'}}>
+                                Eiendom/ Byggested
                             </div>
                         )
                         : ''
                 }
-                <dl className={formsStyle.fieldList}>
+                <dl className={`${formsStyle.fieldList} print-flex-70`}>
                     {
-                        municipalityField
+                        !isPrint && municipalityField
                             ? (
                                 <div className="print-flex-10">
                                     <dt><Label>{municipalityField.label}</Label>
@@ -58,18 +58,18 @@ class EiendomByggestedList extends Component {
                     }
 
                     <div className="print-flex-10">
-                        <dt><Label>Gårdsnummer</Label></dt>
+                        <dt><Label>{isPrint ? 'Gnr.' : 'Gårdsnummer'}</Label></dt>
                         <dd>{eiendomByggested.gaardsnummer}</dd>
                     </div>
                     <div className="print-flex-10">
-                        <dt><Label>Bruksnummer</Label></dt>
+                        <dt><Label>{isPrint ? 'Bnr.' : 'Bruksnummer'}</Label></dt>
                         <dd>{eiendomByggested.bruksnummer}</dd>
                     </div>
                     {
                         eiendomByggested.festenummer || isPrint
                             ? (
                                 <div className="print-flex-10">
-                                    <dt><Label>Festenummer</Label></dt>
+                                    <dt><Label>{isPrint ? 'Festenr.' : 'Festenummer'}</Label></dt>
                                     <dd>{eiendomByggested.festenummer}</dd>
                                 </div>
                             )
@@ -79,7 +79,7 @@ class EiendomByggestedList extends Component {
                         eiendomByggested.seksjonsnummer || isPrint
                             ? (
                                 <div className="print-flex-10">
-                                    <dt><Label>Seksjonsnummer</Label>
+                                    <dt><Label>{isPrint ? 'Seksjonsnr.' : 'Seksjonsnummer'}</Label>
                                     </dt><dd>{eiendomByggested.seksjonsnummer}</dd>
                                 </div>
                             )
@@ -89,7 +89,7 @@ class EiendomByggestedList extends Component {
                         eiendomByggested.bygningsnummer || isPrint
                             ? (
                                 <div className="print-flex-10">
-                                    <dt><Label>Bygningsnummer</Label></dt>
+                                    <dt><Label>{isPrint ? 'Bygningsnr.' : 'Bygningsnummer'}</Label></dt>
                                     <dd>{eiendomByggested.bygningsnummer}</dd>
                                 </div>
                             )
@@ -99,9 +99,33 @@ class EiendomByggestedList extends Component {
                         eiendomByggested.bolignummer || isPrint
                             ? (
                                 <div className="print-flex-10">
-                                    <dt><Label>Bolignummer</Label></dt>
+                                    <dt><Label>{isPrint ? 'Bolignr.' : 'Bolignummer'}</Label></dt>
                                     <dd>{eiendomByggested.bolignummer}</dd>
                                 </div>
+                            )
+                            : ''
+                    }
+                    {
+                        isPrint
+                            ? (
+                                <React.Fragment>
+                                    <div className="print-flex-10">
+                                        <dt><Label>{municipalityField?.label || ''}</Label>
+                                        </dt><dd>{municipalityField?.value || ''}</dd>
+                                    </div>
+                                    <div className="print-flex-40">
+                                        <dt><Label>Adresse</Label></dt>
+                                        <dd>{eiendomByggested.adresselinje1}</dd>
+                                    </div>
+                                    <div className="print-flex-10">
+                                        <dt><Label>Postnr.</Label></dt>
+                                        <dd>{eiendomByggested.postnr}</dd>
+                                    </div>
+                                    <div className="print-flex-20">
+                                        <dt><Label>Poststed</Label></dt>
+                                        <dd>{eiendomByggested.poststed}</dd>
+                                    </div>
+                                </React.Fragment>
                             )
                             : ''
                     }

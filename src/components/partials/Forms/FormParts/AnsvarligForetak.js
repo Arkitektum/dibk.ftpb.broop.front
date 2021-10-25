@@ -98,9 +98,7 @@ class AnsvarligForetak extends Component {
                                 : ''
                         }
                     </dl>
-                    <p>
-                        Opplysningene er lagt inn av ansvarlig søker. Kontakt dem hvis du oppdager feil.
-                    </p>
+                    {!isPrint ? <p> Opplysningene er lagt inn av ansvarlig søker. Kontakt dem hvis du oppdager feil.</p> : ''}
                     <Label>
                         <b>
                             Har foretaket sentral godkjenning?

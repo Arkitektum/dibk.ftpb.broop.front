@@ -224,14 +224,29 @@ div[class^="print-flex-"] {
     flex-basis: 10%;
 }
 
+.print-flex-20 {
+    flex: 1;
+    flex-basis: 20%;
+}
+
 .print-flex-25 {
     flex: 1;
     flex-basis: 25%;
 }
 
+.print-flex-30 {
+    flex: 1;
+    flex-basis: 30%;
+}
+
 .print-flex-33 {
     flex: 1;
     flex-basis: 33.3333%;
+}
+
+.print-flex-40 {
+    flex: 1;
+    flex-basis: 40%;
 }
 
 .print-flex-50 {
@@ -242,6 +257,11 @@ div[class^="print-flex-"] {
 .print-flex-66 {
     flex: 1;
     flex-basis: 66.6666%;
+}
+
+.print-flex-70 {
+    flex: 1;
+    flex-basis: 70%;
 }
 
 .print-flex-75 {
