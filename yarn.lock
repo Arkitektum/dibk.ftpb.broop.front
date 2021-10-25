@@ -4095,9 +4095,9 @@ detect-port-alt@1.1.6:
     debug "^2.6.0"
 
 dibk-design@^0.4.0:
-  version "0.4.17"
-  resolved "https://registry.yarnpkg.com/dibk-design/-/dibk-design-0.4.17.tgz#bd8b7a7c7f6fc57daff83b8579e8f7b17e4f9209"
-  integrity sha512-7WB9Z8FNW7eEGi27qjCF6z82K6kAgoqKWyHNhObOAi1pxex2w2bD/Tglgodzdxakq1PLIvaT8xRMJQk6Km9FOA==
+  version "0.4.18"
+  resolved "https://registry.yarnpkg.com/dibk-design/-/dibk-design-0.4.18.tgz#505c7eb1917612aaef6400fa05ec8ec5110394d5"
+  integrity sha512-lfB4Klu9NdX57cPAmbkdOljbZM/EZBouK1/XuNkce4WjB4kodWaXKTo0sVFIhgyMwM4+mslhAAk/yRjVeodesA==
   dependencies:
     prop-types "^15.6.2"
     react "^17.0.1"
@@ -4721,9 +4721,9 @@ estraverse@^4.1.1:
   integrity sha512-39nnKffWz8xN1BU/2c79n9nB9HDzo0niYUqx6xyqUnyoAnQyyWpOTdZEeiCch8BBu515t4wp9ZmgVfVhn9EBpw==
 
 estraverse@^5.1.0, estraverse@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/estraverse/-/estraverse-5.2.0.tgz#307df42547e6cc7324d3cf03c155d5cdb8c53880"
-  integrity sha512-BxbNGGNm0RyRYvUdHpIwv9IWzeM9XClbOxwoATuFdOE7ZE6wHL+HQ5T8hoPM+zHvmKzzsEqhgy0GrQ5X13afiQ==
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/estraverse/-/estraverse-5.3.0.tgz#2eea5290702f26ab8fe5370370ff86c965d21123"
+  integrity sha512-MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA==
 
 estree-walker@^0.6.1:
   version "0.6.1"

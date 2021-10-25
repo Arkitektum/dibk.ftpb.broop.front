@@ -78,9 +78,9 @@ class AnsvarIByggeProsjekt extends Component {
                                 ? "Erklæringen brukes ved endring av ansvarlig søker."
                                 : (
                                     <div className="hide-on-print">
-                                        <Label>Beskrivelse av ansvarsområde</Label>
                                         <Textarea
                                             id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
+                                            label="Beskrivelse av ansvarsområde"
                                             onChange={event => this.validateBeskrivelseAvAnsvarsomraade(event.target.value)}
                                             onBlur={(event) => this.handleUpdateAndSaveIfChanged(event.target.value, 'beskrivelseAvAnsvarsomraade', index)}
                                             resize="vertical"
@@ -93,7 +93,7 @@ class AnsvarIByggeProsjekt extends Component {
                         }
                     </div>
                     <div className={formsStyle.fieldSection}>
-                        <Label>Tiltaksklasse</Label>
+                        <Label normalCursor>Tiltaksklasse</Label>
                         <div className={formsStyle.buttonRow}>
                             <Button
                                 content="1"
@@ -126,8 +126,9 @@ class AnsvarIByggeProsjekt extends Component {
                             ? (
                                 <React.Fragment>
                                     <div className={formsStyle.fieldSection}>
-                                        <Label>{ansvarsomraade?.funksjonKode === 'KONTROLL' ? 'Kontrollerklæringer vil foreligge ved' : 'Samsvarserklæringer vil foreligge ved'}</Label>
-
+                                        <Label normalCursor>
+                                            {ansvarsomraade?.funksjonKode === 'KONTROLL' ? 'Kontrollerklæringer vil foreligge ved' : 'Samsvarserklæringer vil foreligge ved'}
+                                        </Label>
                                         {
                                             ansvarsomraade?.funksjonKode !== 'UTF'
                                                 ? (

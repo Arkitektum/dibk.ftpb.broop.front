@@ -50,7 +50,7 @@ class EiendomByggestedList extends Component {
                         !isPrint && municipalityField
                             ? (
                                 <div className="print-flex-10">
-                                    <dt><Label>{municipalityField.label}</Label>
+                                    <dt><Label normalCursor>{municipalityField.label}</Label>
                                     </dt><dd>{municipalityField.value}</dd>
                                 </div>
                             )
@@ -58,18 +58,18 @@ class EiendomByggestedList extends Component {
                     }
 
                     <div className="print-flex-10">
-                        <dt><Label>{isPrint ? 'Gnr.' : 'Gårdsnummer'}</Label></dt>
+                        <dt><Label normalCursor>{isPrint ? 'Gnr.' : 'Gårdsnummer'}</Label></dt>
                         <dd>{eiendomByggested.gaardsnummer}</dd>
                     </div>
                     <div className="print-flex-10">
-                        <dt><Label>{isPrint ? 'Bnr.' : 'Bruksnummer'}</Label></dt>
+                        <dt><Label normalCursor>{isPrint ? 'Bnr.' : 'Bruksnummer'}</Label></dt>
                         <dd>{eiendomByggested.bruksnummer}</dd>
                     </div>
                     {
                         eiendomByggested.festenummer || isPrint
                             ? (
                                 <div className="print-flex-10">
-                                    <dt><Label>{isPrint ? 'Festenr.' : 'Festenummer'}</Label></dt>
+                                    <dt><Label normalCursor>{isPrint ? 'Festenr.' : 'Festenummer'}</Label></dt>
                                     <dd>{eiendomByggested.festenummer}</dd>
                                 </div>
                             )
@@ -79,7 +79,7 @@ class EiendomByggestedList extends Component {
                         eiendomByggested.seksjonsnummer || isPrint
                             ? (
                                 <div className="print-flex-10">
-                                    <dt><Label>{isPrint ? 'Seksjonsnr.' : 'Seksjonsnummer'}</Label>
+                                    <dt><Label normalCursor>{isPrint ? 'Seksjonsnr.' : 'Seksjonsnummer'}</Label>
                                     </dt><dd>{eiendomByggested.seksjonsnummer}</dd>
                                 </div>
                             )
@@ -89,7 +89,7 @@ class EiendomByggestedList extends Component {
                         eiendomByggested.bygningsnummer || isPrint
                             ? (
                                 <div className="print-flex-10">
-                                    <dt><Label>{isPrint ? 'Bygningsnr.' : 'Bygningsnummer'}</Label></dt>
+                                    <dt><Label normalCursor>{isPrint ? 'Bygningsnr.' : 'Bygningsnummer'}</Label></dt>
                                     <dd>{eiendomByggested.bygningsnummer}</dd>
                                 </div>
                             )
@@ -99,7 +99,7 @@ class EiendomByggestedList extends Component {
                         eiendomByggested.bolignummer || isPrint
                             ? (
                                 <div className="print-flex-10">
-                                    <dt><Label>{isPrint ? 'Bolignr.' : 'Bolignummer'}</Label></dt>
+                                    <dt><Label normalCursor>{isPrint ? 'Bolignr.' : 'Bolignummer'}</Label></dt>
                                     <dd>{eiendomByggested.bolignummer}</dd>
                                 </div>
                             )

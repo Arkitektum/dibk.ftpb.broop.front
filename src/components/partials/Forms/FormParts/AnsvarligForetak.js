@@ -49,21 +49,21 @@ class AnsvarligForetak extends Component {
                             isPrint
                                 ? (
                                     <div className="print-flex-66">
-                                        <dt><Label>Navn</Label></dt>
+                                        <dt><Label normalCursor>Navn</Label></dt>
                                         <dd>{foretak.navn}</dd>
                                     </div>
                                 )
                                 : ''
                         }
                         <div className="print-flex-33">
-                            <dt><Label>Organisasjonsnummer</Label>
+                            <dt><Label normalCursor>Organisasjonsnummer</Label>
                             </dt><dd>{foretak.organisasjonsnummer}</dd>
                         </div>
                         {
                             adresse?.length
                                 ? (
                                     <div className="print-flex-33">
-                                        <dt><Label>Adresse</Label>
+                                        <dt><Label normalCursor>Adresse</Label>
                                         </dt><dd>{adresse}</dd>
                                     </div>
                                 )
@@ -73,7 +73,7 @@ class AnsvarligForetak extends Component {
                             telefonNummerList.length
                                 ? (
                                     <div className="print-flex-33">
-                                        <dt><Label>Telefon</Label></dt>
+                                        <dt><Label normalCursor>Telefon</Label></dt>
                                         <dd>
                                             <ul className={formsStyle.cleanList}>
                                                 {
@@ -91,7 +91,7 @@ class AnsvarligForetak extends Component {
                             foretak.epost?.length
                                 ? (
                                     <div className="print-flex-33">
-                                        <dt><Label>E-post</Label></dt>
+                                        <dt><Label normalCursor>E-post</Label></dt>
                                         <dd>{foretak.epost}</dd>
                                     </div>
                                 )
@@ -99,7 +99,7 @@ class AnsvarligForetak extends Component {
                         }
                     </dl>
                     {!isPrint ? <p> Opplysningene er lagt inn av ansvarlig søker. Kontakt dem hvis du oppdager feil.</p> : ''}
-                    <Label>
+                    <Label normalCursor>
                         <b>
                             Har foretaket sentral godkjenning?
                         </b>
