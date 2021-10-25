@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import WebFont from 'webfontloader';
-//import { renderToStaticMarkup } from 'react-dom/server'
+import { renderToStaticMarkup } from 'react-dom/server'
 
 // Utils
 import configureStore, { history } from 'utils/configureStore';
@@ -32,7 +32,7 @@ import SnackbarContainer from 'components/template/SnackbarContainer';
 //import { convertSelectedFormToPDF } from 'actions/PrintActions';
 
 /* eslint import/no-webpack-loader-syntax: off */
-//import printStyle from '!!raw-loader!sass-loader!./print.scss';
+import printStyle from '!!raw-loader!sass-loader!./print.scss';
 
 
 WebFont.load({
@@ -48,7 +48,7 @@ let userManager = null;
 
 
 
-/*const renderHtmlString = () => {
+const renderHtmlString = () => {
 
   localStorage.print = "true";
   //const htmlString = renderToString(<div className="page"><App /></div>);
@@ -59,9 +59,9 @@ let userManager = null;
   document.head.innerHTML = `<style>${printStyle}</style>`;
   document.body.innerHTML = htmlString;
 
-  const pdfContentString = `<html><head><style>${printStyle}</style></head><body>${htmlString}</body></html>`.replace(/\r?\n|\r/g, "");
- // store.dispatch(convertSelectedFormToPDF(pdfContentString, 'D84A298B-5D3F-4D8C-BDC1-45EF3E2808B2'));
-}*/
+  //const pdfContentString = `<html><head><style>${printStyle}</style></head><body>${htmlString}</body></html>`.replace(/\r?\n|\r/g, "");
+  // store.dispatch(convertSelectedFormToPDF(pdfContentString, 'D84A298B-5D3F-4D8C-BDC1-45EF3E2808B2'));
+}
 
 class App extends Component {
   constructor(props) {
@@ -97,16 +97,17 @@ class App extends Component {
 
   render() {
     const isPrint = localStorage.print === "true";
+    const showPreviewPdfButton = false;
     if ((this.state && userManager && this.state.userManagerIsLoaded && this.state.storeIsLoaded) || isPrint) {
       return (<Provider store={store}>
         <OidcProvider userManager={userManager} store={store}>
           <ConnectedRouter history={history}>
             <BrowserRouter>
               {
-                isPrint ? '' : (<MainNavigationBar userManager={userManager} />)
+                !isPrint ? (<MainNavigationBar userManager={userManager} />) : ''
               }
               {
-               // isPrint ? '' : (<button onClick={() => renderHtmlString()}>Preview PDF</button>)
+                !isPrint && showPreviewPdfButton ? (<button onClick={() => renderHtmlString()}>Preview PDF</button>) : ''
               }
               <Switch>
                 <Route exact path="/signin-oidc" render={() => (<OidcCallback userManager={userManager} />)} />
@@ -123,7 +124,7 @@ class App extends Component {
                 <Route render={() => (<NotFound />)} />
               </Switch>
               {
-                isPrint ? '' : (<Footer />)
+                !isPrint ? (<Footer />) : ''
               }
               <SnackbarContainer />
             </BrowserRouter>

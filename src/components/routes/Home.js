@@ -336,41 +336,46 @@ class Home extends Component {
   render() {
     const form = this.props.selectedForm;
     const submission = this.props.selectedSubmission;
+    const showDevTools = false;
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
     } else {
       return (
         <Container>
-          <div className='developmentTools'>
-            <span>Testverktøy</span>
-            <div>
-              <select value={this.state.selectedFormOptionId} onChange={event => this.fetchSubmission(event.target.value)}>
-                <option value="" disabled>Velg skjema</option>
-                {
-                  this.state.exampleForms.map(exampleForm => {
-                    return <option key={exampleForm.value} value={exampleForm.value}>{exampleForm.label}</option>
-                  })
-                }
-                {
-                  this.state.formFromUrlParameter
-                    ? (<option value={this.state.formFromUrlParameter.value}>{this.state.formFromUrlParameter.label} (Fra Id)</option>)
-                    : ''
-                }
-              </select>
-              <select value={form.status || ""} onChange={event => this.handleStatusOnChange(event.target.value)}>
-                <option value="" disabled>Velg status</option>
-                <option value="tilSignering">Til signering</option>
-                <option value="iArbeid">I arbeid</option>
-                <option value="signert">Signert</option>
-                <option value="avvist">Avvist</option>
-                <option value="utgaatt">Utgått</option>
-                <option value="trukket">Trukket</option>
-                <option value="avsluttet">Avsluttet</option>
-                <option value="feilet">Feilet</option>
-              </select>
-            </div>
-            <pre>Skjemareferanse:<br />{submission.referanseId || 'Ingen skjema er valgt'}</pre>
-          </div>
+          {
+            showDevTools
+              ? (<div className='developmentTools'>
+                <span>Testverktøy</span>
+                <div>
+                  <select value={this.state.selectedFormOptionId} onChange={event => this.fetchSubmission(event.target.value)}>
+                    <option value="" disabled>Velg skjema</option>
+                    {
+                      this.state.exampleForms.map(exampleForm => {
+                        return <option key={exampleForm.value} value={exampleForm.value}>{exampleForm.label}</option>
+                      })
+                    }
+                    {
+                      this.state.formFromUrlParameter
+                        ? (<option value={this.state.formFromUrlParameter.value}>{this.state.formFromUrlParameter.label} (Fra Id)</option>)
+                        : ''
+                    }
+                  </select>
+                  <select value={form.status || ""} onChange={event => this.handleStatusOnChange(event.target.value)}>
+                    <option value="" disabled>Velg status</option>
+                    <option value="tilSignering">Til signering</option>
+                    <option value="iArbeid">I arbeid</option>
+                    <option value="signert">Signert</option>
+                    <option value="avvist">Avvist</option>
+                    <option value="utgaatt">Utgått</option>
+                    <option value="trukket">Trukket</option>
+                    <option value="avsluttet">Avsluttet</option>
+                    <option value="feilet">Feilet</option>
+                  </select>
+                </div>
+                <pre>Skjemareferanse:<br />{submission.referanseId || 'Ingen skjema er valgt'}</pre>
+              </div>)
+              : ''
+          }
 
           <div className={commonStyle.headerSection}>
             <Header content="Erklæring om ansvarsrett"></Header>
