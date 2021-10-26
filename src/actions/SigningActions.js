@@ -30,8 +30,13 @@ const getFilenameFromContentDisposition = contentDisposition => {
 export const getSignedDocument = (submissionId, accessToken) => dispatch => {
     const internalApiUrl = getEnvironmentVariable('internalApiUrl');
     const formPath = `/api/v1/signering/${submissionId}/signed-document`;
-
-    return fetch(`${internalApiUrl}${formPath}`).then(response => {
+    const bearerToken = `Bearer ${accessToken}`;
+    const fetchOptions = {
+        headers: {
+            'Authorization': bearerToken
+        }
+    };
+    return fetch(`${internalApiUrl}${formPath}`, fetchOptions).then(response => {
         const contentDisposition = response.headers.get('Content-Disposition');
         const filename = getFilenameFromContentDisposition(contentDisposition) || 'skjema.pdf';
         return response.blob().then(blob => {
