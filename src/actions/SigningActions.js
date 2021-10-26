@@ -4,10 +4,12 @@ import { getEnvironmentVariable } from 'helpers/environmentVariableHelpers.js';
 export const updateSignedStatus = (submissionId, statusQueryToken, stage, accessToken) => () => {
     const internalApiUrl = getEnvironmentVariable('internalApiUrl');
     const formPath = `/api/v1/signering/${submissionId}`;
+    const bearerToken = `Bearer ${accessToken}`;
     const fetchOptions = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': bearerToken
         },
         body: JSON.stringify({
             toStage: stage,
