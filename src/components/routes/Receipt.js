@@ -36,8 +36,22 @@ class Receipt extends Component {
     }
 
     componentDidMount() {
-        const submissionId = this.props.match.params.submissionId;
         const accessToken = this.props.oidc?.user?.access_token;
+        if (accessToken) {
+            this.fetchAndUpdateData(accessToken);
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        const prevAccessToken = prevProps.oidc?.user?.access_token;
+        const accessToken = this.props.oidc?.user?.access_token;
+        if (accessToken && !prevAccessToken) {
+            this.fetchAndUpdateData(accessToken);
+        }
+    }
+
+    fetchAndUpdateData(accessToken) {
+        const submissionId = this.props.match.params.submissionId;
         const urlParams = new URLSearchParams(window.location.search);
         const statusQueryToken = urlParams.get('status_query_token');
         if (submissionId) {
@@ -69,8 +83,13 @@ class Receipt extends Component {
                 });
             });
         }
-
     }
+
+
+
+
+
+
 
     fecthFormData(submissionId) {
         this.setState({
