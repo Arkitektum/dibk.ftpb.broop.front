@@ -45,3 +45,20 @@ export const validateErklaeringCheckboxes = () => (dispatch, getState) => {
         dispatch(removeValidationMessage('erklaeringCheckboxes'));
     }
 }
+
+export const validateAnsvarsomraadeTiltaksklasse = () => (dispatch, getState) => {
+    const formData = getState()?.selectedForm?.formData;
+    const hasMissingTiltakskode = formData?.ansvarsomraader.some(ansvarsomraade => {
+        return !ansvarsomraade.tiltaksklasseKode;
+    });
+
+    const isValid = !hasMissingTiltakskode;
+
+    dispatch(updateIsValidated(true));
+
+    if (!isValid) {
+        dispatch(addValidationMessage('ansvarsomraadeTiltaksklasse', 'Du må velge tiltaksklasse for ansvarsområdet.'));
+    } else {
+        dispatch(removeValidationMessage('ansvarsomraadeTiltaksklasse'));
+    }
+}
