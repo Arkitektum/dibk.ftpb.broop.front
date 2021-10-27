@@ -6,9 +6,11 @@ import PropTypes from 'prop-types';
 // DIBK Design
 import { Accordion, Button, CheckBoxListItem, Label, Textarea } from 'dibk-design';
 
+// Actions
+import { updateIsValidated } from 'actions/ValidationActions';
+
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
-
 
 class AnsvarIByggeProsjekt extends Component {
 
@@ -94,12 +96,12 @@ class AnsvarIByggeProsjekt extends Component {
                     </div>
                     <div className={formsStyle.fieldSection}>
                         <Label normalCursor>Tiltaksklasse</Label>
-                        <div className={formsStyle.buttonRow}>
+                        <div className={`${formsStyle.buttonRow} ${this.props.validationMessages?.ansvarsomraadeTiltaksklasse?.length && !ansvarsomraade.tiltaksklasseKode ? formsStyle.hasErrors : ''}`}>
                             <Button
                                 content="1"
                                 size="small"
                                 rounded
-                                onClick={() => this.handleUpdateAndSaveIfChanged('1', 'tiltaksklasseKode', index)}
+                                onClick={() => { this.handleUpdateAndSaveIfChanged('1', 'tiltaksklasseKode', index); this.props.updateIsValidated(false); }}
                                 noHover
                                 color={ansvarsomraade.tiltaksklasseKode === '1' ? 'primary' : 'default'}
                             />
@@ -120,6 +122,11 @@ class AnsvarIByggeProsjekt extends Component {
                                 color={ansvarsomraade.tiltaksklasseKode === '3' ? 'primary' : 'default'}
                             />
                         </div>
+                        {
+                            this.props.validationMessages?.ansvarsomraadeTiltaksklasse?.length && !ansvarsomraade.tiltaksklasseKode
+                                ? <span className={formsStyle.warningMessage}>{this.props.validationMessages?.ansvarsomraadeTiltaksklasse}</span>
+                                : ''
+                        }
                     </div>
                     {
                         ansvarsomraade?.funksjonKode !== 'SØK'
@@ -208,8 +215,13 @@ AnsvarIByggeProsjekt.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    selectedForm: state.selectedForm
+    selectedForm: state.selectedForm,
+    validationMessages: state.validationMessages
 });
 
+const mapDispatchToProps = {
+    updateIsValidated
+};
 
-export default connect(mapStateToProps, null)(AnsvarIByggeProsjekt);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AnsvarIByggeProsjekt);
