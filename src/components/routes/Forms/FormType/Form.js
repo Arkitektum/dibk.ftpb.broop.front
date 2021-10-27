@@ -218,12 +218,32 @@ class Form extends Component {
                 ? ''
                 : (
                   <React.Fragment>
+
+
+                    {
+                      this.props.validationMessages && Object.keys(this.props.validationMessages)?.length
+                        ? (
+                          <div className={commonStyle.warningBox}>
+                            <h2 className={commonStyle.boxTitle}>Du kan ikke signere erklæringen før alle opplysningene er fylt ut:</h2>
+                            <ul className={commonStyle.boxList}>
+                            {
+                              Object.keys(this.props.validationMessages).map(validationMessageKey => {
+                                const validationMessage = this.props.validationMessages[validationMessageKey];
+                                return <li key={validationMessageKey}>{validationMessage}</li>
+                              })
+                            }
+                            </ul>
+                          </div>
+                        )
+                        : ''
+                    }
+
                     {
                       this.props.isValidated
-                      ? (<Button content="Til signering" color="primary" disabled={this.props.validationMessages && Object.keys(this.props.validationMessages)?.length} onClick={() => this.handleSigningButtonClick()} />)
-                      : (<Button content="Kontroller" color="primary" onClick={() => this.props.validateErklaeringCheckboxes()} />)
+                        ? (<Button content="Til signering" color="primary" disabled={this.props.validationMessages && Object.keys(this.props.validationMessages)?.length} onClick={() => this.handleSigningButtonClick()} />)
+                        : (<Button content="Kontroller" color="primary" onClick={() => this.props.validateErklaeringCheckboxes()} />)
                     }
-                    
+
 
                     {
                       this.state.loadingMessage?.length
