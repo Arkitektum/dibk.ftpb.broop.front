@@ -44,19 +44,25 @@ class Ansvarsrett extends Component {
         return formData
             ? (
                 <React.Fragment>
-                    <div className={commonStyle.paragraphGroup}>
-                        <p>Dette er en erklæring om ansvarsrett{formatProjectNameForForm(form)}.</p>
-                        {
-                            form?.signeringsfrist
-                                ? <p>Frist for signering er {formatDate(form.signeringsfrist)}. Etter fristen er det ikke lenger mulig å signere erklæringen.</p>
-                                : ''
-                        }
-                        {
-                            form?.formData?.ansvarligSoeker?.navn
-                                ? (<p>Etter signering blir erklæringen sendt til {form.formData.ansvarligSoeker.navn}, som er ansvarlig søker.</p>)
-                                : ''
-                        }
-                    </div>
+                    {
+                        !isPrint
+                            ? (
+                                <div className={commonStyle.paragraphGroup}>
+                                    <p>Dette er en erklæring om ansvarsrett{formatProjectNameForForm(form)}.</p>
+                                    {
+                                        form?.signeringsfrist
+                                            ? <p>Frist for signering er {formatDate(form.signeringsfrist)}. Etter fristen er det ikke lenger mulig å signere erklæringen.</p>
+                                            : ''
+                                    }
+                                    {
+                                        form?.formData?.ansvarligSoeker?.navn
+                                            ? (<p>Etter signering blir erklæringen sendt til {form.formData.ansvarligSoeker.navn}, som er ansvarlig søker.</p>)
+                                            : ''
+                                    }
+                                </div>
+                            )
+                            : ''
+                    }
                     {
                         isPrint
                             ? (

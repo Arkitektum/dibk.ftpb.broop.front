@@ -105,9 +105,11 @@ class AnsvarligForetak extends Component {
                         </b>
                     </Label>
                     {foretak.harSentralGodkjenning ? 'Ja' : 'Nei'}
-                    <p>
-                        Svaret er hentet fra register for sentral godkjenning eller er lagt inn av ansvarlig søker.
-                    </p>
+                    {
+                        !isPrint
+                            ? <p>Svaret er hentet fra register for sentral godkjenning eller er lagt inn av ansvarlig søker.</p>
+                            : ''
+                    }
                     <Header size={3} content="Kontaktperson" />
                     <div className={formsStyle.fieldList}>
                         <div className="print-flex-10">
@@ -146,10 +148,11 @@ class AnsvarligForetak extends Component {
                                 type='email' />
                         </div>
                     </div>
-                    <p>
-                        Opplysningene er lagt inn av ansvarlig søker. Du kan endre navn, telefon og e-post til kontaktpersonen.
-                    </p>
-
+                    {
+                        !isPrint
+                            ? <p>Opplysningene er lagt inn av ansvarlig søker. Du kan endre navn, telefon og e-post til kontaktpersonen.</p>
+                            : ''
+                    }
                 </React.Fragment>
             )
             : (

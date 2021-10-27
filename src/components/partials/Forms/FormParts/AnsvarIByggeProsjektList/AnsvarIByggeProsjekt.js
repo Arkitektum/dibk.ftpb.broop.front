@@ -65,6 +65,7 @@ class AnsvarIByggeProsjekt extends Component {
 
 
     render() {
+        const isPrint = localStorage.print === "true";
         const ansvarsomraade = this.props.ansvarsomraade;
         const index = this.props.index;
         let accordionTitle = `${ansvarsomraade.funksjonBeskrivelse}`;
@@ -196,7 +197,11 @@ class AnsvarIByggeProsjekt extends Component {
                                             )
                                             : ''
                                     }
-                                    <p>Ansvarlig søker har foreslått noen opplysninger, men du kan endre eller oppdatere beskrivelsen og valgene.</p>
+                                    {
+                                        !isPrint
+                                            ? <p>Ansvarlig søker har foreslått noen opplysninger, men du kan endre eller oppdatere beskrivelsen og valgene.</p>
+                                            : ''
+                                    }
                                 </React.Fragment>
                             )
                             : ''
