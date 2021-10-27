@@ -81,14 +81,6 @@ class Erklaering extends Component {
                     <p>
                         Ved å signere, bekrefter du samtidig at du er legitimert til å binde foretaket ansvarlig til arbeidene som er beskrevet i erklæringen.
                     </p>
-                    <ul>
-                        {
-                            Object.keys(this.props.validationMessages).map(validationMessageKey => {
-                                const validationMessage = this.props.validationMessages[validationMessageKey];
-                                return <li key={validationMessageKey}>{validationMessage}</li>
-                            })
-                        }
-                    </ul>
                 </React.Fragment>
             )
             : (
