@@ -9,6 +9,8 @@ import SelectedSubmissionReducer from 'reducers/SelectedSubmissionReducer';
 import SnackbarMessageReducer from 'reducers/SnackbarMessageReducer';
 import SnackbarLastInitReducer from 'reducers/SnackbarLastInitReducer';
 import SnackbarVisibleReducer from 'reducers/SnackbarVisibleReducer';
+import ValidationMessagesReducer from 'reducers/ValidationMessagesReducer';
+import IsValidatedReducer from 'reducers/IsValidatedReducer'
 
 const reducers = history => combineReducers({
   router: connectRouter(history),
@@ -17,7 +19,9 @@ const reducers = history => combineReducers({
   selectedSubmission: SelectedSubmissionReducer,
   snackbarMessage: SnackbarMessageReducer,
   snackbarLastInit: SnackbarLastInitReducer,
-  snackbarVisible: SnackbarVisibleReducer
+  snackbarVisible: SnackbarVisibleReducer,
+  validationMessages: ValidationMessagesReducer,
+  isValidated: IsValidatedReducer
 });
 
 export default reducers;
