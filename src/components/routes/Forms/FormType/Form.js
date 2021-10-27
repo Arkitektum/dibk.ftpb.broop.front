@@ -25,7 +25,7 @@ import { fetchSubmission } from 'actions/SubmissionActions';
 import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 import { updateSignedStatus } from 'actions/SigningActions';
 import { convertSelectedFormToPDF } from 'actions/PrintActions';
-import { validateErklaeringCheckboxes } from 'actions/ValidationActions';
+import { validateErklaeringCheckboxes, validateAnsvarsomraadeTiltaksklasse } from 'actions/ValidationActions';
 
 // Helpers
 import { getEnvironmentVariable } from 'helpers/environmentVariableHelpers';
@@ -197,6 +197,11 @@ class Form extends Component {
     });
   }
 
+  runValidations() {
+    this.props.validateErklaeringCheckboxes();
+    this.props.validateAnsvarsomraadeTiltaksklasse();
+  }
+
 
   render() {
     const selectedSubmission = this.props.selectedSubmission
@@ -226,12 +231,12 @@ class Form extends Component {
                           <div className={commonStyle.warningBox}>
                             <h2 className={commonStyle.boxTitle}>Du kan ikke signere erklæringen før alle opplysningene er fylt ut:</h2>
                             <ul className={commonStyle.boxList}>
-                            {
-                              Object.keys(this.props.validationMessages).map(validationMessageKey => {
-                                const validationMessage = this.props.validationMessages[validationMessageKey];
-                                return <li key={validationMessageKey}>{validationMessage}</li>
-                              })
-                            }
+                              {
+                                Object.keys(this.props.validationMessages).map(validationMessageKey => {
+                                  const validationMessage = this.props.validationMessages[validationMessageKey];
+                                  return <li key={validationMessageKey}>{validationMessage}</li>
+                                })
+                              }
                             </ul>
                           </div>
                         )
@@ -240,8 +245,8 @@ class Form extends Component {
 
                     {
                       this.props.isValidated
-                        ? (<Button content="Til signering" color="primary" disabled={this.props.validationMessages && Object.keys(this.props.validationMessages)?.length} onClick={() => this.handleSigningButtonClick()} />)
-                        : (<Button content="Kontroller" color="primary" onClick={() => this.props.validateErklaeringCheckboxes()} />)
+                        ? (<Button content="Til signering" color="primary" disabled={this.props.validationMessages && Object.keys(this.props.validationMessages)?.length ? true : false} onClick={() => this.handleSigningButtonClick()} />)
+                        : (<Button content="Kontroller" color="primary" onClick={() => this.runValidations()} />)
                     }
 
 
@@ -307,7 +312,8 @@ const mapDispatchToProps = {
   saveSelectedForm,
   updateSignedStatus,
   convertSelectedFormToPDF,
-  validateErklaeringCheckboxes
+  validateErklaeringCheckboxes,
+  validateAnsvarsomraadeTiltaksklasse
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
