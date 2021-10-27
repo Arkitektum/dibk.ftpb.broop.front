@@ -25,10 +25,10 @@ import { fetchSubmission } from 'actions/SubmissionActions';
 import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 import { updateSignedStatus } from 'actions/SigningActions';
 import { convertSelectedFormToPDF } from 'actions/PrintActions';
+import { validateErklaeringCheckboxes } from 'actions/ValidationActions';
 
 // Helpers
 import { getEnvironmentVariable } from 'helpers/environmentVariableHelpers';
-import { signingButtonShouldBeDisabled } from 'helpers/signingHelpers';
 
 // Stylesheets
 import commonStyle from 'components/routes/common.module.scss';
@@ -218,7 +218,12 @@ class Form extends Component {
                 ? ''
                 : (
                   <React.Fragment>
-                    <Button content="Til signering" color="primary" disabled={signingButtonShouldBeDisabled(this.props.form)} onClick={() => this.handleSigningButtonClick()} />
+                    {
+                      this.props.isValidated
+                      ? (<Button content="Til signering" color="primary" disabled={this.props.validationMessages && Object.keys(this.props.validationMessages)?.length} onClick={() => this.handleSigningButtonClick()} />)
+                      : (<Button content="Kontroller" color="primary" onClick={() => this.props.validateErklaeringCheckboxes()} />)
+                    }
+                    
 
                     {
                       this.state.loadingMessage?.length
@@ -269,6 +274,8 @@ class Form extends Component {
 const mapStateToProps = state => ({
   selectedSubmission: state.selectedSubmission,
   form: state.selectedForm,
+  isValidated: state.isValidated,
+  validationMessages: state.validationMessages,
   location: state.router.location,
   oidc: state.oidc
 });
@@ -279,7 +286,8 @@ const mapDispatchToProps = {
   updateSelectedForm,
   saveSelectedForm,
   updateSignedStatus,
-  convertSelectedFormToPDF
+  convertSelectedFormToPDF,
+  validateErklaeringCheckboxes
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

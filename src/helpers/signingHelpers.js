@@ -10,10 +10,3 @@ export const getStageFromStatus = status => {
             return '';
     }
 }
-
-export const signingButtonShouldBeDisabled = form => {
-    if (form?.innsendingstype === "ansvarsrett"){
-        const isSignable = form?.formData?.erklaeringAnsvarligProsjekterende && form?.formData?.erklaeringAnsvarligUtfoerende && form?.formData?.erklaeringAnsvarligKontrollerende;
-        return !isSignable
-    }
-}
