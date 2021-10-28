@@ -42,25 +42,36 @@ class AnsvarligForetak extends Component {
         return foretak && Object.keys(foretak).length
             ? (
                 <React.Fragment>
-                    {!isPrint ? <Header content={foretak.navn} size={3}></Header> : ''}
+                    {!isPrint ? <Header content={`${foretak.navn} (org.nr. ${foretak.organisasjonsnummer})`} size={3}></Header> : ''}
 
                     <dl className={formsStyle.fieldList}>
                         {
                             isPrint
                                 ? (
-                                    <div className="print-flex-66">
-                                        <dt><Label normalCursor>Navn</Label></dt>
-                                        <dd>{foretak.navn}</dd>
+                                    <React.Fragment>
+                                        <div className="print-flex-66">
+                                            <dt><Label normalCursor>Navn</Label></dt>
+                                            <dd>{foretak.navn}</dd>
+                                        </div>
+                                        <div className="print-flex-33">
+                                            <dt><Label normalCursor>Organisasjonsnummer</Label>
+                                            </dt><dd>{foretak.organisasjonsnummer}</dd>
+                                        </div>
+                                    </React.Fragment>
+                                )
+                                : ''
+                        }
+                        {
+                            adresse?.length && !isPrint
+                                ? (
+                                    <div className="print-flex-33">
+                                        {adresse}
                                     </div>
                                 )
                                 : ''
                         }
-                        <div className="print-flex-33">
-                            <dt><Label normalCursor>Organisasjonsnummer</Label>
-                            </dt><dd>{foretak.organisasjonsnummer}</dd>
-                        </div>
                         {
-                            adresse?.length
+                            isPrint
                                 ? (
                                     <div className="print-flex-33">
                                         <dt><Label normalCursor>Adresse</Label>
