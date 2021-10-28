@@ -59,7 +59,8 @@ class AnsvarIByggeProsjekt extends Component {
         const oldValue = this.props.ansvarsomraade[property];
         this.handleUpdate(newValue, property, index);
         if (newValue !== oldValue) {
-            this.handleSave()
+            this.handleSave();
+            this.props.updateIsValidated(false);
         }
     }
 
@@ -101,7 +102,7 @@ class AnsvarIByggeProsjekt extends Component {
                                 content="1"
                                 size="small"
                                 rounded
-                                onClick={() => { this.handleUpdateAndSaveIfChanged('1', 'tiltaksklasseKode', index); this.props.updateIsValidated(false); }}
+                                onClick={() => this.handleUpdateAndSaveIfChanged('1', 'tiltaksklasseKode', index)}
                                 noHover
                                 color={ansvarsomraade.tiltaksklasseKode === '1' ? 'primary' : 'default'}
                             />
