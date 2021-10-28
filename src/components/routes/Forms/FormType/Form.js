@@ -25,7 +25,7 @@ import { fetchSubmission } from 'actions/SubmissionActions';
 import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 import { updateSignedStatus } from 'actions/SigningActions';
 import { convertSelectedFormToPDF } from 'actions/PrintActions';
-import { validateErklaeringCheckboxes, validateAnsvarsomraadeTiltaksklasse } from 'actions/ValidationActions';
+import { validateErklaeringCheckboxes, validateAnsvarsomraadeTiltaksklasse, validateDekkesOmradetAvSentralGodkjenning } from 'actions/ValidationActions';
 
 // Helpers
 import { getEnvironmentVariable } from 'helpers/environmentVariableHelpers';
@@ -200,6 +200,7 @@ class Form extends Component {
   runValidations() {
     this.props.validateErklaeringCheckboxes();
     this.props.validateAnsvarsomraadeTiltaksklasse();
+    this.props.validateDekkesOmradetAvSentralGodkjenning();
   }
 
 
@@ -313,7 +314,8 @@ const mapDispatchToProps = {
   updateSignedStatus,
   convertSelectedFormToPDF,
   validateErklaeringCheckboxes,
-  validateAnsvarsomraadeTiltaksklasse
+  validateAnsvarsomraadeTiltaksklasse,
+  validateDekkesOmradetAvSentralGodkjenning
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

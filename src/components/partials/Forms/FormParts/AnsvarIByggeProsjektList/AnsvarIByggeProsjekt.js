@@ -184,7 +184,7 @@ class AnsvarIByggeProsjekt extends Component {
                                             ? (
                                                 <div className={formsStyle.fieldSection}>
                                                     <Label>Dekker den sentrale godkjenningen ansvarsområdet?</Label>
-                                                    <div className={formsStyle.buttonRow}>
+                                                    <div className={`${formsStyle.buttonRow} ${this.props.validationMessages?.dekkesOmradetAvSentralGodkjenning?.length && ansvarsomraade.dekkesOmradetAvSentralGodkjenning === undefined ? formsStyle.hasErrors : ''}`}>
                                                         <div>
                                                             <Button content="Ja" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(true, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === true ? 'primary' : 'default'} />
                                                         </div>
@@ -194,6 +194,11 @@ class AnsvarIByggeProsjekt extends Component {
                                                     </div>
                                                 </div>
                                             )
+                                            : ''
+                                    }
+                                    {
+                                        this.props.validationMessages?.dekkesOmradetAvSentralGodkjenning?.length && ansvarsomraade.dekkesOmradetAvSentralGodkjenning === undefined
+                                            ? <span className={formsStyle.warningMessage}>{this.props.validationMessages.dekkesOmradetAvSentralGodkjenning}</span>
                                             : ''
                                     }
                                     <p>Ansvarlig søker har foreslått noen opplysninger, men du kan endre eller oppdatere beskrivelsen og valgene.</p>

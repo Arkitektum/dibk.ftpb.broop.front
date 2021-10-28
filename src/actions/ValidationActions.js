@@ -62,3 +62,20 @@ export const validateAnsvarsomraadeTiltaksklasse = () => (dispatch, getState) =>
         dispatch(removeValidationMessage('ansvarsomraadeTiltaksklasse'));
     }
 }
+
+export const validateDekkesOmradetAvSentralGodkjenning = () => (dispatch, getState) => {
+    const formData = getState()?.selectedForm?.formData;
+    const hasMissingDekkesOmradetAvSentralGodkjenning = formData?.ansvarsomraader.some(ansvarsomraade => {
+        return ansvarsomraade.dekkesOmradetAvSentralGodkjenning === undefined && ansvarsomraade.funksjonKode !== "SØK";
+    });
+
+    const isValid = !hasMissingDekkesOmradetAvSentralGodkjenning;
+
+    dispatch(updateIsValidated(true));
+
+    if (!isValid) {
+        dispatch(addValidationMessage('dekkesOmradetAvSentralGodkjenning', 'Du må svare på om foretaket har sentral godkjenning for ansvarsområdet.'));
+    } else {
+        dispatch(removeValidationMessage('dekkesOmradetAvSentralGodkjenning'));
+    }
+}
