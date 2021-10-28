@@ -64,6 +64,24 @@ class AnsvarIByggeProsjekt extends Component {
         }
     }
 
+    samsvarKontrollHasErrors(ansvarsomraade) {
+        if (ansvarsomraade.funksjonKode === "UTF") {
+            return [
+                ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse,
+                ansvarsomraade.samsvarKontrollVedFerdigattest
+            ].some(condition => condition) === false;
+        } else if (ansvarsomraade.funksjonKode === "PRO" || ansvarsomraade.funksjonKode === "KONTROLL") {
+            return [
+                ansvarsomraade.samsvarKontrollVedRammetillatelse,
+                ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse,
+                ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse,
+                ansvarsomraade.samsvarKontrollVedFerdigattest
+            ].some(condition => condition) === false;
+        } else {
+            return false
+        }
+    }
+
 
     render() {
         const ansvarsomraade = this.props.ansvarsomraade;
@@ -145,6 +163,7 @@ class AnsvarIByggeProsjekt extends Component {
                                                             id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
                                                             onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedRammetillatelse', index)}
                                                             checked={ansvarsomraade.samsvarKontrollVedRammetillatelse}
+                                                            hasErrors={this.samsvarKontrollHasErrors(ansvarsomraade)}
                                                             compact
                                                         >
                                                             Rammetillatelse
@@ -153,9 +172,9 @@ class AnsvarIByggeProsjekt extends Component {
                                                             id={`ansvarsomraade-${index}-samsvarKontrollVedIgangsettingstillatelse`}
                                                             onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedIgangsettingstillatelse', index)}
                                                             checked={ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse}
+                                                            hasErrors={this.samsvarKontrollHasErrors(ansvarsomraade)}
                                                             compact
                                                         >
-
                                                             Igangsettingstillatelse
                                                         </CheckBoxListItem>
                                                     </React.Fragment>
@@ -167,6 +186,7 @@ class AnsvarIByggeProsjekt extends Component {
                                             id={`ansvarsomraade-${index}-samsvarKontrollVedMidlertidigBrukstillatelse`}
                                             onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedMidlertidigBrukstillatelse', index)}
                                             checked={ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse}
+                                            hasErrors={this.samsvarKontrollHasErrors(ansvarsomraade)}
                                             compact
                                         >
                                             Midlertidig brukstillatelse
@@ -175,10 +195,21 @@ class AnsvarIByggeProsjekt extends Component {
                                             id={`ansvarsomraade-${index}-samsvarKontrollVedFerdigattest`}
                                             onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedFerdigattest', index)}
                                             checked={ansvarsomraade.samsvarKontrollVedFerdigattest}
+                                            hasErrors={this.samsvarKontrollHasErrors(ansvarsomraade)}
                                             compact
                                         >
                                             Ferdigattest
                                         </CheckBoxListItem>
+                                        {
+                                            this.samsvarKontrollHasErrors(ansvarsomraade) && ansvarsomraade?.funksjonKode === 'KONTROLL'
+                                                ? <span className={formsStyle.warningMessage}>{this.props.validationMessages.kontrollCheckboxes}</span>
+                                                : ''
+                                        }
+                                        {
+                                            this.samsvarKontrollHasErrors(ansvarsomraade) && (ansvarsomraade?.funksjonKode === 'UTF' || ansvarsomraade?.funksjonKode === 'PRO')
+                                                ? <span className={formsStyle.warningMessage}>{this.props.validationMessages.samsvarCheckboxes}</span>
+                                                : ''
+                                        }
                                     </div>
                                     {
                                         this.props.selectedForm?.formData?.ansvarligForetak?.harSentralGodkjenning
@@ -193,13 +224,13 @@ class AnsvarIByggeProsjekt extends Component {
                                                             <Button content="Nei" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(false, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === false ? 'primary' : 'default'} />
                                                         </div>
                                                     </div>
+                                                    {
+                                                        this.props.validationMessages?.dekkesOmradetAvSentralGodkjenning?.length && ansvarsomraade.dekkesOmradetAvSentralGodkjenning === undefined
+                                                            ? <span className={formsStyle.warningMessage}>{this.props.validationMessages.dekkesOmradetAvSentralGodkjenning}</span>
+                                                            : ''
+                                                    }
                                                 </div>
                                             )
-                                            : ''
-                                    }
-                                    {
-                                        this.props.validationMessages?.dekkesOmradetAvSentralGodkjenning?.length && ansvarsomraade.dekkesOmradetAvSentralGodkjenning === undefined
-                                            ? <span className={formsStyle.warningMessage}>{this.props.validationMessages.dekkesOmradetAvSentralGodkjenning}</span>
                                             : ''
                                     }
                                     <p>Ansvarlig søker har foreslått noen opplysninger, men du kan endre eller oppdatere beskrivelsen og valgene.</p>

@@ -79,3 +79,43 @@ export const validateDekkesOmradetAvSentralGodkjenning = () => (dispatch, getSta
         dispatch(removeValidationMessage('dekkesOmradetAvSentralGodkjenning'));
     }
 }
+
+export const validateSamsvarKontrollCheckboxes = () => (dispatch, getState) => {
+    const formData = getState()?.selectedForm?.formData;
+
+    const hasMissingvalidateSamsvarCheckboxes = formData?.ansvarsomraader.some(ansvarsomraade => {
+        const isChecked = [
+            ansvarsomraade.samsvarKontrollVedRammetillatelse && ansvarsomraade.funksjonKode !== "UTF",
+            ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse && ansvarsomraade.funksjonKode !== "UTF",
+            ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse,
+            ansvarsomraade.samsvarKontrollVedFerdigattest
+        ].some(condition => condition);
+        return !isChecked && (ansvarsomraade.funksjonKode === 'PRO' || ansvarsomraade.funksjonKode === 'UTF');
+    });
+
+    const hasMissingvalidateKontrollCheckboxes = formData?.ansvarsomraader.some(ansvarsomraade => {
+        const isChecked = [
+            ansvarsomraade.samsvarKontrollVedRammetillatelse,
+            ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse,
+            ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse,
+            ansvarsomraade.samsvarKontrollVedFerdigattest
+        ].some(condition => condition);
+        return !isChecked && ansvarsomraade.funksjonKode === 'KONTROLL';
+    });
+
+    dispatch(updateIsValidated(true));
+
+    if (hasMissingvalidateSamsvarCheckboxes) {
+        dispatch(addValidationMessage('samsvarCheckboxes', 'Du må krysse av for når samsvarserklæringen vil foreligge.'));
+    } else {
+        dispatch(removeValidationMessage('samsvarCheckboxes'));
+    }
+
+    if (hasMissingvalidateKontrollCheckboxes) {
+        dispatch(addValidationMessage('kontrollCheckboxes', 'Du må krysse av for når kontrollerklæringen vil foreligge.'));
+    } else {
+        dispatch(removeValidationMessage('kontrollCheckboxes'));
+    }
+}
+
+
