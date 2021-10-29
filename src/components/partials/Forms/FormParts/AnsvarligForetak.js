@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 // DIBK Design
 import { Header, InputField, Label } from 'dibk-design';
@@ -11,6 +12,7 @@ import { formatAddress } from 'helpers/formatHelpers';
 
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
+import commonStyle from 'components/routes/common.module.scss';
 
 class AnsvarligForetak extends Component {
 
@@ -31,7 +33,6 @@ class AnsvarligForetak extends Component {
             this.handleSave()
         }
     }
-
 
 
     render() {
@@ -109,7 +110,7 @@ class AnsvarligForetak extends Component {
                                 : ''
                         }
                     </dl>
-                    {!isPrint ? <p> Opplysningene er lagt inn av ansvarlig søker. Kontakt dem hvis du oppdager feil.</p> : ''}
+
                     <Label normalCursor>
                         <b>
                             Har foretaket sentral godkjenning?
@@ -118,7 +119,12 @@ class AnsvarligForetak extends Component {
                     {foretak.harSentralGodkjenning ? 'Ja' : 'Nei'}
                     {
                         !isPrint
-                            ? <p>Svaret er hentet fra register for sentral godkjenning eller er lagt inn av ansvarlig søker.</p>
+                            ? <div className={commonStyle.infoBox}>
+                                <p>Opplysningene er lagt inn av ansvarlig søker eller hentet fra register for sentral godkjenning.</p>
+                                <Link to="avvis" title='Avvis erklæring'>
+                                    Meld fra til ansvarlig søker hvis du oppdager noe feil
+                                </Link>
+                            </div>
                             : ''
                     }
                     <Header size={3} content="Kontaktperson" />
@@ -161,7 +167,7 @@ class AnsvarligForetak extends Component {
                     </div>
                     {
                         !isPrint
-                            ? <p>Opplysningene er lagt inn av ansvarlig søker. Du kan endre navn, telefon og e-post til kontaktpersonen.</p>
+                            ? <div className={commonStyle.infoBox}>Opplysningene er lagt inn av ansvarlig søker. Du kan endre navn, telefon og e-post til kontaktpersonen.</div>
                             : ''
                     }
                 </React.Fragment>

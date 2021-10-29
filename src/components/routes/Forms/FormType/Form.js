@@ -9,7 +9,7 @@ import { Link, Redirect } from 'react-router-dom';
 import App from 'App';
 
 // DIBK Design
-import { Button, Dialog, Header, LoadingAnimation, Textarea } from 'dibk-design';
+import { Button, Dialog, Header, Label, LoadingAnimation, Textarea } from 'dibk-design';
 
 // Template
 import Container from 'components/template/Container';
@@ -258,23 +258,20 @@ class Form extends Component {
                         : ''
                     }
                     <div className={`${commonStyle.marginTop} ${commonStyle.marginBottom}`}>
+                      <Label normalCursor>Har du oppdaget noe feil i erklæringen?</Label>
                       <Link to="avvis" title='Avvis erklæring'>
-                        Avvis erklæring
+                        Meld fra til ansvarlig søker
                       </Link>
-                      <p>
-                        Trykk på lenken over hvis du ikke ønsker å signere erklæringen.<br />
-                        Du må begrunne hvorfor du avviser erklæringen. Begrunnelsen sendes til ansvarlig søker.
-                      </p>
                     </div>
                     {
                       this.props.showRejectModal
                         ? (
                           <Dialog onClickOutside={this.handleClickOutsideRejectDialog} closeButton maxWidth="960px">
-                            <Header content="Du har valgt å avvise erklæringen" size={2} />
-                            <p>Her må du skrive en begrunnelse til ansvarlig søker:</p>
+                            <Header content="Meld inn feil til ansvarlig søker" size={2} />
+                            <p>Skriv en begrunnelse i tekstboksen under. Ansvarlig søker må rette opp feilen og sende en ny lenke for signering.</p>
                             <Textarea id="rejectionMessage" onChange={event => this.setState({ rejectionMessage: event.target.value })} resize="vertical" />
                             <div className={commonStyle.marginTop}>
-                              <Button content="Avvis og send" onClick={this.handleSubmitRejectionButtonClick} color="primary" disabled={!this.state.rejectionMessage?.trim()?.length} />
+                              <Button content="Avvis erklæring" onClick={this.handleSubmitRejectionButtonClick} color="primary" disabled={!this.state.rejectionMessage?.trim()?.length} />
                             </div>
                             <p>
                               <Link to="rediger" title='Avvis erklæring'>
