@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 // DIBK Design
-import { Button, Header, LoadingAnimation } from 'dibk-design';
+import { Button, Header, LoadingAnimation, Paper } from 'dibk-design';
 
 // Template
 import Container from 'components/template/Container';
@@ -383,7 +383,7 @@ class Home extends Component {
           </div>
 
           {this.state.errorMessage ? this.renderErrorMessage(this.state.errorMessage) : ''}
-          {form ? this.renderContent(form, submission) : ''}
+          {form ? <Paper>{this.renderContent(form, submission)}</Paper> : ''}
           {
             this.state.loadingMessage?.length
               ? <LoadingAnimation fixed message={this.state.loadingMessage} />
