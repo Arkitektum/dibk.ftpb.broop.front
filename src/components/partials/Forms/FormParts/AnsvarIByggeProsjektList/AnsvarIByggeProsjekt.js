@@ -66,17 +66,21 @@ class AnsvarIByggeProsjekt extends Component {
 
     samsvarKontrollHasErrors(ansvarsomraade) {
         if (ansvarsomraade.funksjonKode === "UTF") {
-            return [
+            const hasValidationMessage = this.props.validationMessages.samsvarCheckboxes;
+            const noCheckboxesAreSelected = [
                 ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse,
                 ansvarsomraade.samsvarKontrollVedFerdigattest
             ].some(condition => condition) === false;
+            return hasValidationMessage && noCheckboxesAreSelected;
         } else if (ansvarsomraade.funksjonKode === "PRO" || ansvarsomraade.funksjonKode === "KONTROLL") {
-            return [
+            const hasValidationMessage = (ansvarsomraade?.funksjonKode === 'KONTROLL' && this.props.validationMessages.kontrollCheckboxes) || (ansvarsomraade?.funksjonKode === 'PRO' && this.props.validationMessages.samsvarCheckboxes);
+            const noCheckboxesAreSelected = [
                 ansvarsomraade.samsvarKontrollVedRammetillatelse,
                 ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse,
                 ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse,
                 ansvarsomraade.samsvarKontrollVedFerdigattest
             ].some(condition => condition) === false;
+            return hasValidationMessage && noCheckboxesAreSelected;
         } else {
             return false
         }
