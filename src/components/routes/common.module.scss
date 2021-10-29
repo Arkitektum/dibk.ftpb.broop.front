@@ -40,6 +40,20 @@
     }
 }
 
+:local(.infoBox) {
+    background-color: #ecf2f6;
+    color: #000;
+    padding: 20px 30px;
+    margin: 10px 0 40px;
+    p {
+        margin: 0;
+    }
+    a {
+        margin-top: 5px;
+        display: block;
+    }
+}
+
 :local(.marginTop) {
     margin-top: 50px;
 }
