@@ -69,11 +69,9 @@ export const validateDekkesOmradetAvSentralGodkjenning = () => (dispatch, getSta
         return ansvarsomraade.dekkesOmradetAvSentralGodkjenning === undefined && ansvarsomraade.funksjonKode !== "SØK";
     });
 
-    const isValid = !hasMissingDekkesOmradetAvSentralGodkjenning;
-
     dispatch(updateIsValidated(true));
 
-    if (!isValid) {
+    if (hasMissingDekkesOmradetAvSentralGodkjenning && formData?.ansvarligForetak?.harSentralGodkjenning) {
         dispatch(addValidationMessage('dekkesOmradetAvSentralGodkjenning', 'Du må svare på om foretaket har sentral godkjenning for ansvarsområdet.'));
     } else {
         dispatch(removeValidationMessage('dekkesOmradetAvSentralGodkjenning'));
