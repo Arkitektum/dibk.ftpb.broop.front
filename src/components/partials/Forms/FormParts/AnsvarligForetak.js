@@ -7,6 +7,9 @@ import { Link } from 'react-router-dom';
 // DIBK Design
 import { Header, InputField, Label } from 'dibk-design';
 
+// Actions
+import { validateAnsvarligForetakKontaktpersonNavn } from 'actions/ValidationActions';
+
 // Helpers
 import { formatAddress } from 'helpers/formatHelpers';
 
@@ -132,10 +135,12 @@ class AnsvarligForetak extends Component {
                         <div className="print-flex-10">
                             <InputField
                                 id='foretak-kontaktperson-navn'
-                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonNavn') }}
+                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonNavn'); this.props.validateAnsvarligForetakKontaktpersonNavn() }}
                                 label="Navn"
                                 width="400px"
-                                defaultValue={foretak.kontaktpersonNavn || ''} />
+                                defaultValue={foretak.kontaktpersonNavn || ''}
+                                hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn?.length}
+                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn} />
                         </div>
                         <div className="print-flex-10">
                             <InputField
@@ -184,4 +189,12 @@ AnsvarligForetak.propTypes = {
     saveHandler: PropTypes.func.isRequired
 };
 
-export default connect(null, null)(AnsvarligForetak);
+const mapStateToProps = state => ({
+    validationMessages: state.validationMessages
+});
+
+const mapDispatchToProps = {
+    validateAnsvarligForetakKontaktpersonNavn
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AnsvarligForetak);

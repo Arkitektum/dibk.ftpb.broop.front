@@ -119,3 +119,21 @@ export const validateSamsvarKontrollCheckboxes = () => (dispatch, getState) => {
 }
 
 
+export const validateAnsvarligForetakKontaktpersonNavn = () => (dispatch, getState) => {
+    const kontaktpersonNavn = getState()?.selectedForm?.formData?.ansvarligForetak?.kontaktpersonNavn;
+
+    const hasKontaktpersonNavn = kontaktpersonNavn?.length > 0;
+    const kontaktpersonNavnIsTooLong = kontaktpersonNavn?.length > 100;
+
+    dispatch(updateIsValidated(true));
+
+    if (!hasKontaktpersonNavn) {
+        dispatch(addValidationMessage('ansvarligForetakKontaktpersonNavn', 'Du må fylle ut navnet til kontaktpersonen.'));
+    } else if(kontaktpersonNavnIsTooLong) {
+        dispatch(addValidationMessage('ansvarligForetakKontaktpersonNavn', 'Navnet kan ikke være lenger enn 100 tegn.'));
+    }
+    else {
+        dispatch(removeValidationMessage('ansvarligForetakKontaktpersonNavn'));
+    }
+}
+
