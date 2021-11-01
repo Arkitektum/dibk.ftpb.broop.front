@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { Header, InputField, Label } from 'dibk-design';
 
 // Actions
-import { validateAnsvarligForetakKontaktpersonNavn } from 'actions/ValidationActions';
+import { validateAnsvarligForetakKontaktpersonEpost, validateAnsvarligForetakKontaktpersonNavn } from 'actions/ValidationActions';
 
 // Helpers
 import { formatAddress } from 'helpers/formatHelpers';
@@ -163,11 +163,13 @@ class AnsvarligForetak extends Component {
                         <div className="print-flex-10">
                             <InputField
                                 id='foretak-kontaktperson-epost'
-                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonEpost') }}
+                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonEpost'); this.props.validateAnsvarligForetakKontaktpersonEpost(); }}
                                 label="E-post"
                                 defaultValue={foretak.kontaktpersonEpost || ''}
                                 width="400px"
-                                type='email' />
+                                type='email'
+                                hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonEpost?.length ? true : false}
+                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonEpost} />
                         </div>
                     </div>
                     {
@@ -194,6 +196,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+    validateAnsvarligForetakKontaktpersonEpost,
     validateAnsvarligForetakKontaktpersonNavn
 };
 

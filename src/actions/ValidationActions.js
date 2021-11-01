@@ -127,11 +127,31 @@ export const validateAnsvarligForetakKontaktpersonNavn = () => (dispatch, getSta
 
     if (!hasKontaktpersonNavn) {
         dispatch(addValidationMessage('ansvarligForetakKontaktpersonNavn', 'Du må fylle ut navnet til kontaktpersonen.'));
-    } else if(kontaktpersonNavnIsTooLong) {
+    } else if (kontaktpersonNavnIsTooLong) {
         dispatch(addValidationMessage('ansvarligForetakKontaktpersonNavn', 'Navnet kan ikke være lenger enn 100 tegn.'));
     }
     else {
         dispatch(removeValidationMessage('ansvarligForetakKontaktpersonNavn'));
+    }
+}
+
+export const validateAnsvarligForetakKontaktpersonEpost = () => (dispatch, getState) => {
+    const kontaktpersonEpost = getState()?.selectedForm?.formData?.ansvarligForetak?.kontaktpersonEpost;
+
+    const hasKontaktpersonEpost = kontaktpersonEpost?.length > 0;
+    const kontaktpersonEpostIsTooLong = kontaktpersonEpost?.length > 150;
+    const validEmailAddresRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const kontaktpersonEpostIsValid = kontaktpersonEpost?.length && validEmailAddresRegex.test(String(kontaktpersonEpost).toLowerCase());
+
+    if (!hasKontaktpersonEpost) {
+        dispatch(addValidationMessage('ansvarligForetakKontaktpersonEpost', 'Du må fylle ut e-postadressen til kontaktpersonen.'));
+    } else if (kontaktpersonEpostIsTooLong) {
+        dispatch(addValidationMessage('ansvarligForetakKontaktpersonEpost', 'E-postadressen kan ikke være lenger enn 150 tegn.'));
+    } else if (!kontaktpersonEpostIsValid) {
+        dispatch(addValidationMessage('ansvarligForetakKontaktpersonEpost', 'Har du skrevet riktig e-postadresse? Gyldig e-post skrives som navn@domene.no'));
+    }
+    else {
+        dispatch(removeValidationMessage('ansvarligForetakKontaktpersonEpost'));
     }
 }
 
