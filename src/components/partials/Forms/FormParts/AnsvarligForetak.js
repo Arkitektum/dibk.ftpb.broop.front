@@ -135,11 +135,11 @@ class AnsvarligForetak extends Component {
                         <div className="print-flex-10">
                             <InputField
                                 id='foretak-kontaktperson-navn'
-                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonNavn'); this.props.validateAnsvarligForetakKontaktpersonNavn() }}
+                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonNavn'); this.props.validateAnsvarligForetakKontaktpersonNavn(); }}
                                 label="Navn"
                                 width="400px"
                                 defaultValue={foretak.kontaktpersonNavn || ''}
-                                hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn?.length}
+                                hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn?.length ? true : false}
                                 errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn} />
                         </div>
                         <div className="print-flex-10">

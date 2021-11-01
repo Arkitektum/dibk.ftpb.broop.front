@@ -125,8 +125,6 @@ export const validateAnsvarligForetakKontaktpersonNavn = () => (dispatch, getSta
     const hasKontaktpersonNavn = kontaktpersonNavn?.length > 0;
     const kontaktpersonNavnIsTooLong = kontaktpersonNavn?.length > 100;
 
-    dispatch(updateIsValidated(true));
-
     if (!hasKontaktpersonNavn) {
         dispatch(addValidationMessage('ansvarligForetakKontaktpersonNavn', 'Du må fylle ut navnet til kontaktpersonen.'));
     } else if(kontaktpersonNavnIsTooLong) {
