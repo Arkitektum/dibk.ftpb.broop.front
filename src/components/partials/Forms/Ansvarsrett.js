@@ -10,6 +10,7 @@ import AnsvarIByggeProsjektList from 'components/partials/Forms/FormParts/Ansvar
 import EiendomByggestedList from 'components/partials/Forms/FormParts/EiendomByggestedList';
 import Erklaering from 'components/partials/Forms/FormParts/Erklaering';
 import AnsvarligForetak from 'components/partials/Forms/FormParts/AnsvarligForetak';
+import ContactInfo from 'components/partials/ContactInfo';
 
 // Actions
 import { updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
@@ -58,6 +59,9 @@ class Ansvarsrett extends Component {
                             )
                             : ''
                     }
+                    <div className={`${commonStyle.marginTopSmall} ${commonStyle.marginBottomSmall}`}>
+                        <ContactInfo />
+                    </div>
                     {
                         isPrint
                             ? (
