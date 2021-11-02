@@ -1,6 +1,6 @@
 @import "../../../style/abstracts/_all.scss";
 
-:local(.fieldSection){
+:local(.fieldSection) {
     margin-bottom: 20px;
 }
 
@@ -77,8 +77,9 @@
 }
 
 :local(.warningMessage) {
-    background-color: #fff0c1;
-    padding: 10px;
+    background-color: #9d2024;
+    color: #fff;
+    padding: 8px 16px;
     display: inline-block;
     font-style: normal;
     font-weight: normal;
