@@ -165,6 +165,19 @@ class AnsvarligForetak extends Component {
                         </div>
                         <div className="print-flex-10">
                             <InputField
+                                id='foretak-kontaktperson-mobilnummer'
+                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonMobilnummer'); this.props.validateAnsvarligForetakKontaktpersonTelefonnummer(); }}
+                                label='Mobil'
+                                defaultValue={foretak.kontaktpersonMobilnummer || ''}
+                                defaultContent="Ikke angitt"
+                                width="200px"
+                                type='tel'
+                                hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer?.length ? true : false}
+                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer}
+                                contentOnly={!this.state.editableKontaktpersonFields} />
+                        </div>
+                        <div className="print-flex-10">
+                            <InputField
                                 id='foretak-kontaktperson-telefonnummer'
                                 onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonTelefonnummer'); this.props.validateAnsvarligForetakKontaktpersonTelefonnummer(); }}
                                 label='Telefon'
@@ -174,18 +187,6 @@ class AnsvarligForetak extends Component {
                                 type='tel'
                                 hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer?.length ? true : false}
                                 errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer}
-                                contentOnly={!this.state.editableKontaktpersonFields} />
-                        </div>
-                        <div className="print-flex-10">
-                            <InputField
-                                id='foretak-kontaktperson-mobilnummer'
-                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonMobilnummer'); this.props.validateAnsvarligForetakKontaktpersonTelefonnummer(); }}
-                                label='Mobil'
-                                defaultValue={foretak.kontaktpersonMobilnummer || ''}
-                                width="200px"
-                                type='tel'
-                                hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer?.length ? true : false}
-                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer}
                                 contentOnly={!this.state.editableKontaktpersonFields} />
                         </div>
                         <div className="print-flex-10">
