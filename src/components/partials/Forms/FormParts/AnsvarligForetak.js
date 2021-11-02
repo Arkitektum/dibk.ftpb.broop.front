@@ -19,6 +19,12 @@ import commonStyle from 'components/routes/common.module.scss';
 
 class AnsvarligForetak extends Component {
 
+    componentDidMount() {
+        this.props.validateAnsvarligForetakKontaktpersonEpost();
+        this.props.validateAnsvarligForetakKontaktpersonNavn();
+        this.props.validateAnsvarligForetakKontaktpersonTelefonnummer();
+    }
+
     handleUpdate(value, property) {
         let updatedForetak = this.props.foretak;
         updatedForetak[property] = value;
