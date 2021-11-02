@@ -25,7 +25,7 @@ import { fetchSubmission } from 'actions/SubmissionActions';
 import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 import { updateSignedStatus } from 'actions/SigningActions';
 import { convertSelectedFormToPDF } from 'actions/PrintActions';
-import { validateErklaeringCheckboxes, validateAnsvarsomraadeTiltaksklasse, validateDekkesOmradetAvSentralGodkjenning, validateSamsvarKontrollCheckboxes } from 'actions/ValidationActions';
+import { validateErklaeringCheckboxes, validateAnsvarsomraadeTiltaksklasse, validateDekkesOmradetAvSentralGodkjenning, validateSamsvarKontrollCheckboxes, validateAnsvarligForetakKontaktpersonEpost, validateAnsvarligForetakKontaktpersonNavn, validateAnsvarligForetakKontaktpersonTelefonnummer } from 'actions/ValidationActions';
 
 // Helpers
 import { getEnvironmentVariable } from 'helpers/environmentVariableHelpers';
@@ -202,6 +202,9 @@ class Form extends Component {
     this.props.validateAnsvarsomraadeTiltaksklasse();
     this.props.validateDekkesOmradetAvSentralGodkjenning();
     this.props.validateSamsvarKontrollCheckboxes();
+    this.props.validateAnsvarligForetakKontaktpersonEpost();
+    this.props.validateAnsvarligForetakKontaktpersonNavn();
+    this.props.validateAnsvarligForetakKontaktpersonTelefonnummer();
   }
 
 
@@ -314,7 +317,10 @@ const mapDispatchToProps = {
   validateErklaeringCheckboxes,
   validateAnsvarsomraadeTiltaksklasse,
   validateDekkesOmradetAvSentralGodkjenning,
-  validateSamsvarKontrollCheckboxes
+  validateSamsvarKontrollCheckboxes,
+  validateAnsvarligForetakKontaktpersonEpost,
+  validateAnsvarligForetakKontaktpersonNavn,
+  validateAnsvarligForetakKontaktpersonTelefonnummer
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
