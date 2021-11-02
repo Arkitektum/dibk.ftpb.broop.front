@@ -47,7 +47,7 @@ class Ansvarsrett extends Component {
                     {
                         !isPrint
                             ? (
-                                <div className={commonStyle.paragraphGroup}>
+                                <div className={commonStyle.ingress}>
                                     <p>Dette er en erklæring om ansvarsrett{formatProjectNameForForm(form)}.</p>
                                     {
                                         form?.signeringsfrist
