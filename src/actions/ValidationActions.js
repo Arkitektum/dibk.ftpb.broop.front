@@ -153,3 +153,48 @@ export const validateAnsvarligForetakKontaktpersonEpost = () => (dispatch, getSt
     }
 }
 
+export const validateAnsvarligForetakKontaktpersonTelefonnummer = () => (dispatch, getState) => {
+    const kontaktpersonTelefonnummer = getState()?.selectedForm?.formData?.ansvarligForetak?.kontaktpersonTelefonnummer;
+    const kontaktpersonMobilnummer = getState()?.selectedForm?.formData?.ansvarligForetak?.kontaktpersonMobilnummer;
+
+    const hasKontaktpersonTelefonnummer = kontaktpersonTelefonnummer?.length > 0;
+    const hasKontaktpersonMobilnummer = kontaktpersonMobilnummer?.length > 0;
+
+    const kontaktpersonTelefonnummerIsTooLong = kontaktpersonTelefonnummer?.replace(/\s+/g, '').length > 20;
+    const kontaktpersonMobilnummerIsTooLong = kontaktpersonMobilnummer?.replace(/\s+/g, '').length > 20;
+
+    const numberFormatRegex = /^(?=.*[0-9])[- +()0-9]+$/;
+    const kontaktpersonTelefonnummerIsCorrectlyFormatted = numberFormatRegex.test(String(kontaktpersonTelefonnummer).toLowerCase()) || !kontaktpersonTelefonnummer;
+    const kontaktpersonMobilnummerIsCorrectlyFormatted = numberFormatRegex.test(String(kontaktpersonMobilnummer).toLowerCase()) || !kontaktpersonMobilnummer;
+
+    const kontaktpersonTelefonnummerIsValid = (hasKontaktpersonMobilnummer || hasKontaktpersonTelefonnummer) && !kontaktpersonTelefonnummerIsTooLong && kontaktpersonTelefonnummerIsCorrectlyFormatted;
+    const kontaktpersonMobilnummerIsValid = (hasKontaktpersonMobilnummer || hasKontaktpersonTelefonnummer) && !kontaktpersonMobilnummerIsTooLong && kontaktpersonMobilnummerIsCorrectlyFormatted;
+
+    if (!hasKontaktpersonTelefonnummer && !hasKontaktpersonMobilnummer) {
+        dispatch(addValidationMessage('ansvarligForetakKontaktpersonTelefonnummer', 'Du må fylle ut telefonnummeret eller mobilnummeret til kontaktpersonen.'));
+        dispatch(addValidationMessage('ansvarligForetakKontaktpersonMobilnummer', 'Du må fylle ut telefonnummeret eller mobilnummeret til kontaktpersonen.'));
+    }
+
+    if (kontaktpersonTelefonnummerIsTooLong) {
+        dispatch(addValidationMessage('ansvarligForetakKontaktpersonTelefonnummer', 'Telefonnummeret kan ikke være lenger enn 20 tegn.'));
+    }
+    if (kontaktpersonMobilnummerIsTooLong) {
+        dispatch(addValidationMessage('ansvarligForetakKontaktpersonMobilnummer', 'Telefonnummeret kan ikke være lenger enn 20 tegn.'));
+    }
+
+    if (!kontaktpersonTelefonnummerIsCorrectlyFormatted) {
+        dispatch(addValidationMessage('ansvarligForetakKontaktpersonTelefonnummer', 'Har du skrevet riktig telefonnummer? Gyldig telefonnummer består av tall og +.'));
+    }
+    if (!kontaktpersonMobilnummerIsCorrectlyFormatted) {
+        dispatch(addValidationMessage('ansvarligForetakKontaktpersonMobilnummer', 'Har du skrevet riktig telefonnummer? Gyldig telefonnummer består av tall og +.'));
+    }
+
+    if (kontaktpersonTelefonnummerIsValid) {
+        dispatch(removeValidationMessage('ansvarligForetakKontaktpersonTelefonnummer'));
+    }
+    if (kontaktpersonMobilnummerIsValid) {
+        dispatch(removeValidationMessage('ansvarligForetakKontaktpersonMobilnummer'));
+    }
+}
+
+

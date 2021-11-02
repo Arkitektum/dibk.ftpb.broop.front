@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { Header, InputField, Label } from 'dibk-design';
 
 // Actions
-import { validateAnsvarligForetakKontaktpersonEpost, validateAnsvarligForetakKontaktpersonNavn } from 'actions/ValidationActions';
+import { validateAnsvarligForetakKontaktpersonEpost, validateAnsvarligForetakKontaktpersonNavn, validateAnsvarligForetakKontaktpersonTelefonnummer } from 'actions/ValidationActions';
 
 // Helpers
 import { formatAddress } from 'helpers/formatHelpers';
@@ -145,20 +145,24 @@ class AnsvarligForetak extends Component {
                         <div className="print-flex-10">
                             <InputField
                                 id='foretak-kontaktperson-telefonnummer'
-                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonTelefonnummer') }}
+                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonTelefonnummer'); this.props.validateAnsvarligForetakKontaktpersonTelefonnummer(); }}
                                 label='Telefon'
                                 defaultValue={foretak.kontaktpersonTelefonnummer || ''}
                                 width="200px"
-                                type='tel' />
+                                type='tel'
+                                hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer?.length ? true : false}
+                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer} />
                         </div>
                         <div className="print-flex-10">
                             <InputField
                                 id='foretak-kontaktperson-mobilnummer'
-                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonMobilnummer') }}
-                                label='Mobiltelefon'
+                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonMobilnummer'); this.props.validateAnsvarligForetakKontaktpersonTelefonnummer(); }}
+                                label='Mobil'
                                 defaultValue={foretak.kontaktpersonMobilnummer || ''}
                                 width="200px"
-                                type='tel' />
+                                type='tel'
+                                hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer?.length ? true : false}
+                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer} />
                         </div>
                         <div className="print-flex-10">
                             <InputField
@@ -197,7 +201,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     validateAnsvarligForetakKontaktpersonEpost,
-    validateAnsvarligForetakKontaktpersonNavn
+    validateAnsvarligForetakKontaktpersonNavn,
+    validateAnsvarligForetakKontaktpersonTelefonnummer
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AnsvarligForetak);
