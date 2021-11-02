@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // DIBK Design
-import { Header, InputField, Label } from 'dibk-design';
+import { Button, Header, InputField, Label } from 'dibk-design';
 
 // Actions
 import { validateAnsvarligForetakKontaktpersonEpost, validateAnsvarligForetakKontaktpersonNavn, validateAnsvarligForetakKontaktpersonTelefonnummer } from 'actions/ValidationActions';
@@ -130,9 +130,7 @@ class AnsvarligForetak extends Component {
                         !isPrint
                             ? <div className={commonStyle.infoBox}>
                                 <p>Opplysningene er lagt inn av ansvarlig søker eller hentet fra register for sentral godkjenning.</p>
-                                <Link to="avvis" title='Avvis erklæring'>
-                                    Meld fra til ansvarlig søker hvis du oppdager noe feil
-                                </Link>
+                                <p>Vil du melde en feil til ansvarlig søker? <Link to="avvis" title='Avvis erklæring'><Button content="Meld om feil" size="small" /></Link></p>
                             </div>
                             : ''
                     }

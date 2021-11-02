@@ -41,7 +41,7 @@
         color: #072938;
         line-height: 1.7;
     }
-    :local(.boxList){
+    :local(.boxList) {
         font-family: "Open Sans", sans-serif;
         color: #000;
         overflow-wrap: break-word;
@@ -58,7 +58,6 @@
     }
     a {
         margin-top: 5px;
-        display: block;
     }
 }
 
