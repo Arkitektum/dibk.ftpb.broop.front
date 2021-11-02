@@ -26,7 +26,21 @@ class AnsvarligForetak extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidMount() {
+        const foretak = this.props.foretak;
+        const allForetakKontaktpersonFieldsHasValue = [
+            foretak?.kontaktpersonNavn?.length,
+            foretak?.kontaktpersonMobilnummer?.length || foretak?.kontaktpersonTelefonnummer?.length,
+            foretak?.kontaktpersonEpost?.length
+        ].every(condition => condition);
+        if (!allForetakKontaktpersonFieldsHasValue) {
+            this.setState({
+                editableKontaktpersonFields: true
+            });
+        }
+    }
+
+    componentDidUpdate() {
         const hasForetakKontaktpersonErrors = [
             this.props.validationMessages?.ansvarligForetakKontaktpersonNavn?.length,
             this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer?.length,
