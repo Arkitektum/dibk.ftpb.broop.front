@@ -158,6 +158,7 @@ class AnsvarligForetak extends Component {
                                 label="Navn"
                                 width="400px"
                                 defaultValue={foretak.kontaktpersonNavn || ''}
+                                defaultContent="Ikke angitt"
                                 hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn?.length ? true : false}
                                 errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn}
                                 contentOnly={!this.state.editableKontaktpersonFields} />
@@ -168,6 +169,7 @@ class AnsvarligForetak extends Component {
                                 onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonTelefonnummer'); this.props.validateAnsvarligForetakKontaktpersonTelefonnummer(); }}
                                 label='Telefon'
                                 defaultValue={foretak.kontaktpersonTelefonnummer || ''}
+                                defaultContent="Ikke angitt"
                                 width="200px"
                                 type='tel'
                                 hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer?.length ? true : false}
@@ -192,6 +194,7 @@ class AnsvarligForetak extends Component {
                                 onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonEpost'); this.props.validateAnsvarligForetakKontaktpersonEpost(); }}
                                 label="E-post"
                                 defaultValue={foretak.kontaktpersonEpost || ''}
+                                defaultContent="Ikke angitt"
                                 width="400px"
                                 type='email'
                                 hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonEpost?.length ? true : false}
