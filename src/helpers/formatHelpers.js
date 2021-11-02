@@ -41,7 +41,7 @@ export const formatDate = timestamp => {
 export const formatProjectNameForForm = form => {
     let projectName = '';
     if (form?.formData?.prosjektnavn) {
-      projectName += ` for ${form.formData.prosjektnavn}`;
+      projectName += ` ${form.formData.prosjektnavn}`;
     } else if (form?.formData?.eiendomByggesteder?.[0]?.adresselinje1) {
       projectName += ` for ${form.formData.eiendomByggesteder[0].adresselinje1}`;
     }

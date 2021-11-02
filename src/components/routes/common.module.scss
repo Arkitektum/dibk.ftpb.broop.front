@@ -22,7 +22,7 @@
 
 :local(.ingress) {
     font-family: "Altis", sans-serif;
-    font-size: 20px;
+    font-size: 22px;
     p {
         margin: 4px 0;
     }
@@ -61,8 +61,16 @@
     }
 }
 
+:local(.marginTopSmall) {
+    margin-top: 25px;
+}
+
 :local(.marginTop) {
     margin-top: 50px;
+}
+
+:local(.marginBottomSmall) {
+    margin-bottom: 25px;
 }
 
 :local(.marginBottom) {

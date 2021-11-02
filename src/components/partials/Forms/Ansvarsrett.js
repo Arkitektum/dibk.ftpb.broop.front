@@ -48,15 +48,10 @@ class Ansvarsrett extends Component {
                         !isPrint
                             ? (
                                 <div className={commonStyle.ingress}>
-                                    <p>Dette er en erklæring om ansvarsrett{formatProjectNameForForm(form)}.</p>
+                                    <p>Erklæringen gjelder {formatProjectNameForForm(form)}.</p>
                                     {
                                         form?.signeringsfrist
-                                            ? <p>Frist for signering er {formatDate(form.signeringsfrist)}. Etter fristen er det ikke lenger mulig å signere erklæringen.</p>
-                                            : ''
-                                    }
-                                    {
-                                        form?.formData?.ansvarligSoeker?.navn
-                                            ? (<p>Etter signering blir erklæringen sendt til {form.formData.ansvarligSoeker.navn}, som er ansvarlig søker.</p>)
+                                            ? <p>Frist for signering er {formatDate(form.signeringsfrist)}.</p>
                                             : ''
                                     }
                                 </div>
