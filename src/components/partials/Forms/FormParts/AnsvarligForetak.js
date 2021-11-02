@@ -19,10 +19,25 @@ import commonStyle from 'components/routes/common.module.scss';
 
 class AnsvarligForetak extends Component {
 
-    componentDidMount() {
-        this.props.validateAnsvarligForetakKontaktpersonEpost();
-        this.props.validateAnsvarligForetakKontaktpersonNavn();
-        this.props.validateAnsvarligForetakKontaktpersonTelefonnummer();
+    constructor(props) {
+        super(props);
+        this.state = {
+            editableKontaktpersonFields: false
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        const hasForetakKontaktpersonErrors = [
+            this.props.validationMessages?.ansvarligForetakKontaktpersonNavn?.length,
+            this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer?.length,
+            this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer?.length,
+            this.props.validationMessages?.ansvarligForetakKontaktpersonEpost?.length
+        ].some(condition => condition);
+        if (hasForetakKontaktpersonErrors && !this.state.editableKontaktpersonFields) {
+            this.setState({
+                editableKontaktpersonFields: true
+            });
+        }
     }
 
     handleUpdate(value, property) {
@@ -144,7 +159,8 @@ class AnsvarligForetak extends Component {
                                 width="400px"
                                 defaultValue={foretak.kontaktpersonNavn || ''}
                                 hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn?.length ? true : false}
-                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn} />
+                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn}
+                                contentOnly={!this.state.editableKontaktpersonFields} />
                         </div>
                         <div className="print-flex-10">
                             <InputField
@@ -155,7 +171,8 @@ class AnsvarligForetak extends Component {
                                 width="200px"
                                 type='tel'
                                 hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer?.length ? true : false}
-                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer} />
+                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer}
+                                contentOnly={!this.state.editableKontaktpersonFields} />
                         </div>
                         <div className="print-flex-10">
                             <InputField
@@ -166,7 +183,8 @@ class AnsvarligForetak extends Component {
                                 width="200px"
                                 type='tel'
                                 hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer?.length ? true : false}
-                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer} />
+                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer}
+                                contentOnly={!this.state.editableKontaktpersonFields} />
                         </div>
                         <div className="print-flex-10">
                             <InputField
@@ -177,12 +195,18 @@ class AnsvarligForetak extends Component {
                                 width="400px"
                                 type='email'
                                 hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonEpost?.length ? true : false}
-                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonEpost} />
+                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonEpost}
+                                contentOnly={!this.state.editableKontaktpersonFields} />
                         </div>
                     </div>
                     {
-                        !isPrint
-                            ? <div className={commonStyle.infoBox}>Opplysningene er lagt inn av ansvarlig søker. Du kan endre navn, telefon og e-post til kontaktpersonen.</div>
+                        !isPrint && !this.state.editableKontaktpersonFields
+                            ? (
+                                <div className={commonStyle.infoBox}>
+                                    <p>Opplysningene er lagt inn av ansvarlig søker.</p>
+                                    <p>Vil du endre opplysningene om kontaktpersonen? <Button content="Endre" size="small" onClick={() => { this.setState({ editableKontaktpersonFields: true }) }} /></p>
+                                </div>
+                            )
                             : ''
                     }
                 </React.Fragment>
