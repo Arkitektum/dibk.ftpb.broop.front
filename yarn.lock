@@ -4136,9 +4136,9 @@ detect-port-alt@1.1.6:
     debug "^2.6.0"
 
 dibk-design@^0.4.0:
-  version "0.4.22"
-  resolved "https://registry.yarnpkg.com/dibk-design/-/dibk-design-0.4.22.tgz#cd03b8ddcd02322a647727bc4cd683a675db85ea"
-  integrity sha512-ZtboGYh8+83b6My4vZA6Rou0nYZ+yxCOcPKJAyXbLQ77sOJXB0+1Wg0KTm2cH88oDa7fLE9BX9WkMLb9/Clzeg==
+  version "0.4.23"
+  resolved "https://registry.yarnpkg.com/dibk-design/-/dibk-design-0.4.23.tgz#2e05d62a0adf673e519239a954ab947ef4e28710"
+  integrity sha512-tSw0/CEBZemO2rmMBRy9rGCSGL6PkiyDWeRP8VZVjdxg35Q4nHSAY0QCZSx/PHZ5D1UQX3JbTPq42V0jdvJ3eg==
   dependencies:
     prop-types "^15.6.2"
     react "^17.0.1"
