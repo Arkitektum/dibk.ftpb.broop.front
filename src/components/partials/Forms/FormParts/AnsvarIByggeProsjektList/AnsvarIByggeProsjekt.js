@@ -11,6 +11,7 @@ import { updateIsValidated } from 'actions/ValidationActions';
 
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
+import commonStyle from 'components/routes/common.module.scss'
 
 class AnsvarIByggeProsjekt extends Component {
 
@@ -96,7 +97,7 @@ class AnsvarIByggeProsjekt extends Component {
             accordionTitle += ` (tiltaksklasse ${ansvarsomraade.tiltaksklasseKode})`;
         }
         return (
-            <div key={index} className={formsStyle.accordionItem}>
+            <div key={index} className={commonStyle.marginBottomSmall}>
                 <Accordion title={accordionTitle} expanded color="lightLime">
                     <div className={formsStyle.fieldSection}>
                         {

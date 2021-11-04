@@ -61,15 +61,6 @@
     }
 }
 
-:local(.accordionItem) {
-    margin-bottom: 20px;
-    :local(.fieldset) {
-        background-color: transparent;
-        padding: 16px 0 0;
-        margin: 0;
-    }
-}
-
 :local(.cleanList) {
     list-style: none;
     padding: 0;
