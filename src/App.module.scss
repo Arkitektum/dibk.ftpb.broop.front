@@ -1,0 +1,11 @@
+@import "./style/abstracts/_all.scss";
+
+:local(.appContainer) {
+    position: absolute;
+    height: calc(100% - 54px);
+    overflow-y: scroll;
+    width: 100%;
+    @media only screen and (min-width: 641px) {
+        height: calc(100% - 73px);
+    }
+}

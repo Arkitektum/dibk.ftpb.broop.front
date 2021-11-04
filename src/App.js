@@ -31,6 +31,9 @@ import SnackbarContainer from 'components/template/SnackbarContainer';
 // Actions
 //import { convertSelectedFormToPDF } from 'actions/PrintActions';
 
+// Stylesheets
+import style from 'App.module.scss';
+
 /* eslint import/no-webpack-loader-syntax: off */
 import printStyle from '!!raw-loader!sass-loader!./print.scss';
 
@@ -109,23 +112,25 @@ class App extends Component {
               {
                 !isPrint && showPreviewPdfButton ? (<button onClick={() => renderHtmlString()}>Preview PDF</button>) : ''
               }
-              <Switch>
-                <Route exact path="/signin-oidc" render={() => (<OidcCallback userManager={userManager} />)} />
-                <Route exact path="/signout-callback-oidc" render={() => (<OidcSignoutCallback userManager={userManager} />)} />
-                <Route exact={true} path="/skjema/:submissionId/utlogget" render={(props) => (<SignedOut {...props} />)} />
-                <Route exact={true} path="/skjema/:submissionId/signert" render={(props) => (<Receipt {...props} status="signert" />)} />
-                <Route exact={true} path="/skjema/:submissionId/signatur-avvist" render={(props) => (<Receipt {...props} status="avvist" />)} />
-                <Route exact={true} path="/skjema/:submissionId/signatur-error" render={(props) => (<Receipt {...props} status="error" />)} />
-                <Route exact={true} path="/skjema/:submissionId/avvis" render={(props) => (<Form {...props} showRejectModal />)} />
-                <Route exact={true} path="/skjema/:submissionId/rediger" render={(props) => (<Form {...props} />)} />
-                <Route exact={true} path="/skjema/:submissionId" render={(props) => (<Home userManager={userManager} {...props} />)} />
-                <Route exact={true} path="/skjema" render={(props) => (<Home userManager={userManager} {...props} />)} />
-                <Route exact={true} path="/" render={(props) => (<Home userManager={userManager} {...props} />)} />
-                <Route render={() => (<NotFound />)} />
-              </Switch>
-              {
-                !isPrint ? (<Footer />) : ''
-              }
+              <div className={style.appContainer}>
+                <Switch>
+                  <Route exact path="/signin-oidc" render={() => (<OidcCallback userManager={userManager} />)} />
+                  <Route exact path="/signout-callback-oidc" render={() => (<OidcSignoutCallback userManager={userManager} />)} />
+                  <Route exact={true} path="/skjema/:submissionId/utlogget" render={(props) => (<SignedOut {...props} />)} />
+                  <Route exact={true} path="/skjema/:submissionId/signert" render={(props) => (<Receipt {...props} status="signert" />)} />
+                  <Route exact={true} path="/skjema/:submissionId/signatur-avvist" render={(props) => (<Receipt {...props} status="avvist" />)} />
+                  <Route exact={true} path="/skjema/:submissionId/signatur-error" render={(props) => (<Receipt {...props} status="error" />)} />
+                  <Route exact={true} path="/skjema/:submissionId/avvis" render={(props) => (<Form {...props} showRejectModal />)} />
+                  <Route exact={true} path="/skjema/:submissionId/rediger" render={(props) => (<Form {...props} />)} />
+                  <Route exact={true} path="/skjema/:submissionId" render={(props) => (<Home userManager={userManager} {...props} />)} />
+                  <Route exact={true} path="/skjema" render={(props) => (<Home userManager={userManager} {...props} />)} />
+                  <Route exact={true} path="/" render={(props) => (<Home userManager={userManager} {...props} />)} />
+                  <Route render={() => (<NotFound />)} />
+                </Switch>
+                {
+                  !isPrint ? (<Footer />) : ''
+                }
+              </div>
               <SnackbarContainer />
             </BrowserRouter>
           </ConnectedRouter>
