@@ -1,6 +1,6 @@
 {
   "name": "dibk-ftb-broop-front",
-  "version": "0.1.72",
+  "version": "0.1.73",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
