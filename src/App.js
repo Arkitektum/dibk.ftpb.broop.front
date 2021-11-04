@@ -7,6 +7,11 @@ import { BrowserRouter } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import WebFont from 'webfontloader';
 import { renderToStaticMarkup } from 'react-dom/server'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faEdit,
+  faTimes
+} from '@fortawesome/free-solid-svg-icons';
 
 // Utils
 import configureStore, { history } from 'utils/configureStore';
@@ -43,6 +48,11 @@ WebFont.load({
     families: ['Roboto:400,700&display=swap']
   }
 });
+
+library.add(
+  faEdit,
+  faTimes
+);
 
 const initialState = {};
 const storePromise = configureStore(initialState, userManagerPromise);
