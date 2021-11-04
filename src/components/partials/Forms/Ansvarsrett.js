@@ -95,6 +95,11 @@ class Ansvarsrett extends Component {
                     <div className="page-break"></div>
                     <Paper>
                         <Header content="Ansvar i byggeprosjektet" size={2}></Header>
+                        {
+                            !isPrint
+                                ? <div className={commonStyle.marginBottomSmall}>Ansvarlig søker har foreslått noen opplysninger, men du kan endre eller oppdatere beskrivelsen og valgene.</div>
+                                : ''
+                        }
                         <AnsvarIByggeProsjektList
                             ansvarsomraader={formData.ansvarsomraader}
                             updateHandler={ansvarsomraader => this.updateFormDataField(ansvarsomraader, 'ansvarsomraader')}
@@ -104,6 +109,11 @@ class Ansvarsrett extends Component {
                     <div className="page-break"></div>
                     <Paper>
                         <Header content="Erklæring" size={2}></Header>
+                        {
+                            !isPrint
+                                ? <div className={commonStyle.marginBottomSmall}>Vi er kjent med reglene om straff og sanksjoner i plan- og bygningsloven kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger. Vi forplikter oss å stille med riktig kompetanse i byggeprosjekt, jf. SAK10 kapittel 10 og 11.</div>
+                                : ''
+                        }
                         <div className="gray-container-on-print">
                             <Erklaering
                                 formData={formData}
@@ -111,6 +121,11 @@ class Ansvarsrett extends Component {
                                 saveHandler={() => this.props.saveSelectedForm(this.props.selectedForm, accessToken)}
                             />
                         </div>
+                        {
+                            !isPrint
+                                ? <div className={commonStyle.marginTopSmall}>Jeg bekrefter at jeg har rett til å signere på vegne av foretaket slik at foretaket er fullt ut forpliktet til innholdet i erklæringen.</div>
+                                : ''
+                        }
                     </Paper>
                 </React.Fragment>)
             : (
