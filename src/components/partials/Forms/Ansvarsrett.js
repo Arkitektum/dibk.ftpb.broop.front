@@ -75,12 +75,14 @@ class Ansvarsrett extends Component {
 
                     <Paper>
                         <Header content={isPrint ? 'Erklæringen gjelder' : 'Eiendom/Byggested'} size={2}></Header>
+                        {
+                            !isPrint
+                                ? <div className={commonStyle.marginBottomSmall}>Trykk på eiendommen for å se detaljer om byggestedet.</div>
+                                : ''
+                        }
                         <EiendomByggestedList
                             eiendomByggesteder={formData.eiendomByggesteder}
                         />
-                        {
-                            !isPrint ? <p>Trykk på eiendommen for å se detaljer om byggestedet.</p> : ''
-                        }
                     </Paper>
                     <Paper>
                         <Header content="Ansvarlig foretak" size={2}></Header>
