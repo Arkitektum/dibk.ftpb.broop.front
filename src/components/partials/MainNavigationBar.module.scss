@@ -1,4 +1,9 @@
-:local(.buttonContainer) {
+:local(.rightContainer) {
     display: flex;
     justify-content: right;
+    margin-right: 12px;
+    :local(.snackbarMessage) {
+        line-height: 33px;
+        margin-right: 12px;
+    }
 }

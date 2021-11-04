@@ -17,7 +17,7 @@ class MainNavigationBar extends Component {
 
   handleLogoutClick(event) {
     event.preventDefault();
-    this.props.userManager.signoutRedirect({ 
+    this.props.userManager.signoutRedirect({
       'id_token_hint': this.props.user.id_token,
       'state': { signoutRedirectPath: `/skjema/${this.props.selectedForm?.referanseId}/utlogget` }
     });
@@ -30,7 +30,8 @@ class MainNavigationBar extends Component {
         {
           this.props.user
             ? (
-              <div className={style.buttonContainer}>
+              <div className={style.rightContainer}>
+                <span className={style.snackbarMessage}>{this.props.snackbarMessage}</span>
                 <Button content="Logg ut" size="small" onClick={this.handleLogoutClick} />
               </div>
             )
@@ -43,7 +44,9 @@ class MainNavigationBar extends Component {
 
 const mapStateToProps = state => ({
   user: state.oidc.user,
-  selectedForm: state.selectedForm
+  selectedForm: state.selectedForm,
+  snackbarMessage: state.snackbarMessage,
+  snackbarVisible: state.snackbarVisible
 });
 
 export default connect(mapStateToProps, null)(MainNavigationBar);
