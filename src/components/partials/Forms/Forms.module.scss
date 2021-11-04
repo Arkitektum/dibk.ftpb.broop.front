@@ -32,6 +32,33 @@
     }
 }
 
+:local(.showEditableOnHover) {
+    margin: -8px;
+    padding: 8px;
+    transition: background-color 0.2s ease-in-out 0s, border-color 0.2s ease-in-out 0s;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    border: 2px dashed #ccc;
+    :local(.showEditableIcon) {
+        transition: color 0.2s ease-in-out 0s;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 6px 11px;
+        color: #ccc;
+    }
+    &:hover,
+    &:focus,
+    &:local(.active) {
+        background-color: rgba(255, 255, 255, 0.8);
+        :local(.showEditableIcon) {
+            opacity: 1;
+            color: #072938;
+        }
+    }
+}
+
 :local(.buttonRow) {
     margin: 5px 0;
     display: flex;

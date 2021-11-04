@@ -2,10 +2,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // DIBK Design
-import { Button, Header, InputField, Label } from 'dibk-design';
+import { Accordion, InputField, Label } from 'dibk-design';
 
 // Actions
 import { validateAnsvarligForetakKontaktpersonEpost, validateAnsvarligForetakKontaktpersonNavn, validateAnsvarligForetakKontaktpersonTelefonnummer } from 'actions/ValidationActions';
@@ -41,17 +41,20 @@ class AnsvarligForetak extends Component {
     }
 
     componentDidUpdate() {
-        const hasForetakKontaktpersonErrors = [
+        if (this.hasForetakKontaktpersonErrors() && !this.state.editableKontaktpersonFields) {
+            this.setState({
+                editableKontaktpersonFields: true
+            });
+        }
+    }
+
+    hasForetakKontaktpersonErrors() {
+        return [
             this.props.validationMessages?.ansvarligForetakKontaktpersonNavn?.length,
             this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer?.length,
             this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer?.length,
             this.props.validationMessages?.ansvarligForetakKontaktpersonEpost?.length
         ].some(condition => condition);
-        if (hasForetakKontaktpersonErrors && !this.state.editableKontaktpersonFields) {
-            this.setState({
-                editableKontaktpersonFields: true
-            });
-        }
     }
 
     handleUpdate(value, property) {
@@ -81,152 +84,155 @@ class AnsvarligForetak extends Component {
         return foretak && Object.keys(foretak).length
             ? (
                 <React.Fragment>
-                    {!isPrint ? <Header content={`${foretak.navn} (org.nr. ${foretak.organisasjonsnummer})`} size={3}></Header> : ''}
-
-                    <dl className={formsStyle.fieldList}>
-                        {
-                            isPrint
-                                ? (
-                                    <React.Fragment>
-                                        <div className="print-flex-66">
-                                            <dt><Label normalCursor>Navn</Label></dt>
-                                            <dd>{foretak.navn}</dd>
-                                        </div>
-                                        <div className="print-flex-33">
-                                            <dt><Label normalCursor>Organisasjonsnummer</Label>
-                                            </dt><dd>{foretak.organisasjonsnummer}</dd>
-                                        </div>
-                                    </React.Fragment>
-                                )
-                                : ''
-                        }
-                        {
-                            adresse?.length && !isPrint
-                                ? (
-                                    <div className="print-flex-33">
-                                        {adresse}
-                                    </div>
-                                )
-                                : ''
-                        }
-                        {
-                            isPrint
-                                ? (
-                                    <div className="print-flex-33">
-                                        <dt><Label normalCursor>Adresse</Label>
-                                        </dt><dd>{adresse}</dd>
-                                    </div>
-                                )
-                                : ''
-                        }
-                        {
-                            telefonNummerList.length
-                                ? (
-                                    <div className="print-flex-33">
-                                        <dt><Label normalCursor>Telefon</Label></dt>
-                                        <dd>
-                                            <ul className={formsStyle.cleanList}>
-                                                {
-                                                    telefonNummerList.map((nummer, index) => {
-                                                        return <li key={index}>{nummer}</li>
-                                                    })
-                                                }
-                                            </ul>
-                                        </dd>
-                                    </div>
-                                )
-                                : ''
-                        }
-                        {
-                            foretak.epost?.length
-                                ? (
-                                    <div className="print-flex-33">
-                                        <dt><Label normalCursor>E-post</Label></dt>
-                                        <dd>{foretak.epost}</dd>
-                                    </div>
-                                )
-                                : ''
-                        }
-                    </dl>
-
-                    <Label normalCursor>
-                        <b>
-                            Har foretaket sentral godkjenning?
-                        </b>
-                    </Label>
-                    {foretak.harSentralGodkjenning ? 'Ja' : 'Nei'}
                     {
                         !isPrint
-                            ? <div className={commonStyle.infoBox}>
-                                <p>Opplysningene er lagt inn av ansvarlig søker eller hentet fra register for sentral godkjenning.</p>
-                                <p>Vil du melde en feil til ansvarlig søker? <Link to="avvis" title='Avvis erklæring'><Button content="Meld om feil" size="small" /></Link></p>
-                            </div>
+                            ? <div className={commonStyle.marginBottomSmall}>Hvis du oppdager feil om foretaket, kan du melde inn dette nederst i skjemaet. Trykk på blyanten for å endre opplysningene om kontaktperson.</div>
                             : ''
                     }
-                    <Header size={3} content="Kontaktperson" />
-                    <div className={formsStyle.fieldList}>
-                        <div className="print-flex-10">
-                            <InputField
-                                id='foretak-kontaktperson-navn'
-                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonNavn'); this.props.validateAnsvarligForetakKontaktpersonNavn(); }}
-                                label="Navn"
-                                width="400px"
-                                defaultValue={foretak.kontaktpersonNavn || ''}
-                                defaultContent="Ikke angitt"
-                                hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn?.length ? true : false}
-                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn}
-                                contentOnly={!this.state.editableKontaktpersonFields} />
-                        </div>
-                        <div className="print-flex-10">
-                            <InputField
-                                id='foretak-kontaktperson-mobilnummer'
-                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonMobilnummer'); this.props.validateAnsvarligForetakKontaktpersonTelefonnummer(); }}
-                                label='Mobil'
-                                defaultValue={foretak.kontaktpersonMobilnummer || ''}
-                                defaultContent="Ikke angitt"
-                                width="200px"
-                                type='tel'
-                                hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer?.length ? true : false}
-                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer}
-                                contentOnly={!this.state.editableKontaktpersonFields} />
-                        </div>
-                        <div className="print-flex-10">
-                            <InputField
-                                id='foretak-kontaktperson-telefonnummer'
-                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonTelefonnummer'); this.props.validateAnsvarligForetakKontaktpersonTelefonnummer(); }}
-                                label='Telefon'
-                                defaultValue={foretak.kontaktpersonTelefonnummer || ''}
-                                defaultContent="Ikke angitt"
-                                width="200px"
-                                type='tel'
-                                hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer?.length ? true : false}
-                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer}
-                                contentOnly={!this.state.editableKontaktpersonFields} />
-                        </div>
-                        <div className="print-flex-10">
-                            <InputField
-                                id='foretak-kontaktperson-epost'
-                                onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonEpost'); this.props.validateAnsvarligForetakKontaktpersonEpost(); }}
-                                label="E-post"
-                                defaultValue={foretak.kontaktpersonEpost || ''}
-                                defaultContent="Ikke angitt"
-                                width="400px"
-                                type='email'
-                                hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonEpost?.length ? true : false}
-                                errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonEpost}
-                                contentOnly={!this.state.editableKontaktpersonFields} />
-                        </div>
+                    <div className={commonStyle.marginBottomSmall}>
+                        <Accordion title={`${foretak.navn} (org.nr. ${foretak.organisasjonsnummer})`} expanded color="lightLime">
+                            <dl className={formsStyle.fieldList}>
+                                {
+                                    isPrint
+                                        ? (
+                                            <React.Fragment>
+                                                <div className="print-flex-66">
+                                                    <dt><Label normalCursor>Navn</Label></dt>
+                                                    <dd>{foretak.navn}</dd>
+                                                </div>
+                                                <div className="print-flex-33">
+                                                    <dt><Label normalCursor>Organisasjonsnummer</Label>
+                                                    </dt><dd>{foretak.organisasjonsnummer}</dd>
+                                                </div>
+                                            </React.Fragment>
+                                        )
+                                        : ''
+                                }
+                                {
+                                    adresse?.length && !isPrint
+                                        ? (
+                                            <div className="print-flex-33">
+                                                {adresse}
+                                            </div>
+                                        )
+                                        : ''
+                                }
+                                {
+                                    isPrint
+                                        ? (
+                                            <div className="print-flex-33">
+                                                <dt><Label normalCursor>Adresse</Label>
+                                                </dt><dd>{adresse}</dd>
+                                            </div>
+                                        )
+                                        : ''
+                                }
+                                {
+                                    telefonNummerList.length
+                                        ? (
+                                            <div className="print-flex-33">
+                                                <dt><Label normalCursor>Telefon</Label></dt>
+                                                <dd>
+                                                    <ul className={formsStyle.cleanList}>
+                                                        {
+                                                            telefonNummerList.map((nummer, index) => {
+                                                                return <li key={index}>{nummer}</li>
+                                                            })
+                                                        }
+                                                    </ul>
+                                                </dd>
+                                            </div>
+                                        )
+                                        : ''
+                                }
+                                {
+                                    foretak.epost?.length
+                                        ? (
+                                            <div className="print-flex-33">
+                                                <dt><Label normalCursor>E-post</Label></dt>
+                                                <dd>{foretak.epost}</dd>
+                                            </div>
+                                        )
+                                        : ''
+                                }
+                            </dl>
+
+                            <Label normalCursor>
+                                <b>
+                                    Har foretaket sentral godkjenning?
+                                </b>
+                            </Label>
+                            {foretak.harSentralGodkjenning ? 'Ja' : 'Nei'}
+                        </Accordion>
                     </div>
-                    {
-                        !isPrint && !this.state.editableKontaktpersonFields
-                            ? (
-                                <div className={commonStyle.infoBox}>
-                                    <p>Opplysningene er lagt inn av ansvarlig søker.</p>
-                                    <p>Vil du endre opplysningene om kontaktpersonen? <Button content="Endre" size="small" onClick={() => { this.setState({ editableKontaktpersonFields: true }) }} /></p>
+                    <div className={commonStyle.marginBottomSmall}>
+                        <Accordion title="Kontaktperson" expanded color="lightLime">
+                            <div className={`${formsStyle.fieldList} ${formsStyle.showEditableOnHover} ${this.state.editableKontaktpersonFields ? formsStyle.active : ''}`} onClick={() => { if (!this.state.editableKontaktpersonFields) { this.setState({ editableKontaktpersonFields: true }) } }}>
+                                {
+                                    this.state.editableKontaktpersonFields
+                                        ? !this.hasForetakKontaktpersonErrors()
+                                            ? (
+                                                <span className={`${formsStyle.showEditableIcon} ${this.hasForetakKontaktpersonErrors() ? formsStyle.disabled : ''}`}>
+                                                    <FontAwesomeIcon icon='times' onClick={() => { this.setState({ editableKontaktpersonFields: false }) }} />
+                                                </span>
+                                            )
+                                            : ''
+                                        : <span className={formsStyle.showEditableIcon}><FontAwesomeIcon icon='edit' /></span>
+                                }
+                                <div className="print-flex-10">
+                                    <InputField
+                                        id='foretak-kontaktperson-navn'
+                                        onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonNavn'); this.props.validateAnsvarligForetakKontaktpersonNavn(); }}
+                                        label={this.state.editableKontaktpersonFields ? 'Navn' : ''}
+                                        width="400px"
+                                        defaultValue={foretak.kontaktpersonNavn || ''}
+                                        defaultContent="Ikke angitt"
+                                        hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn?.length ? true : false}
+                                        errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn}
+                                        contentOnly={!this.state.editableKontaktpersonFields} />
                                 </div>
-                            )
-                            : ''
-                    }
+                                <div className="print-flex-10">
+                                    <InputField
+                                        id='foretak-kontaktperson-mobilnummer'
+                                        onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonMobilnummer'); this.props.validateAnsvarligForetakKontaktpersonTelefonnummer(); }}
+                                        label='Mobil'
+                                        defaultValue={foretak.kontaktpersonMobilnummer || ''}
+                                        defaultContent="Ikke angitt"
+                                        width="200px"
+                                        type='tel'
+                                        hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer?.length ? true : false}
+                                        errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer}
+                                        contentOnly={!this.state.editableKontaktpersonFields} />
+                                </div>
+                                <div className="print-flex-10">
+                                    <InputField
+                                        id='foretak-kontaktperson-telefonnummer'
+                                        onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonTelefonnummer'); this.props.validateAnsvarligForetakKontaktpersonTelefonnummer(); }}
+                                        label='Telefon'
+                                        defaultValue={foretak.kontaktpersonTelefonnummer || ''}
+                                        defaultContent="Ikke angitt"
+                                        width="200px"
+                                        type='tel'
+                                        hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer?.length ? true : false}
+                                        errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer}
+                                        contentOnly={!this.state.editableKontaktpersonFields} />
+                                </div>
+                                <div className="print-flex-10">
+                                    <InputField
+                                        id='foretak-kontaktperson-epost'
+                                        onBlur={(event) => { this.handleUpdateAndSaveIfChanged(event.target.value, 'kontaktpersonEpost'); this.props.validateAnsvarligForetakKontaktpersonEpost(); }}
+                                        label="E-post"
+                                        defaultValue={foretak.kontaktpersonEpost || ''}
+                                        defaultContent="Ikke angitt"
+                                        width="400px"
+                                        type='email'
+                                        hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonEpost?.length ? true : false}
+                                        errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonEpost}
+                                        contentOnly={!this.state.editableKontaktpersonFields} />
+                                </div>
+                            </div>
+                        </Accordion>
+                    </div>
                 </React.Fragment>
             )
             : (
