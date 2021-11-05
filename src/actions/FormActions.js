@@ -52,7 +52,7 @@ export const updateSelectedForm = form => dispatch => {
 }
 
 export const saveSelectedForm = (form, accessToken) => dispatch => {
-    dispatch(showSnackbarMessage('Lagrer skjema', 3000))
+    dispatch(showSnackbarMessage('Lagrer endringer', 3000))
     const internalApiUrl = getEnvironmentVariable('internalApiUrl');
     const formPath = form._links?.self?.href;
     const bearerToken = `Bearer ${accessToken}`;
@@ -65,7 +65,7 @@ export const saveSelectedForm = (form, accessToken) => dispatch => {
         body: JSON.stringify(form)
     };
     return fetch(`${internalApiUrl}${formPath}`, fetchOptions).then(res => res.json()).then(form => {
-        dispatch(showSnackbarMessage('Skjema er lagret', 3000))
+        dispatch(showSnackbarMessage('Endringene er lagret', 3000))
         return dispatch({ type: SAVE_SELECTED_FORM, payload: form })
     });
 }
