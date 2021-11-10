@@ -25,6 +25,7 @@ import SignedOut from 'components/routes/SignedOut';
 import NotFound from 'components/routes/NotFound';
 import OidcCallback from 'components/routes/OidcCallback';
 import OidcSignoutCallback from 'components/routes/OidcSignoutCallback';
+import Pdf from 'components/routes/Pdf';
 
 // Partials
 import MainNavigationBar from 'components/partials/MainNavigationBar';
@@ -110,7 +111,7 @@ class App extends Component {
 
   render() {
     const isPrint = localStorage.print === "true";
-    const showPreviewPdfButton = false;
+    const showPreviewPdfButton = true;
     if ((this.state && userManager && this.state.userManagerIsLoaded && this.state.storeIsLoaded) || isPrint) {
       return (<Provider store={store}>
         <OidcProvider userManager={userManager} store={store}>
@@ -122,26 +123,34 @@ class App extends Component {
               {
                 !isPrint && showPreviewPdfButton ? (<button onClick={() => renderHtmlString()}>Preview PDF</button>) : ''
               }
-              <div className={style.appContainer}>
-                <Switch>
-                  <Route exact path="/signin-oidc" render={() => (<OidcCallback userManager={userManager} />)} />
-                  <Route exact path="/signout-callback-oidc" render={() => (<OidcSignoutCallback userManager={userManager} />)} />
-                  <Route exact={true} path="/skjema/:submissionId/utlogget" render={(props) => (<SignedOut {...props} />)} />
-                  <Route exact={true} path="/skjema/:submissionId/signert" render={(props) => (<Receipt {...props} status="signert" />)} />
-                  <Route exact={true} path="/skjema/:submissionId/signatur-avvist" render={(props) => (<Receipt {...props} status="avvist" />)} />
-                  <Route exact={true} path="/skjema/:submissionId/signatur-error" render={(props) => (<Receipt {...props} status="error" />)} />
-                  <Route exact={true} path="/skjema/:submissionId/avvis" render={(props) => (<Form {...props} showRejectModal />)} />
-                  <Route exact={true} path="/skjema/:submissionId/rediger" render={(props) => (<Form {...props} />)} />
-                  <Route exact={true} path="/skjema/:submissionId" render={(props) => (<Home userManager={userManager} {...props} />)} />
-                  <Route exact={true} path="/skjema" render={(props) => (<Home userManager={userManager} {...props} />)} />
-                  <Route exact={true} path="/" render={(props) => (<Home userManager={userManager} {...props} />)} />
-                  <Route render={() => (<NotFound />)} />
-                </Switch>
-                {
-                  !isPrint ? (<Footer />) : ''
-                }
-              </div>
-              <SnackbarContainer />
+              {
+                isPrint
+                  ? (
+                    <Switch>
+                      <Route exact={true} path="/skjema/:submissionId/rediger" render={(props) => (<Pdf {...props} />)} />
+                    </Switch>
+                  )
+                  : (
+                    <div className={style.appContainer}>
+                      <Switch>
+                        <Route exact path="/signin-oidc" render={() => (<OidcCallback userManager={userManager} />)} />
+                        <Route exact path="/signout-callback-oidc" render={() => (<OidcSignoutCallback userManager={userManager} />)} />
+                        <Route exact={true} path="/skjema/:submissionId/utlogget" render={(props) => (<SignedOut {...props} />)} />
+                        <Route exact={true} path="/skjema/:submissionId/signert" render={(props) => (<Receipt {...props} status="signert" />)} />
+                        <Route exact={true} path="/skjema/:submissionId/signatur-avvist" render={(props) => (<Receipt {...props} status="avvist" />)} />
+                        <Route exact={true} path="/skjema/:submissionId/signatur-error" render={(props) => (<Receipt {...props} status="error" />)} />
+                        <Route exact={true} path="/skjema/:submissionId/avvis" render={(props) => (<Form {...props} showRejectModal />)} />
+                        <Route exact={true} path="/skjema/:submissionId/rediger" render={(props) => (<Form {...props} />)} />
+                        <Route exact={true} path="/skjema/:submissionId" render={(props) => (<Home userManager={userManager} {...props} />)} />
+                        <Route exact={true} path="/skjema" render={(props) => (<Home userManager={userManager} {...props} />)} />
+                        <Route exact={true} path="/" render={(props) => (<Home userManager={userManager} {...props} />)} />
+                        <Route render={() => (<NotFound />)} />
+                      </Switch>
+                      <Footer />
+                      <SnackbarContainer />
+                    </div>
+                  )
+              }
             </BrowserRouter>
           </ConnectedRouter>
         </OidcProvider>
