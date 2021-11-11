@@ -187,8 +187,8 @@ class AnsvarligForetak extends Component {
                                         width="400px"
                                         defaultValue={foretak.kontaktpersonNavn || ''}
                                         defaultContent="Ikke angitt"
-                                        hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn?.length ? true : false}
-                                        errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn}
+                                        hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn?.message?.length ? true : false}
+                                        errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonNavn?.message}
                                         contentOnly={!this.state.editableKontaktpersonFields} />
                                 </div>
                                 <div className="print-flex-10">
@@ -200,8 +200,8 @@ class AnsvarligForetak extends Component {
                                         defaultContent="Ikke angitt"
                                         width="200px"
                                         type='tel'
-                                        hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer?.length ? true : false}
-                                        errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer}
+                                        hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer?.message?.length ? true : false}
+                                        errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonMobilnummer?.message}
                                         contentOnly={!this.state.editableKontaktpersonFields} />
                                 </div>
                                 <div className="print-flex-10">
@@ -213,8 +213,8 @@ class AnsvarligForetak extends Component {
                                         defaultContent="Ikke angitt"
                                         width="200px"
                                         type='tel'
-                                        hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer?.length ? true : false}
-                                        errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer}
+                                        hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer?.message?.length ? true : false}
+                                        errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonTelefonnummer?.message}
                                         contentOnly={!this.state.editableKontaktpersonFields} />
                                 </div>
                                 <div className="print-flex-10">
@@ -226,8 +226,8 @@ class AnsvarligForetak extends Component {
                                         defaultContent="Ikke angitt"
                                         width="400px"
                                         type='email'
-                                        hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonEpost?.length ? true : false}
-                                        errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonEpost}
+                                        hasErrors={this.props.validationMessages?.ansvarligForetakKontaktpersonEpost?.message?.length ? true : false}
+                                        errorMessage={this.props.validationMessages?.ansvarligForetakKontaktpersonEpost?.message}
                                         contentOnly={!this.state.editableKontaktpersonFields} />
                                 </div>
                             </div>

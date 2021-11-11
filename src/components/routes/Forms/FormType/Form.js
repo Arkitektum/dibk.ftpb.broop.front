@@ -24,7 +24,7 @@ import { fetchSubmission } from 'actions/SubmissionActions';
 import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 import { updateSignedStatus } from 'actions/SigningActions';
 import { convertSelectedFormToPDF } from 'actions/PrintActions';
-import { validateErklaeringCheckboxes, validateAnsvarsomraadeTiltaksklasse, validateDekkesOmradetAvSentralGodkjenning, validateSamsvarKontrollCheckboxes, validateAnsvarligForetakKontaktpersonEpost, validateAnsvarligForetakKontaktpersonNavn, validateAnsvarligForetakKontaktpersonTelefonnummer } from 'actions/ValidationActions';
+import { validateErklaeringCheckboxes, validateAnsvarsomraadeTiltaksklasse, validateDekkesOmradetAvSentralGodkjenning, validateSamsvarKontrollCheckboxesForAllAnsvarsomraader, validateAnsvarligForetakKontaktpersonEpost, validateAnsvarligForetakKontaktpersonNavn, validateAnsvarligForetakKontaktpersonTelefonnummer, getValidationMessageSummary } from 'actions/ValidationActions';
 
 // Helpers
 import { getEnvironmentVariable } from 'helpers/environmentVariableHelpers';
@@ -200,7 +200,7 @@ class Form extends Component {
     this.props.validateErklaeringCheckboxes();
     this.props.validateAnsvarsomraadeTiltaksklasse();
     this.props.validateDekkesOmradetAvSentralGodkjenning();
-    this.props.validateSamsvarKontrollCheckboxes();
+    this.props.validateSamsvarKontrollCheckboxesForAllAnsvarsomraader();
     this.props.validateAnsvarligForetakKontaktpersonEpost();
     this.props.validateAnsvarligForetakKontaktpersonNavn();
     this.props.validateAnsvarligForetakKontaktpersonTelefonnummer();
@@ -236,9 +236,8 @@ class Form extends Component {
                             <h2 className={commonStyle.boxTitle}>Du kan ikke signere erklæringen før alle opplysningene er fylt ut:</h2>
                             <ul className={commonStyle.boxList}>
                               {
-                                Object.keys(this.props.validationMessages).map(validationMessageKey => {
-                                  const validationMessage = this.props.validationMessages[validationMessageKey];
-                                  return <li key={validationMessageKey}>{validationMessage}</li>
+                                this.props.getValidationMessageSummary().map((validationMessage, index) => {
+                                  return <li key={index}>{validationMessage}</li>
                                 })
                               }
                             </ul>
@@ -315,10 +314,11 @@ const mapDispatchToProps = {
   validateErklaeringCheckboxes,
   validateAnsvarsomraadeTiltaksklasse,
   validateDekkesOmradetAvSentralGodkjenning,
-  validateSamsvarKontrollCheckboxes,
+  validateSamsvarKontrollCheckboxesForAllAnsvarsomraader,
   validateAnsvarligForetakKontaktpersonEpost,
   validateAnsvarligForetakKontaktpersonNavn,
-  validateAnsvarligForetakKontaktpersonTelefonnummer
+  validateAnsvarligForetakKontaktpersonTelefonnummer,
+  getValidationMessageSummary
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
