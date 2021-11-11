@@ -15,8 +15,6 @@ class Ansvarsrett extends Component {
         return formData
             ? (
                 <React.Fragment>
-                    <p className="counter-page"></p>
-                    <p className="counter-pages"></p>
                     <div className="headerbox">
                         <dl>
                             <dt>Kommunens saksnr.</dt>

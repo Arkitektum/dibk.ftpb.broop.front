@@ -63,18 +63,11 @@ let userManager = null;
 
 
 const renderHtmlString = () => {
-
   localStorage.print = "true";
-  //const htmlString = renderToString(<div className="page"><App /></div>);
   const htmlString = renderToStaticMarkup(<div className="page"><App /></div>);
   localStorage.print = "false";
-  console.log(htmlString);
-
   document.head.innerHTML = `<style>${printStyle}</style>`;
   document.body.innerHTML = htmlString;
-
-  //const pdfContentString = `<html><head><style>${printStyle}</style></head><body>${htmlString}</body></html>`.replace(/\r?\n|\r/g, "");
-  // store.dispatch(convertSelectedFormToPDF(pdfContentString, 'D84A298B-5D3F-4D8C-BDC1-45EF3E2808B2'));
 }
 
 class App extends Component {
