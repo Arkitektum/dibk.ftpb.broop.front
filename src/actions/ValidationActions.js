@@ -1,5 +1,5 @@
 // Constants
-import { ADD_VALIDATION_MESSAGE, REMOVE_VALIDATION_MESSAGE, UPDATE_IS_VALIDATED } from 'constants/types';
+import { UPDATE_VALIDATION_MESSAGES, REMOVE_VALIDATION_MESSAGE, UPDATE_IS_VALIDATED } from 'constants/types';
 
 // Helpers
 import { isEmptyObject } from 'helpers/dataHelpers';
@@ -9,13 +9,13 @@ export const updateIsValidated = (isValidated) => (dispatch) => {
 }
 
 
-const addValidationMessage = (key, message) => (dispatch, getState) => {
+const updateValidationMessages = (key, message) => (dispatch, getState) => {
     const validationMessages = getState()?.validationMessages;
     const payload = {
         ...validationMessages,
         [key]: message
     };
-    return dispatch({ type: ADD_VALIDATION_MESSAGE, payload });
+    return dispatch({ type: UPDATE_VALIDATION_MESSAGES, payload });
 }
 
 const removeValidationMessage = key => (dispatch, getState) => {
@@ -27,7 +27,7 @@ const removeValidationMessage = key => (dispatch, getState) => {
 
 
 const populateValidationSummaryList = (validationMessageVariable, validationMessageList) => {
-    
+
     if (validationMessageVariable && typeof validationMessageVariable === 'object' && Object.keys(validationMessageVariable).length) {
         Object.keys(validationMessageVariable).forEach(validationMessageKey => {
             populateValidationSummaryList(validationMessageVariable[validationMessageKey], validationMessageList);
@@ -45,62 +45,161 @@ export const getValidationMessageSummary = () => (dispatch, getState) => {
 }
 
 
-export const validateErklaeringCheckboxes = () => (dispatch, getState) => {
-    const formData = getState()?.selectedForm?.formData;
-    const funksjonskoder = [
-        ...new Set(formData?.ansvarsomraader.map(
-            ansvarsomraade => {
-                return ansvarsomraade.funksjonKode;
-            }
-        ))
-    ];
 
-    const isValid = [
-        (funksjonskoder.includes("PRO") && formData?.erklaeringAnsvarligProsjekterende) || !funksjonskoder.includes("PRO"),
-        (funksjonskoder.includes("UTF") && formData?.erklaeringAnsvarligUtfoerende) || !funksjonskoder.includes("UTF"),
-        (funksjonskoder.includes("KONTROLL") && formData?.erklaeringAnsvarligKontrollerende) || !funksjonskoder.includes("KONTROLL")
-    ].every(validation => validation)
 
-    dispatch(updateIsValidated(true));
+const getValidationMessagesForTiltaksklasse = (ansvarsomraade, index, validationMessages) => {
+    const message = !ansvarsomraade.tiltaksklasseKode
+        ? 'Du må velge tiltaksklasse for ansvarsområdet.'
+        : '';
 
-    if (!isValid) {
-        dispatch(addValidationMessage('erklaeringCheckboxes', 'Du må krysse av for at foretaket erklærer ansvar i henhold til plan- og bygningsloven.'));
+    if (message?.length) {
+        if (!validationMessages?.ansvarsomraader) { validationMessages.ansvarsomraader = {} }
+        if (!validationMessages.ansvarsomraader[index]) { validationMessages.ansvarsomraader[index] = {} }
+        validationMessages.ansvarsomraader[index].tiltaksklasse = { message };
     } else {
-        dispatch(removeValidationMessage('erklaeringCheckboxes'));
+        if (validationMessages?.ansvarsomraader?.[index]?.tiltaksklasse) { delete validationMessages.ansvarsomraader[index].tiltaksklasse } // Remove validation property
+        if (isEmptyObject(validationMessages?.ansvarsomraader?.[index])) { delete validationMessages.ansvarsomraader[index]; } // Remove object if last validation property
+    }
+    return validationMessages;
+}
+
+
+
+// Single tiltaksklasse
+export const validateTiltaksklasseForSingleAnsvarsomraade = index => (dispatch, getState) => {
+    const formData = getState()?.selectedForm?.formData;
+    let validationMessages = { ...getState()?.validationMessages };
+    const ansvarsomraade = formData?.ansvarsomraader?.[index];
+    validationMessages = getValidationMessagesForTiltaksklasse(ansvarsomraade, index, validationMessages);
+
+    const hasAnsvarsomraaderErrors = validationMessages.ansvarsomraader && Object.keys(validationMessages.ansvarsomraader).length;
+    if (hasAnsvarsomraaderErrors) {
+        dispatch(updateValidationMessages('ansvarsomraader', validationMessages.ansvarsomraader));
+    } else {
+        dispatch(removeValidationMessage('ansvarsomraader'));
     }
 }
 
-export const validateAnsvarsomraadeTiltaksklasse = () => (dispatch, getState) => {
+// All tiltaksklasse
+export const validateTiltaksklasseForAllAnsvarsomraader = () => (dispatch, getState) => {
     const formData = getState()?.selectedForm?.formData;
-    const hasMissingTiltakskode = formData?.ansvarsomraader.some(ansvarsomraade => {
-        return !ansvarsomraade.tiltaksklasseKode;
+    let validationMessages = { ...getState()?.validationMessages };
+    formData?.ansvarsomraader.forEach((ansvarsomraade, index) => {
+        validationMessages = getValidationMessagesForTiltaksklasse(ansvarsomraade, index, validationMessages);
     });
-
-    const isValid = !hasMissingTiltakskode;
-
-    dispatch(updateIsValidated(true));
-
-    if (!isValid) {
-        dispatch(addValidationMessage('ansvarsomraadeTiltaksklasse', 'Du må velge tiltaksklasse for ansvarsområdet.'));
+    const hasAnsvarsomraaderErrors = validationMessages.ansvarsomraader && Object.keys(validationMessages.ansvarsomraader).length;
+    if (hasAnsvarsomraaderErrors) {
+        dispatch(updateValidationMessages('ansvarsomraader', validationMessages.ansvarsomraader));
     } else {
-        dispatch(removeValidationMessage('ansvarsomraadeTiltaksklasse'));
+        dispatch(removeValidationMessage('ansvarsomraader'));
     }
 }
 
-export const validateDekkesOmradetAvSentralGodkjenning = () => (dispatch, getState) => {
+
+
+
+const getValidationMessagesForDekkesOmradetAvSentralGodkjenning = (ansvarsomraade, index, validationMessages) => {
+    const message = ansvarsomraade.dekkesOmradetAvSentralGodkjenning === undefined && ansvarsomraade.funksjonKode !== "SØK"
+        ? 'Du må svare på om foretaket har sentral godkjenning for ansvarsområdet.'
+        : '';
+
+    if (message?.length) {
+        if (!validationMessages?.ansvarsomraader) { validationMessages.ansvarsomraader = {} }
+        if (!validationMessages.ansvarsomraader[index]) { validationMessages.ansvarsomraader[index] = {} }
+        validationMessages.ansvarsomraader[index].dekkesOmradetAvSentralGodkjenning = { message };
+    } else {
+        if (validationMessages?.ansvarsomraader?.[index]?.dekkesOmradetAvSentralGodkjenning) { delete validationMessages.ansvarsomraader[index].dekkesOmradetAvSentralGodkjenning } // Remove validation property
+        if (isEmptyObject(validationMessages?.ansvarsomraader?.[index])) { delete validationMessages.ansvarsomraader[index]; } // Remove object if last validation property
+    }
+    return validationMessages;
+}
+
+// Single dekkesOmradetAvSentralGodkjenning
+export const validateDekkesOmradetAvSentralGodkjenningForSingleAnsvarsomraade = index => (dispatch, getState) => {
     const formData = getState()?.selectedForm?.formData;
-    const hasMissingDekkesOmradetAvSentralGodkjenning = formData?.ansvarsomraader.some(ansvarsomraade => {
-        return ansvarsomraade.dekkesOmradetAvSentralGodkjenning === undefined && ansvarsomraade.funksjonKode !== "SØK";
-    });
+    let validationMessages = { ...getState()?.validationMessages };
+    const ansvarsomraade = formData?.ansvarsomraader?.[index];
+    validationMessages = getValidationMessagesForDekkesOmradetAvSentralGodkjenning(ansvarsomraade, index, validationMessages);
 
-    dispatch(updateIsValidated(true));
-
-    if (hasMissingDekkesOmradetAvSentralGodkjenning && formData?.ansvarligForetak?.harSentralGodkjenning) {
-        dispatch(addValidationMessage('dekkesOmradetAvSentralGodkjenning', 'Du må svare på om foretaket har sentral godkjenning for ansvarsområdet.'));
+    const hasAnsvarsomraaderErrors = validationMessages.ansvarsomraader && Object.keys(validationMessages.ansvarsomraader).length;
+    if (hasAnsvarsomraaderErrors) {
+        dispatch(updateValidationMessages('ansvarsomraader', validationMessages.ansvarsomraader));
     } else {
-        dispatch(removeValidationMessage('dekkesOmradetAvSentralGodkjenning'));
+        dispatch(removeValidationMessage('ansvarsomraader'));
     }
 }
+
+// All dekkesOmradetAvSentralGodkjenning
+export const validateDekkesOmradetAvSentralGodkjenningForAllAnsvarsomraader = () => (dispatch, getState) => {
+    const formData = getState()?.selectedForm?.formData;
+    let validationMessages = { ...getState()?.validationMessages };
+    formData?.ansvarsomraader.forEach((ansvarsomraade, index) => {
+        validationMessages = getValidationMessagesForDekkesOmradetAvSentralGodkjenning(ansvarsomraade, index, validationMessages);
+    });
+    const hasAnsvarsomraaderErrors = validationMessages.ansvarsomraader && Object.keys(validationMessages.ansvarsomraader).length;
+    if (hasAnsvarsomraaderErrors) {
+        dispatch(updateValidationMessages('ansvarsomraader', validationMessages.ansvarsomraader));
+    } else {
+        dispatch(removeValidationMessage('ansvarsomraader'));
+    }
+}
+
+
+
+
+const getValidationMessagesForBeskrivelseAvAnsvarsomraade = (ansvarsomraade, index, validationMessages) => {
+    const beskrivelseAvAnsvarsomraade = ansvarsomraade?.beskrivelseAvAnsvarsomraade;
+
+    let message;
+    if (beskrivelseAvAnsvarsomraade?.length >= 2000) {
+        message = 'Beskrivelsen kan ikke være lenger enn 2000 tegn.';
+    } else if (beskrivelseAvAnsvarsomraade?.trim()?.length === 0) {
+        message = 'Du må fylle ut en beskrivelse av ansvarsområdet.'
+    }
+
+    if (message?.length) {
+        if (!validationMessages?.ansvarsomraader) { validationMessages.ansvarsomraader = {} }
+        if (!validationMessages.ansvarsomraader[index]) { validationMessages.ansvarsomraader[index] = {} }
+        validationMessages.ansvarsomraader[index].beskrivelseAvAnsvarsomraade = { message };
+    } else {
+        if (validationMessages?.ansvarsomraader?.[index]?.beskrivelseAvAnsvarsomraade) { delete validationMessages.ansvarsomraader[index].beskrivelseAvAnsvarsomraade } // Remove validation property
+        if (isEmptyObject(validationMessages?.ansvarsomraader?.[index])) { delete validationMessages.ansvarsomraader[index]; } // Remove object if last validation property
+    }
+    return validationMessages;
+}
+
+// Single beskrivelseAvAnsvarsomraade
+export const validateBeskrivelseForSingleAnsvarsomraade = index => (dispatch, getState) => {
+    const formData = getState()?.selectedForm?.formData;
+    let validationMessages = { ...getState()?.validationMessages };
+    const ansvarsomraade = formData?.ansvarsomraader?.[index];
+    validationMessages = getValidationMessagesForBeskrivelseAvAnsvarsomraade(ansvarsomraade, index, validationMessages);
+
+    const hasAnsvarsomraaderErrors = validationMessages.ansvarsomraader && Object.keys(validationMessages.ansvarsomraader).length;
+    if (hasAnsvarsomraaderErrors) {
+        dispatch(updateValidationMessages('ansvarsomraader', validationMessages.ansvarsomraader));
+    } else {
+        dispatch(removeValidationMessage('ansvarsomraader'));
+    }
+}
+
+// All beskrivelseAvAnsvarsomraade
+export const validateBeskrivelseForAllAnsvarsomraader = () => (dispatch, getState) => {
+    const formData = getState()?.selectedForm?.formData;
+    let validationMessages = { ...getState()?.validationMessages };
+    formData?.ansvarsomraader.forEach((ansvarsomraade, index) => {
+        validationMessages = getValidationMessagesForBeskrivelseAvAnsvarsomraade(ansvarsomraade, index, validationMessages);
+    });
+    const hasAnsvarsomraaderErrors = validationMessages.ansvarsomraader && Object.keys(validationMessages.ansvarsomraader).length;
+    if (hasAnsvarsomraaderErrors) {
+        dispatch(updateValidationMessages('ansvarsomraader', validationMessages.ansvarsomraader));
+    } else {
+        dispatch(removeValidationMessage('ansvarsomraader'));
+    }
+}
+
+
+
 
 const getValidationMessagesForSamsvarKontrollCheckboxes = (ansvarsomraade, index, validationMessages) => {
     if (ansvarsomraade.funksjonKode === 'PRO' || ansvarsomraade.funksjonKode === 'UTF') { // Validering for Prosjekterende og Utørende
@@ -136,11 +235,13 @@ const getValidationMessagesForSamsvarKontrollCheckboxes = (ansvarsomraade, index
         } else {
             if (validationMessages?.ansvarsomraader?.[index]?.kontrollCheckboxes) { delete validationMessages.ansvarsomraader[index].kontrollCheckboxes } // Remove validation property
             if (isEmptyObject(validationMessages?.ansvarsomraader?.[index])) { delete validationMessages.ansvarsomraader[index]; } // Remove object if last validation property
+
         }
     }
     return validationMessages;
 }
 
+// Single samsvar/kontroll checkboxes
 export const validateSamsvarKontrollCheckboxesForSingleAnsvarsomraade = index => (dispatch, getState) => {
     const formData = getState()?.selectedForm?.formData;
     let validationMessages = { ...getState()?.validationMessages };
@@ -148,12 +249,14 @@ export const validateSamsvarKontrollCheckboxesForSingleAnsvarsomraade = index =>
     validationMessages = getValidationMessagesForSamsvarKontrollCheckboxes(ansvarsomraade, index, validationMessages);
     const hasAnsvarsomraaderErrors = validationMessages.ansvarsomraader && Object.keys(validationMessages.ansvarsomraader).length;
     if (hasAnsvarsomraaderErrors) {
-        dispatch(addValidationMessage('ansvarsomraader', validationMessages.ansvarsomraader));
+        dispatch(updateValidationMessages('ansvarsomraader', validationMessages.ansvarsomraader));
     } else {
         dispatch(removeValidationMessage('ansvarsomraader'));
     }
 }
 
+
+// All samsvar/kontroll checkboxes
 export const validateSamsvarKontrollCheckboxesForAllAnsvarsomraader = () => (dispatch, getState) => {
     const formData = getState()?.selectedForm?.formData;
     let validationMessages = { ...getState()?.validationMessages };
@@ -162,13 +265,16 @@ export const validateSamsvarKontrollCheckboxesForAllAnsvarsomraader = () => (dis
     });
     const hasAnsvarsomraaderErrors = validationMessages.ansvarsomraader && Object.keys(validationMessages.ansvarsomraader).length;
     if (hasAnsvarsomraaderErrors) {
-        dispatch(addValidationMessage('ansvarsomraader', validationMessages.ansvarsomraader));
+        dispatch(updateValidationMessages('ansvarsomraader', validationMessages.ansvarsomraader));
     } else {
         dispatch(removeValidationMessage('ansvarsomraader'));
     }
 }
 
 
+
+
+// Ansvarlig foretak kontaktperson navn
 export const validateAnsvarligForetakKontaktpersonNavn = () => (dispatch, getState) => {
     const kontaktpersonNavn = getState()?.selectedForm?.formData?.ansvarligForetak?.kontaktpersonNavn;
 
@@ -176,11 +282,11 @@ export const validateAnsvarligForetakKontaktpersonNavn = () => (dispatch, getSta
     const kontaktpersonNavnIsTooLong = kontaktpersonNavn?.length > 100;
 
     if (!hasKontaktpersonNavn) {
-        dispatch(addValidationMessage('ansvarligForetakKontaktpersonNavn', {
+        dispatch(updateValidationMessages('ansvarligForetakKontaktpersonNavn', {
             message: 'Du må fylle ut navnet til kontaktpersonen.'
         }));
     } else if (kontaktpersonNavnIsTooLong) {
-        dispatch(addValidationMessage('ansvarligForetakKontaktpersonNavn', {
+        dispatch(updateValidationMessages('ansvarligForetakKontaktpersonNavn', {
             message: 'Navnet kan ikke være lenger enn 100 tegn.'
         }));
     }
@@ -189,6 +295,7 @@ export const validateAnsvarligForetakKontaktpersonNavn = () => (dispatch, getSta
     }
 }
 
+// Ansvarlig foretak kontaktperson e-post
 export const validateAnsvarligForetakKontaktpersonEpost = () => (dispatch, getState) => {
     const kontaktpersonEpost = getState()?.selectedForm?.formData?.ansvarligForetak?.kontaktpersonEpost;
 
@@ -198,15 +305,15 @@ export const validateAnsvarligForetakKontaktpersonEpost = () => (dispatch, getSt
     const kontaktpersonEpostIsCorrectlyFormatted = kontaktpersonEpost?.length && emailAddresFormatRegex.test(String(kontaktpersonEpost).toLowerCase());
 
     if (!hasKontaktpersonEpost) {
-        dispatch(addValidationMessage('ansvarligForetakKontaktpersonEpost', {
+        dispatch(updateValidationMessages('ansvarligForetakKontaktpersonEpost', {
             message: 'Du må fylle ut e-postadressen til kontaktpersonen.'
         }));
     } else if (kontaktpersonEpostIsTooLong) {
-        dispatch(addValidationMessage('ansvarligForetakKontaktpersonEpost', {
+        dispatch(updateValidationMessages('ansvarligForetakKontaktpersonEpost', {
             message: 'E-postadressen kan ikke være lenger enn 150 tegn.'
         }));
     } else if (!kontaktpersonEpostIsCorrectlyFormatted) {
-        dispatch(addValidationMessage('ansvarligForetakKontaktpersonEpost', {
+        dispatch(updateValidationMessages('ansvarligForetakKontaktpersonEpost', {
             message: 'Har du skrevet riktig e-postadresse? Gyldig e-post skrives som navn@domene.no'
         }));
     }
@@ -215,6 +322,7 @@ export const validateAnsvarligForetakKontaktpersonEpost = () => (dispatch, getSt
     }
 }
 
+// Ansvarlig foretak kontaktperson telefonnummer
 export const validateAnsvarligForetakKontaktpersonTelefonnummer = () => (dispatch, getState) => {
     const kontaktpersonTelefonnummer = getState()?.selectedForm?.formData?.ansvarligForetak?.kontaktpersonTelefonnummer;
     const kontaktpersonMobilnummer = getState()?.selectedForm?.formData?.ansvarligForetak?.kontaktpersonMobilnummer;
@@ -233,32 +341,32 @@ export const validateAnsvarligForetakKontaktpersonTelefonnummer = () => (dispatc
     const kontaktpersonMobilnummerIsValid = (hasKontaktpersonMobilnummer || hasKontaktpersonTelefonnummer) && !kontaktpersonMobilnummerIsTooLong && kontaktpersonMobilnummerIsCorrectlyFormatted;
 
     if (!hasKontaktpersonTelefonnummer && !hasKontaktpersonMobilnummer) {
-        dispatch(addValidationMessage('ansvarligForetakKontaktpersonTelefonnummer', {
+        dispatch(updateValidationMessages('ansvarligForetakKontaktpersonTelefonnummer', {
             message: 'Du må fylle ut telefonnummeret eller mobilnummeret til kontaktpersonen.'
         }));
-        dispatch(addValidationMessage('ansvarligForetakKontaktpersonMobilnummer', {
+        dispatch(updateValidationMessages('ansvarligForetakKontaktpersonMobilnummer', {
             message: 'Du må fylle ut telefonnummeret eller mobilnummeret til kontaktpersonen.'
         }));
     }
 
     if (kontaktpersonTelefonnummerIsTooLong) {
-        dispatch(addValidationMessage('ansvarligForetakKontaktpersonTelefonnummer', {
+        dispatch(updateValidationMessages('ansvarligForetakKontaktpersonTelefonnummer', {
             message: 'Telefonnummeret kan ikke være lenger enn 20 tegn.'
         }));
     }
     if (kontaktpersonMobilnummerIsTooLong) {
-        dispatch(addValidationMessage('ansvarligForetakKontaktpersonMobilnummer', {
+        dispatch(updateValidationMessages('ansvarligForetakKontaktpersonMobilnummer', {
             message: 'Telefonnummeret kan ikke være lenger enn 20 tegn.'
         }));
     }
 
     if (!kontaktpersonTelefonnummerIsCorrectlyFormatted) {
-        dispatch(addValidationMessage('ansvarligForetakKontaktpersonTelefonnummer', {
+        dispatch(updateValidationMessages('ansvarligForetakKontaktpersonTelefonnummer', {
             message: 'Har du skrevet riktig telefonnummer? Gyldig telefonnummer består av tall og +.'
         }));
     }
     if (!kontaktpersonMobilnummerIsCorrectlyFormatted) {
-        dispatch(addValidationMessage('ansvarligForetakKontaktpersonMobilnummer', {
+        dispatch(updateValidationMessages('ansvarligForetakKontaktpersonMobilnummer', {
             message: 'Har du skrevet riktig telefonnummer? Gyldig telefonnummer består av tall og +.'
         }));
     }
@@ -271,4 +379,29 @@ export const validateAnsvarligForetakKontaktpersonTelefonnummer = () => (dispatc
     }
 }
 
+
+
+
+// Erklæring
+export const validateErklaeringCheckboxes = () => (dispatch, getState) => {
+    const formData = getState()?.selectedForm?.formData;
+    const funksjonskoder = [
+        ...new Set(formData?.ansvarsomraader.map(
+            ansvarsomraade => {
+                return ansvarsomraade.funksjonKode;
+            }
+        ))
+    ];
+    const isValid = [
+        (funksjonskoder.includes("PRO") && formData?.erklaeringAnsvarligProsjekterende) || !funksjonskoder.includes("PRO"),
+        (funksjonskoder.includes("UTF") && formData?.erklaeringAnsvarligUtfoerende) || !funksjonskoder.includes("UTF"),
+        (funksjonskoder.includes("KONTROLL") && formData?.erklaeringAnsvarligKontrollerende) || !funksjonskoder.includes("KONTROLL")
+    ].every(validation => validation)
+
+    if (!isValid) {
+        dispatch(updateValidationMessages('erklaeringCheckboxes', 'Du må krysse av for at foretaket erklærer ansvar i henhold til plan- og bygningsloven.'));
+    } else {
+        dispatch(removeValidationMessage('erklaeringCheckboxes'));
+    }
+}
 

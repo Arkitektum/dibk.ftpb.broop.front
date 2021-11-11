@@ -24,7 +24,18 @@ import { fetchSubmission } from 'actions/SubmissionActions';
 import { fetchSelectedForm, updateSelectedForm, saveSelectedForm } from 'actions/FormActions';
 import { updateSignedStatus } from 'actions/SigningActions';
 import { convertSelectedFormToPDF } from 'actions/PrintActions';
-import { validateErklaeringCheckboxes, validateAnsvarsomraadeTiltaksklasse, validateDekkesOmradetAvSentralGodkjenning, validateSamsvarKontrollCheckboxesForAllAnsvarsomraader, validateAnsvarligForetakKontaktpersonEpost, validateAnsvarligForetakKontaktpersonNavn, validateAnsvarligForetakKontaktpersonTelefonnummer, getValidationMessageSummary } from 'actions/ValidationActions';
+import {
+  validateErklaeringCheckboxes,
+  validateBeskrivelseForAllAnsvarsomraader,
+  validateTiltaksklasseForAllAnsvarsomraader,
+  validateDekkesOmradetAvSentralGodkjenningForAllAnsvarsomraader,
+  validateSamsvarKontrollCheckboxesForAllAnsvarsomraader,
+  validateAnsvarligForetakKontaktpersonEpost,
+  validateAnsvarligForetakKontaktpersonNavn,
+  validateAnsvarligForetakKontaktpersonTelefonnummer,
+  getValidationMessageSummary,
+  updateIsValidated
+} from 'actions/ValidationActions';
 
 // Helpers
 import { getEnvironmentVariable } from 'helpers/environmentVariableHelpers';
@@ -198,8 +209,9 @@ class Form extends Component {
 
   runValidations() {
     this.props.validateErklaeringCheckboxes();
-    this.props.validateAnsvarsomraadeTiltaksklasse();
-    this.props.validateDekkesOmradetAvSentralGodkjenning();
+    this.props.validateBeskrivelseForAllAnsvarsomraader();
+    this.props.validateTiltaksklasseForAllAnsvarsomraader();
+    this.props.validateDekkesOmradetAvSentralGodkjenningForAllAnsvarsomraader();
     this.props.validateSamsvarKontrollCheckboxesForAllAnsvarsomraader();
     this.props.validateAnsvarligForetakKontaktpersonEpost();
     this.props.validateAnsvarligForetakKontaktpersonNavn();
@@ -249,7 +261,12 @@ class Form extends Component {
                     {
                       this.props.isValidated
                         ? (<Button content="Til signering" color="primary" disabled={this.props.validationMessages && Object.keys(this.props.validationMessages)?.length ? true : false} onClick={() => this.handleSigningButtonClick()} />)
-                        : (<Button content="Kontroller" color="primary" onClick={() => this.runValidations()} />)
+                        : (
+                          <Button content="Kontroller" color="primary" onClick={() => {
+                            this.runValidations();
+                            this.props.updateIsValidated(true);
+                          }} />
+                        )
                     }
 
 
@@ -312,12 +329,14 @@ const mapDispatchToProps = {
   updateSignedStatus,
   convertSelectedFormToPDF,
   validateErklaeringCheckboxes,
-  validateAnsvarsomraadeTiltaksklasse,
-  validateDekkesOmradetAvSentralGodkjenning,
+  validateBeskrivelseForAllAnsvarsomraader,
+  validateTiltaksklasseForAllAnsvarsomraader,
+  validateDekkesOmradetAvSentralGodkjenningForAllAnsvarsomraader,
   validateSamsvarKontrollCheckboxesForAllAnsvarsomraader,
   validateAnsvarligForetakKontaktpersonEpost,
   validateAnsvarligForetakKontaktpersonNavn,
   validateAnsvarligForetakKontaktpersonTelefonnummer,
+  updateIsValidated,
   getValidationMessageSummary
 };
 

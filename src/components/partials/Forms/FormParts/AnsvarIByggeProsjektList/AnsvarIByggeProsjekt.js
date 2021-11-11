@@ -7,25 +7,18 @@ import PropTypes from 'prop-types';
 import { Accordion, Button, CheckBoxListItem, Label, Textarea } from 'dibk-design';
 
 // Actions
-import { updateIsValidated, validateSamsvarKontrollCheckboxesForSingleAnsvarsomraade } from 'actions/ValidationActions';
+import {
+    validateBeskrivelseForSingleAnsvarsomraade,
+    validateSamsvarKontrollCheckboxesForSingleAnsvarsomraade,
+    validateDekkesOmradetAvSentralGodkjenningForSingleAnsvarsomraade,
+    validateTiltaksklasseForSingleAnsvarsomraade
+} from 'actions/ValidationActions';
 
 // Stylesheets
 import formsStyle from 'components/partials/Forms/Forms.module.scss';
 import commonStyle from 'components/routes/common.module.scss'
 
 class AnsvarIByggeProsjekt extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            errors: {
-                beskrivelseAvAnsvarsomraade: {
-                    hasErrors: false,
-                    message: null
-                }
-            }
-        }
-    }
 
     handleUpdate(value, property, index) {
         return this.props.updateHandler(value, property, index);
@@ -35,33 +28,11 @@ class AnsvarIByggeProsjekt extends Component {
         this.props.saveHandler();
     }
 
-    validateBeskrivelseAvAnsvarsomraade(beskrivelseAvAnsvarsomraade) {
-        let message;
-        if (beskrivelseAvAnsvarsomraade?.length >= 2000) {
-            message = 'Beskrivelsen kan ikke være lenger enn 2000 tegn.';
-        } else if (beskrivelseAvAnsvarsomraade?.trim()?.length === 0) {
-            message = 'Du må fylle ut en beskrivelse av ansvarsområdet.'
-        }
-
-        if (this.state.errors.beskrivelseAvAnsvarsomraade.message !== message) {
-            this.setState({
-                errors: {
-                    ...this.state.errors,
-                    beskrivelseAvAnsvarsomraade: {
-                        hasErrors: message?.length > 0,
-                        message
-                    }
-                }
-            })
-        }
-    }
-
     handleUpdateAndSaveIfChanged(newValue, property, index) {
         const oldValue = this.props.ansvarsomraade[property];
         this.handleUpdate(newValue, property, index);
         if (newValue !== oldValue) {
             this.handleSave();
-            this.props.validateSamsvarKontrollCheckboxesForSingleAnsvarsomraade(this.props.index);
         }
     }
 
@@ -74,7 +45,6 @@ class AnsvarIByggeProsjekt extends Component {
             return false
         }
     }
-
 
     render() {
         const ansvarsomraade = this.props.ansvarsomraade;
@@ -91,29 +61,32 @@ class AnsvarIByggeProsjekt extends Component {
                             ansvarsomraade.funksjonKode === "SØK"
                                 ? "Erklæringen brukes ved endring av ansvarlig søker."
                                 : (
-                                    <div className="hide-on-print">
-                                        <Textarea
-                                            id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
-                                            label="Beskrivelse av ansvarsområde"
-                                            onChange={event => this.validateBeskrivelseAvAnsvarsomraade(event.target.value)}
-                                            onBlur={(event) => this.handleUpdateAndSaveIfChanged(event.target.value, 'beskrivelseAvAnsvarsomraade', index)}
-                                            resize="vertical"
-                                            hasErrors={this.state.errors.beskrivelseAvAnsvarsomraade.hasErrors}
-                                            errorMessage={this.state.errors.beskrivelseAvAnsvarsomraade.message}
-                                            defaultValue={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''}
-                                        />
-                                    </div>
+                                    <Textarea
+                                        id={`ansvarsomraade-${index}-beskrivelseAvAnsvarsomraade`}
+                                        label="Beskrivelse av ansvarsområde"
+                                        onBlur={event => {
+                                            this.handleUpdateAndSaveIfChanged(event.target.value, 'beskrivelseAvAnsvarsomraade', index);
+                                            this.props.validateBeskrivelseForSingleAnsvarsomraade(index);
+                                        }}
+                                        resize="vertical"
+                                        hasErrors={this.props.validationMessages?.ansvarsomraader?.[index]?.beskrivelseAvAnsvarsomraade?.message?.length > 0}
+                                        errorMessage={this.props.validationMessages?.ansvarsomraader?.[index]?.beskrivelseAvAnsvarsomraade?.message}
+                                        defaultValue={ansvarsomraade.beskrivelseAvAnsvarsomraade || ''}
+                                    />
                                 )
                         }
                     </div>
                     <div className={formsStyle.fieldSection}>
                         <Label normalCursor>Tiltaksklasse</Label>
-                        <div className={`${formsStyle.buttonRow} ${this.props.validationMessages?.ansvarsomraadeTiltaksklasse?.length && !ansvarsomraade.tiltaksklasseKode ? formsStyle.hasErrors : ''}`}>
+                        <div className={`${formsStyle.buttonRow} ${this.props.validationMessages?.ansvarsomraader?.[index]?.tiltaksklasse?.message?.length ? formsStyle.hasErrors : ''}`}>
                             <Button
                                 content="1"
                                 size="small"
                                 rounded
-                                onClick={() => this.handleUpdateAndSaveIfChanged('1', 'tiltaksklasseKode', index)}
+                                onClick={() => {
+                                    this.handleUpdateAndSaveIfChanged('1', 'tiltaksklasseKode', index);
+                                    this.props.validateTiltaksklasseForSingleAnsvarsomraade(index);
+                                }}
                                 noHover
                                 color={ansvarsomraade.tiltaksklasseKode === '1' ? 'primary' : 'default'}
                             />
@@ -121,7 +94,10 @@ class AnsvarIByggeProsjekt extends Component {
                                 content="2"
                                 size="small"
                                 rounded
-                                onClick={() => this.handleUpdateAndSaveIfChanged('2', 'tiltaksklasseKode', index)}
+                                onClick={() => {
+                                    this.handleUpdateAndSaveIfChanged('2', 'tiltaksklasseKode', index);
+                                    this.props.validateTiltaksklasseForSingleAnsvarsomraade(index);
+                                }}
                                 noHover
                                 color={ansvarsomraade.tiltaksklasseKode === '2' ? 'primary' : 'default'}
                             />
@@ -129,14 +105,17 @@ class AnsvarIByggeProsjekt extends Component {
                                 content="3"
                                 size="small"
                                 rounded
-                                onClick={() => this.handleUpdateAndSaveIfChanged('3', 'tiltaksklasseKode', index)}
+                                onClick={() => {
+                                    this.handleUpdateAndSaveIfChanged('3', 'tiltaksklasseKode', index);
+                                    this.props.validateTiltaksklasseForSingleAnsvarsomraade(index);
+                                }}
                                 noHover
                                 color={ansvarsomraade.tiltaksklasseKode === '3' ? 'primary' : 'default'}
                             />
                         </div>
                         {
-                            this.props.validationMessages?.ansvarsomraadeTiltaksklasse?.length && !ansvarsomraade.tiltaksklasseKode
-                                ? <span className={formsStyle.warningMessage}>{this.props.validationMessages?.ansvarsomraadeTiltaksklasse}</span>
+                            this.props.validationMessages?.ansvarsomraader?.[index]?.tiltaksklasse?.message?.length
+                                ? <span className={formsStyle.warningMessage}>{this.props.validationMessages.ansvarsomraader[index].tiltaksklasse.message}</span>
                                 : ''
                         }
                     </div>
@@ -154,7 +133,10 @@ class AnsvarIByggeProsjekt extends Component {
                                                     <React.Fragment>
                                                         <CheckBoxListItem
                                                             id={`ansvarsomraade-${index}-samsvarKontrollVedRammetillatelse`}
-                                                            onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedRammetillatelse', index)}
+                                                            onChange={event => {
+                                                                this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedRammetillatelse', index);
+                                                                this.props.validateSamsvarKontrollCheckboxesForSingleAnsvarsomraade(this.props.index);
+                                                            }}
                                                             checked={ansvarsomraade.samsvarKontrollVedRammetillatelse}
                                                             hasErrors={this.samsvarKontrollHasErrors(ansvarsomraade, index)}
                                                             compact
@@ -163,7 +145,10 @@ class AnsvarIByggeProsjekt extends Component {
                                                         </CheckBoxListItem>
                                                         <CheckBoxListItem
                                                             id={`ansvarsomraade-${index}-samsvarKontrollVedIgangsettingstillatelse`}
-                                                            onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedIgangsettingstillatelse', index)}
+                                                            onChange={event => {
+                                                                this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedIgangsettingstillatelse', index);
+                                                                this.props.validateSamsvarKontrollCheckboxesForSingleAnsvarsomraade(this.props.index);
+                                                            }}
                                                             checked={ansvarsomraade.samsvarKontrollVedIgangsettingstillatelse}
                                                             hasErrors={this.samsvarKontrollHasErrors(ansvarsomraade, index)}
                                                             compact
@@ -177,7 +162,10 @@ class AnsvarIByggeProsjekt extends Component {
 
                                         <CheckBoxListItem
                                             id={`ansvarsomraade-${index}-samsvarKontrollVedMidlertidigBrukstillatelse`}
-                                            onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedMidlertidigBrukstillatelse', index)}
+                                            onChange={event => {
+                                                this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedMidlertidigBrukstillatelse', index);
+                                                this.props.validateSamsvarKontrollCheckboxesForSingleAnsvarsomraade(this.props.index);
+                                            }}
                                             checked={ansvarsomraade.samsvarKontrollVedMidlertidigBrukstillatelse}
                                             hasErrors={this.samsvarKontrollHasErrors(ansvarsomraade, index)}
                                             compact
@@ -186,7 +174,10 @@ class AnsvarIByggeProsjekt extends Component {
                                         </CheckBoxListItem>
                                         <CheckBoxListItem
                                             id={`ansvarsomraade-${index}-samsvarKontrollVedFerdigattest`}
-                                            onChange={(event) => this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedFerdigattest', index)}
+                                            onChange={event => {
+                                                this.handleUpdateAndSaveIfChanged(event.target.checked, 'samsvarKontrollVedFerdigattest', index);
+                                                this.props.validateSamsvarKontrollCheckboxesForSingleAnsvarsomraade(this.props.index);
+                                            }}
                                             checked={ansvarsomraade.samsvarKontrollVedFerdigattest}
                                             hasErrors={this.samsvarKontrollHasErrors(ansvarsomraade, index)}
                                             compact
@@ -195,12 +186,12 @@ class AnsvarIByggeProsjekt extends Component {
                                         </CheckBoxListItem>
                                         {
                                             this.samsvarKontrollHasErrors(ansvarsomraade, index) && ansvarsomraade?.funksjonKode === 'KONTROLL'
-                                                ? <span className={formsStyle.warningMessage}>{this.props.validationMessages.kontrollCheckboxes}</span>
+                                                ? <span className={formsStyle.warningMessage}>{this.props.validationMessages?.ansvarsomraader?.[index]?.kontrollCheckboxes?.message}</span>
                                                 : ''
                                         }
                                         {
                                             this.samsvarKontrollHasErrors(ansvarsomraade, index) && (ansvarsomraade?.funksjonKode === 'UTF' || ansvarsomraade?.funksjonKode === 'PRO')
-                                                ? <span className={formsStyle.warningMessage}>{this.props.validationMessages.samsvarCheckboxes}</span>
+                                                ? <span className={formsStyle.warningMessage}>{this.props.validationMessages?.ansvarsomraader?.[index]?.samsvarCheckboxes?.message}</span>
                                                 : ''
                                         }
                                     </div>
@@ -209,17 +200,23 @@ class AnsvarIByggeProsjekt extends Component {
                                             ? (
                                                 <div className={formsStyle.fieldSection}>
                                                     <Label>Dekker den sentrale godkjenningen ansvarsområdet?</Label>
-                                                    <div className={`${formsStyle.buttonRow} ${this.props.validationMessages?.dekkesOmradetAvSentralGodkjenning?.length && ansvarsomraade.dekkesOmradetAvSentralGodkjenning === undefined ? formsStyle.hasErrors : ''}`}>
+                                                    <div className={`${formsStyle.buttonRow} ${this.props.validationMessages?.ansvarsomraader?.[index]?.dekkesOmradetAvSentralGodkjenning?.message?.length ? formsStyle.hasErrors : ''}`}>
                                                         <div>
-                                                            <Button content="Ja" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(true, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === true ? 'primary' : 'default'} />
+                                                            <Button content="Ja" size="small" rounded onClick={() => {
+                                                                this.handleUpdateAndSaveIfChanged(true, 'dekkesOmradetAvSentralGodkjenning', index);
+                                                                this.props.validateDekkesOmradetAvSentralGodkjenningForSingleAnsvarsomraade(index);
+                                                            }} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === true ? 'primary' : 'default'} />
                                                         </div>
                                                         <div>
-                                                            <Button content="Nei" size="small" rounded onClick={() => this.handleUpdateAndSaveIfChanged(false, 'dekkesOmradetAvSentralGodkjenning', index)} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === false ? 'primary' : 'default'} />
+                                                            <Button content="Nei" size="small" rounded onClick={() => {
+                                                                this.handleUpdateAndSaveIfChanged(false, 'dekkesOmradetAvSentralGodkjenning', index);
+                                                                this.props.validateDekkesOmradetAvSentralGodkjenningForSingleAnsvarsomraade(index);
+                                                            }} noHover color={ansvarsomraade.dekkesOmradetAvSentralGodkjenning === false ? 'primary' : 'default'} />
                                                         </div>
                                                     </div>
                                                     {
-                                                        this.props.validationMessages?.dekkesOmradetAvSentralGodkjenning?.length && ansvarsomraade.dekkesOmradetAvSentralGodkjenning === undefined
-                                                            ? <span className={formsStyle.warningMessage}>{this.props.validationMessages.dekkesOmradetAvSentralGodkjenning}</span>
+                                                        this.props.validationMessages?.ansvarsomraader?.[index]?.dekkesOmradetAvSentralGodkjenning?.message?.length
+                                                            ? <span className={formsStyle.warningMessage}>{this.props.validationMessages.ansvarsomraader[index].dekkesOmradetAvSentralGodkjenning.message}</span>
                                                             : ''
                                                     }
                                                 </div>
@@ -249,8 +246,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    updateIsValidated,
-    validateSamsvarKontrollCheckboxesForSingleAnsvarsomraade
+    validateBeskrivelseForSingleAnsvarsomraade,
+    validateSamsvarKontrollCheckboxesForSingleAnsvarsomraade,
+    validateDekkesOmradetAvSentralGodkjenningForSingleAnsvarsomraade,
+    validateTiltaksklasseForSingleAnsvarsomraade
 };
 
 

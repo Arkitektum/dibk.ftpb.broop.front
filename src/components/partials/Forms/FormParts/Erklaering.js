@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { CheckBoxListItem } from 'dibk-design';
 
 // Actions
-import { updateIsValidated } from 'actions/ValidationActions';
+import { validateErklaeringCheckboxes } from 'actions/ValidationActions';
 
 class Erklaering extends Component {
 
@@ -18,7 +18,6 @@ class Erklaering extends Component {
             [property]: value
         }).then(() => {
             this.props.saveHandler();
-            this.props.updateIsValidated(false);
         });
     }
 
@@ -40,7 +39,10 @@ class Erklaering extends Component {
                             ? (
                                 <CheckBoxListItem
                                     id="erklaeringAnsvarligProsjekterende"
-                                    onChange={(event) => { this.handleOnChange(event.target.checked, 'erklaeringAnsvarligProsjekterende') }}
+                                    onChange={event => {
+                                        this.handleOnChange(event.target.checked, 'erklaeringAnsvarligProsjekterende');
+                                        this.props.validateErklaeringCheckboxes();
+                                    }}
                                     checked={formData.erklaeringAnsvarligProsjekterende ? true : false}
                                     hasErrors={this.props.validationMessages?.erklaeringCheckboxes && !formData.erklaeringAnsvarligProsjekterende}
                                     compact>
@@ -54,7 +56,10 @@ class Erklaering extends Component {
                             ? (
                                 <CheckBoxListItem
                                     id="erklaeringAnsvarligUtfoerende"
-                                    onChange={(event) => { this.handleOnChange(event.target.checked, 'erklaeringAnsvarligUtfoerende') }}
+                                    onChange={event => {
+                                        this.handleOnChange(event.target.checked, 'erklaeringAnsvarligUtfoerende');
+                                        this.props.validateErklaeringCheckboxes();
+                                    }}
                                     checked={formData.erklaeringAnsvarligUtfoerende ? true : false}
                                     hasErrors={this.props.validationMessages?.erklaeringCheckboxes && !formData.erklaeringAnsvarligUtfoerende}
                                     compact>
@@ -68,7 +73,10 @@ class Erklaering extends Component {
                             ? (
                                 <CheckBoxListItem
                                     id="erklaeringAnsvarligKontrollerende"
-                                    onChange={(event) => { this.handleOnChange(event.target.checked, 'erklaeringAnsvarligKontrollerende') }}
+                                    onChange={event => {
+                                        this.handleOnChange(event.target.checked, 'erklaeringAnsvarligKontrollerende');
+                                        this.props.validateErklaeringCheckboxes();
+                                    }}
                                     checked={formData.erklaeringAnsvarligKontrollerende ? true : false}
                                     hasErrors={this.props.validationMessages?.erklaeringCheckboxes && !formData.erklaeringAnsvarligKontrollerende}
                                     compact>
@@ -96,7 +104,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    updateIsValidated
+    validateErklaeringCheckboxes
 };
 
 
