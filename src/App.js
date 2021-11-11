@@ -111,7 +111,7 @@ class App extends Component {
 
   render() {
     const isPrint = localStorage.print === "true";
-    const showPreviewPdfButton = true;
+    const showPreviewPdfButton = false;
     if ((this.state && userManager && this.state.userManagerIsLoaded && this.state.storeIsLoaded) || isPrint) {
       return (<Provider store={store}>
         <OidcProvider userManager={userManager} store={store}>
