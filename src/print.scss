@@ -32,7 +32,6 @@ div.page-break {
 }
 
 h1 {
-    page-break-before: always;
     font-size: 17px;
     small {
         display: block;
@@ -92,20 +91,17 @@ table {
 .page {
     width: 21cm;
     min-height: 29.7cm;
-    padding-left: 1cm;
-    padding-top: 2cm;
+    padding-left: 1.5cm;
+    padding-top: 1cm;
     padding-right: 1cm;
-    padding-bottom: 2cm;
+    padding-bottom: 1cm;
 }
 @page {
     size: A4 portrait;
-    margin-left: 1cm;
-    margin-top: 2cm;
+    margin-left: 1.5cm;
+    margin-top: 1cm;
     margin-right: 1cm;
-    margin-bottom: 2cm;
-    @bottom-left {
-        content: counter(page) " of " counter(pages);
-    }
+    margin-bottom: 1cm;
 }
 
 .border {
@@ -187,7 +183,7 @@ td {
     padding: 0;
     text-align: left;
     &.content {
-        padding: 0 8px;
+        padding: 3px 8px;
     }
 
     dl {
@@ -234,6 +230,7 @@ td {
             content: "X";
             display: block;
             text-align: center;
+            font-size: 13px;
         }
     }
 }
